@@ -1,13 +1,13 @@
 Ch07 整合測試
 ===
 
-![image](https://hackmd.io/_uploads/SyRubyB4p.png)
+![image](../img/ch07/SyRubyB4p.png)
 
 
 ## 整合測試與 V 開發模型
 
 #### fig-v-model
-![image](https://hackmd.io/_uploads/BknjbJHVT.png)
+![image](../img/ch07/BknjbJHVT.png)
 
 
 ### 測試層級
@@ -34,7 +34,7 @@ Ch07 整合測試
 由下而上表示我們從比較小的元件模組測試起，針對這些小模組寫一些測試驅動程式（test driver），丟一些參數或訊息給這些模組，檢驗其回傳或反應是否正確。
 
 #### fig-bottom-up
-<img src=https://hackmd.io/_uploads/HyQJGyS4T.png width=500>
+<img src=../img/ch07/HyQJGyS4T.png width=500>
 
 
 下方的 JUnit 測試碼就是一個 test driver，用來測試 isPrime() 這個程式是否正確。
@@ -90,7 +90,7 @@ int[] getPrimeNumber(int x) {
 - 用 G 取代 $g$, 測試 A, B, C, D E, F, G 整合起來是否正常
 
 #### fig-top-down
-![image](https://hackmd.io/_uploads/Sye8GJrVT.png)
+![image](../img/ch07/Sye8GJrVT.png)
 
 #### ex-print-prime
 :::success
@@ -387,7 +387,7 @@ Mokito 的好處為：
 
 #### fig-grade-displayer
 
-![image](https://hackmd.io/_uploads/H1h-71BNp.png)
+![image](../img/ch07/H1h-71BNp.png)
 
 :::
 

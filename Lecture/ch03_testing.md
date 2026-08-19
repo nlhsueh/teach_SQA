@@ -39,7 +39,7 @@ Ch03 軟體測試
 > Exhaustive testing is not possible
 :::
 
-<img src="https://hackmd.io/_uploads/HJISXY9ea.png" width=100>
+<img src="../img/ch03/HJISXY9ea.png" width=100>
 
 窮盡式的測試式不可能的。簡單的一個程式如下，因為有四個判斷式，每一個判斷式有兩種可能，$2^4=16$ 就有16  可能，一個系統隨隨便便都可能達到100 個判斷式 $2^{100}=1.27*10^{30}$ 是非常大的數字，不可能在有效的時間內進行這樣的測試。
 
@@ -124,7 +124,7 @@ int scale (int j) {
 
 越早測試越好。需求階段發現的小錯誤到設計階段就會逐漸變大，到了上線後錯誤就會變大到非常複雜，甚至難以處理。程式還沒寫好怎麼測試？可以透過規格書審查，設計審查來進行「靜態測試」。
 
-![](https://hackmd.io/_uploads/Hkd4EK5eT.png)
+![](../img/ch03/Hkd4EK5eT.png)
 
 
 :::success
@@ -152,7 +152,7 @@ int scale (int j) {
 
 FIG: Verification and Validation
 
-![](https://hackmd.io/_uploads/SJX8EY9e6.png)
+![](../img/ch03/SJX8EY9e6.png)
 
 
 ### 缺失測試與確認測試
@@ -175,7 +175,7 @@ FIG: Verification and Validation
 
 FIG: 功能測試與結構測試
 
-![](https://hackmd.io/_uploads/S1FD4Yqla.png)
+![](../img/ch03/S1FD4Yqla.png)
 
 
 ### 單元測試、整合測試與系統測試
@@ -184,7 +184,7 @@ FIG: 功能測試與結構測試
 
 雖然我們在切割模組的時候已經做好了介面設計，照理來說系統的整合應該沒有問題，但切割模組時可能會有很多的誤解，如果不好好的進行整合測試，確定雙方的「協定」是一致的，系統就會產生嚴重的錯誤。
 
-![](https://hackmd.io/_uploads/SyMtNK9g6.png)
+![](../img/ch03/SyMtNK9g6.png)
 
 
 ### 單元模組的可測試性
@@ -235,7 +235,7 @@ double div(x, y) throws Exception {
 
 ## V 開發模型
 
-![V model](https://hackmd.io/_uploads/SyGoNt5lp.png)
+![V model](../img/ch03/SyGoNt5lp.png)
 
 V 開發模型是一個結合系統開發與測試的模型，代表著不同階段的開發重點與測試重點。系統開發包含：
 
@@ -262,7 +262,7 @@ V model 和 waterfall 很像，但注意到了嗎？它除了產生規格書、�
 
 FIG: 測試案例與規格，程式行為的關係
 
-![](https://hackmd.io/_uploads/rJeyNHK9e6.png)
+![](../img/ch03/rJeyNHK9e6.png)
 
 
 > :question: 說說看圖形各區代表的意義為何，特別是 5, 6, 7
@@ -319,7 +319,7 @@ FIG: 測試案例與規格，程式行為的關係
 
 FIG: 測試流程
 
-![](https://hackmd.io/_uploads/SkHLHKcg6.png)
+![](../img/ch03/SkHLHKcg6.png)
 
 
 ## 3W2H
@@ -327,7 +327,7 @@ FIG: 測試流程
 以下從五個角度來分類：who? what? why? how? how to evaluate? 
 
 FIG: 測試的種類
-![](https://hackmd.io/_uploads/SyDwSFql6.png)
+![](../img/ch03/SyDwSFql6.png)
 
 
 ### 面向一：Who 誰測試？
@@ -416,14 +416,14 @@ FIG: 測試的種類
 
 
 FIG: Monkey Test
-![](https://hackmd.io/_uploads/r1OoBt5ga.png)
+![](../img/ch03/r1OoBt5ga.png)
 
 
 FIG: Record and replay
-![](https://hackmd.io/_uploads/Skw3SK5xT.png)
+![](../img/ch03/Skw3SK5xT.png)
 
 FIG: Exploring Test
-![](https://hackmd.io/_uploads/SkNTHK9ea.png)
+![](../img/ch03/SkNTHK9ea.png)
 
 
 
@@ -446,7 +446,7 @@ FIG: Exploring Test
 
 
 FIG: Coverage report
-![](https://hackmd.io/_uploads/B1aCSY5lp.png)
+![](../img/ch03/B1aCSY5lp.png)
 
 #### Oracle based testing
 Oracle 是神蹟的意思，在軟體測試的領域中代表「可以判斷程式是否正確的工具或程式模組」(註：因為這工作很難，能夠判斷簡直是神蹟）。例如某搜尋軟體號稱可以找出「網路上最多被引用美食網站」，你如何驗證他是對的？又某一個工具算出 $sin(28.9)$, 你又如何知道他在小數點下兩位的值是對的？這可能需要一個特別的程式來進行測試，而不是很快的可以觀察出來或是說明的。

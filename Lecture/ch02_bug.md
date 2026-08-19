@@ -15,19 +15,19 @@ Ch02 錯與除錯
 > 
 > (取自溫伯格的「軟體管理學」第一卷 系統化思考)。
 
-<a href="https://g.co/gemini/share/fdd83982f1a8"><img src = "https://hackmd.io/_uploads/SyPN4Bpcex.png" width=200></a>
+<a href="https://g.co/gemini/share/fdd83982f1a8"><img src = "../img/ch02/SyPN4Bpcex.png" width=200></a>
 
 ## 2.1 臭蟲與錯誤
 
 ### 2.1.1 臭蟲
 
 <center>
-<img src="https://hackmd.io/_uploads/S1lpG3YA3.png" width="200">
+<img src="../img/ch02/S1lpG3YA3.png" width="200">
 </center>
 
 1947 年 9 月 9 日下午 3 點 45 分，**Grace Murray Hopper** 在她的筆記本上記下了史上第一個電腦 bug ——在 Harvard Mark II 電腦裡找到的一隻飛蛾，她把飛蛾貼在日記本上，並寫道「First actual case of bug being found」。這個發現奠定了 Bug 這個詞在電腦世界的地位，變成無數苦逼程式設計師的噩夢。 從那以後，bug 這個詞在電腦世界表示電腦程式中的錯誤或者疏漏，它們會使程式計算出莫名其妙的結果，甚至引起程式的崩潰。Grace Murray Hopper 是Harvard Mark I上第一個專職程式設計師，創造了現代第一個編譯器A-0 系統，以及第一個高級商用電腦程式語言「COBOL」，被譽為「COBOL 之母」，被稱為「不可思議的葛麗絲（Amazing Grace）」。
 
-![](https://hackmd.io/_uploads/rJVf7nYR3.png)
+![](../img/ch02/rJVf7nYR3.png)
 
 👉 The first bug
 
@@ -104,7 +104,7 @@ Hint: 非三角、三角、正三角、等腰三角、等腰直角三角、直�
 
 然而，如果一味的要求規格書要寫完整所有的規格，在現實環境也是很困難的。在沒有爭議，一看便能夠確認是錯誤的情況下，我們是可以直接認定為錯誤的。當有模糊不確定的時候，我們再讓規格書來做確認。
 
-![](https://hackmd.io/_uploads/HkT4m2KC3.png)
+![](../img/ch02/HkT4m2KC3.png)
 
 👉 失效，缺陷與低品質
 
@@ -153,7 +153,7 @@ p[1].sleep();
 - 超量的遞迴，即便是邏輯正確，也會造成堆疊易位溢位。
 - 釋放後使用 Use-after-free error, 使用一個 pointer, 它原先所指的空間已經釋放了。
 
-<img src="https://hackmd.io/_uploads/r1nY7nK02.png" width="300">
+<img src="../img/ch02/r1nY7nK02.png" width="300">
 
 👉 Race condition in multiple threads
 
@@ -180,7 +180,7 @@ p[1].sleep();
 
 - *寫程式的模式*。例如採用 Defensive programming 的方式避免邏輯性的程式錯誤。Bug 通常會造成內部資料的不一致。我們寫程式的時候隨時的檢查是否有不一致的情況，發現不一致時可以終止程式的執行或是提供訊息給程式員。
 
-![](https://hackmd.io/_uploads/rJ4TX3KRh.jpg)
+![](../img/ch02/rJ4TX3KRh.jpg)
 
 👉 寫程式如過馬路，要小心預防各種可能的例外
 
@@ -192,7 +192,7 @@ p[1].sleep();
 - *檢視* Review and inspection。透過檢視來查看文件或程式碼可能的錯誤。
 - *根源問題分析* Root cause analysis。長期收集錯誤發生的現象，分析錯誤發生的原因。這是流程改善的一環。
 
-![](https://hackmd.io/_uploads/Bkx7EhKA3.png)
+![](../img/ch02/Bkx7EhKA3.png)
 
 👉 Test first development
 
@@ -229,7 +229,7 @@ p[1].sleep();
 - *經驗*。這是少不了的，很多類似的情節可以馬上判斷出犯人的手法。
 - *第六感*。就是覺得哪裡怪怪的。
 
-![](https://hackmd.io/_uploads/SJ0aYiF02.jpg)
+![](../img/ch02/SJ0aYiF02.jpg)
 
 👉 除錯時要秉持著偵探的態度
 
@@ -286,7 +286,7 @@ $\neg q \Rightarrow  \neg p_1 \vee \neg p_2 \vee \neg p_3$
 ---
 
 ✍️ 有時候我們需要從一些線索（或現象）來推斷因果。例如，由一些使用者的回報現象如表，系統失效可能原因是什麼？
-<img src="https://hackmd.io/_uploads/r1nWioKAh.png" width="250">
+<img src="../img/ch02/r1nWioKAh.png" width="250">
 
 我們初步斷定只要是有安裝卡巴防毒軟體（K）並且運行在 Window 10 作業系統時，系統就會產生異常（列印會當掉）。異常的情況與軟體版本、記憶體沒有關係，我們可以獲得此式：
 
@@ -331,7 +331,7 @@ $installK \wedge onWindow10 \Rightarrow Abnormal$
 
 ### 📖 2.5.1 大樓的燈
 
-<a href="https://g.co/gemini/share/c381192abfd4"><img src = "https://hackmd.io/_uploads/rJuA7H6qxl.png" width=200></a>
+<a href="https://g.co/gemini/share/c381192abfd4"><img src = "../img/ch02/rJuA7H6qxl.png" width=200></a>
 
 「26 樓會議室的燈亮著。應該關掉吧。」bug 的備註裡寫道「請 5 分鐘內搞定，只要按一下開關就好了。」
 

@@ -44,7 +44,7 @@ print Y
 我們必須設計一些測試資料讓這兩個 branch 的真假都至少一次。
 A,B,X若為(3,0,3)和(3,1,1)能使得 (A>1) AND (B=0)和(A=2) OR (X>1)這兩個布林運算式均能產生真和假的值。 
 
-<img src=https://hackmd.io/_uploads/rkX6xoZNT.png width=400>
+<img src=../img/ch06/rkX6xoZNT.png width=400>
 
 分支涵蓋度所找出來的測試案例會比敘述涵蓋度的多，也因此比較能找出程式的錯誤。但，很顯然的，也不可找出所有的錯誤。例如若我們將 (A>1)寫成(A>2)，涵蓋度一樣 100%，執行結果也一樣，我們就無法知道程式寫錯了。
 
@@ -180,7 +180,7 @@ print Y
 測試資料 (2,0,4) 滿足1、5。(2,1,1) 滿足 2、6。(1,0,2) 滿足3、7。(1,1,1) 滿足4、8。因此這四個測試資料所組合成的測試資料群便可涵蓋上述 8 種條件組合。 
 
 
-![各種涵蓋度的關係](https://hackmd.io/_uploads/BJgLrcZVT.png)
+![各種涵蓋度的關係](../img/ch06/BJgLrcZVT.png)
 
 
 > Programmer 必須自己進行單元測試，配合 JUnit 及涵蓋度檢查工具的使用，檢查自己的測試是否足夠。
@@ -190,7 +190,7 @@ print Y
 
 上述的幾種方法，涵蓋度都是以敘述、條件或是分支為單位，如果把「路徑」考量進去就會越複雜。例如上述的 (2,0,4), (2,1,1), (1,0,2), (1,1,1) 測試資料，雖然可以把所有的 敘述、條件、分支都涵蓋，但以路徑的角度來看，他只涵蓋了 a-c-e, a-b-e, a-b-d 等三個路徑。
 
-![path coverage](https://hackmd.io/_uploads/ryRlBc-4T.png)
+![path coverage](../img/ch06/ryRlBc-4T.png)
 
 
 ```
@@ -318,10 +318,10 @@ Cyclomatic Complexity 代表程式在條件判斷的複雜度，CC 越高，表�
 
 其中區域空間表示被區隔開的獨立空間，在圖中，例如點 2-3-9 所包覆的空間、9-11-10-12、4-7-5、5-7-6, 2-3-4-5-6-7-8 等及外部的空間等共六個區域空間。或是用判斷節點來計算：2,3,4,5,9 都是判斷節點，5+1 = 6 一樣是六個區域空間。
 
-![image](https://hackmd.io/_uploads/H1iSmLifyl.png)
+![image](../img/ch06/H1iSmLifyl.png)
 
 下圖左呈現一個沒有判斷的程式碼，一路執行下來，所以只需要一個測試案例。而他的空間為一，代表其 CC 複雜度為 1。右圖添加了一個判斷，CC 複雜度為 2, 而我們需要的測試案例也變成 2。
-![image](https://hackmd.io/_uploads/rkj3qfofkx.png)
+![image](../img/ch06/rkj3qfofkx.png)
 
 
 
@@ -407,7 +407,7 @@ Path6: 1-2-3-4-5-6-7-8-2-…
     * 以上表的 x 為例，應該要有一組測試資料通過 (1,2), (1,4), (1,7)。
 
 下圖以 Y 為例說明：
-![image](https://hackmd.io/_uploads/r1nTL5-4p.png)
+![image](../img/ch06/r1nTL5-4p.png)
 
 #### all-du-testing
 
@@ -463,7 +463,7 @@ print x
 ## 變異測試
 變異測試是一個很有趣的方法，它並不是真的測試程式碼或系統規格，而是測試「測試資料。當我們的測試資料太少或是不夠尖銳時，它是無法找出程式的錯誤的。
 
-![mutation testing](https://hackmd.io/_uploads/H1ft65b4a.png)
+![mutation testing](../img/ch06/H1ft65b4a.png)
 
 上圖說明變異測試的概念。T 為測試 P 的測試資料。我們將 P 做一些微幅修改後產生數個變異體（mutant）$P^{'}$, $P^{''}$, $P^{'''}$ 與 $P^{''''}$。如果 T 無法區分 $P$ 與變異體的輸出差異，則 T 無效，必須更換或是新增。
 

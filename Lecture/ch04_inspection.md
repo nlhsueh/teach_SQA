@@ -16,7 +16,7 @@
 <!-- <img src="img/inspection/Ice.png" width="500">
 FIG: 動態測試只能看到冰山一角
  -->
-![Ice](https://hackmd.io/_uploads/SyITVj08T.png)
+![Ice](../img/ch04/SyITVj08T.png)
 
 #### 軟體檢視 Software inspection 
 
@@ -101,7 +101,7 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 
 #### inspection_process
 
-![InspectionFlow](https://hackmd.io/_uploads/r1AuBsC8p.png)
+![InspectionFlow](../img/ch04/r1AuBsC8p.png)
 
 #### 角色
 
@@ -163,13 +163,13 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 
 #### complte_SRS
 
-<img src='https://hackmd.io/_uploads/Hy0irj0I6.png' width='400'>
+<img src='../img/ch04/Hy0irj0I6.png' width='400'>
 
 #### correct_SRS
-<img src='https://hackmd.io/_uploads/SJX_6xeDT.png' width='300'>
+<img src='../img/ch04/SJX_6xeDT.png' width='300'>
 
 #### traced_SRS
-![tracedSRS](https://hackmd.io/_uploads/HkpO6lePT.png)
+![tracedSRS](../img/ch04/HkpO6lePT.png)
 
 
 規格又可以細分為需求規格與系統規格，比較嚴格的流程還可以區分需求規格檢視與系統規格檢視。
@@ -275,7 +275,7 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 DFD/ER model 是一個我們經常用來做系統設計的工具，設計完成後我們需要進行檢驗。
 
 
-![dfd](https://hackmd.io/_uploads/rkusLsA8p.png)
+![dfd](../img/ch04/rkusLsA8p.png)
 > DFD (Data Flow Diagram) notation
 
 Check:

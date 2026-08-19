@@ -32,7 +32,7 @@ IEEE 829 是IEEE 針對測試文件所提出的建議。它包含幾個主要的
 -  SUD – Software user documentation IEEE 1063
 
 #### fig_IEEE829
-![IEEE829](https://hackmd.io/_uploads/r1QWVpvvT.png)
+![IEEE829](../img/ch09/r1QWVpvvT.png)
 
 
 ### 測試計畫

@@ -108,7 +108,7 @@ if (tall > 180)
 
 強固邊界測試
 
-![image](https://hackmd.io/_uploads/rye0RV3e-x.png)
+![image](../img/ch05/rye0RV3e-x.png)
 
 
 
@@ -150,7 +150,7 @@ if (exam <= 60 && hw <= 60 ) //錯了
 
 FIG: 非獨立型強固邊界測試
 
-![image](https://hackmd.io/_uploads/BJCMyrnxZe.png)
+![image](../img/ch05/BJCMyrnxZe.png)
 
 
 
@@ -231,7 +231,7 @@ FIG: 三角形程式：非獨立型一般邊界測試
 
 FIG: 等價分割測試（圓形表示弱涵蓋測試、三角形表示強涵蓋測試）
 
-![image](https://hackmd.io/_uploads/r1Pq1H2x-e.png)
+![image](../img/ch05/r1Pq1H2x-e.png)
 
 
 > :question: 
@@ -483,7 +483,7 @@ Table: 表格說明
 
 FIG: 放款利率計算
 
-![](https://hackmd.io/_uploads/Byc4JbKg6.png)
+![](../img/ch05/Byc4JbKg6.png)
 
 #### 開發與工具
 
@@ -538,7 +538,7 @@ CAR 決策表設計法，其中 ==C: Condition== 表示每一個細項的狀況�
 
 FIG: 狀況，事件，規則表
 
-<img src="https://hackmd.io/_uploads/rJjUHNIMp.png" width="450">
+<img src="../img/ch05/rJjUHNIMp.png" width="450">
 
 
 在這個例子中，每一個 condition 都是一個條件為「真假」的變數，其實也可以試一個變數，而條件值為一個數字、範圍或描述性的條件。
@@ -547,14 +547,14 @@ FIG: 狀況，事件，規則表
 
 FIG: 三角形的狀況事件規則表（CAR table）
 
-<img src="https://hackmd.io/_uploads/SJoOB4Izp.png" width="400">
+<img src="../img/ch05/SJoOB4Izp.png" width="400">
 
 > 在 nextDay() 的例子中，輸入一個日期，輸出是以下幾個動作是否執行：*impossible, increment day, increment month, increment year, reset day, reset month}。
 請以決策表設計測試案例。
 
 FIG: nextDay()
 
-<img src="https://hackmd.io/_uploads/Hy9hr4LGa.png" width="400">
+<img src="../img/ch05/Hy9hr4LGa.png" width="400">
 
 
 - M1 = \{month: month has 30 days\} 
@@ -569,7 +569,7 @@ FIG: nextDay()
 - Y3 = \{year: (1812<=year<=2012 AND year!=0 mod 4\}
 
 FIG: 應用決策表測試法於 nextDay()
-<img src="https://hackmd.io/_uploads/ByoGow1mT.png" width="600">
+<img src="../img/ch05/ByoGow1mT.png" width="600">
 
 
 :question: 透過上述的決策表我們發現有些地方是無法確定的（打X的部份），因此分割需要再細一些，怎麼做呢？有需要修改分割嗎？
@@ -582,7 +582,7 @@ FIG: 應用決策表測試法於 nextDay()
 
 FIG: 訂票系統的狀態圖
 
-![image.png](https://hackmd.io/_uploads/r11wivJX6.png)
+![image.png](../img/ch05/r11wivJX6.png)
 
 
 圖表示一個飛機票的訂票系統，我們先把他的狀態定義出來：made (預約), paid（已付款）, ticketed（已開票）, used（已使用）, cancelled by customer（顧客取消）, cancelled nonpay（未付款取消）。狀態轉移（transition）上的格式為：
@@ -597,7 +597,7 @@ FIG: 訂票系統的狀態圖
 
 FIG: 全狀態轉移涵蓋
 
-![image.png](https://hackmd.io/_uploads/HyPujPyXa.png)
+![image.png](../img/ch05/HyPujPyXa.png)
 
 
 > 百分百狀態轉移涵蓋並不保證百分百事件涵蓋，因為可以能有多個事件會造成相同的狀態轉移。

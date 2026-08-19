@@ -83,7 +83,7 @@ A testing conducted on a complete, integrated system to evaluate the system's co
 
 #### fig-use-case-testing
 
-![image](https://hackmd.io/_uploads/B1y5_kSV6.png)
+![image](../img/ch08/B1y5_kSV6.png)
 
 
 #### 替代案例 
@@ -118,7 +118,7 @@ A testing conducted on a complete, integrated system to evaluate the system's co
 
 ## 🧑‍💻 行為驅動開發與 Cucumber 測試
 
-![image](https://hackmd.io/_uploads/HJkRVZhH6.png)
+![image](../img/ch08/HJkRVZhH6.png)
 
 [Cucumber](https://cucumber.io/) 是一種行為驅動開發（Behavior Driven Development，簡稱BDD）工具，用於支援軟體測試和自動化測試。以下是 Cucumber 工具在軟體測試上的概念和好處：
 
@@ -161,7 +161,7 @@ Neilsen 檢驗法是一種專家檢驗法，包含以下的檢測項目：與真
 - *清楚的系統狀態* Visibility of System Status: 透過在合理時間內的合適回饋，系統應該讓用戶了解目前的狀態。例如我們在下載一個大檔案，呈現一個「進度狀態」不斷的更新目前下載的比例可以讓使用者的確定目前系統是正常的、網路是流暢的。上述 iphone 77-38.5 並沒有錯誤，答案的確也是 38.5，但因為出現答案的 38.5 並沒有閃一下 (這個問題約在2015 年已改善)，很容易讓使用者誤以為沒有按好 =，於是再按一次，就會出現 0。這也是一個介面設計上的問題。
 
 #### fig-clear-system-status
-<img src=https://hackmd.io/_uploads/BJOA_ySEp.png width=300>
+<img src=../img/ch08/BJOA_ySEp.png width=300>
 
 - *與真實世界的對應* Match Between System and the Real World: 該系統應該以使用者熟悉的語言、文字、詞彙與概念來呈現，而不是使用系統導向。工作導向。
 - *使用者擁有控制權* User Control and Freedom: 讓使用者有操作的控制權，而不是受制於系統。使用者時常以嘗試的心態來操作系統功能，他們需要一個明顯的「回復 undo」或「離開系統」來離開使用者不需要的狀態，這樣他才能無拘無束的程式這個系統，如果擔心按錯不能回復，使用者就會放棄該系統。又例如瀏覽網頁，我們常常逛著逛著就進入很深的頁面，不知道如何回到之前的某個頁面。如果這時候有一個結構能夠清楚的指出你在這個網頁系統的哪個位置、如何快速的到其他頁面，系統使用起來就會方便很多-- 你擁有瀏覽的自由度。
@@ -169,23 +169,23 @@ Neilsen 檢驗法是一種專家檢驗法，包含以下的檢測項目：與真
 - *一致的風格* Consistency and Standards: 系統畫面、操作習慣應一致，使用者不應該猜測同一種動作是否使用不同的字彙、狀態或動作。例如「Help」都在一個固定的位置、有固定意義的快速鍵、操作流程等。每個不同的平台也有其設計的標準，例如 iOS 與 Google Android 都有其介面設計規範，符合這些設計規範讓會讓使用者更快上手。
 
 #### fig-ui-inconsistency
-<img src=https://hackmd.io/_uploads/rkQxYJSET.png width=400>
+<img src=../img/ch08/rkQxYJSET.png width=400>
 
 
 - *錯誤預防* Error Prevention: 這是比錯誤訊息還要親切的設計，「預防」是發生問題最先要考慮的事情。不管是移除容易出錯的的條件，或是讓使用者確認他們接下來要做的行動皆是。例如使用者要把一整個系統目錄刪除，你應該警告他後果。計劃書送出就不能悔改了，你要提示使用者這個訊息，請他再確認。白話一點就是「防呆」的設計。
 
-<img src=https://hackmd.io/_uploads/BJFdtJrVp.png width="350">
+<img src=../img/ch08/BJFdtJrVp.png width="350">
 
 
 - *易於識別* Recognition Rather Than Recall: 盡量減少使用者需要記憶的事情、行動以及可見的選項。使用者不應該記憶太多步驟。系統使用說明應該在適合的地方表現的顯眼且可輕易使用。最常見莫過於 icon 了，例如一把剪刀代表要把文字或物件剪下，這幾乎是系統的全球共識，即便在於多國語言也知道該功能的含意。又例如我們在訂票系統中用位置圖呈現你想購買的位置（而非座位10-20的文字表達）並用顏色呈現已售出的位置，都可以讓使用者易於識別。
 
 #### fig-ux-icon
-<img src=https://hackmd.io/_uploads/H1-2KyrVp.png width=400>
+<img src=../img/ch08/H1-2KyrVp.png width=400>
 
 - *有彈性及有效率的使用* Flexibility and Efficiency of Use: 應該有彈性讓「初用者」和「慣用者」都能方便使用。例如慣用者可以使用「快捷鍵」來提昇他們的使用速度; 允許使用者設定常做的動作; 畫面可以延伸等。
 
 #### fig-ux-shortcut-key
-![image](https://hackmd.io/_uploads/H1-CK1BET.png)
+![image](../img/ch08/H1-CK1BET.png)
 
 例如一個計算機，多半的時候我們拿來坐簡單的加減乘除計算，少數的時候才會用的科學計算，在設計上我們預設呈現的簡易版的計算機，並提供按鍵讓他可以延伸為科學計算機，這就是設計上的彈性。
 
@@ -212,13 +212,13 @@ Neilsen 檢驗法是一種專家檢驗法，包含以下的檢測項目：與真
 對於一個使用設計（例如位置、色彩）採用AB兩種作法，觀察及分析其使用的狀況，選擇比較好的設計方法。
 
 #### fig-ab-test
-<img src=https://hackmd.io/_uploads/Hk6D9yr4T.png width=450>
+<img src=../img/ch08/Hk6D9yr4T.png width=450>
 
 
 ## 效能測試
 
 
-<img src=https://hackmd.io/_uploads/H1yc9JS4T.png width=400>
+<img src=../img/ch08/H1yc9JS4T.png width=400>
 
 
 ### 種類與基本概念
@@ -284,15 +284,15 @@ Neilsen 檢驗法是一種專家檢驗法，包含以下的檢測項目：與真
 #### fig-virtual-user 
 使用虛擬使用者進行壓力測試
 
-![image](https://hackmd.io/_uploads/HJEFskS4T.png)
+![image](../img/ch08/HJEFskS4T.png)
 
 #### fig-load-generator
 多台的負載產生器
-![image](https://hackmd.io/_uploads/BkJb3JSET.png)
+![image](../img/ch08/BkJb3JSET.png)
 
 #### fig-record-replay
 Record and replay
-![image](https://hackmd.io/_uploads/Bk1VhJSN6.png)
+![image](../img/ch08/Bk1VhJSN6.png)
 
 效能測試可以分為三個階段實施：規劃階段、測試階段與分析階段。
 
@@ -374,19 +374,19 @@ Record and replay
 回應時間圖（Response Time Graph）是最常見的圖表，反應出不同工作量時的反應時間。當回應時間明顯變長，達到我們所無法接受的點時，該工作量稱為 **飽和點**（saturation point），圖 450 人即為該系統的飽和點。
 
 #### fig-response-time-graph
-![image](https://hackmd.io/_uploads/rkdcnyBET.png)
+![image](../img/ch08/rkdcnyBET.png)
 
 
 [fig-cpu-utilization](#fig-cpu-utilization) 除了呈現回應時間外，亦呈現 CPU 的使用率。可以看得出，當回應時間加大時，CPU 的使用率也急遽的加大，達到80%的使用率，增加 CPU 的工作效能或許是解決問的方法之一。
 
 #### fig-cpu-utilization
-![image](https://hackmd.io/_uploads/BJpnnkBVa.png)
+![image](../img/ch08/BJpnnkBVa.png)
 
 
 一般而言需要進行多次測試，確保系統測試的結論不是偶然的，在統計上有一定的正確性。圖 [fig-response-time-graph](#fig-response-time-graph) 是針對某一個頁面進行五次的測試，一般而言，若超過 1/5 差異很大，則代表系統環境或程式是有問題的，應在檢驗。若某次測試的 95 percentile value 超過其他測試的最大或做小，表示其差異是大的。
 
 #### fig-response-time-graph
-![image](https://hackmd.io/_uploads/By0CnJrN6.png)
+![image](../img/ch08/By0CnJrN6.png)
 
 ## JMeter 壓力測試 (lab) 
 
@@ -406,7 +406,7 @@ Record and replay
 - 啟動。執行 bin 下的 ApacheJMeter.jar。
 
 #### fig-jmeter
-![image](https://hackmd.io/_uploads/BJN9XlHN6.png)
+![image](../img/ch08/BJN9XlHN6.png)
 
 
 [fig-jmeter](#fig-jmeter) 中呈現JMeter 最主要的元件，包含
@@ -415,7 +415,7 @@ Record and replay
 - 「取樣 >> HTTP 要求」：模擬 HTTP 的請求訊息，也就是瀏覽網頁的模擬。
 
 #### fig-jmeter-http-request
-![image](https://hackmd.io/_uploads/rkX-EeBV6.png)
+![image](../img/ch08/rkX-EeBV6.png)
 
 
 - 「設定元素 >> HTTP 要求預設值」。上述的 HTTP 要求會反覆的設定很多的要求，例如 IP, Port 等，可以透過 HTTP 要求預設值一次設定，就不需要設定那麼多次。
@@ -444,7 +444,7 @@ JMeter part 1 影片解說
 
 
 #### fig-number-guess
-![image](https://hackmd.io/_uploads/r1uUNxSET.png)
+![image](../img/ch08/r1uUNxSET.png)
 
 
 :football: Lab: **資料驗證**。
@@ -460,7 +460,7 @@ JMeter part 1 影片解說
 - 再加上「接聽 >> 檢視表格結果」，練習運用其他格式的結果。
 
 #### fig-jmeter-post
-![image](https://hackmd.io/_uploads/BkSnNgBVa.png)
+![image](../img/ch08/BkSnNgBVa.png)
 
 Lab: 邏輯控制器。承上例，應用邏輯控制器（if/while/loop）來設計一組測試案例，猜數字直到猜對為止。
 
@@ -476,7 +476,7 @@ Lab: 壓力測試。承上例，將執行緒改為 10 執行測試並觀察回�
 上面的測試中我們都手動建立測試案例，這樣花不少時間，接下來我們介紹如何透過 record and replay 的方式來進行壓力測試。首先我們必須建立一個 proxy server 來側錄我們操作網路的行為。JMeter 裡面就有一個 proxy server, 我們先把它啟動起來，port 設為 8090。接著把瀏覽器的 proxy server 指向這個 port。當我們操作瀏覽器時，proxy server 會把行為錄製起來。下圖中的 (a) 表示瀏覽器直接與 server 要資料，(b) 表示通過 proxy server。
 
 #### fig-jmeter-record-replay
-![image](https://hackmd.io/_uploads/H1MJrgBVT.png)
+![image](../img/ch08/H1MJrgBVT.png)
 
 [fig-jmeter-record-replay](#fig-jmeter-record-replay): JMeter Recorder 架構。一般的瀏覽器是直接和伺服器溝通(a); JMeter 透過 Proxy 來側錄使用者的行為。
 
@@ -490,7 +490,7 @@ Lab: 錄製器。
 - 新增 「邏輯控制器 >> 錄製控制器」。就大功告成，當你操作瀏覽器時，錄製控制器就會不斷的有東西進來，表示錄到東西了。
 
 #### fig-jmeter-proxy
-![image](https://hackmd.io/_uploads/rk-SHxSET.png)
+![image](../img/ch08/rk-SHxSET.png)
 
 Lab: 錄製器 II。
 

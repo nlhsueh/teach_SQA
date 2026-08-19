@@ -5,7 +5,7 @@
 ## 1.1 軟體危機
 
 <center>
-<img src = "https://hackmd.io/_uploads/HkUgfsBRn.png" width=200>
+<img src = "../img/ch01/HkUgfsBRn.png" width=200>
 </center><br>
 
 水能載舟亦能覆舟，軟體也是如此，有許多軟體問題造成飛機失事，造成醫療糾紛，財務的損失等。
@@ -25,7 +25,7 @@
 
 事後調查發現，這個失敗導因於一個低級錯誤：兩個研究團隊使用的度量單位不同，一個用英制，一個用公制，導致探測器的控制程式出現混亂：原本應該從距地面140公里高度穿過火星大氣層，最後卻低於60公里，導致探測器經不起劇烈的大氣摩擦而焚燬 (資料取自 維基百科)。
 
-![](https://hackmd.io/_uploads/ByBqT9KRn.png)
+![](../img/ch01/ByBqT9KRn.png)
 
 👉 Mars Climate Orbiter (MCO) crash in 1998 
 
@@ -184,7 +184,7 @@ D) 自動駕駛系統未實作高度感測功能
 
 每一個產業都有各自的品質模型，做簡易家具的不會考慮到「維護性」的議題，椅子壞了換掉就是了，但汽車產業就一定要考慮到維護性，所以維護性是汽車產業的品質模型中的品質特性。
 
-<img src="https://hackmd.io/_uploads/BJFQmsH03.png" width="500">
+<img src="../img/ch01/BJFQmsH03.png" width="500">
 
 👉 不同物品的品質特性各有不同
 
@@ -194,7 +194,7 @@ D) 自動駕駛系統未實作高度感測功能
 
 ISO 9126 將品質分為六大特性，如 Fig ISO ，每一個特性下又分為若干個次因子，以下分項說明。
 
-![](https://hackmd.io/_uploads/r1YdmoB03.png)
+![](../img/ch01/r1YdmoB03.png)
 
 
         
@@ -430,7 +430,7 @@ ISO 9126 除了定義有哪些品質項目以外，它還定義了這些品質�
 
 製造業如何控制品質呢？通常有兩種方法。(1)  透過機械化來控制品質。機器不會對於重複的工作感到繁瑣，無聊，也因此叫不會犯錯。然而在生產的過程避免不了人工。(2)  如果機器無法代勞，需要人工的，就讓每個人做單一重複不會犯錯的工作。所以我們看到生產線上總是那麼多人的作業人員單調的、反覆的做同一件事，就是為了避免犯錯。
 
-![](https://hackmd.io/_uploads/SJKeq0002.png)
+![](../img/ch01/SJKeq0002.png)
 
 品質管理問題：製造過程從設計到生產有數十道到幾百道程序。每一道程序都可能影響到後面的品質。如何透過製造流程的改善（process improvement）提高良率，一直是製造工業的重要課題。改善品質方式：
 
@@ -443,7 +443,7 @@ ISO 9126 除了定義有哪些品質項目以外，它還定義了這些品質�
 
 ### 1.4.2軟體品質控制與確保
 
-![](https://hackmd.io/_uploads/BJYnNoBR2.png)
+![](../img/ch01/BJYnNoBR2.png)
 
 一個不成熟的軟體公司，就如同 FIG_SQA 第一階段一樣，軟體開發完後就直接發佈了，但這種方法會產生很多問題，甚至導致退貨賠款，於是知道開發完後需要做一些測試（code review, testing）- 此時公司進步到第二階段。
 
@@ -533,7 +533,7 @@ SQA 通常被翻譯成「軟體品質保證」，或「品保」，但這樣的�
 
 ### 1.5.3 瑞穗證券的烏龍指 📈
 
-<a href="https://g.co/gemini/share/022dd19085b9"><img src = "https://hackmd.io/_uploads/HJJuIb1olg.png" width=200></a> 
+<a href="https://g.co/gemini/share/022dd19085b9"><img src = "../img/ch01/HJJuIb1olg.png" width=200></a> 
 
 [Watch](https://g.co/gemini/share/022dd19085b9)
 
