@@ -91,7 +91,10 @@ AI 會產生類似以下的區塊，您只需直接貼入 `pom.xml` 的 `<depend
 
 ### 方法一：獨立開啟專案（推薦）
 為了讓各單元的依賴庫與設定最乾淨，建議每次只專注開啟一個 Demo 專案：
-1. 啟動 IntelliJ IDEA，選擇 `Open`。
+1. 啟動 IntelliJ IDEA，選擇 **`Open`**（如下圖所示）。
+   
+   ![Intellij Open Project](../img/intellij_open.jpg)
+   
 2. 瀏覽至該單元目錄，選取該 Demo 的資料夾（例如選取 [DemoDebug](DemoDebug) 資料夾，該目錄下必須直接含有 `pom.xml` ）。
 3. 點選開啟。IntelliJ 會將其識別為一個獨立的專案，並自動解析其專屬的 Maven 設定。
 
@@ -99,7 +102,10 @@ AI 會產生類似以下的區塊，您只需直接貼入 `pom.xml` 的 `<depend
 如果您開啟了整個 `teach_SQA` 倉庫作為工作區：
 1. 當您展開左側的 `Lab/` 目錄時，會看到很多 `DemoXXX` 資料夾。
 2. 如果這些資料夾的圖示與一般資料夾無異（沒有被識別為 Maven 專案），請在該目錄下的 `pom.xml` 檔案上**按右鍵**。
-3. 選擇 **`Add as Maven Project`**（加入為 Maven 專案）。
+3. 選擇 **`Add as Maven Project`**（加入為 Maven 專案，如下圖所示）。
+   
+   ![Add as Maven Project](../img/add_maven_project.jpg)
+   
 4. IntelliJ 會立刻啟動該模組的 Maven 解析，此時資料夾圖示會變為帶有藍色小方塊的模組圖示，即可正常在 `src/test/java` 執行單元測試。
 
 ### 綜合練習專案：[DemoSQA](../DemoSQA)
