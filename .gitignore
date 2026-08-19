@@ -1,12 +1,10 @@
+/-hidden/
 /Lecture/SQASlide2020.pdf
 /exam/
-/hw/hw113_1
-/hw/hw113_2
+/hw/
+/SQA quiz/
 /DemoSQA
 
-/Slide/
-
-/SQA quiz/
 **/*.zip
 
 # Ignore Maven target directories in any sub-directory
@@ -20,7 +18,6 @@
 **/.classpath
 **/.settings/
 **/.vscode/
-
 
 # Ignore OS-specific files
 **/.DS_Store
