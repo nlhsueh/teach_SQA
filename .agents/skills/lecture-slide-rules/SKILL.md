@@ -31,6 +31,10 @@ When the user gives the request:
 
 ### Concept Check Questions (CCQ)
 - Insert a CCQ at the end of key sections to test student understanding.
+- **CCQ 設計與數量原則**：
+  - 每個章節可有多個 CCQ，但同一個觀念的測驗**不得超過兩次**，以防過度重複。
+  - 該章節的**第一個 CCQ 必須使用「是非題」**的方式呈現。
+  - 若題目過多，應將超出的題目**移至章節最後作為「章節測驗」**或「練習題」。
 - Answer keys and explanations must be hidden behind a `<details>` block.
 - Format:
   ```markdown
