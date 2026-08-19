@@ -64,6 +64,25 @@ AI 會產生類似以下的區塊，您只需直接貼入 `pom.xml` 的 `<depend
 > **Prompt 範例**：  
 > `請幫我寫一個 Bash / PowerShell 腳本，可以在目前目錄下快速建立 Maven 標準的 src/main/java/demo 和 src/test/java/demo 目錄。`
 
+### 3.4 IntelliJ 中直接使用 AI LLM 外掛（Plugins）
+除了在瀏覽器中使用 AI 外，您可以直接在 IntelliJ 內安裝 AI 外掛，在編輯器中實現「隨敲隨用」的體驗：
+
+1. **GitHub Copilot** (推薦)
+   - **特色**：由 GitHub 與 OpenAI 合作推出，是目前最主流的 AI 助手。能在您輸入程式碼時即時給出整行或整段的自動補全建議，並提供 Copilot Chat 側邊欄，支援在 IDE 中直接詢問程式碼解釋、重構建議或自動編寫測試。
+   - **安裝方式**：至 `Settings` (macOS 系統為 `IntelliJ IDEA` -> `Settings`) -> `Plugins` -> 搜尋 `GitHub Copilot` 點選安裝，重啟 IDE 後登入帳號即可啟用。
+
+2. **JetBrains AI Assistant**
+   - **特色**：JetBrains 官方為其 IDE 系列量身打造。深度整合了 IntelliJ 專案的上下文（例如：它知道您的 Maven 設定、JDK 版本與模組相依性）。支援在程式碼中直接按快捷鍵（如 `Cmd + I` 或 `Ctrl + \`）叫出對話框，原地修改或優化程式碼。
+   - **安裝方式**：至 `Settings` -> `Plugins` -> 搜尋 `AI Assistant` 啟用。
+
+3. **Codeium** / **Tabnine** (免費或高隱私度方案)
+   - **Codeium**：個人使用免費，自動補全速度極快，是 Copilot 之外的熱門免費選擇。
+   - **Tabnine**：提供本地端（Local-only）運行模型的選項，適合公司內部不希望程式碼上傳到雲端的開發場景。
+
+**AI 外掛的實用開發技巧**：
+* **快速生成單元測試**：在您的 Class 或方法名稱上按右鍵 -> `AI Actions` -> `Generate Unit Tests`，AI 便會自動套用 JUnit 產生對應的測試案例。
+* **解釋未知程式碼**：選取 Demo 專案中較複雜的邏輯 -> 右鍵 -> `AI Actions` -> `Explain Code`，幫助您快速理解他人撰寫的演算法。
+
 ---
 
 ## 4. 如何應用本教材所提供的 `DemoXXX` 專案
