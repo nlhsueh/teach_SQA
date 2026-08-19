@@ -18,11 +18,50 @@ IntelliJ IDEA 是由 JetBrains 開發的 Java 整合開發環境，廣受全球�
 
 ## 2. Java JVM 與 Maven 方面的應用
 
-### 2.1 Java JVM 與 SDK 設定
-在 IntelliJ 中，您可以為每個專案指定不同的 Java Development Kit (JDK)。
-1. **設定 JDK**：至 `File` -> `Project Structure` -> `Project`（快捷鍵 `Ctrl + Alt + Shift + S` 或 `Cmd + ;`）。
-2. 在 **SDK** 選項中，您可以點選 `Add SDK` -> `Download JDK`，直接在 IDE 內下載並安裝各種版本的 OpenJDK（如 Oracle OpenJDK, Temurin 等）。
-3. **Language Level（語言層級）**：您可以設定專案語法限制在特定的 Java 版本（例如 Java 21），即使系統安裝了更新的 JDK，編譯器仍會確保相容性。
+### 2.1 Java/JDK 版本選擇與設定指南
+
+#### A. Java 版本的選擇原則
+* **優先使用 LTS (Long Term Support, 長期支援) 版本**：在實際開發與教學中，應優先選擇 LTS 版本以確保穩定性與長期更新支援。目前常見的 LTS 版本有：
+  - **Java 8 (JDK 1.8)**：許多企業舊有系統仍在運作，但已不建議用於新專案。
+  - **Java 11**：過渡時期的主流。
+  - **Java 17**：目前被廣泛採用於現代框架（如 Spring Boot 3）的 LTS 版本。
+  - **Java 21**：最新且極力推薦的 LTS 版本，引入了虛擬執行緒（Virtual Threads）等強大特性。本學期的練習專案（如 `DemoSQA`）預設皆使用 **Java 21**。
+* **避免使用非 LTS 版本**（如 Java 22, 23 等）：非 LTS 版本每 6 個月發布一次且很快停止支援，不適合做為教學與主要開發的環境。
+* **推薦發行版**：建議使用免費、開放原始碼且穩定的 OpenJDK 發行版，例如 **Eclipse Temurin (Adoptium)** 或 **Amazon Corretto**。
+
+#### B. 在 Maven 與 IntelliJ 中的配置與同步
+設定 Java 版本時，必須確保 **Maven 的宣告** 與 **IntelliJ 的編譯設定** 兩者對齊，否則在編譯時常會出現 `class file has wrong version` 或 `Source option 5 is no longer supported` 的錯誤。
+
+1. **在 Maven 中宣告版本 (`pom.xml`)**：
+   在 `pom.xml` 的 `<properties>` 區塊內指定編譯與運行的目標版本。這會強制限制專案所使用的語法標準：
+   ```xml
+   <properties>
+       <maven.compiler.source>21</maven.compiler.source>
+       <maven.compiler.target>21</maven.compiler.target>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+   ```
+2. **在 IntelliJ 中設定與對齊**：
+   當您修改 `pom.xml` 並 Reload Maven 後，IntelliJ 通常會自動同步。若未同步，請手動檢查以下三個地方：
+   - **Project SDK**：按快捷鍵 `Cmd + ;` (macOS) 或 `Ctrl + Alt + Shift + S` 開啟 `Project Structure` -> 在 `Project` 選項確認 SDK 選擇了對應的版本（例如 `temurin-21`）。如果沒有，可選 `Add SDK` -> `Download JDK` 直接下載。
+   - **Language Level（語言層級）**：在同一個視窗中，確認 Project Language Level 設為相同的版本（如 `21 - Virtual threads...`）。
+   - **Java Compiler Target 版本**：點選 `Settings` -> 搜尋 `Java Compiler` -> 確認各 Module 的 `Target bytecode version` 皆設為相同的版本（如 `21`）。
+
+#### C. 匯入他人專案時的關鍵注意事項（Checkpoints）
+當您將同學的專案、作業或網路上的開源專案載入到自己的 IntelliJ 時，請依序確認以下事項以防編譯失敗：
+
+1. **清除 IDE 快取與設定檔（.idea 與 *.iml）**：
+   - **動作**：在用 IntelliJ 開啟專案資料夾前，請先在檔案總管中**將該專案目錄下的 `.idea` 資料夾與所有 `.iml` 檔案刪除**。
+   - **原因**：這些檔案記錄了原作者電腦的絕對路徑、SDK 名稱等個人環境配置。直接載入會造成路徑衝突。刪除後，IntelliJ 會讀取 `pom.xml` 並根據您電腦的環境重新乾淨生成。
+2. **對齊並下載對應的 JDK**：
+   - 打開專案後，先查看 `pom.xml` 內設定的 Java 版本（如 17 或 21）。
+   - 檢查專案 SDK 是否指向您電腦中對應版本的 JDK。若無，請利用 Project Structure 自動下載安裝。
+3. **確認專案路徑不含中文或空白**：
+   - Java 編譯器與 Maven 在路徑中包含中文字元或空白（如 `Users/Jacky Chen/`）時偶爾會發生編譯失敗。請將專案目錄放置於單純的英文路徑下。
+4. **手動重新整理 Maven 依賴**：
+   - 開啟專案後，點選右側 Maven 工具視窗的 **`Reload All Maven Projects`** 圖示，確保所有相依套件皆已在您的本機上下載完整。
+5. **統一檔案編碼為 UTF-8**：
+   - 至 `Settings` -> `Editor` -> `File Encodings`，將 `Global Encoding`、`Project Encoding` 與 `Properties Files` 全都調整為 `UTF-8`，避免中文註解或文字資料在編譯時產生亂碼或報錯。
 
 ### 2.2 Maven 整合與依賴管理
 Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [POM.md](POM.md)）。
