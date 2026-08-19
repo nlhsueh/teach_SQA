@@ -30,6 +30,21 @@ Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [POM
 * **Maven 工具視窗**：視窗右側有一個 `Maven` 標籤，展開後可以看到專案的 **Lifecycle**（生命週期，如 `clean`, `compile`, `test`, `package`）與 **Plugins**。按兩下即可執行對應的指令。
 * **重新載入 Maven（Reload）**：如果您手動修改了 `pom.xml` 中的依賴設定，專案右上角會出現一個藍色的小 Maven 圖示（或按 `Ctrl + Shift + O` / `Cmd + Shift + I`），點擊後 IDE 就會立刻重新同步並下載最新套件。
 
+### 2.3 IntelliJ 專案目錄與設定檔結構
+在開啟 Java / Maven 專案時，您會在專案根目錄下看到一些由 IDE 自動生成或預設的檔案與資料夾。它們各自扮演不同的角色：
+
+| 目錄/檔案 | 用途說明 | 是否需要納入 Git 版本控制？ |
+| :--- | :--- | :--- |
+| **`.idea/`** | **IntelliJ 專案專屬設定資料夾**：存放此專案在該 IDE 中的配置（如編輯器視窗排版、執行/除錯設定 `runConfigurations`、Maven 同步快取、程式碼風格樣式等）。 | **大部分排除**：通常將個人排版設定排除，僅保留團隊共用的執行設定（如特定的 `runConfigurations` 檔）。 |
+| **`*.iml`** (如 `DemoSQA.iml`) | **IntelliJ 模組設定檔（Module File）**：以 XML 格式記錄該模組的結構、路徑及依賴關係。為 IntelliJ 的舊版或相容性設計。 | **排除**：因為 Maven 專案的依賴關係已經由 `pom.xml` 定義，IDE 會自動從 `pom.xml` 生成此檔案，無需納入 Git。 |
+| **`src/`** | **原始碼目錄**：存放所有 Java 程式碼與資源檔案。<br>・`src/main/java`：主程式邏輯。<br>・`src/main/resources`：設定檔或資源。<br>・`src/test/java`：單元測試程式碼。 | **必須納入**：這是開發的核心程式碼。 |
+| **`target/`** | **編譯與建置輸出目錄**：Maven 執行 `compile` 或 `package` 後生成的檔案（包含編譯後的 `.class` 檔、包裝好的 `.jar` 檔、測試報告與 Jacoco 覆蓋率報告等）。 | **絕對排除**：此資料夾可以透過 `mvn clean` 隨時清除，並透過 `mvn compile` 重新生成，絕對不要提交至 Git。 |
+| **`pom.xml`** | **Maven 專案物件模型（Project Object Model）**：定義專案基本資訊、依賴套件、編譯外掛等（參考 [POM.md](POM.md)）。 | **必須納入**：這是定義專案建置與依賴的根本來源。 |
+| **`.gitignore`** | **Git 排除清單**：定義哪些檔案與資料夾不需要被 Git 追蹤（例如 `.idea/`、`target/`、`*.iml` 及各種作業系統暫存檔）。 | **必須納入**：確保團隊成員在協作時不會提交垃圾檔案。 |
+
+> **💡 提示：為什麼我的專案一直出現奇怪的編譯錯誤？**  
+> 如果專案設定損壞，您可以嘗試安全地關閉 IntelliJ，在檔案管理器中直接刪除 `.idea/` 資料夾與所有的 `*.iml` 檔案，然後在 IntelliJ 中重新點選 `Open` 載入 `pom.xml`，IDE 就會重新為您乾淨地產生這些設定檔。
+
 ---
 
 ## 3. 透過 AI LLM 來幫忙設定專案
