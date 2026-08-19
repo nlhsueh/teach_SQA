@@ -26,6 +26,9 @@ When the user gives the request:
   ![Caption Text](../img/ch0X/gemini_nb/XX_image.jpeg)
   ```
 
+### File Links / References
+- Always use relative paths for file links (e.g., `[debug.md](debug.md)` or `[DemoDebug](./DemoDebug)`) rather than absolute `file://` URIs, to ensure the links work when students clone the repository or view it on hosting platforms (like GitHub/HackMD).
+
 ### Concept Check Questions (CCQ)
 - Insert a CCQ at the end of key sections to test student understanding.
 - Answer keys and explanations must be hidden behind a `<details>` block.
