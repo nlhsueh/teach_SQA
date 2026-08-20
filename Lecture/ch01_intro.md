@@ -1,194 +1,195 @@
-# Ch01 簡介
+# Ch01 軟體危機、品質模型與 AI 時代的可靠性工程
+### Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineering
 
-> 😅 大家都知道物質不滅定律; 我們更熟悉 Bug 不滅定律。
+> 😅 大家都知道「物質不滅定律」；身為資工系學生，我們更熟悉「Bug 不滅定律」。
+> 
+> 在 2026 年，寫出一段程式碼只要問 AI 3 秒鐘；但要證明這段程式碼在生產環境不會搞垮公司，可能要花上 3 個月。
 
-## 1.1 軟體危機
+---
 
-<center>
-<img src = "../img/ch01/HkUgfsBRn.png" width=200>
-</center><br>
+## ⚡ 0. 開局震撼：AI 寫的「完美」程式碼，為什麼會在 3 秒內讓公司破產？
 
-水能載舟亦能覆舟，軟體也是如此，有許多軟體問題造成飛機失事，造成醫療糾紛，財務的損失等。
+在進入理論之前，讓我們先看一段由現代頂級 AI（GPT-4 / Claude 3.5）生成的「銀行電子錢包轉帳服務」：
 
-#### 愛國者反導彈事件，毫秒的誤差
+```java
+public class WalletService {
+    private double balance = 1000.0; // 帳戶初始餘額 $1000
 
-在 1991 年 2 月的第一次海灣戰爭中，一枚伊拉克發射的飛毛腿導彈準確擊中美國在沙地阿拉伯的達蘭基地（Dhahran），當場炸死 28 個美國士兵，炸傷 100 多人，造成美軍波斯灣戰爭中唯一一次傷亡超過百人的損失。
+    // AI 生成的轉帳方法：具備基本檢查與扣款邏輯
+    public boolean transfer(double amount) {
+        if (amount <= 0) {
+            return false;
+        }
+        if (balance >= amount) {
+            // 模擬網路延遲或資料庫查詢
+            try { Thread.sleep(10); } catch (InterruptedException e) {}
+            
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
 
-在後來的調查中發現，由於一個簡單的電腦 bug，使基地的愛國者反導彈系統失效，未能在空中攔截飛毛腿導彈。當時，負責防衛該基地的愛國者反導彈系統已經連續工作了 100 個小時，每工作一個小時，系統內的時鐘會有一個微小的毫秒級延遲，這就是這個失效悲劇的根源。愛國者反導彈系統的時鐘暫存器設計為 24 位元，因而時間的精度也只限於 24 位元的精度。在長時間的工作後，這個微小的精度誤差被漸漸放大。在工作了 100 小時後，系統時間的延遲是三分之一秒。
+    public double getBalance() {
+        return balance;
+    }
+}
+```
 
-對一般人人來說，0.33 秒是微不足道的。但是對一個需要跟蹤並摧毀一枚空中飛彈的雷達系統來說，這是災難性的——飛毛腿導彈空速達 4.2 馬赫（每秒 1.5 公里），這個「微不足道」的 0.33 秒相當於大約 600 公尺的誤差。在達蘭導彈事件中，雷達在空中發現了導彈，但是由於時鐘誤差沒有能夠準確地跟蹤它，因此基地的反導彈並沒有發射(資料取自 維基百科)。
+### 🧪 現場破壞實驗 (Live Attack Experiment)
+這段程式碼看起來排版整齊、邏輯清晰，一般的單元測試 `assert transfer(100) == true` 也是綠燈通過。
 
+**但是，當我們用 50 個執行緒同時發送「轉帳 $100」的請求時：**
 
-#### NASA 火星氣候軌道探測器
+```java
+// 50 個使用者同時並發轉帳 $100（總提款需求 $5000，但帳戶只有 $1000）
+ExecutorService executor = Executors.newFixedThreadPool(50);
+for (int i = 0; i < 50; i++) {
+    executor.submit(() -> walletService.transfer(100.0));
+}
+executor.shutdown();
+executor.awaitTermination(5, TimeUnit.SECONDS);
 
-1998年，美國太空總署（NASA）發射了火星氣候軌道探測器（Mars Climate Orbiter），結果到了火星上空，便音訊全無。在多次聯絡未果之下，NASA只得宣布計畫失敗，長期的研究投資連同造價近2億美元的探測器，一同消失在無垠宇宙中。
+System.out.println("最終餘額：" + walletService.getBalance());
+```
 
-事後調查發現，這個失敗導因於一個低級錯誤：兩個研究團隊使用的度量單位不同，一個用英制，一個用公制，導致探測器的控制程式出現混亂：原本應該從距地面140公里高度穿過火星大氣層，最後卻低於60公里，導致探測器經不起劇烈的大氣摩擦而焚燬 (資料取自 維基百科)。
+**執行結果：**
+$$\text{最終餘額：} -3200.0 \quad \text{（帳戶原本只有 \$1000，居然被提走了 \$4200，嚴重超賣負債！）}$$
+
+> 💥 **震撼反思**：
+> 1. **AI 不會主動為你考慮並發安全性與狀態不變量（Invariants）**：AI 只根據常見的程式片段生成了順序執行代碼，缺乏對執行緒安全（Thread-safety）的原子性保護。
+> 2. **AI 產生的測試往往也是「自我印證的假綠燈」**：如果你叫 AI 幫這段代碼寫測試，AI 只會寫單執行緒測試，測試 100% 覆蓋率通過，讓你帶著虛假的安全感將炸彈推上線。
+> 3. **2026 資工系工程師的真正使命**：
+>    * 寫程式碼（Coding）已經不是稀缺技能；
+>    * **「定義規格與不變量」、「設計破壞性測試」、「建立自動化品質防線」才是人類工程師不可替代的核心價值！**
+
+---
+
+## 1.1 軟體危機的歷史與 AI 時代的輪迴
+
+軟體既能造福人類，亦能造成毀滅性災難。回顧歷史，軟體缺陷曾引發嚴重的空難、軍事傷亡與數億美元的太空浩劫。
+
+### Case 1：愛國者反導彈事件 (1991) —— 毫秒級的精度累積誤差
+
+在 1991 年 2 月波斯灣戰爭中，一枚伊拉克發射的飛毛腿飛彈擊中美軍沙烏地達蘭基地，造成 **28 名美軍死亡、100 多人受傷**。
+
+![](../img/ch01/HkUgfsBRn.png)
+
+* **致命軟體缺陷**：愛國者系統時鐘暫存器採用 **24-bit 浮點數** 設計，將時間轉換為 0.1 秒單位時產生了微小的截斷誤差（約 $0.000000095$ 秒）。
+* **災難放大**：雷達系統連續開機運作超過 **100 小時** 未重啟，微小的精度誤差累計達 **0.33 秒**。
+* **致命後果**：飛毛腿飛彈速度達 4.2 馬赫（1.5 km/s），0.33 秒相當於 **600 公尺距離偏差**。雷達搜尋窗無法鎖定目標，攔截飛彈根本沒有發射。
+* **SQA 啟示**：數值精度問題、浮點數累計誤差，以及**長時運行可靠度測試（Long-term Stress/Reliability Testing）**的重要性。
+
+---
+
+### Case 2：NASA 火星氣候軌道探測器 (1998) —— 單位的代價
+
+1998 年 NASA 發射「火星氣候軌道探測器」（Mars Climate Orbiter，造價近 2 億美元），抵達火星後失聯焚毀。
 
 ![](../img/ch01/ByBqT9KRn.png)
 
-👉 Mars Climate Orbiter (MCO) crash in 1998 
+👉 Mars Climate Orbiter crash in 1998
 
-#### 華航名古屋空難
+* **致命軟體缺陷**：兩個合作研發團隊使用了不同的度量單位：
+  * 洛克希德馬丁（承包商）：**英制單位**（磅力·秒，$\text{lbf}\cdot\text{s}$）
+  * NASA 噴射推進實驗室 (JPL)：**公制單位**（牛頓·秒，$\text{N}\cdot\text{s}$）
+* **災難後果**：地面控制軟體未做單位轉換直接計算推力，導致探測器軌道高度從預計的 140 公里降至 **57 公里**，直接在火星大氣層中摩擦解體焚毀。
+* **SQA 啟示**：**跨模組介面契約（Interface Contract）**、型態安全與規格檢視的重要性。
 
-1994年4月26日，華航編號為B-1816的空中巴士A300-622R型客機由桃園國際機場飛往名古屋的班機，搭載271名乘客及機組員（包含正駕駛王樂琦，副駕駛莊孟容及飛航工程師），在名古屋機場降落時不幸墬毀，造成264人死亡。根據1995年1月9日聯合報引述日本名古屋空難調查委員會的調查結果，空難原因為「副駕駛在操縱飛機降落時，不小心誤將飛機設定在「重飛」（go-around，意思是中止降落重新爬升），而因駕駛員一直不知飛機設定在「重飛」的自動操作狀態下，駕駛員努力用手動操作，想要將機首壓低，而因電腦在「重飛」爬升自動操作狀態，電腦將機尾的水平安定面（horizontal stabilizer）設定到機首上升的狀態「糾正」駕駛員「錯」的壓低機首的手動操作，結果在電腦與駕駛員操作機首角度的爭鬥中，飛機向上衝的攻角過大而失去平衡，最後失速墜毀。
+---
 
+### Case 3：華航名古屋空難 (1994) —— 人機爭奪控制權
+
+1994 年 4 月 26 日，華航 CI140 班機（空中巴士 A300-622R）在名古屋機場降落時墜毀，**264 人罹難**。
 
 ![1994 名古屋空難](https://attach.setn.com/newsimages/2021/04/26/3128315-PH.jpg)
 
-👉 1994 名古屋空難
-
-一審判決忽略空中巴士公司的飛機設計問題，名古屋高等法院裁定，名古屋空難完全是因為華航駕駛操縱失誤所造成。為免再發生類似的航空事件，歐洲空中巴士公司發出維修指令，*修改A300系列的電腦程式以防止駕駛員與電腦互搶操控權而衝突*。
-
----
-
-歷史上有很多軟體設計不良所造成的災害：
-
-- 1991，愛國者飛彈失效 Patriot Missile Defense System;
-- 1994 –1995，迪士尼的聖誕節電腦遊戲 Disney’s Lion King;
-- 1999，NASA Mars Polar Lander;
-- 2014，[臺灣新戶政系統相容問題](https://www.businesstoday.com.tw/article/category/80392/post/201402200025/)，造成系統無法製作身分證明;
-- 2021，[廠商出錯-上萬學生學習歷程檔案遺失 教育部：全力救援資料](https://tw.news.yahoo.com/%E5%BB%A0%E5%95%86%E5%87%BA%E9%8C%AF-%E4%B8%8A%E8%90%AC%E5%90%8D%E5%AD%B8%E7%94%9F%E5%AD%B8%E7%BF%92%E6%AD%B7%E7%A8%8B%E6%AA%94%E6%A1%88%E9%81%BA%E5%A4%B1-%E8%B3%87%E6%96%99%E6%95%91%E6%8F%B4%E4%B8%AD-015149387.html)
-- 2014，[臺灣高速公路收費系統](https://www.ithome.com.tw/people/116441)。
+* **致命軟體缺陷**：副駕駛進場時誤觸「重飛（Go-Around）」模式；駕駛員隨後試圖手動強壓機首下降，但機載飛控電腦因處於自動重飛模式，強行將水平安定面向上配平以抬高機首。
+* **災難後果**：**電腦與機師互相爭奪控制權**，飛機仰角過大失速墜毀。空巴隨後發出維修指令，全面修改飛控軟體邏輯。
+* **SQA 啟示**：人機互動（HMI/UX）狀態透明度、異常操作回饋與自動化控制權限優先級設計。
 
 ---
 
-解決這些問題就是軟體工程與軟體品質工程應該要做的事。也是這門課，這本課程的目的。
+### Case 4：迪士尼《獅子王》遊戲 (1994) —— 缺乏相容性測試的公關浩劫
 
-> 😂 軟體和教堂非常相似——建成之後我們就開始祈禱。
->> Software and cathedrals are much the same – first we build them, then we pray. (Sam Redwine)
+1994 年聖誕節迪士尼推出《獅子王》PC 遊戲，伴隨 Compaq 等家用電腦熱銷，數以萬計家庭期待同樂。
+* **致命缺陷**：遊戲基於特定視訊驅動（WinG）開發，**未在市場主流多樣硬體環境上進行充分相容性測試**。
+* **災難後果**：大量家用電腦開機即藍屏崩潰，聖誕節當天客服被憤怒家長打爆，嚴重損害品牌聲譽。
+* **SQA 啟示**：環境多樣性驗證與**相容性測試（Compatibility Testing）**，促使微軟後來開發標準化 DirectX 架構。
 
-💡💬 有哪些你印象深刻的軟體品質事件？
+---
 
-### **1.1.1 隨堂測驗 (CCQ 1)**
+### 1.1.5 軟體危機的本質：從 1968 到 2026
+
+* 1968 年 NATO 會議首次提出「軟體危機（Software Crisis）」：硬體飛速發展，而軟體開發卻面臨**預算超支、進度延期、品質低下、維護困難**。
+* **2026 年新軟體危機（The Verification Bottleneck）**：
+  * AI 讓寫代碼的速度提升了 10 倍，產出的程式碼量呈幾何級數暴增。
+  * 然而，人類驗證代碼、審查規格與確保系統可靠性的能力並沒有自動提升 10 倍！
+  * **軟體危機沒有消失，它只是轉變為「可信賴度危機（Reliability Crisis）」**。
+
+> 😂 **軟體和教堂非常相似——建成之後我們就開始祈禱。**
+> >> *Software and cathedrals are much the same – first we build them, then we pray.* (Sam Redwine)
+
+#### **隨堂測驗 (CCQ 1)**
 
 **問題**
 
-軟體危機（Software Crisis）指的是在軟體開發中，由於軟體系統的複雜度與維護需求迅速增加，超出了當時軟體工程技術與管理方法的處理能力，因而導致軟體專案面臨進度延期、預算超支與品質低下等問題。
+愛國者反導彈系統（1991）在達蘭基地攔截失效的根本軟體原因為何？
 
-A) 是 (True)
-B) 否 (False)
+A) 通訊網路中斷導致雷達無法傳送指令給飛彈發射架  
+B) 24-bit 時鐘暫存器的浮點捨入誤差在連續運行 100 小時後累加達 0.33 秒  
+C) 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機  
+D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈  
 
 <details>
 <summary>點擊查看【隨堂測驗】答案與解析</summary>
 
-**正確答案：A**
+**正確答案：B**
 
 * **解析**：
-  * **軟體危機**的本質是軟體系統日趨複雜，而傳統的開發與管理方式無法有效控制其開發成本與品質。這與硬體發展無關，甚至是由於硬體運算能力的快速提升與普及加劇了軟體的複雜需求所致。
+  * 愛國者系統採用 24-bit 浮點數記錄時間，每小時有微小的截斷誤差。連開 100 小時累積了 0.33 秒延遲，對 4.2 馬赫的飛彈造成約 600 公尺偏差，導致雷達搜尋窗無法鎖定飛彈。
 
 </details>
 
-## 1.2 軟體品質
+---
 
-> 👍 人們會忘記你做的多快，但總記得你做的多好。
->> People forget how fast you did a job- but they always remember how well you did it. (Howard Newton.)
+## 1.2 什麼是軟體？軟體的四大組成要素
 
-### 1.2.1 軟體
+軟體是什麼？僅僅是可執行的二進位檔案或原始程式碼嗎？IEEE（Standard 610.12）給出了更廣泛的定義：
 
-軟體是什麼？僅是可以執行的程式碼嗎？IEEE  的定義更為廣泛：
+> **Software (軟體)**:
+> Computer **programs** (程式), **procedures** (程序), and possibly associated **documentation** (文件) and **data** (資料) pertaining to the operation of a computer system.
 
-> Computer **programs**, **procedures**, and possibly associated **documentation** and **data** pertaining to the operation of a computer system. That is, software is consisted of *code*, *procedure*, *documentation*, *data* necessary for *operating* the software system.
+```mermaid
+mindmap
+  root((Software 軟體))
+    Programs 程式碼
+      原始碼 Source Code
+      編譯產物 Bytecode/Binary
+    Procedures 作業程序
+      部署規範 CI/CD Pipeline
+      維運手冊 Runbooks
+    Documentation 文件
+      需求規格 SRS/OpenAPI
+      測試計畫與測試案例
+    Data 資料
+      系統配置設定檔
+      初始化與測試資料集
+```
 
-除了程式碼以外，操作的程序、資料、文件是「軟體」的範圍。就像華航事件一般，多少是操作的問題所引起的，所以再考量軟體品質時，不能不把這些考量在內。
-
-> 😳 程式必須是為了給人看而寫，命令機器執行只是附帶任務。
->> Programs must be written for people to read, and only incidentally for machines to execute. (Abelson / Sussman)
+* **程式必須是為了給人看而寫，命令機器執行只是附帶任務。**
+  >> *Programs must be written for people to read, and only incidentally for machines to execute.* (Abelson / Sussman)
 
 #### **隨堂測驗 (CCQ 2)**
 
 **問題**
 
-根據 IEEE 對於「軟體 (Software)」的定義與課程教材，下列何者不屬於「軟體」的範疇？
+根據 IEEE 對於「軟體 (Software)」的定義與現代軟體工程概念，下列何者不屬於軟體的完整範疇？
 
-A) 開發過程中的系統設計文件與測試案例 (Documentation)
-B) 為了執行程式所必須準備的系統初始化資料 (Data)
-C) 安裝與運作系統時所遵循的操作程序與流程 (Procedures)
-D) 僅限於伺服器上執行的二進位機器碼 (Code)，不包含上述其他項目
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：D**
-
-* **解析**：
-  * **選項 D 正確**：根據 IEEE 的定義，軟體 (Software) 不僅僅是程式碼 (Code)，操作程序 (Procedures)、文件 (Documentation) 以及資料 (Data) 皆是運作軟體系統不可或缺的組成部分。
-  * **選項 A、B、C 錯誤**：皆分別屬於 IEEE 定義中的文件、資料與程序，皆在軟體的定義範疇內。
-
-</details>
-
-### 1.2.2 品質
-
-各行各業每一種物品或流程都有其品質的定義，很難從單一的角度來定義品質。哈佛的教授 David Garvin 在他的書中 Managing Quality, 提出從各種不同的角度來看品質:
-
-- **超自然觀點** Transcendental view。無法直接定義品質，但看（感受）到後就知道好壞。abstract but can be recognized if it is present.
-- **使用者觀點** User view。符合使用者需求的程度。fitness for purpose or meeting user's needs.
-- **製造觀點** Manufacturing view。符合流程的標準，例如通過 ISO 的認證。conformance to process standard.
-- **產品觀點** Product view。產品本身的材質，例如樟木所做的桌子。inherent characteristics in the product itself.
-- **價值觀點** Valued based view。顧客是否願意掏錢出來買。customers' willingness to pay for a software.
-
-💡💬 在你接觸的事物或軟體中，哪些是品質優良的？為什麼？符合 Garvin 的哪一個觀點呢？
-
-> 👍 所謂的品質就是當沒有人看時，仍然把事情做對
->> Quality means doing it right when no one is looking.- Henry Ford
-
-> 👍 品質不是動作，是一種習慣
->> Quality is not an act. It is a habit- Aristotle)
-
-#### **隨堂測驗 (CCQ 3)**
-
-**問題**
-
-某軟體開發專案的專案經理非常自豪該產品完全符合所有的合約規格與 ISO 開發流程標準，但使用者實際使用時卻抱怨介面反直覺、難以達成工作任務。這凸顯了該產品符合了「哪一種」品質觀點，但卻忽略了「哪一種」品質觀點？
-
-A) 符合製造觀點 (Manufacturing view)；忽略使用者觀點 (User view)
-B) 符合產品觀點 (Product view)；忽略價值觀點 (Value-based view)
-C) 符合超自然觀點 (Transcendental view)；忽略製造觀點 (Manufacturing view)
-D) 符合使用者觀點 (User view)；忽略產品觀點 (Product view)
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：A**
-
-* **解析**：
-  * **選項 A 正確**：符合合約規格與流程標準是「製造觀點」（conformance to process standard）；而使用者能否順暢操作以符合其實際工作需求則是「使用者觀點」（fitness for purpose / meeting user's needs）。
-  * **選項 B、C、D 錯誤**：皆與上述情境對應的 Garvin 品質觀點不符。
-
-</details>
-
-### 1.2.3 軟體品質
-
-軟體有其獨特性，其品質的定義也略有不同。我們看以下三種軟體品質的定義：
-
-> 1️⃣ 一個系統，元件或流程滿足所指定的需求的程度。
->> The degree to which a system, component, or process meets specified requirements. (Crosby, 1979)
-
-這樣的定義著重在「需求規格」。問題是，規格書通常都寫的不完整，以致於滿足規格書 the 系統，卻不能滿足使用者。
-
-> 2️⃣ 一個系統，元件或流程滿足顧客或使用者的需求或期望的程度
->> The degree to which a system, components, or process meets customer or user needs or expects (Juran, 1998)
-
-這樣的定義加強了使用者的需要與期望。但難道只要符合使用者的期待就是好的軟體嗎？Pressman  的定義加強了「專業軟體」的期望，例如在可維護性等特性，這些是使用者不會期待的特性，但卻是與品質有著強烈的關聯。
-
-**Software Quality**: 
-> 3️⃣ 符合明訂的功能與效能需求，明訂的開發標準，及非明定的專業軟體特性的程度。
->> Conformance to explicitly state functional and performance requirements, explicitly documented development standards, and implicit characteristics that are expected of all professionally developed software (Pressman)
-
-這樣的定義似乎聽之有理，但仍然模糊。我們透過「品質模型」的描述，可以更了解何謂軟體品質。
-
-> 👍 測試技巧可以短時間培養，建立品質文化需要長時間培養
-
-#### **隨堂測驗 (CCQ 4)**
-
-**問題**
-
-以下關於軟體品質（Software Quality）定義的敘述，何者最符合 **Pressman** 對於專業開發軟體（Professionally developed software）的觀點？
-
-A) 只要程式執行時沒有出現錯誤（Bug），就是具備好品質的軟體。
-B) 軟體品質僅取決於是否完全滿足規格書（Explicit requirements）中所定義的功能需求。
-C) 軟體品質不僅包含明訂的功能與效能需求，還包含明訂的開發標準，以及非明訂但專業軟體應具備的隱含特性（如可維護性、易讀性等）。
-D) 軟體品質完全取決於使用者主觀的滿意度，與開發流程或文件無關。
+A) 團隊維護的 OpenAPI / Swagger 介面合約規格書  
+B) 部署於 Kubernetes 叢集中的環境變數設定檔與初始資料庫 Migration 腳本  
+C) 伺服器機房所使用的實體散熱風扇與不斷電電源硬體設備 (UPS)  
+D) 團隊定義的 Git PR 審查程序與自動化 CI 測試腳本  
 
 <details>
 <summary>點擊查看【隨堂測驗】答案與解析</summary>
@@ -196,30 +197,146 @@ D) 軟體品質完全取決於使用者主觀的滿意度，與開發流程或�
 **正確答案：C**
 
 * **解析**：
-  * Pressman 的定義包含三要素：明訂的功能與效能需求、明訂的開發標準（如編碼規範與文件）、以及非明訂的隱含特性（如可維護性、易讀性等專業素養要求）。僅滿足規格書（A、B）或純屬使用者主觀感受（D）皆是不夠全面的。
+  * **選項 C 正確**：實體風扇與不斷電電源屬於硬體基礎設施（Hardware），不屬於軟體的四要素（Programs, Procedures, Documentation, Data）。
 
 </details>
 
+---
 
-## 1.3 品質模型 (Software Quality Models)
+## 1.3 何謂品質？David Garvin 的五大品質觀點
 
-每一個產業都有各自的品質模型，做簡易家具的不會考慮到「維護性」的議題，椅子壞了換掉就是了，但汽車產業就一定要考慮到維護性，所以維護性是汽車產業的品質模型中的品質特性。
+哈佛商學院教授 David Garvin 在《Managing Quality》一書中指出，不同人對品質有不同的視角，軟體品質亦然：
 
-<img src="../img/ch01/BJFQmsH03.png" width="500">
+| 品質觀點 | 核心定義 | 軟體工程實例 | 忽略該觀點的後果 |
+| :--- | :--- | :--- | :--- |
+| **超自然觀點**<br>(Transcendental) | 無法精確量化，但一體驗就能感受到其精緻與美感 | 極致流暢的 UI/UX、細膩的動畫微互動 | 軟體感覺粗製濫造、冰冷難用 |
+| **使用者觀點**<br>(User View) | 符合使用者真實需求與期望 (Fitness for Use) | 解決使用者痛點、操作直覺易上手 | 功能很強但沒人想用 (Shelfware) |
+| **製造觀點**<br>(Manufacturing View) | 符合工程規格與標準流程 (Conformance) | 遵循 Clean Code 規範、零規格偏離、通過 ISO 認證 | 規格本身有漏洞時，做出一套完美的垃圾 |
+| **產品觀點**<br>(Product View) | 產品本身的內在技術特性與架構材質 | 高內聚低耦合、強固的型態系統、低圈複雜度 | 架構腐化，改一個小功能引發全面崩潰 |
+| **價值觀點**<br>(Value-based View) | 顧客願意支付的成本與性價比 (ROI) | 軟體帶來的商業價值大於開發與維運成本 | 開發成本失控超支，商業上不可行 |
+
+> 👍 **所謂的品質就是當沒有人看時，仍然把事情做對。** —— *Henry Ford*
+> 👍 **品質不是動作，是一種習慣。** —— *Aristotle*
+
+#### **隨堂測驗 (CCQ 3)**
+
+**問題**
+
+某專案團隊開發的電商 App 完全符合合約規格書上的每一條需求（製造觀點合格），但因為底層架構高度耦合且完全沒有寫單元測試，半年後客戶想新增一個促銷功能時，工程團隊發現必須重寫整個系統。這代表該軟體在 Garvin 的哪一個品質觀點上嚴重不及格？
+
+A) 產品觀點 (Product View)  
+B) 製造觀點 (Manufacturing View)  
+C) 法律合約觀點  
+D) 超自然觀點 (Transcendental View)  
+
+<details>
+<summary>點擊查看【隨堂測驗】答案與解析</summary>
+
+**正確答案：A**
+
+* **解析**：
+  * **選項 A 正確**：產品觀點著重於軟體內在結構特性（如模組化、架構整潔、可維護性與可測試性）。雖然符合製造觀點的合約規格，但內在架構腐敗。
+
+</details>
+
+---
+
+## 1.4 軟體品質工程核心概念：V&V 與品質成本
+
+### 1.4.1 驗證與確認 (Verification vs. Validation, V&V)
+
+軟體測試與品質保證的靈魂大問：
+
+$$\begin{aligned}
+\textbf{Verification (驗證)} &: \text{Are we building the product \textbf{right}? （我們是否有正確地建造軟體？）} \\
+\textbf{Validation (確認)} &: \text{Are we building the \textbf{right} product? （我們建造的是否是正確的軟體？）}
+\end{aligned}$$
+
+* **Verification (驗證)**：確保軟體產出物符合上個階段設定的規格（檢視程式碼是否符合設計圖、單元測試是否符合規格）。
+* **Validation (確認)**：確保軟體真正滿足使用者的真實業務需求（驗收測試、易用性測試、現場 Beta 測試）。
+
+---
+
+### 1.4.2 軟體品質成本 (Cost of Quality, CoQ) 與 1:10:100 定律
+
+```
+                       ┌── 預防成本 (Prevention): 培訓、流程標準、架構審查、契約設計
+        ┌─ 一致性成本 ──┤
+        │  (Conformance)└── 評估成本 (Appraisal): 單元測試、代碼檢視、自動化 CI 測試
+品質成本 ┤
+        │  (Non-       ┌── 內部失敗 (Internal Failure): 上線前修 Bug、重構程式碼
+        └─ 非一致性成本 ──┤
+           conformance)└── 外部失敗 (External Failure): 生產環境當機、客戶賠償、商譽損害
+```
+
+* **1:10:100 定律 (The Rule of Tens)**：
+  * **需求/設計階段** 抓出並修復一個 Bug 的成本：**$1**
+  * **開發/測試階段** 抓出並修復一個 Bug 的成本：**$10**
+  * **產品上線發布後** 發生故障的修復與賠償代價：**$100 ～ $1000+**！
+* **測試左移 (Shift-Left Testing)**：將品質活動儘早融入開發流程，是降低軟體總擁有成本的最有效手段。
+
+---
+
+## 1.5 現代軟體品質模型 (ISO 9126 $\rightarrow$ ISO 25010)
+
+每一個產業都有各自的品質模型。對於軟體系統而言，國際標準組織制定了著名的品質模型體系：
+
+![](../img/ch01/BJFQmsH03.png)
 
 👉 不同物品的品質特性各有不同
 
-擴充性和跨平台執行就不是汽車產業重要的品質項目之一，但對軟體產業來說卻是非常的重要。不同產業、物品有其不同的品質模型。軟體品質模型有很多，例如 McCall, Boehm's Quality model, FURPS+ model，以及國際標準 **ISO 9126** 與其現代升級標準 **ISO 25010 (SQuaRE)**。
+### 1.5.1 從 ISO 9126 到 ISO 25010 (SQuaRE)
 
-### 🗺️ ISO 25010 軟體品質特性與實戰測試技術對照地圖
+早期 **ISO 9126** 定義了 6 大品質特性；現代 **ISO 25010 (SQuaRE, 軟體產品品質要求與評估標準)** 將其擴展為 **8 大產品品質特性 (Product Quality)** 與 **5 大使用品質 (Quality in Use)**：
 
-軟體測試並非盲目寫 Code，本課程中學習的每一項測試與工程技術，本質上都是在度量並守護品質模型的具體維度：
+```mermaid
+mindmap
+  root((ISO 25010 軟體品質))
+    Functional Suitability 功能適合性
+      完備性 Completeness
+      正確性 Correctness
+      適切性 Appropriateness
+    Reliability 可靠性
+      成熟度 Maturity
+      容錯度 Fault tolerance
+      可回復性 Recoverability
+    Performance Efficiency 效能效率
+      時間行為 Time behavior
+      資源利用率 Resource utilization
+      容量 Capacity
+    Usability 易用性
+      易學習性 Learnability
+      易操作性 Operability
+      錯誤防護 User error protection
+    Security 安全性
+      機密性 Confidentiality
+      完整性 Integrity
+      抗抵賴性 Non-repudiation
+    Maintainability 可維護性
+      模組化 Modularity
+      可分析性 Analyzability
+      可修改性 Modifiability
+      可測試性 Testability
+    Portability 可移植性
+      適應性 Adaptability
+      易安裝性 Installability
+      易置換性 Replaceability
+    Compatibility 相容性
+      共存性 Co-existence
+      互通性 Interoperability
+```
+
+---
+
+### 1.5.2 🗺️ ISO 25010 品質特性與 16 週實戰測試技術地圖
+
+軟體測試絕非盲目敲打程式碼，本課程所教授的每一項測試與工程技術，都是在為品質模型的特定維度建立自動化守護防線：
 
 | ISO 25010 品質特性 | 核心子特性 (Sub-characteristics) | 本課程對應之測試與工程技術 |
 | :--- | :--- | :--- |
 | **功能適合性** (Functional Suitability) | 完備性、正確性、適切性 | 等價類分割 (EP)、邊界值分析 (BVA)、JUnit 5、BDD (Cucumber) |
 | **可靠性** (Reliability) | 成熟度、容錯度 (Fault Tolerance)、可回復性 | 斷言 (Assertions)、**屬性測試 (jqwik Property-Based Testing)**、混沌工程 (Chaos) |
-| **可維護性** (Maintainability) | 模組化、可分析性、可修改性、可測試性 | 靜態程式碼分析 (SonarQube/SpotBugs)、**變異測試 (PITest)**、依賴解耦 |
+| **可維護性** (Maintainability) | 模組化、可分析性、可修改性、**可測試性** | 靜態程式碼分析 (SonarQube/SpotBugs)、**變異測試 (PITest)**、依賴解耦 |
 | **安全性** (Security) | 機密性、完整性、抗抵賴性、真實性 | 靜態安全掃描 (AST/SAST)、**模糊測試 (Fuzzing with Jazzer)** |
 | **效能效率** (Performance Efficiency) | 時間行為 (延遲/回應時間)、資源利用率 | **k6 / Apache JMeter 高併發壓測**、GC 監控與記憶體洩漏分析 |
 | **相容性** (Compatibility) | 共存性、互通性 (Interoperability) | **微服務契約測試 (Pact)**、跨版本相容性測試 |
@@ -228,580 +345,11 @@ D) 軟體品質完全取決於使用者主觀的滿意度，與開發流程或�
 
 ---
 
-### 1.3.1 ISO 9126 / ISO 25010 核心特性解析
-
-ISO 9126 將品質分為六大特性，現代 ISO 25010 則將其擴展為八大產品品質特性。以下分項說明：
-
-![](../img/ch01/r1YdmoB03.png)
-
-👉 ISO: ISO 9126 軟體品質模型
-
-#### 一、功能性 Functionality
-
-功能性是最基本的品質要素。
-
-- **功能正確性** Accurateness 功能的運作是否正確，例如計算帳戶的餘款是否正確。
-    - This refers to the correctness of the functions, an ATM may provide a cash dispensing function but is the amount correct?
-- **規格合適性** Suitability 功能特性是否符合軟體的規格或該系統的特性。
-    - This is the essential Functionality characteristic and refers to the appropriateness (to specification) of the functions of the software. 例如 Evernote 在 2015 加入了一個 chat 的功能，一個筆記軟體是否需要一個談天功能？
-- **相互運作性** Interoperability 
-    - 和其他元件或系統的互動是否正確。這個特性與系統的「可整合性」有很大的關係。目前許多的系統都提供 API (Application Interface) 讓該系統可以容易的和其他的系統或模組整合，其 interoperability 就比較好。這個特性也有助於可維護性，如果是在維護階段，因為需求的變更需要修改時，我們透過 API 來做局部的修改，而不是改變內部的程式碼，其變動性就會比較低。
-- **規範符合性** Compliance 
-    - 是否符合特定業界標準與規範或法律。例如我們產生的格式是否符合 JSON格式、是否符合 SCORM 標準等。
-- **安全性** Security 
-    - 是否能夠阻擋非法的存取或控制。This subcharacteristic relates to unauthorized access to the software functions.
-
-
-```mermaid
-mindmap
-  root((Functionality))
-      )Suitability(
-      )Accurateness(
-      )Interoperability(
-      )Compliance(
-      )Security(
-```
-	
-> 🫣 我們有時間做多餘的功能，卻沒有時間把必要的功能做對。
-
----
-
-#### 二、可靠性 Reliability
-
-可靠性主要考慮系統是否能夠持續性維持其功能的運作。有些系統一開始可以運作正常，但遇到一些外在因素（例如網路斷了，硬碟滿了）就無法回復（即便網路已經好了）或造成災難性的問題，就是可靠性不佳。可靠度的檢查通常需要一段較長的時間，例如一個月或是一年。
-
-可靠度也與系統的回復能力有關係，系統失效後如果能夠立即恢復正常可靠度也還可接受，但若要停很久或是回復有部分的資料遺失就表示可靠度差。如果有一間公司每一天做一次磁帶備份，則系統出現嚴重問題時，需要將磁帶的東西倒回系統，中間就可能喪失一天的資料，而且磁帶的回復所需要的時間會比較久。如果是使用備援的架構，資料在寫入時是同時寫入兩個系統，當其中一個出現問題可以立刻切換到另一個系統，其可靠度就比較好。當然，所需要花費的經費就比較高。
-
-- **成熟度** Maturity 失效的次數越少成熟度越高。
-    - This subcharacteristic concerns frequency of failure of the software. 
-    - 可靠度的評量通常可用 MTTF（mean time to failure） 來計算，就是平均多久失效一次。
-- **容錯度** Fault tolerance 
-    - 當環境或其他元件出錯時，能夠持續保持一定的運行的能力，能容忍錯誤的能力。The ability of software to withstand (and recover) from component, or environmental, failure.
-- **回復性** Recoverability 
-    - 當環境或其他元件出錯時，能夠回復到正常運行的能力。例如有些系統要一天後才能回復，有些系統指需要停機一小時。有一些系統一個星期才備份一次，所以系統回復時可能喪失一個星期的資料，就是回復性差。
-
-```mermaid
-mindmap
-  root((Reliability))
-      )Maturity(
-      )Fault tolerance(
-      )Recoverability(
-```
-
-#### **隨堂測驗 (CCQ 5)**
-
-**問題**
-
-伺服器在網路斷線（環境異常）後能自動重新連線，且不遺失正在處理的交易資料，這主要符合 ISO 9126 中的哪一項品質特性？
-
-A) 可靠性 (Reliability) 的容錯度與可回復性
-B) 可移植性 (Portability) 的易安裝性
-C) 可用性 (Usability) 的吸引性
-D) 功能性 (Functionality) 的規格合適性
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：A**
-
-* **解析**：
-  * **選項 A 正確**：網路斷線屬於環境異常，系統能在異常下維持運行並迅速恢復資料狀態，這對應可靠性 (Reliability) 中的容錯度 (Fault tolerance) 與回復性 (Recoverability)。
-  * **選項 B、C、D 錯誤**：可移植性著重於跨平台遷移，可用性著重於操作體驗，功能性著重於功能本身。
-
-</details>
-
----
-
-#### 三、可用性 Usability
-
-「這個系統好難用！」常常會聽到這樣的抱怨，系統就算功能正常，如果很難使用最後也可能因為沒人使用而失敗。例如 ATM 自動提款機上出現的提款金額： $1000.00, $2000.00 $3000.00，功能沒有問題，但使用者卻可能誤以為要領的十萬，二十萬與三十萬，由於ATM 上不可提領零錢，小數點下兩位事實上是沒有意義的，只會造成誤解。
-
-- **易了解性** Understandability  
-    - 系統的功能或概念是否容易了解？是否符合使用者所認知的心理模型？設計上如果可以有一些擬真的設計可以提昇意了解性。例如電子書的設計再翻頁時做出3D  的翻頁效果，就可以幫助亦了解性。
-- **易學習性** Learnability 
-    - 需要花多少力氣來學習？最好的設計是不需要說明書，使用者一看就知道如何使用。但許多新架構新功能是不太可能不透過學習的，但必須要容易學習，只教一次就會使用。例如 iPhone 在 kill App 時需要長按該 App, 等待刪除符號出現後在刪除即可。第一次需要人教，但只要一次之後就不會忘記，就是一種好的設計。
-- **易操作性** Operability  
-    - 在指定環境下操作是否容易？Ability of the software to be easily operated by a given user in a given environment.
-
-後續我們在系統測試時會提到介面設計的一些原則，幫助檢驗介面的可用性。
-
-可用性如何檢驗？我們可以透過學習的時間數或是產能來做量化的計算。例如你設計一個需要資管人員輸入的收費單系統，如果有經驗的資管人員一小時只能打10 個停車單，表示系統的設計有問題。如果設計上有很多快速鍵，移動也很方便，一個資管人員一小時可以打上30-40 個停車單。
-
-> 🫠 如今的程式是一場工程師和上帝的競賽，工程師要開發出更大更好、傻瓜都會用到軟體; 而上帝在努力創造出更大更傻的傻瓜。目前為止，上帝是贏的。
->> Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the universe trying to produce bigger and better idiots. So far, the universe is winning. (Rick Cook)
-
-
-```mermaid
-mindmap
-  root((Usability))
-      )Understandability(
-      )Learnability(
-      )Operability(
-      )Attractiveness(
-```
-
----
-
-#### 四、效能 Efficiency
-
-主要著眼在系統提供功能時系統資源被使用的狀況：磁碟空間，記憶體空間，網路用量等。
-
-附帶一提，許多品質因子是相互有關係的，例如有效性與可用性是息息相關的- 如果效能太低，可用性是不可能高的。
-  
-- **時間效能** Time behavior  回應時間的長短。或是單位時間能夠處理的量。
-- **資源效能** Resource behavior  
-    - 消耗資源的多寡。例如  memory, cpu, disk and network usage。一般而言，時間效能越好資源校能越差，反之亦然。
-    - 例如一個系統需要上傳照片，但解析度的要求並不高，現代多半用收機拍照後上傳，檔案可能上到5M，當量大的時候就會造成很大的負擔。如果我們能夠在系統上傳之時做壓縮或是轉換其解析度，這系統吃的資源就不會那麼重了。
-
-> 💡 時間效能和資源效能常常會相互衝突，設計需要取捨-- 這也是為什麼品質沒有絕對，需要與使用者或設計師商討。
-
-
-```mermaid
-mindmap
-  root((Efficiency))
-      )Time Behaviour(
-      )Resource utilization(
-```
-
----
-
-#### 五、可維護性 Maintainability
-
-容不容易找出錯誤並進而修復錯誤是「可維護性」所關注的。使用者通常會忽略這個因子，（因為不關他的事），也因此常常會忽略。軟體公司的主管急著系統上線，也不太會關心這一點。工程師雖然關心，但常因為時程壓力而忽略掉，或是覺得程式是自己寫的維護一定沒有問題，所以也常常忽略。系統過了幾年，換了幾個人維護後，可維護性就更困難了。
-
-此因此與系統的結構有很大的關係，包含程式的可讀性，複雜性和模組性。
-  
-- **可分析性 Analyzability** 是否容易找出錯誤的原因。系統運行的時候如果能夠留下 log，則有助於其可分析性。
-- **可變動性 Changeability**	要花多少力氣來改變系統？例如新增一個功能需要花幾個人月（man-power, man-month）。
-- **穩定性 Stability** 對系統變動的敏感度，系統變動時對其他部分所造成的負面衝擊。例如一個人事的系統模組增加的了一個人員型態，居然導致財務結算的系統錯誤，其系統的敏感度太高，可能是當初設計的時候模組沒有切好，彼此的相依性太高所致。
-- **可測試性 Testability** 當系統變動時需要花多少 effort 來做確認測試？
-    - 系統的可測試性高不高？測試環境是否容易建立？虛擬模組容不容易建置？是否有相關的測試資料？
-    - 自動化測試。edx 是一個多人線上學習 MOOCs 系統，它是用 python 開發的開源系統，裡面除了很多實踐功能的 python 以外，也同時具備了很多它的測試程式，可見得哈佛的團隊在開發這個系統的同時，有特別的注意到可測試性。
-
-           
-```mermaid
-mindmap
-  root((Maintainability))
-      )Analyzability(
-      )Changeability(
-      )Stability(
-      )Testability(
-```
-
----
-
-> 😎 任何你寫的程式，超過 6 個月不去看它，當你再度開啟時，看起來都像是別人寫的。
->> Any code of your own that you haven't looked at for six or more months might as well have been written by someone else. (Eagleson's law)
-
----
-
-> 😅 傻瓜都能寫出電腦能理解的程式。優秀的工程師寫出的是人類能讀懂的程式。
->> Any fool can write code that a computer can understand. Good programmers write code that humans can understand. (Martin Fowler)
-
----
-
-以下 version A, B 哪一個可測試性高？
-version A:
-```python
-for num in range(2, 10000):
-    is_prime = True
-    for i in range(2, int(num**0.5) + 1):
-        if num % i == 0:
-            is_prime = False
-            break
-    if is_prime:
-        print(num, end=" ")
-```
-
-version B:
-
-```python
-def is_prime(num):
-    if num <= 1:
-        return False
-    for i in range(2, int(num**0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
-
-def prime_numbers_less_than(n):
-    prime_list = []
-    for i in range(2, n):
-        if is_prime(i):
-            prime_list.append(i)
-    return prime_list
-
-# 輸入數值
-input_number = int(input("請輸入一個數值: "))
-
-# 小於輸入數值的所有質數
-result = prime_numbers_less_than(input_number)
-
-print("小於", input_number, "的所有質數為:", result)
-```
-
-#### **隨堂測驗 (CCQ 6)**
-
-**問題**
-
-某軟體系統在進行人事模組的欄位長度修改時，意外導致完全無關的財務結算模組產生運行錯誤。這代表該軟體系統在 ISO 9126 品質模型中的哪一項特性表現不佳？
-
-A) 可分析性 (Analyzability)
-B) 穩定性 (Stability)
-C) 容錯度 (Fault tolerance)
-D) 相互運作性 (Interoperability)
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：B**
-
-* **解析**：
-  * **選項 B 正確**：穩定性 (Stability) 評估系統在受到變動時，對其他部分所造成負面衝擊（副作用）的敏感度。人事模組的變動意外導致無關財務模組出錯，顯示系統模組相依性過高、穩定性差。
-  * **選項 A、C、D 錯誤**：可分析性是指診斷失效原因的易難度；容錯度是抵抗外界異常能力；相互運作性是多系統間通訊整合的能力。
-
-</details>
-
----
-
-#### 六、可移植性 Portability
-
-可移植性考慮到系統能夠到適應到新的環境的能力。如果一個系統功能正確，可靠性高，執行很有效率，也很容易維護，但卻只能在某一特定機型、特定作業系統、特定組織環境下運作，當我們想把它移植到新的環境時就會出錯，那麼他也不是一個好系統。一來你不能重用它，為你創造更大的利益，二來系統軟體或硬體是不斷演進的，總有一天你的系統需要移植到新的平台。
-
-  
-- **適應性 Adaptability** 對於新的作業系統，作業環境或新規格的適應性。Characterizes the ability of the system to change to new specifications or operating environments.
-- **易安裝性 Installability** 花多少力氣安裝系統？Characterizes the effort required to install the software.
-- **相容性 Conformance** 和功能性裡面的 compliance 類似，但這裡強調的是相容性，例如與某資料庫的相容性。Similar to compliance for functionality, but this characteristic relates to portability. One example would be Open SQL conformance which relates to portability of database used.
-- **易置換性 Replaceability** 	容易抽換某元件的能力。Characterizes the plug and play aspect of software components, that is how easy is it to exchange a given software component within a specified environment. 
-    - 我們在 Blackboard 系統上開發了許多與學習相關的功能（例如點名），但這些系統是用 Blackboard 的 Building Block 框架來做的，是一個特有的框架。當我們移植到 Moodle 的系統後這些功能就不能用了。許多後期開發的模組是一般的 web 程式（建構在 .Net上），它就很容易的與新的 Moodle 整合。
-    * Eclipse 這個開發工具平台採取的架構就是可以擴充的 plug in 架構，所以許多第三方的開發者可以自己開發許多套件來整合。EclEmma，一種測試包含度的外掛，就是其中一個例子。
-
-```mermaid
-mindmap
-  root((Portability))
-      )Adaptability(
-      )Installability(
-      )Conformance(
-      )Replaceability(      
-```
-
-
-
-💡❓ 軟體會不會生鏽？
-
----
-
-### 1.3.2 ISO 9126 的度量
-
-> 📌 除了上帝，我只相信數字。
->> In God we trust. All others must bring data. ~by *W. Edwards Deming*
-
-ISO 9126 除了定義有哪些品質項目以外，它還定義了這些品質項目的量化檢驗方法（metric）。有三個：
-
-- **內部度量 internal metric**。不需透過程式的執行，直接檢驗程式碼本身。例如模組的耦合力、註解的撰寫狀況等都屬於。一個註解率較高的系統通常其可維護性會比較高。
-- **外部度量 external metric**。需要透過程式的執行才能度量。例如消耗多少記憶體，平均的回應時間等。
-- **使用品質度量 quality in use metric**。使用上的度量，通常與 usability 相關。
-
-#### **隨堂測驗 (CCQ 7)**
-
-**問題**
-
-在 ISO 9126 品質模型中，當我們要評估「軟體系統在不同的硬體、軟體或執行環境間進行轉移的難易程度」時，我們是在評估哪一項品質特性？
-
-A) 功能性 (Functionality)
-B) 可維護性 (Maintainability)
-C) 可攜性 (Portability)
-D) 效率性 (Efficiency)
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：C**
-
-* **解析**：
-  * 可攜性 (Portability) 定義為軟體從一個環境移轉到另一個環境的能力（包含適應性、易安裝性、共存性、易替換性等）。可維護性 (Maintainability) 則是評估修改軟體的難易度（包括易分析性、易變更性、穩定性、易測試性）。
-
-</details>
-
----
-
-## 1.4 品質控制與確保
-
-### 1.4.1 製造業的品質控管
-
-製造業如何控制品質呢？通常有兩種方法。(1)  透過機械化來控制品質。機器不會對於重複的工作感到繁瑣，無聊，也因此叫不會犯錯。然而在生產的過程避免不了人工。(2)  如果機器無法代勞，需要人工的，就讓每個人做單一重複不會犯錯的工作。所以我們看到生產線上總是那麼多人的作業人員單調的、反覆的做同一件事，就是為了避免犯錯。
-
-![](../img/ch01/SJKeq0002.png)
-
-品質管理問題：製造過程從設計到生產有數十道到幾百道程序。每一道程序都可能影響到後面的品質。如何透過製造流程的改善（process improvement）提高良率，一直是製造工業的重要課題。改善品質方式：
-
-- **自動化**。製造過程中使用機器-自動化，因為機器不容易犯錯且可不斷重複單調無聊工作。但部分工作不能由機器來做，製造過程如何做到品質控管？
-- **簡單化**。需要人工的部份，讓每個生產線員工只做一件簡單到不容易出錯的工作。生產線員工不需太聰明，借此降低成本。生產線將複雜產品製造切割成許多小步驟，可在短時間及最少技術內完成，發現產品的問題、錯誤，並不難。
-
-以「簡單化」來說，*軟體和製造業不同不一樣，我們無法讓第一個人寫第一行，第二個人寫第二行*。所以品質確保得用其他的方式。
-
----
-
-### 1.4.2 軟體品質控制與確保
-
-![](../img/ch01/BJYnNoBR2.png)
-
-一個不成熟的軟體公司，就如同 FIG_SQA 第一階段一樣，軟體開發完後就直接發佈了，但這種方法會產生很多問題，甚至導致退貨賠款，於是知道開發完後需要做一些測試（code review, testing）- 此時公司進步到第二階段。
-
-但慢慢發現，到了產品完成才做測試已經太慢了（生米都煮成熟飯了，要改也困難），於是把檢查的動作往前提，開始進行規格及設計的檢查（design review, specification review）。
-
-規格及設計的檢查可以在早期發現問題並且即早解決，對於品質的提升很有幫助。但開發人員對這些活動並不熟悉或不喜歡，常常會忽略不做。於是公司進階到第四階段-- 一群稽核人員被組織起來，定期的檢查該做的流程是否進行。一個軟體品質管理的團隊與組織文化慢慢的被建立。
-
-為了確保品質的優良所進行的所有活動，都可視為 SQA 的活動。
-
-> ✅ **軟體品質保證 (SQA)** 是一個確保開發的軟體符合既定或標準化的品質規格的過程。 SQA 是軟體開發生命週期 (SDLC) 中的一個持續過程，它會定期檢查已開發的軟體，以確保其符合所需的品質指標。
->> *Software quality assurance (SQA)* is a process that ensures that developed software meets and complies with defined or standardized quality specifications. SQA is an ongoing process within the software development life cycle (SDLC) that routinely checks the developed software to ensure it meets desired quality measures.
-
-SQA 通常被翻譯成「軟體品質保證」，或「品保」，但這樣的翻譯會有些誤解，以為經過 SQA 就能「保證」系統完全沒有問題-- 事實上這是不可能的，僅能說是降低出錯的風險。*本講義中翻譯為「軟體品質確保」。
-
----
-
-#### 品質控制 vs. 品質確保
-
-更細部的說，我們會區分品質控制（quality control; QC）與品質確保（quality assuracne; QA）。QC 會在製造開發的各個不同的階段衡量元件， 確保該元件在可接受的範圍內，也就是說，符合所規範的規格。QA 則稽核流程以確保製造流程符合所建立的指引與標準。也就是說，QC 著重在過程中產物稽核，QA 著重在過程是否符合規範或標準。
-
-> ✅ **品質控制 (QC)** 會在各個製造階段對組件進行測量。 QC 會確保組件在可接受的「公差」範圍內，即它們不會偏離約定的規格。
->> **Quality Control (QC)** would measure the *components, at various manufacturing stages. QC would make sure the components were within acceptable 'tolerances', i.e. they did not vary from agreed specifications. 
- 
-> ✅ **品質保證**不會參與生產過程本身（包括產品的品質控制），但會審核整個流程，以確保遵循既定的準則和標準。然後，品質保證小組會為持續改善流程提供意見（指標或測量方法）。 
->> **Quality Assurance** would not take any part in the manufacture process itself (including Quality Control of the product) but would audit the *process} to make sure the established guidelines and standards were being followed. The QA group would then give input (metrics or measures) into a process of continuous improvement. 
-
----
-
-> 😢 如果建築工人像工程師寫軟體那樣蓋房子，那第一隻飛來的啄木鳥就能毀掉人類文明。
->> If builders built buildings the way programmers wrote programs, then the first woodpecker that came along wound destroy civilization. (Gerald Weinberg)
-
----
-
-> 👍 建立品質文化，文化是每個人都習以為常，不需要制度去規範就會去做的事。
-
----
-
-### 1.4.3 軟體品質成本
-
-錯誤百出產品上線後，會招致很多「代價」，例如重新設計，賠款，聘任更多客服人員等。這個代價就是「品質成本」。我們可以降低品質成本-- 如果能夠早一點發現品質問題並且提前解決的話。
-
-- **預防成本 Prevention costs**。預防產生錯誤的成本。就像是為了避免生病，買了一些保健品或運動所帶來的成本。Prevent defect goes inside your system. Approach: training, quality planning, formal technical reviews
-- **檢驗成本 Appraisal costs**。在產品上線前檢驗是否有錯誤的成本。Find the defect before you release it; testing and fix them
-- **失效成本 Failure costs**。產品在上線後，因為失效所帶來的成本。Rework, repair, failure mode analysis, product return and replacement, help line support
-
-一般而言-- 就像我們的健康一樣-- 預防成本與檢驗成本都比失效成本來得低，所以我們應該進行預防與定期的檢驗。但這並不容易，學校及社會不斷的宣導預防與檢驗的重要性，這幾年大家才慢慢的重視。軟體品質活動也是一樣，需要不斷的宣導。
-
-> 👍 預防重於治療，在軟體工程也適用。
-
-#### **隨堂測驗 (CCQ 8)**
-
-**問題**
-
-在軟體品質成本（Cost of Quality, CoQ）的分類中，為了預防錯誤發生而對開發人員進行編碼規範訓練、品質規劃與同儕審查（Reviews）所花費的成本，屬於下列哪一類？
-
-A) 檢驗成本 (Appraisal costs)
-B) 預防成本 (Prevention costs)
-C) 外部失效成本 (External failure costs)
-D) 內部失效成本 (Internal failure costs)
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：B**
-
-* **解析**：
-  * 預防成本 (Prevention costs) 是指為了避免錯誤進入系統而採取的預防性活動成本（例如教育訓練、品質規劃、技術審查）。檢驗成本 (Appraisal costs) 是在上線前找錯與修錯（如測試）。失效成本 (Failure costs) 則是產品出錯後（如重做、賠償、客服）的代價。
-
-</details>
-
----
-
-## 📖 1.5 案例
-
-### 1.5.1 出勤刷卡系統的移植 🎫
-
-雄太曾經為某研究機構開發針對專案人員的出勤刷卡系統，透過刷卡來確定其上下班是否正常，整個流程包含多個系統：
-  
-- 行政人員在 A 系統（以 client-server 架構開發）所做的中輸入參與人員的資料，包含她所參與的計畫; 
-- 專案主持人登入 B系統（web 架構）做一個人員確認;
-- 行政人於把專案人員資料匯入個刷卡機的主機系統
-- 專案參與人員每日做出勤刷卡的動作
-- 每月結算人員的出勤狀況，如果符合要求，就會把資料彙整到撥款系統。
-
-> 💡💬 大虎公司覺得這一套系統比他們現行的卡式打卡鐘系統好多了，希望能夠以低價的方式移植，是否可行？需要考慮什麼？
-
-要考慮的東西很多，特別是在可移植性、維護性方面，例如：
-  
-- 人事系統的資料結構是否一致？各研究機構一定有自己的人事資料，是否容易與刷卡系統容易整合？
-- 撥款系統的介接; 雙方的撥款系統結構是否相容。
-- 需要額外安裝 A 系統，包含可能需要的資料庫 driver。
-- B 系統是否容易整合到研究機構的資訊系統。
-
----
-
-### 1.5.2 用 ISO 9126 談談某課程管理系統 🏫
-
-針對某大學的課程管理與學習系統，我們試著用 ISO 9126 描述一下其品質：
-  
-- **Functionality:** (1) 完整的學習管理系統; (2) 和校務的資料（學生選課，老師授課的資料）可以整合; (3) 可以和 LDAP 認證系統整合。
-- **Reliability:** (1) 舊的學習系統平均每年的 downtime 是 3 days; 新系統是 5hours (2) 應用 VM 提供備援機制。(3) 透過 SAN（Storage Area Network）架構，提昇備份與備援機制。
-- **Usability:** (1) 移除不需要的訊息宣傳，畫面更乾淨俐落 (2) 建立「使用說明」的課程來提供操作說明與回答問題。
-- **Efficiency:** (1) 透過分散式系統架構來提升效能。
-- Maintainability- (1) Open source 提昇系統的可除錯性 (2) 避免修改 Moodle PHP 的程式碼，降低修改的敏感度，提昇系統的穩定度 (3) 所有的程式行為都有詳細的 log。
-- **Portability:** (1) 所有校務功能都獨立到 Apps 的獨立模組，透過 SSO 做整合，可取代性高。但也因此介面會比較醜 (2) Moodle 可安裝至 Window, Unix 系列的作業系統 (3) 各 AP 採用無硬碟系統，系統容易安裝 。
-
----
-
-### 1.5.3 瑞穗證券的烏龍指 📈
-
-<a href="https://g.co/gemini/share/022dd19085b9"><img src = "../img/ch01/HJJuIb1olg.png" width=200></a> 
-
-[Watch](https://g.co/gemini/share/022dd19085b9)
-
-2015 年 9 月 3 日，一個長達 10 年的訴訟終於畫下了句號。這個判例將對 IT 行業產生深遠的影響：如果程式的 bug 導致了巨大的經濟損失，應該由誰來承擔？用戶？運營商？還是系統開發商？
-
-* 東證：系統營運單位
-* 瑞穗：系統使用單位
-* 富士通：系統開發單位
-
-以下是故事的精簡版本：
-
-2005 年 12 月 8 日，日本 J-Com 公司首次上市。瑞穗證券交易員田中君（化名）在為客戶下單時，誤將「以 61 萬日元賣出 1 股」輸入成「以 1 日元賣出 61 萬股」。儘管交易軟件發出警告，田中君仍未細看便確認，導致這筆巨額賣單進入東京證券交易所（東證）的交易盤口。
-
-錯誤發出後，田中君試圖撤單卻被東證系統拒絕，聯繫交易所也無濟於事。交易開始後，該賣單瞬間將 J-Com 股價推至異常高價，隨後又因被機構瘋搶而跌停。隨後，瑞穗證券被迫反向買入股票以填補賣單，將股價推至漲停，全天造成約 270 億日元的損失。
-
-該事件不僅影響了 J-Com 股價，還引發了市場對券商潛在虧損的恐慌，導致多家券商股價下跌，日經指數也大幅下挫。
-
-**後續處理與訴訟**
-
-由於 J-Com 總流通股數遠少於賣出數量，瑞穗證券最終通過現金結算，以烏龍指發生前的股價進行交割，使得總損失擴大至 400 億日元。當事人田中君並未受嚴厲懲罰，但其操作導致公司全年利潤歸零，員工年終獎泡湯。
-
-趁機獲利的 22 家機構受到譴責，部分公司捐款成立了保護投資者基金。東證交易所因系統 bug 導致無法及時撤單而受到質疑，其社長引咎辭職。
-
-瑞穗證券認為東證應對損失負責，但東證反駁稱是瑞穗自身操作失誤。雙方未能達成一致，瑞穗證券遂將東證及系統開發商富士通告上法庭。
-
-**法庭審判**
-
-訴訟查明，東證交易系統的 bug 是富士通在 2000 年的一次程式修改中無意植入的，且富士通和東證在程式測試環節均有疏忽。東京地方法院最終判定東證承擔主要責任，富士通為連帶責任人。法院認為，程式 bug 是否構成「重大過失」取決於其是否容易被發現，而非單純的系統錯誤。最終，控辯雙方在法庭上圍繞 bug 的顯著性展開激烈爭論。
-
-最終，東京地方法院判定：... 
-
-> [Details](https://docs.google.com/document/d/1ydO9j3cNGpYu-7nJWBNmuVUhkKrhbfWq1KYRlv1BkfM/edit?usp=sharing)
-
-❓ 上述案例，你覺得誰給負最大責任
-(1) 瑞穗：沒有他們的犯錯，根本不會有這個災難
-(2) 東證：他們是系統的負責單位，該負全責
-(3) 富士通：程式是他們寫的，明顯的錯誤卻沒有找出來，釀成災害
-
-❓ 身為軟體工程師的你，受到什麼啟示？
-
----
-
-## ✍️ 1.6 章節測驗
-
-#### 軟體危機
-
-1. 除了講義內容以外，從過去的國內外新聞裡找出2-3 個軟體品質問題的災害，描述其品質所造成的影響，造成的原因，可能的避免方法？
-2. 「YouBike 微笑單車」公共自行車租賃系統於 2016 年 8 月 31 日凌晨 1 時停車柱當機，導致全國 2 萬 2,000 輛公共自行車停止使用，該系統在 9 月 2 日凌晨修復完畢，但造成許多民眾通勤受阻。請描述此一事件之原因。
-3. 愛國者反導彈系統（1991）在達蘭基地攔截失效的根本軟體原因為何？
-   A) 通訊網路中斷導致雷達無法傳送指令給飛彈發射架  
-   B) 24-bit 時鐘暫存器的浮點捨入誤差在連續運行 100 小時後累加達 0.33 秒  
-   C) 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機  
-   D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈  
-4. NASA 火星氣候軌道探測器（1998）墜毀事件給軟體工程師最重要的啟示是？
-   A) 必須使用多執行緒避免運算堵塞  
-   B) 跨系統或團隊模組間的介面規格（如單位標準）必須嚴格定義與檢驗  
-   C) 太空任務軟體不得使用任何第三方函式庫  
-   D) 只要硬體推力足夠，軟體計算微小偏差不會影響軌道 
-5. 1994 年華航名古屋空難中，飛控軟體與人機互動設計的關鍵缺失為？
-   A) 機載電腦中毒導致控制面板全黑  
-   B) 駕駛員手動操作與電腦重飛模式衝突時，缺乏控制權仲裁與明確狀態指示  
-   C) 飛機引擎燃料計算公式發生除以零例外  
-   D) 自動駕駛系統未實作高度感測功能  
-
-#### 軟體品質
-
-6. 以下何者正確？	
-	- 廣義的說，所謂的軟體包含程式碼、操作的程序、各式的說明文件、與需要執行該程式的資料。
-	- 只要符合顧客的要求，就是一個具備好品質的軟體。
-	- 軟體的品質取決於開發者的素質與能力，與製造它的流程無關。		
-7. 想想看，你周遭的生活中，哪些東西是你認為「品質好」的物品？試著以 `David Garvin 的品質模型` 來描述之。
-
-#### 品質模型 
-
-8. ISO 9126 的品質度量有三種：內部、外部、使用。以下分別是屬於何種？	
-	A) 模組耦合率 0.38
-	B) 平均回應時間 2.38 秒
-	C) 顧客滿意度 4.28
-	D) 程式碼註解率 12%
-9. 以下問題或作法分別與哪個 ISO 9126 特性（及次因子）相關？	
-	A) 需求規格變了，軟體就需要大幅的修改，造成很大的人力損失。
-	B) 經過了教育訓練，使用者還是不太會操作該軟體。
-	C) 所開發的系統可以透過 LDAP (一種目錄服務標準) 和別人的帳號認證系統整合。
-	D) 所開發的系統提供 API 方便其他系統呼叫。
-	E) 開發系統時做適當的 logging，記錄適當的系統資訊。
-	F) 每個畫面提供 help 的按鈕，提供操作的介紹。
-	G) 預防錯誤資料所成的系統崩潰。 
-	H) 系統每天晚上都重新開機才會正常。		
-10. ISO 9126 是國際性的品質模型，其包含哪六個品質特性？
-11. ISO 9126 除了定義品質的要素以外，也定義了衡量這些品質的度量（metric），分別為 internal metrics, external metrics, quality in use metric, 這三者有何差別？
-12. ISO 9126 Reliability 包含哪些品質次因子？
-13. Docker 是最近很盛行的技術，它和虛擬機器（Virtual Machine）有何差異？它幫助工程師們容易達到 ISO 9126 的哪個特點？
-14. 就你以前開發過的系統，從 Maintainability 或 Usability 來討論其品質的好壞。需要展開到次因子，每一個次因子用 1-5 分來表示，並說明為什麼？
-15. 找一個你使用過軟體（最好是 Server 等級），從 ISO 9126 的品質角度討論其優劣。
-16. 選擇兩個功能類似的軟體（例如開發專用的編輯器），從 ISO9126 的六個層面來評估品質。每一個層面應該僅可能提供量化的數據來說明其品質。
-
-#### 品質控制與保證
-
-17. 以下哪些活動算是品質確保活動？
-    A) 系統測試
-    B) 規格書審查
-    C) 效能測試
-    D) 合約簽訂
-    E) 系統開發
-    F) 開發流程稽核。
-18. 何謂品質成本 (quality cost)？可以分為哪三類？
-19. 軟體測試 (software testing) 與軟體品質保證 (software quality assurance) 有何不同？
-
-#### 綜合
-
-20. 以下何者正確？
-	A) 品質控制著重物品是否符合品質或規範，品質確保著重是否符合流程規範。
-	B) 進行「軟體品質確保」活動，可確保軟體品質無虞。
-	C) 即早發現，即早治療 - 這句話依然是用於軟體測試。
-	D) ISO 9126 把品質因素分常六大類，分類間沒有關係（某一品質特性的好壞不會影響另一品質的好壞）。	
-
----
-
-<!-- 
-### 參考答案
-
-#### 軟體危機經典案例選擇題
-1. 答案：B。解析：愛國者系統採用 24-bit 浮點數記錄時間，每小時有微小的截斷誤差。連開 100 小時累積了 0.33 秒延遲，對 4.2 馬赫的飛彈造成約 600 公尺偏差，導致雷達搜尋窗無法鎖定飛彈。
-2. 答案：B。解析：洛克希德馬丁輸出英制單位（lbf·s），JPL 輸入端預設公制單位（N·s），介面契約不相容導致推力計算錯誤，探測器軌道過低摩擦燒毀。
-3. 答案：B。解析：駕駛員在不知電腦仍處於「重飛」自動控制狀態下手動下壓機首，電腦持續推升機尾配平「糾正」駕駛員，人機爭奪控制權導致失速墜毀。
-
-#### Exercise ISO9126
-
-以下問題或作法分別與哪個 ISO 9126 特性相關？
-* (1) 需求規格變了，軟體就需要大幅的修改，造成很大的人力損失。 🔑 Maintainability.changeability  
-* (2) 經過了教育訓練，使用者還是不太會操作該軟體。🔑 Usability.learnability  
-* (3) 所開發的系統可以透過 LDAP和別人的帳號認證系統整合。🔑 Functionality.interoperability,  Portability。Interoperability 好通常 portability 也會好。  
-* (4) 所開發的系統提供 API 方便其他系統呼叫。 🔑 Functionality.interoperability, Portability 
-* (5) 開發系統時做適當的 logging，記錄適當的系統資訊。  🔑 Maintability.analyzability  
-* (6) 每個畫面提供 help 的按鈕，提供操作的介紹。 🔑 Usability  
-* (7) 預防錯誤資料所成的系統崩潰。  🔑 Reliability 
-* (8) 系統每天晚上都重新開機才會正常。🔑 Reliability  
-
-#### Exercise "成績匯入"
-
-🔑 應該考慮 
-1. 匯入的資料檔案格式，excel? 哪一版本？.txt? XML? JSON 格式？ 
-2. 會不會有沒有成績的情況？在原檔案是如何註記？  
-3. 會不會很多科目？以哪一個科目為排序依據？需不需要設定第一排序科目，第二排序科目等？該如何設定？ 
-4. 如果同分該如何排序？用學號？原資料有學號嗎？
-5. 成績是否用 A, B, C, E 的標記方式？哪一個算高分？
-6. 資料會不會很大？超過一萬筆？有沒有效能上的考量？
-
--->
+## ✍️ 1.6 綜合練習與思維激盪
+
+1. **AI 時代的品質反思**：
+   * 當生成式 AI 可以在幾秒鐘內產生包含完整 Javadoc 的代碼時，為什麼軟體測試工程師的價值反而大幅提升？請從「Test Oracle 問題」與「自我印證偏誤」兩方面進行說明。
+2. **ISO 25010 維度分析**：
+   * 請分析「微服務系統在後端資料庫當機重啟後，能在 5 秒內自動重新連線並將失敗的訊息重試成功，完全不丟失任何交易」，這體現了 ISO 25010 中的哪些品質特性？
+3. **愛國者飛彈與數值精度**：
+   * 試寫一小段 Java 程式碼，連續將 `0.1` 累加 1,000,000 次，比較其結果與 `100000.0` 的差異。觀察浮點數在長時間累計下的偏差現象。
