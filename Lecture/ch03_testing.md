@@ -1,5 +1,5 @@
-# Ch03 軟體測試原則、理論與架構模型
-### Chapter 03: Testing Principles, Theories, and Architectural Models
+# Ch03 軟體測試原則、理論與架構模型 (AI 時代前沿版)
+### Chapter 03: Testing Principles, Theories, and Architectural Models in the AI Era
 
 > 江 Sir 皺著眉頭，一副憂心忡忡的說：「對不起，我們還不能驗收。」
 > 
@@ -21,7 +21,7 @@
 
 > 📚 **權威參考文獻與標準 (References & Standards)**：
 > 1. **ISTQB CTFL v4.0**：[ISTQB Certified Tester Foundation Level Syllabus (2023)](https://www.istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0)
-> 2. **Glenford J. Myers**：《The Art of Software Testing》（軟體測試的藝術經典）
+> 2. **Glenford J. Myers**：《The Art of Software Testing》（軟體測試藝術經典）
 > 3. **Martin Fowler**：[The Practical Test Pyramid (2018)](https://martinfowler.com/articles/practical-test-pyramid.html)
 > 4. **IEEE 829 / ISO 29119**：Software and System Test Documentation Standard
 
@@ -135,16 +135,31 @@ $$\text{隨機踩中錯誤的機率} = \frac{18}{65536} \approx 0.00027 \quad (0
 ### 9. 測試無法直接改善品質 (Testing alone can't improve quality)
 * 光靠測試不改代碼，品質不會提升；軟體品質是「設計與建造出來的」，而非「測出來的」。
 
+---
+
+### 🤖 3.1.2 AI 時代下的測試原則典範轉移 (Testing Principles in the Age of AI)
+
+在 2026 年，大語言模型（LLM）已深度介入軟體開發，上述經典原則在 AI 時代被賦予了全新的意涵與警示：
+
+1. **「流暢性偏誤 (Fluency Bias)」與 原則 1（證明有錯非無錯）**：
+   * AI 生成的程式碼通常語法優美、註解詳盡、變數命名極佳，容易給工程師帶來「這段代碼一定很完美」的心理錯覺（Fluency Bias）。
+   * **真相**：AI 代碼中最常潛伏未考慮的**並發競爭（Race Conditions）、浮點數截斷誤差、或未處理的邊界例外**。
+2. **「自我印證測試 (Self-Fulfilling Tests)」與 原則 5（殺蟲劑悖論）**：
+   * 如果你把 AI 生成的程式碼再丟給 AI：「*請為這段代碼寫單元測試*」，AI 會**根據它自己寫出來的邏輯與偏見去設計測試**！
+   * **結果**：單元測試 100% 通過（全綠燈），但程式碼與測試案例「共同錯在同一個盲區」，產生了極高強度的「假安全感抗藥性」。
+3. **Prompt 幻覺與 原則 7（無錯謬誤）**：
+   * AI 完美執行了工程師輸入的 Prompt，產生出零編譯錯誤的代碼；但若 Prompt 對業務需求（Domain Spec）的理解本身就是偏差的，做出來的依然是「完全無用的垃圾軟體」。
+
 #### **隨堂測驗 (CCQ 1)**
 
 **問題**
 
-某測試團隊使用固定的一套 500 個單元測試案例持續運行了 6 個月，近 3 個月來測試結果全部保持 100% 綠燈通過，但客戶在生產環境依然頻繁回報新的業務邏輯錯誤。這種現象最符合 ISTQB 哪一項測試原則的描述？
+某工程師使用 AI 秒速生成了一套複雜的利息計算演算法，並隨即讓同一個 AI 幫忙生成單元測試。測試跑出 100% 覆蓋率全綠燈通過，但在實際上線後卻被金融主管機關判定年息計算公式違反法規。依據軟體測試原則與 AI 特性，這最主要反映了何種問題？
 
-A) 測試顯示缺陷的存在，而非不存在  
-B) 殺蟲劑悖論 (Pesticide Paradox)  
-C) 窮盡測試是不可能的  
-D) 測試無法直接改善品質  
+A) 測試工程師未安裝最新的 JDK 執行環境  
+B) AI 測試的「自我印證偏誤」與「無錯謬誤（代碼無語法錯誤但偏離法規與真實業務需求）」  
+C) 只要測試覆蓋率達到 100%，系統必然在法律上具備合規性  
+D) 這是硬體浮點數運算器的製造缺陷  
 
 <details>
 <summary>點擊查看【隨堂測驗】答案與解析</summary>
@@ -152,7 +167,7 @@ D) 測試無法直接改善品質
 **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：殺蟲劑悖論指出，反覆使用完全相同的測試案例，系統會對這套測資產生「免疫力」，無法再挖掘出新引入的缺陷。必須透過屬性測試、探索性測試或定期更新測試案例來打破此盲區。
+  * **選項 B 正確**：讓 AI 為自己生成的代碼寫測試，極易陷入自我印證的盲區；同時，程式碼無編譯錯誤並不等於符合業務與法規需求（無錯謬誤）。人類工程師必須親自定義領域規格（Domain Spec）與 Test Oracle。
 
 </details>
 
@@ -296,7 +311,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-### 測試案例 (Test Case) vs 測試資料 (Test Data)
+### 3.4.2 測試案例 (Test Case) vs 測試資料 (Test Data)
 
 * **測試案例 (Test Case)**：測試架構與邏輯分流的規劃。
 * **測試資料 (Test Data)**：具體代入執行的數值。
@@ -315,6 +330,16 @@ D) 靜態程式碼檢視 (Code Review)
 > $\text{Test Case} = [\text{ID}, \text{Preconditions}, \text{Inputs}, \text{Expected Output}, \text{Postconditions/Invariants}]$
 
 ![](../img/ch03/SkHLHKcg6.png)
+
+---
+
+### 🤖 3.4.3 AI 輔助測試案例生成：優勢、陷阱與人機協同
+
+| 項目 | 人類工程師的優勢 | AI (LLM) 助手的優勢 | 人機協同黃金 SOP (SQA 2.0) |
+| :--- | :--- | :--- | :--- |
+| **規格與不變量定義** | ⭐⭐⭐ 深刻理解領域商業價值與法律合約 | ⭐ 缺乏真實商業感知，易產生荒謬假設 | **人類主導**：定義前置/後置條件與狀態不變量 |
+| **邊界與極端測資生成** | ⭐ 人腦容易疲勞、易遺漏冷門 Unicode/極大值 | ⭐⭐⭐ 秒速生成數千組極端字串、溢位邊界 | **AI 輔助**：批量生成邊界與攻擊 Payload |
+| **測試結果有效性判斷 (Oracle)** | ⭐⭐⭐ 具備客觀真理的最終仲裁權 | ⭐ 自我印證偏誤，易產生假綠燈斷言 | **人類審查**：審查斷言邏輯並納入 CI 自動化 |
 
 ---
 
@@ -377,14 +402,25 @@ D) 靜態程式碼檢視 (Code Review)
 
 ![](../img/ch03/B1aCSY5lp.png)
 
-#### 🔮 Test Oracle（測試預言機）難題
+#### 🔮 3.5.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
+
 > **什麼是 Test Oracle？**
 > 「Test Oracle」是指**能夠判斷受測程式輸出是否正確的機制或基準**。
 
-當輸出極度複雜（如搜尋引擎排序、機器學習模型、複雜浮點數學 $sin(x)$）無法手動給定固定值時，現代軟體工程的解法：
-1. **變質測試 (Metamorphic Testing)**：利用領域對稱性質（例如 $\sin(x) = \cos(90^\circ - x) = -\sin(-x)$）。
-2. **差分測試 (Differential Testing)**：將相同輸入餵給兩種獨立實作進行交叉比對。
-3. **屬性基礎測試 (Property-Based Testing)**：驗證數學狀態不變量（Invariants）。
+##### 傳統軟體 vs 現代 AI 系統的 Oracle 困境：
+* **傳統演算法**：$f(x) \rightarrow y$（確定性輸出，例如 $1 + 1 = 2$，Oracle 極為明確）。
+* **複雜科學運算 / 推薦系統 / LLM Agent**：
+  * 給定搜尋詞「最受歡迎的資工系選修課」，搜尋引擎給出 10 筆結果，**沒有唯一的標準答案**！
+  * 大語言模型生成的文章或摘要，輸出具隨機性 (Temperature > 0) 與語意多樣性。
+
+##### 💡 SQA 2.0 應對 Test Oracle 難題的三大前沿技術：
+1. **變質測試 (Metamorphic Testing)**：
+   * 利用領域對稱性質：例如 $\sin(x) = \cos(90^\circ - x) = -\sin(-x)$。
+   * 對 AI 影像辨識系統：將一張貓的照片旋轉 10 度或調整亮度 5%，辨識結果**依然必須是貓（不變量關係）**！
+2. **差分測試 (Differential Testing)**：
+   * 將相同輸入餵給兩種獨立實作（例如 Claude vs GPT、舊版演算法 vs 新版微服務）進行交叉比對。
+3. **LLM-as-a-Judge 與防護欄 (Guardrails)**：
+   * 使用經過專門微調的評估模型，針對輸出進行忠實度（Faithfulness）、安全性與不變量檢驗。
 
 ---
 
@@ -392,7 +428,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ### 一、測試原則與理論辨析
 1. 為了確保軟體絕對正確，我們是否應該進行窮盡式測試（Exhaustive Testing）？為什麼？
-2. 說明何謂測試的「殺蟲劑效應（Pesticide Paradox）」？現代軟體工程如何克服此盲區？
+2. 說明何謂測試的「殺蟲劑效應（Pesticide Paradox）」？當使用 AI 輔助生成測試時，為什麼更容易產生殺蟲劑效應？
 3. 比較 Verification 與 Validation 的核心差異。
 
 ### 二、V 模型與追溯
