@@ -17,74 +17,123 @@
 
 ---
 
-## 3.1 ISTQB 軟體測試 7 大經典原則 (The 7 Principles of Testing)
+## 3.1 軟體測試的核心原則
 
-國際軟體測試認證委員會（ISTQB）總結了軟體測試領域經過數十年血淚經驗凝結而成的 **7 大核心原則**：
+> 📚 **權威參考文獻與標準 (References & Standards)**：
+> 1. **ISTQB CTFL v4.0**：[ISTQB Certified Tester Foundation Level Syllabus (2023)](https://www.istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0)
+> 2. **Glenford J. Myers**：《The Art of Software Testing》（軟體測試的藝術經典）
+> 3. **Martin Fowler**：[The Practical Test Pyramid (2018)](https://martinfowler.com/articles/practical-test-pyramid.html)
+> 4. **IEEE 829 / ISO 29119**：Software and System Test Documentation Standard
+
+國際軟體測試認證委員會（ISTQB）與軟體工程界總結了測試的經典核心原則：
 
 ```mermaid
 mindmap
-  root((軟體測試 7 大原則))
+  root((軟體測試核心原則))
     1. 測試證明有錯非無錯
       只能找 Bug 不能保證零缺陷
     2. 窮盡測試是不可能的
-      需依賴等價劃分與風險分析
-    3. 測試及早介入
-      Shift-Left 降低品質成本
-    4. 缺陷群聚效應
-      80/20 法則 集中特定模組
-    5. 殺蟲劑悖論
-      相同測資會免疫 需屬性與變異測試
-    6. 測試取決於上下文
-      金融/航太 vs 社交 App 策略不同
-    7. 無錯謬誤
-      零 Bug 卻不合需求依然是失敗
+      Exhaustive Testing is impossible
+    3. 測試及早介入 (Shift-Left)
+      早期發現 降低 1:10:100 成本
+    4. 缺陷群聚效應 (80/20 法則)
+      Defects cluster together
+    5. 殺蟲劑悖論 (Pesticide Paradox)
+      相同測資會免疫 需動態演進
+    6. 測試取決於上下文 (Context Dependent)
+      航太/金融 vs 一般 Web 策略不同
+    7. 無錯謬誤 (Absence-of-Errors)
+      零 Bug 卻不合需求依然失敗
+    8. 軟體測試是風險管理
+      Risk-Based Testing
+    9. 錯誤總是躲在角落
+      Bugs lurk in corners 邊界效應
 ```
 
 ---
 
-### 原則 1：測試顯示缺陷的存在，而非不存在 (Testing shows presence of defects, not their absence)
-* 測試只能證明軟體中**存在缺陷**，但無論你執行了幾萬筆測試且全部通過，都**無法證明軟體絕對零缺陷**。
-* 測試的目的在於「降低未被發現缺陷的風險」，建立上線的信心，而非給予絕對完美的保證。
+### 1. 窮盡測試是不可行的 (Exhaustive testing is not possible)
+
+<img src="../img/ch03/HJISXY9ea.png" width=120>
+
+窮盡式的測試在計算上是不可能的。考慮以下極簡單的邏輯判斷：
+
+```java
+input A, B, X
+if (A > 1) and (B == 0) then Y = A
+if (A == 2) or (X > 1)  then Y = X
+print Y 
+```
+
+此處僅 4 個條件就有 $2^4 = 16$ 種路徑組合。若系統有 100 個判斷式，組合數高達 $2^{100} \approx 1.27 \times 10^{30}$。放大來看，作業系統、瀏覽器、網路環境、資料庫狀態時時刻刻都在變化。因此測試只能**「挑著測（有效率的取樣）」**，依賴等價劃分與邊界分析。
 
 ---
 
-### 原則 2：窮盡測試是不可能的 (Exhaustive testing is impossible)
-* 考慮一個極其簡單的計算方法：輸入 4 個 32-bit 整數。
-  $$\text{所有可能輸入組合} = (2^{32})^4 = 2^{128} \approx 3.4 \times 10^{38} \text{ 種組合！}$$
-  即使電腦每秒能執行 10 億次測試，也要花費超過 $10^{22}$ 年才能測完。
-* **SQA 啟示**：窮盡測試在計算上是不可能的，因此我們必須學習**等價類分割 (EP)**、**邊界值分析 (BVA)**、**全成對測試 (Pairwise)** 與**基於風險的測試 (Risk-Based Testing)**。
+### 2. 軟體測試是一種風險管理的工作 (Software testing is a risk-based exercise)
+
+由於無法進行窮盡測試，測試無法「保證」系統絕對無錯，而是**提升對品質的信心並控制風險**：
+* **高風險**（核心交易、資安、飛控）：全力預防與嚴格驗證。
+* **中風險**（次要功能、報表）：設計測試案例減緩風險。
+* **低風險**（畫面微小偏差）：記錄並容許線上監控處理。
 
 ---
 
-### 原則 3：及早測試 / 測試左移 (Early Testing / Shift-Left)
-* 靜態測試活動（需求審查、架構檢視）應在軟體生命週期最早期就開始。
-* 依據 **1:10:100 品質成本定律**，在需求階段修正一個模糊描述只要 \$1，到了上線後修復代價高達 \$100+。
+### 3. 錯誤總是躲在角落，不易察覺 (Bugs lurk in corners)
+
+考慮以下程式碼，第 2 行原本應為 `j = j + 1`，卻誤打成 `j = j - 1`：
+
+```java
+int scale (int j) {
+   j = j - 1; // 正確應為 j = j + 1
+   j = j / 3000;
+   return j;
+}
+```
+
+假設 $j$ 範圍為 $-32768 \sim 32767$，整數除法為無條件捨去：
+* $j = 2999$：應為 1，結果為 0 （❌ 錯誤）
+* $j = 3000$：應為 1，結果為 0 （❌ 錯誤）
+* $j = 5999$：應為 2，結果為 1 （❌ 錯誤）
+* $j = 6000$：應為 2，結果為 1 （❌ 錯誤）
+
+依此類推，在全部 65,536 個數值中，**會發生錯誤的數值僅有 18 個**（其餘如 $j=1000$ 算出來都是 0，答案碰巧一致）。
+$$\text{隨機踩中錯誤的機率} = \frac{18}{65536} \approx 0.00027 \quad (0.027\%)$$
+這證明了：**盲目隨機測試很難抓到 Bug，錯誤總是躲在臨界點與角落，必須針對「邊界值」精準打擊！**
 
 ---
 
-### 原則 4：缺陷群聚效應 (Defects cluster together)
-* 軟體系統中的絕大多數缺陷，通常集中在少數幾個複雜度極高、頻繁變更或與外部高度耦合的模組中（**遵循 80/20 法則**）。
-* 當在某模組發現大量 Bug 時，應提高警覺，對該模組進行更深度的覆蓋率與變異分析。
+### 4. 並不是所有的錯誤都會被修復 (Not all bugs will be fixed)
+* 盤根錯節的 Legacy Code 修復成本太高，且可能引入更大破壞。
+* 發生機率極低且影響微小（例如僅在零下 50 度極地且特定配置下才會觸發的 UI 偏斜）。
 
 ---
 
-### 原則 5：小心殺蟲劑悖論 (Beware of the Pesticide Paradox)
-* **農藥噴久了，害蟲會產生抗藥性；同一套測試跑久了，將無法再抓出新的 Bug！**
-* 隨著開發者修正了舊錯誤，原本的固定測資將全部常態性綠燈。
-* **SQA 2.0 解方**：
-  * 定期審查並更新測試案例庫。
-  * 導入 **屬性基礎測試 (Property-Based Testing)**：每次執行自動隨機生成 10,000 組全新測資。
-  * 導入 **變異測試 (Mutation Testing)**：主動注入變異體檢驗測試套件的殺傷力。
+### 5. 測試顯示缺陷的存在，而非不存在 (Testing shows presence of defects)
+* 測試能抓出 Bug，但跑完所有測試全綠，**只能說尚未發現 Bug，絕不能宣稱系統絕對零缺陷**。
 
 ---
 
-### 原則 6：測試取決於上下文 (Testing is context dependent)
-* 醫療設備、航太飛控系統（需嚴格遵守 DO-178C 標準、達成 MC/DC 100% 覆蓋率）與一般的電商網站或敏捷小專案，其測試策略、深度與工具完全不同。
+### 6. 漸進式測試與測試左移 (Incremental Testing & Early Testing)
+* 不要等系統全部開發完才測試；做一點、測一點。
+* 需求與設計階段即可透過審查進行「靜態測試」。
+
+![](../img/ch03/Hkd4EK5eT.png)
 
 ---
 
-### 原則 7：無錯謬誤 (Absence-of-errors is a fallacy)
-* 即使系統經過高強度測試且沒有找到任何 Bug，但如果系統**根本沒有滿足使用者的真實業務需求**，或者介面極難操作，這套系統在商業與品質上依然是徹底失敗的。
+### 7. 殺蟲劑悖論 (Pesticide Paradox)
+* 同一種農藥噴久了，害蟲會產生抗藥性；同一套測試案例跑久了，將無法再抓出新的 Bug。
+* 測試案例必須定期審查、重構，並引入 **屬性基礎測試 (Property-Based Testing)** 與 **變異測試 (Mutation Testing)**。
+
+---
+
+### 8. 測試是情境相依的 (Testing is context dependent)
+* 航太飛控系統（DO-178C 標準、MC/DC 覆蓋率）與社交 App 的測試策略大不相同。
+
+---
+
+### 9. 測試無法直接改善品質 (Testing alone can't improve quality)
+* 光靠測試不改代碼，品質不會提升；軟體品質是「設計與建造出來的」，而非「測出來的」。
 
 #### **隨堂測驗 (CCQ 1)**
 
@@ -109,73 +158,107 @@ D) 測試無法直接改善品質
 
 ---
 
-## 3.2 現代測試金字塔 (The Practical Test Pyramid)
+## 3.2 測試的多維度分類體系
 
-在微服務與現代雲原生架構中，Martin Fowler 與 Mike Cohn 提出了著名的 **測試金字塔 (Test Pyramid)** 模型：
+### 1. 驗證 (Verification) vs 確認 (Validation)
+
+```mermaid
+graph LR
+    Spec["規格需求書 (SRS)"] -->|實作| Code["程式碼產物"]
+    Code -->|Verification 驗證| Spec
+    User["使用者真實需求"] -->|Validation 確認| Code
+```
+
+* **Verification**：*Are we building the product right?* 確保程式碼符合設計與規格。
+* **Validation**：*Are we building the right product?* 確保軟體真正解決使用者痛點。
+
+![](../img/ch03/SJX8EY9e6.png)
+
+---
+
+### 2. 缺失測試 (Defect Testing) vs 確認測試 (Validation Testing)
+* **Defect Testing**：目的在於「找出缺陷、搞壞系統」，採極端與破壞性邊界輸入。
+* **Validation Testing**：目的在於「向客戶證明系統符合功能需求」，循序漸進驗證 Happy Path。
+
+---
+
+### 3. 靜態測試 (Static) vs 動態測試 (Dynamic)
+* **靜態測試**：不執行程式碼，透過人工 Review、AST 語法樹分析（SonarQube, SpotBugs）。
+* **動態測試**：實際運行程式碼，給定輸入並比對輸出結果。
+
+---
+
+### 4. 功能測試（黑箱） vs 結構測試（白箱）
+
+![](../img/ch03/S1FD4Yqla.png)
+
+* **黑箱測試 (Black-box)**：依據需求規格設計測資，不看內部實作。
+* **白箱測試 (White-box)**：依據程式內部邏輯分支、路徑設計測資。
+
+---
+
+### 5. 測試層級：單元、整合與系統測試
+
+![](../img/ch03/SyMtNK9g6.png)
+
+* **單元測試 (Unit Test)**：針對最小可測試單元（Class / Method）進行邏輯驗證。
+* **整合測試 (Integration Test)**：驗證模組與模組、服務與資料庫之間的介面與協定。
+* **系統測試 (System Test)**：在真實或模擬環境中進行端到端整體運作驗證。
+
+#### 💡 單元模組的可測試性 (Testability)
+模組設計應遵循「邏輯與 UI 分離」：
+
+```java
+// ❌ 不良設計：業務邏輯與 UI 輸入強耦合，無法自動化單元測試
+double div(double x, double y) {
+    while (y == 0) {
+        y = input("除數不可為 0，請重新輸入："); // 依賴 UI
+    }
+    return x / y;
+}
+
+// ✅ 良好設計：純邏輯模組，拋出明確例外，極易進行 JUnit 自動化測試
+double div(double x, double y) {
+    if (y == 0) {
+        throw new IllegalArgumentException("除數不得為 0");
+    }
+    return x / y;
+}
+```
+
+---
+
+### 6. 現代測試金字塔 (The Practical Test Pyramid)
 
 ```
                     / \
-                   / E2E \       <-- 端到端測試 (Playwright/Cypress/UI)
-                  /------- \          成本最高、運行最慢 (分鐘級)、最容易脆化 (Brittle)
-                 / Service  \    <-- 整合/API 測試 (Spring Boot Test/Pact/Testcontainers)
-                / Integration\        中等速度、驗證模組間契約與資料庫
+                   / E2E \       <-- 端到端測試 (Playwright/Cypress) 成本高、速度慢
+                  /------- \
+                 / Service  \    <-- 整合/契約測試 (Pact/Testcontainers)
+                / Integration\
                /--------------\
-              /   Unit Tests   \  <-- 單元測試 (JUnit 5/jqwik)
-             /__________________\      數量最多、運行極快 (毫秒級)、成本最低、精準定位
+              /   Unit Tests   \  <-- 單元測試 (JUnit 5/jqwik) 速度極快、數量最多
+             /__________________\
 ```
 
-### 3.2.1 測試反模式：冰淇淋甜筒 (The Ice-Cream Cone Anti-Pattern)
-
-傳統團隊常常犯下嚴重的反模式：
-* 底層單元測試極少（工程師不願寫或程式碼不可測）。
-* 絕大多數測試依賴頂層的手動 UI 點擊或龐大笨重的 Selenium E2E 腳本。
-* **致命惡果**：
-  1. CI 構建時間從 2 分鐘暴增至 1 小時。
-  2. 測試極度脆弱（Flaky/Brittle Tests），常因網路延遲或前端 CSS 調整而隨機紅燈。
-  3. 當 E2E 報錯時，根本無法知道是哪一行底層代碼出問題。
-
-> 📌 **黃金比例原則**：
-> 70% 毫秒級單元測試 + 20% 容器化服務整合測試 + 10% 關鍵路徑 E2E 驗收測試。
+* **反模式：冰淇淋甜筒 (Ice Cream Cone)**：缺乏單元測試，過度依賴脆弱且昂貴的 UI E2E 測試，導致 CI 構建緩慢且頻繁誤報。
 
 ---
 
 ## 3.3 V 開發模型與雙向追溯 (The V-Model)
 
-V 模型將軟體開發生命週期中的「建造階段」與「驗證階段」建立起一對一的嚴密追溯矩陣：
+![V model](../img/ch03/SyGoNt5lp.png)
 
-```mermaid
-graph TD
-    subgraph 左側：分析與設計
-        Req["需求分析 (SRS)"]
-        Arch["高階架構設計 (ADD)"]
-        Detail["詳細模組設計 (SDD)"]
-        Code["程式碼實作 (Coding)"]
-    end
-
-    subgraph 右側：測試與確認
-        Accept["驗收測試 (Acceptance Testing)"]
-        SysTest["系統測試 (System Testing)"]
-        IntTest["整合測試 (Integration Testing)"]
-        UnitTest["單元測試 (Unit Testing)"]
-    end
-
-    Req --> Arch --> Detail --> Code
-    Code -. 驗證 .-> UnitTest
-    Detail -. 驗證 .-> IntTest
-    Arch -. 驗證 .-> SysTest
-    Req -. 確認 .-> Accept
-```
-
-* **測試計畫前置化**：
-  * 在需求分析完成時，就必須同步產出《驗收/系統測試計畫》；
-  * 在架構設計完成時，就必須產出《整合測試計畫》；
-  * 避免在程式碼寫完後才倒過來寫測試（實作後測試偏差）。
+* **需求分析 (SRS)** $\leftrightarrow$ **系統測試計畫 (System Test Plan) / 驗收測試**
+* **高階架構設計 (ADD)** $\leftrightarrow$ **整合測試計畫 (Integration Test Plan)**
+* **詳細模組設計 (SDD)** $\leftrightarrow$ **單元測試計畫 (Unit Test Plan)**
+* **核心價值**：**測試設計與開發規格同步前置產出**，避免「實作後測試偏差」。
 
 #### **隨堂測驗 (CCQ 2)**
 
 **問題**
 
-在標準 V 開發模型中，依據「高階架構設計文件 (Architecture Design Document, ADD)」中定義的模組介面與通訊協定，所對應執行的測試層級為何？
+在標準 V 開發模型中，依據「高階架構設計文件 (ADD)」所定義的模組介面與通訊協定，所對應執行的測試層級為何？
 
 A) 單元測試 (Unit Testing)  
 B) 整合測試 (Integration Testing)  
@@ -188,48 +271,140 @@ D) 靜態程式碼檢視 (Code Review)
 **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：高階架構設計定義了子系統與模組間的 API 介面與資料傳遞協定，其直接對應的驗證層級為整合測試 (Integration Testing)。單元測試對應詳細設計 (SDD)，系統/驗收測試對應需求規格 (SRS)。
+  * **選項 B 正確**：高階架構設計定義了子系統與模組間的 API 介面與資料傳遞協定，其直接對應的驗證層級為整合測試 (Integration Testing)。
 
 </details>
 
 ---
 
-## 3.4 測試案例設計標準與 Test Oracle 難題
+## 3.4 測試案例設計：規格、程式與驗證行為
 
-### 3.4.1 測試案例 (Test Case) 的現代標準結構
+![](../img/ch03/rJeyNHK9e6.png)
 
-一個嚴謹、可被自動化重現的測試案例必須包含以下五大核心要素：
+👉 測試案例與規格、程式行為的文氏圖關聯
 
-1. **唯一識別碼 (Test Case ID)**：例如 `TC_AUTH_001`。
-2. **前置條件 (Preconditions)**：執行前系統必須滿足的狀態（例如：使用者已登入且帳戶餘額為 \$500）。
-3. **測試輸入 (Test Inputs / Test Data)**：明確的輸入數值或操作動作。
-4. **預期輸出 (Expected Result / Test Oracle)**：明確定義的預期回傳值、狀態改變或拋出的特定例外。
-5. **後置條件與不變量 (Postconditions & Invariants)**：測試執行完畢後的系統清理與狀態驗證。
+* **規劃的行為 (Specified Behavior)**：規格書定義的預期行為。
+* **程序化的行為 (Programmed Behavior)**：實際被實作成 Code 的行為。
+* **驗證的行為 (Verified Behavior)**：測試案例實際涵蓋並驗證到的行為。
+
+**區域解析**：
+* **區域 1 (黃金核心)**：規劃要做、有實作出來、且有被測試驗證（專案最健康的目標！）。
+* **區域 2**：規格有寫但工程師漏寫的未實作功能。
+* **區域 3**：規格未要求，工程師擅自寫出但有被測到的功能（可能為多餘功能）。
+* **區域 5**：未被實作也未被測試的幽靈需求。
+* **區域 6**：規格未要求、未被測試、卻潛伏在代碼中的「隱藏功能或後門 Bug」！
 
 ---
 
-### 3.4.2 測試預言難題 (The Test Oracle Problem)
+### 測試案例 (Test Case) vs 測試資料 (Test Data)
 
+* **測試案例 (Test Case)**：測試架構與邏輯分流的規劃。
+* **測試資料 (Test Data)**：具體代入執行的數值。
+
+```
+【測試案例規劃】：除法運算
+├── 分母 = 0 ── 測試資料: (5, 0) ──> 預期: 拋出 IllegalArgumentException
+└── 分母 != 0
+    ├── 整除   ── 測試資料: (4, 2) ──> 預期: 2.0
+    └── 不整除
+        ├── 進位   ── 測試資料: (5.1, 3) ──> 預期: 1.7
+        └── 不進位 ── 測試資料: (4, 3)   ──> 預期: 1.33
+```
+
+> 📌 **現代標準測試案例結構**：
+> $\text{Test Case} = [\text{ID}, \text{Preconditions}, \text{Inputs}, \text{Expected Output}, \text{Postconditions/Invariants}]$
+
+![](../img/ch03/SkHLHKcg6.png)
+
+---
+
+## 3.5 測試全景 3W2H 分類體系
+
+![](../img/ch03/SyDwSFql6.png)
+
+### 面向一：Who 誰來測試？
+* **開發工程師**：單元測試 (Unit Test)、TDD。
+* **結對夥伴 (Pair)**：Pair Programming 即時 Code Review 與測試。
+* **專職 QA 團隊**：Alpha Testing、自動化測試架構建置。
+* **業務領域專家 (Domain Expert)**：驗證業務規則與驗收測試。
+* **外部真實使用者**：Beta Testing。
+
+| 比較項目 | Alpha Testing | Beta Testing |
+| :--- | :--- | :--- |
+| **執行場所** | 開發團隊內部環境 | 客戶端真實生產/測試環境 |
+| **受測對象** | 內部人員 / 模擬資料 | 外部真實使用者 / 真實業務資料 |
+| **測試方法** | 白箱 + 黑箱混合 | 純黑箱測試 |
+
+---
+
+### 面向二：What 測什麼？
+* **功能測試**：規格測試、等價劃分、邊界分析、輸入欄位格式。
+* **結構測試**：陳述句涵蓋、分支涵蓋、路徑涵蓋、MC/DC。
+* **情境測試 (Scenario Testing)**：模擬真實世界複雜連鎖使用者操作流程。
+* **非功能測試**：負載 (Load)、耐力 (Soak)、安全性 (Security)、相容性 (Compatibility)。
+
+---
+
+### 面向三：Why 為何測試？
+* **風險驅動**：變更風險、架構耦合風險、第三方相依性風險。
+* **合約與防禦驗證**：輸入限制、計算限制、空間與資源限制。
+* **迴歸測試 (Regression Testing)**：確保新變更沒有破壞既有功能。
+  * *Retest All*：全部重跑（成本高）。
+  * *Regression Selection*：依變更影響範圍挑選測試。
+  * *Test Case Prioritization*：依優先級與歷史出錯率排序執行。
+
+---
+
+### 面向四：How 如何測試？
+* **腳本測試 (Scripted Testing)**：依預先定義之步驟與斷言自動化執行。
+* **探索性測試 (Exploratory Testing)**：測試者邊學習系統邊動態設計測資，發揮直覺與經驗。
+* **猴子測試 / 隨機測試 (Monkey / Random Test)**：注入大量隨機事件檢驗系統強固性。
+* **錄製與回放 (Record & Replay)**：透過使用者軌跡錄製自動生成測試腳本。
+
+<div style="display: flex; gap: 10px;">
+  <img src="../img/ch03/r1OoBt5ga.png" width="30%">
+  <img src="../img/ch03/Skw3SK5xT.png" width="30%">
+  <img src="../img/ch03/SkNTHK9ea.png" width="30%">
+</div>
+
+---
+
+### 面向五：How to Evaluate 如何決定通過？與 Test Oracle 難題
+
+* **涵蓋率指標**：語句、分支、路徑覆蓋率。
+* **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
+* **啟發式一致性檢驗**：與使用者期望一致、與同類競品一致、與產品風格一致。
+
+![](../img/ch03/B1aCSY5lp.png)
+
+#### 🔮 Test Oracle（測試預言機）難題
 > **什麼是 Test Oracle？**
-> 「Test Oracle（測試預言機）」是指**能夠判斷受測程式輸出是否正確的機制或參照標準**。
+> 「Test Oracle」是指**能夠判斷受測程式輸出是否正確的機制或基準**。
 
-在傳統簡單演算法中，Test Oracle 很直接（例如 `add(1, 2)` 的 Oracle 就是 `3`）。
-**但在現代複雜軟體與 AI 時代，Test Oracle 成為最艱鉅的挑戰：**
-* *例如 1*：搜尋引擎演算法號稱能找出「網路上最相關的前 10 篇論文」，你如何客觀驗證它是對的？
-* *例如 2*：高階 3D 渲染器、機器學習影像辨識模型，沒有簡單的數學查表可以當作預期輸出。
-
-#### 💡 解決 Test Oracle 難題的現代工程方法：
-1. **差分測試 (Differential Testing)**：將相同輸入同時餵給兩個不同實作（例如舊版系統 vs 新版重構系統、Oracle JDK vs OpenJDK），比較兩者輸出是否一致。
-2. **變質測試 (Metamorphic Testing)**：利用領域的對稱性性質（例如 $\sin(x) = \sin(\pi - x)$，輸入旋轉 90 度後的圖片其辨識結果應該不變）。
-3. **屬性基礎測試 (Property-Based Testing)**：不驗證單點數值，而是驗證**全域不變量 (Global Invariants)**！
+當輸出極度複雜（如搜尋引擎排序、機器學習模型、複雜浮點數學 $sin(x)$）無法手動給定固定值時，現代軟體工程的解法：
+1. **變質測試 (Metamorphic Testing)**：利用領域對稱性質（例如 $\sin(x) = \cos(90^\circ - x) = -\sin(-x)$）。
+2. **差分測試 (Differential Testing)**：將相同輸入餵給兩種獨立實作進行交叉比對。
+3. **屬性基礎測試 (Property-Based Testing)**：驗證數學狀態不變量（Invariants）。
 
 ---
 
-## ✍️ 3.5 綜合練習
+## ✍️ 3.6 綜合練習
 
-1. **測試原則反思**：
-   * 試舉出一個生活中的實例，說明「為什麼窮盡測試是不可能的」以及「殺蟲劑效應」在日常工作中的體現。
-2. **測試金字塔分析**：
-   * 某公司每次發布新版本前，需要 5 位 QA 人員手動點擊瀏覽器 2 天才能完成測試，導致發布週期長達一個月。請為該公司繪製當前的「冰淇淋甜筒」問題架構，並提出重構為「現代測試金字塔」的改造步驟。
-3. **Test Oracle 設計**：
-   * 假設你要測試一個自製的複雜大數矩陣乘法器 `Matrix multiply(Matrix A, Matrix B)`，在無法手算巨大矩陣答案的情況下，你能設計出哪些 Test Oracle（數學性質/不變量）來驗證其正確性？
+### 一、測試原則與理論辨析
+1. 為了確保軟體絕對正確，我們是否應該進行窮盡式測試（Exhaustive Testing）？為什麼？
+2. 說明何謂測試的「殺蟲劑效應（Pesticide Paradox）」？現代軟體工程如何克服此盲區？
+3. 比較 Verification 與 Validation 的核心差異。
+
+### 二、V 模型與追溯
+4. 依據 V 開發模型，需求規格書 (SRS) 確定後，應同步規劃哪一項測試計畫？
+5. 試以 V 模型說明「規格設計在前、測試準備在先」如何避免實作後測試偏差。
+
+### 三、測試案例與 Test Oracle 設計
+6. 針對以下函式，設計完整的測試案例（包含前置條件、輸入與預期輸出）：
+   * 計算最大公因數 `int getGCD(int x, int y);`
+   * 陣列排序 `int[] sort(int[] data);`
+7. 假設你要測試一個無法手算預期結果的巨量文字搜尋引擎演算法，請提出 2 種 Test Oracle（如變質關係或差分策略）來驗證其排序正確性。
+
+### 四、場景綜合分析
+8. 某網頁系統申請帳號時需輸入：帳號、Email、手機號碼、國籍與年齡。請列出你的黑箱測試等價類劃分策略。
+9. 在一個西洋棋/象棋系統中，棋子由 $(x_1, y_1)$ 移動到 $(x_2, y_2)$，請列舉出至少 4 個必須防禦的邊界與不變量測試案例。
