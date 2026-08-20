@@ -223,7 +223,7 @@ style: |
 
 # 軟體品質保證 (SQA)
 
-### 第六章：白箱測試技術
+### 第七章：整合測試與模擬技術
 
 授課教師：軟體品質保證教學團隊
 
@@ -231,16 +231,16 @@ style: |
 
 <!-- _class: lead -->
 
-# **6.1 測試涵蓋度指標**
+# **7.1 整合測試策略**
 
 ---
 
-## 6.1 測試涵蓋度指標
+## 7.1 整合測試策略
 
-* **敘述涵蓋 (Statement Coverage / C0)**
-* **分支涵蓋 (Branch Coverage / C1)**
-* **條件涵蓋 (Condition Coverage / C2)**
-* **MC/DC (Modified Condition/Decision Coverage)**
+* **大爆炸整合 (Big Bang) 的風險**
+* **由下而上整合 (Bottom-Up) 與 驅動程式 (Driver)**
+* **由上而下整合 (Top-Down) 與 虛設常式 (Stub)**
+* **三明治整合 (Sandwich Integration)**
 
 ---
 
@@ -249,16 +249,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「6.1 測試涵蓋度指標」，下列何者敘述最為正確？**
+**針對「7.1 整合測試策略」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 敘述涵蓋 (Statement Coverage / C0) 是確保系統品質的重要實踐
+* **B.** 大爆炸整合 (Big Bang) 的風險 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -272,29 +272,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：敘述涵蓋 (Statement Coverage / C0) 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：大爆炸整合 (Big Bang) 的風險 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **6.2 基本路徑測試 (Basis Path Testing)**
+# **7.2 單元隔離與 Mockito 框架**
 
 ---
 
-## 6.2 基本路徑測試 (Basis Path Testing)
+## 7.2 單元隔離與 Mockito 框架
 
-* **控制流程圖 (Control Flow Graph, CFG)**
-* **圈複雜度計算 (McCabe Cyclomatic Complexity)**
-* **獨立基本路徑集合推導**
-* **測試案例設計與驗證**
+* **Test Double 種類：Dummy, Stub, Spy, Mock, Fake**
+* **Mockito 模擬行為 (when-then / given-when-then)**
+* **行為驗證 (verify) 與參數捕獲 (ArgumentCaptor)**
 
 ---
 
@@ -303,16 +302,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「6.2 基本路徑測試 (Basis Path Testing)」，下列何者敘述最為正確？**
+**針對「7.2 單元隔離與 Mockito 框架」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 控制流程圖 (Control Flow Graph, CFG) 是確保系統品質的重要實踐
+* **B.** Test Double 種類：Dummy, Stub, Spy, Mock, Fake 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -326,28 +325,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：控制流程圖 (Control Flow Graph, CFG) 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：Test Double 種類：Dummy, Stub, Spy, Mock, Fake 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **6.3 資料流測試 (Data Flow Testing)**
+# **7.3 服務層與 API 整合測試**
 
 ---
 
-## 6.3 資料流測試 (Data Flow Testing)
+## 7.3 服務層與 API 整合測試
 
-* **定義-使用鏈 (def-use chain)**
-* **All-Defs, All-Uses, All-DU-Paths 涵蓋準則**
-* **變數生命週期異常檢測**
+* **Spring Boot Test 整合架構**
+* **MockMvc 與 REST API 測試**
+* **資料庫測試與 Testcontainers**
 
 ---
 
@@ -356,16 +355,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「6.3 資料流測試 (Data Flow Testing)」，下列何者敘述最為正確？**
+**針對「7.3 服務層與 API 整合測試」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 定義-使用鏈 (def-use chain) 是確保系統品質的重要實踐
+* **B.** Spring Boot Test 整合架構 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -379,67 +378,14 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：定義-使用鏈 (def-use chain) 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：Spring Boot Test 整合架構 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
-<!-- _class: lead -->
-
-# **6.4 變異測試 (Mutation Testing)**
-
----
-
-## 6.4 變異測試 (Mutation Testing)
-
-* **變異運算子 (Mutation Operators)**
-* **變異體殺死率 (Mutation Score)**
-* **等價變異體問題與評估**
-
----
-
-## Concept Check Question (CCQ 4)
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-**針對「6.4 變異測試 (Mutation Testing)」，下列何者敘述最為正確？**
-
-* **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 變異運算子 (Mutation Operators) 是確保系統品質的重要實踐
-* **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
-* **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-## CCQ 4 - 答案與解析
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-### **正確答案：B**
-
-* **解析**：
-  * **選項 B 正確**：變異運算子 (Mutation Operators) 確實是軟體品質保證中的核心重點。
-  * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
-  * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
-  * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -453,7 +399,7 @@ style: |
 
 ## 本章小結與重點
 
-* 掌握 **第六章：白箱測試技術** 的核心概念與實務手法。
+* 掌握 **第七章：整合測試與模擬技術** 的核心概念與實務手法。
 * 熟悉各項 SQA 技術在軟體生命週期中的應用時機與效益。
 * 課後請完成隨堂練習與 Lab 實作，以深化觀念。
 

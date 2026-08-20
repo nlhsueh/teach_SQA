@@ -93,10 +93,9 @@ int[] getPrimeNumber(int x) {
 ![image](../img/ch07/Sye8GJrVT.png)
 
 #### ex-print-prime
-:::success
-:football: 質數列印
-有一個程式會列印出小於 n 的所有質數，這個程式分為三個模組：Displayer 主要負責資料的呈現，他會呼叫 allPrime 來取得所有的質數。AllPrime 會呼叫 isPrime 來判斷某個數是否為質數。假設這三個程式由三個人負責，他們如何設計 stub/driver？
-:::
+> [!NOTE]
+> :football: 質數列印
+> 有一個程式會列印出小於 n 的所有質數，這個程式分為三個模組：Displayer 主要負責資料的呈現，他會呼叫 allPrime 來取得所有的質數。AllPrime 會呼叫 isPrime 來判斷某個數是否為質數。假設這三個程式由三個人負責，他們如何設計 stub/driver？
 
 Displayer 呼叫 allPrime(n), 我們可以先做一個 stub，固定回傳一個陣列，裡面放的是 小於 n 的質數。
 
@@ -377,19 +376,18 @@ Mokito 的好處為：
 ### Exercise
 
 #### ex-mokito-grade-displayer
-:::success
-:football: 成績顯示
-[圖 fig-gradedislayer](#fig-grade-player) 是一個成績顯示的程式架構，subjectGrade[i][j] 表示 學生 i, 在科目 j 上的成績。grade[k] 表示學生 k 所有科目的平均。
-
-- 本專案採取平行開發，五個模組分別由 A, B, C, D, F 等人開發。一開始開發時，A（GradeDisplayer）的開發重點為何？該如何進行測試（mock? stubbed method? verify? assertion?）？
-- 同上，C（GradeCollector）的開發重點為何？該如何測試？
-- 同上，當 B, C 開發完成後，Ａ的測試該做何種改變？
-
-#### fig-grade-displayer
-
-![image](../img/ch07/H1h-71BNp.png)
-
-:::
+> [!NOTE]
+> :football: 成績顯示
+> [圖 fig-gradedislayer](#fig-grade-player) 是一個成績顯示的程式架構，subjectGrade[i][j] 表示 學生 i, 在科目 j 上的成績。grade[k] 表示學生 k 所有科目的平均。
+>
+> - 本專案採取平行開發，五個模組分別由 A, B, C, D, F 等人開發。一開始開發時，A（GradeDisplayer）的開發重點為何？該如何進行測試（mock? stubbed method? verify? assertion?）？
+> - 同上，C（GradeCollector）的開發重點為何？該如何測試？
+> - 同上，當 B, C 開發完成後，Ａ的測試該做何種改變？
+>
+> #### fig-grade-displayer
+>
+> ![image](../img/ch07/H1h-71BNp.png)
+>
 
 ## 🧑‍💻Lab SpringTest
 
@@ -607,8 +605,7 @@ public class BinarySearchIntegrationTest {
 - 考慮一個遊戲聯盟系統，各遊戲與聯盟中心都可以獨自開發，請討論可能的整合問題。
 
 
-:::danger
-:smile: 程式有問題時不要擔心。如果所有東西都沒問題，你就失業了。
-
-*Don't worry if it doesn't work right. If everything did, you'd be out of a job.（Mosher's Law of software engineering）*
-:::
+> [!CAUTION]
+> :smile: 程式有問題時不要擔心。如果所有東西都沒問題，你就失業了。
+>
+> *Don't worry if it doesn't work right. If everything did, you'd be out of a job.（Mosher's Law of software engineering）*

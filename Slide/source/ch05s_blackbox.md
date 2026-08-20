@@ -223,7 +223,7 @@ style: |
 
 # 軟體品質保證 (SQA)
 
-### 第八章：系統測試與非功能性測試
+### 第五章：黑箱測試技術
 
 授課教師：軟體品質保證教學團隊
 
@@ -231,15 +231,15 @@ style: |
 
 <!-- _class: lead -->
 
-# **8.1 使用案例測試與 BDD**
+# **5.1 邊界值分析 (Boundary Value Testing)**
 
 ---
 
-## 8.1 使用案例測試與 BDD
+## 5.1 邊界值分析 (Boundary Value Testing)
 
-* **使用案例 (Use Case) 測試設計**
-* **行為驅動開發 (BDD) 概念**
-* **Cucumber 與 Gherkin 語法實踐**
+* **邊界值定理與單一故障假設**
+* **獨立型 vs. 非獨立型邊界測試**
+* **強固邊界測試 (Robustness Testing)**
 
 ---
 
@@ -248,16 +248,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「8.1 使用案例測試與 BDD」，下列何者敘述最為正確？**
+**針對「5.1 邊界值分析 (Boundary Value Testing)」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 使用案例 (Use Case) 測試設計 是確保系統品質的重要實踐
+* **B.** 邊界值定理與單一故障假設 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -271,28 +271,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：使用案例 (Use Case) 測試設計 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：邊界值定理與單一故障假設 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **8.2 可用性與使用者體驗測試**
+# **5.2 等價分割測試 (Equivalence Partitioning)**
 
 ---
 
-## 8.2 可用性與使用者體驗測試
+## 5.2 等價分割測試 (Equivalence Partitioning)
 
-* **Nielsen 10 大易用性啟發原則**
-* **A/B 測試 (A/B Testing) 實驗設計**
-* **可用性評估指標**
+* **有效等價類別與無效等價類別**
+* **弱涵蓋 vs. 強涵蓋等價分割**
+* **多維度等價組合策略**
 
 ---
 
@@ -301,16 +301,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「8.2 可用性與使用者體驗測試」，下列何者敘述最為正確？**
+**針對「5.2 等價分割測試 (Equivalence Partitioning)」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** Nielsen 10 大易用性啟發原則 是確保系統品質的重要實踐
+* **B.** 有效等價類別與無效等價類別 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -324,28 +324,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：Nielsen 10 大易用性啟發原則 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：有效等價類別與無效等價類別 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **8.3 效能與負載測試**
+# **5.3 組合測試與全成對測試 (Pairwise)**
 
 ---
 
-## 8.3 效能與負載測試
+## 5.3 組合測試與全成對測試 (Pairwise)
 
-* **負載測試 (Load)、壓力測試 (Stress)、耐力測試 (Endurance)**
-* **度量指標：回應時間、吞吐量 (TPS/RPS)、錯誤率**
-* **虛擬使用者 (Virtual Users) 與負載模型**
+* **多參數組合爆炸問題**
+* **All-Pairs 測試原理與生成**
+* **正交表 (Orthogonal Array) 應用**
 
 ---
 
@@ -354,16 +354,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「8.3 效能與負載測試」，下列何者敘述最為正確？**
+**針對「5.3 組合測試與全成對測試 (Pairwise)」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 負載測試 (Load)、壓力測試 (Stress)、耐力測試 (Endurance) 是確保系統品質的重要實踐
+* **B.** 多參數組合爆炸問題 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -377,27 +377,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：負載測試 (Load)、壓力測試 (Stress)、耐力測試 (Endurance) 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：多參數組合爆炸問題 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **8.4 JMeter 實務與非功能性測試**
+# **5.4 決策表測試 (Decision Table)**
 
 ---
 
-## 8.4 JMeter 實務與非功能性測試
+## 5.4 決策表測試 (Decision Table)
 
-* **JMeter 腳本錄製與參數化**
-* **相容性、安全性與回復性測試重點**
+* **條件樁 (Condition Stub) 與動作樁 (Action Stub)**
+* **決策規則推導與化簡**
+* **複雜商業邏輯的完整涵蓋**
 
 ---
 
@@ -406,16 +407,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「8.4 JMeter 實務與非功能性測試」，下列何者敘述最為正確？**
+**針對「5.4 決策表測試 (Decision Table)」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** JMeter 腳本錄製與參數化 是確保系統品質的重要實踐
+* **B.** 條件樁 (Condition Stub) 與動作樁 (Action Stub) 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -429,14 +430,67 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：JMeter 腳本錄製與參數化 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：條件樁 (Condition Stub) 與動作樁 (Action Stub) 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
+  </div>
+</div>
+
+<!-- _class: lead -->
+
+# **5.5 狀態機測試 (State Transition Testing)**
+
+---
+
+## 5.5 狀態機測試 (State Transition Testing)
+
+* **狀態轉換圖 (State Transition Diagram)**
+* **1-switch 與 N-switch 涵蓋**
+* **無效轉換與強固性測試**
+
+---
+
+## Concept Check Question (CCQ 5)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**針對「5.5 狀態機測試 (State Transition Testing)」，下列何者敘述最為正確？**
+
+* **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
+* **B.** 狀態轉換圖 (State Transition Diagram) 是確保系統品質的重要實踐
+* **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
+* **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+  </div>
+</div>
+
+---
+
+## CCQ 5 - 答案與解析
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+### **正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：狀態轉換圖 (State Transition Diagram) 確實是軟體品質保證中的核心重點。
+  * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
+  * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
+  * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -450,7 +504,7 @@ style: |
 
 ## 本章小結與重點
 
-* 掌握 **第八章：系統測試與非功能性測試** 的核心概念與實務手法。
+* 掌握 **第五章：黑箱測試技術** 的核心概念與實務手法。
 * 熟悉各項 SQA 技術在軟體生命週期中的應用時機與效益。
 * 課後請完成隨堂練習與 Lab 實作，以深化觀念。
 

@@ -58,9 +58,8 @@ if (tall > 180)
 | if (input <= 10) | 無缺陷                    | max=10 通過         |
 | if (input < 10)  | 缺陷：max=10 被錯誤排除。 | max=10 測試會失敗。 |
 
-:::success
-考慮一個三角形判斷的程式，輸入三邊長 a, b, c，其邊長介於 1 與 200 之間。輸出為正三角形、等腰三角形、不等邊三角形、非三角形等四種可能。請依據邊界測試設計你的測試案例。
-:::
+> [!NOTE]
+> 考慮一個三角形判斷的程式，輸入三邊長 a, b, c，其邊長介於 1 與 200 之間。輸出為正三角形、等腰三角形、不等邊三角形、非三角形等四種可能。請依據邊界測試設計你的測試案例。
 
 由於有三個變數，我們先固定兩個變數，讓其值為 normal (200)，然後變化另一個變數的值（min, min+, max-, max）。最後再補上一個 normal 的值就完成了。如表所示。
 
@@ -115,22 +114,21 @@ if (tall > 180)
 上述的三角形例子是一個比較單純的例子，每一個變數的合法範圍只有一個，有時候不同的範圍會有不同的輸出，所以就具備多個邊界值。
 
 #### SwimmingPool
-:::success
-:basketball: 以下是逢甲游泳池收費系統的規則：
-* (1) 一般票價 200 
-* (2) 星期六日250元,除會員以外不打折 
-* (3) 12歲以下、60歲（含）以上打八折，限定 3-75 歲可入內游泳 
-* (4) 七點以前八折
-* (5) 團體打七折 
-* (6) 會員打五折 
-* (7) 各打折不得重疊使用，以顧客最有利方案定價
-
-採用「獨立強固邊界測試」設計測試案例
-* 有哪些變數？
-* 哪些變數非列舉，有明顯的邊界？其 min, min-, max, max+ 為何？
-* 請透過 excel，採用強固邊界測試進行測試案例規劃
-* 請透過 JUnit 進行程式碼測試
-:::
+> [!NOTE]
+> :basketball: 以下是逢甲游泳池收費系統的規則：
+> * (1) 一般票價 200 
+> * (2) 星期六日250元,除會員以外不打折 
+> * (3) 12歲以下、60歲（含）以上打八折，限定 3-75 歲可入內游泳 
+> * (4) 七點以前八折
+> * (5) 團體打七折 
+> * (6) 會員打五折 
+> * (7) 各打折不得重疊使用，以顧客最有利方案定價
+>
+> 採用「獨立強固邊界測試」設計測試案例
+> * 有哪些變數？
+> * 哪些變數非列舉，有明顯的邊界？其 min, min-, max, max+ 為何？
+> * 請透過 excel，採用強固邊界測試進行測試案例規劃
+> * 請透過 JUnit 進行程式碼測試
 	
 ### 非獨立型邊界測試
 
@@ -199,9 +197,8 @@ FIG: 三角形程式：非獨立型一般邊界測試
 
 通常邊界測試與等價分割一起使用，接下來看等價分割。
 
-:::success
-:basketball: 如[游泳池收費系統](#SwimmingPool)，請改以非獨立測試進行。
-:::
+> [!NOTE]
+> :basketball: 如[游泳池收費系統](#SwimmingPool)，請改以非獨立測試進行。
 
 * [游泳池測試案例](https://docs.google.com/spreadsheets/d/1aE21HM1CCYPJtRBcb2hvYnHtOtqTdbzhQizSfn26hPk/edit?gid=0#gid=0)
 * [三角形測試案例](https://docs.google.com/spreadsheets/d/1fIEwtWf-MoXyBnr1eCET8lsrLSKQgCnYiq6w9WGZOMQ/edit?gid=1805558459#gid=1805558459)
@@ -218,9 +215,8 @@ FIG: 三角形程式：非獨立型一般邊界測試
 2. 如果一個可以找到錯誤，其他的也可以; 
 3. 如果其中一個無法找到錯誤，其他的應該也找不到錯誤。
 
-:::info
-**Equivalence partitioning:** A software testing technique that divides the input data of a software unit into *partitions* of equivalent data from which test cases can be derived. In principle, test cases are designed to cover each partition *at least once*. This technique tries to define test cases that uncover classes of errors, thereby reducing the total number of test cases that must be developed. An advantage of this approach is reduction in the time required for testing a software due to lesser number of test cases.
-:::
+> [!NOTE]
+> **Equivalence partitioning:** A software testing technique that divides the input data of a software unit into *partitions* of equivalent data from which test cases can be derived. In principle, test cases are designed to cover each partition *at least once*. This technique tries to define test cases that uncover classes of errors, thereby reducing the total number of test cases that must be developed. An advantage of this approach is reduction in the time required for testing a software due to lesser number of test cases.
 
 
 和邊界測試相同，我們需要考慮以下因素。
@@ -266,19 +262,18 @@ FIG: 成績程式的等價分割
 
 
 #### Binary-Search
-:::success
-:basketball: Binary Search
-
-針對以下 Binary Search 的設計規格（注意這不是程式碼，裡面甚至也沒有演算法），依據等價分割的方法來進行測試案例設計。
-
-```java 
-procedure Search (Key: int ; A: int_array) --> (Found : boolean; L: int)
-Post-condition
-* 元素被找到，L是索引 ( Found and A (L) = Key) ，或 
-* 元素不在陣列中 ( not Found and not 
-(exists i, 0 <= i <= len(A)-1, A (i) = Key ))
-```
-:::
+> [!NOTE]
+> :basketball: Binary Search
+>
+> 針對以下 Binary Search 的設計規格（注意這不是程式碼，裡面甚至也沒有演算法），依據等價分割的方法來進行測試案例設計。
+>
+> ```java 
+> procedure Search (Key: int ; A: int_array) --> (Found : boolean; L: int)
+> Post-condition
+> * 元素被找到，L是索引 ( Found and A (L) = Key) ，或 
+> * 元素不在陣列中 ( not Found and not 
+> (exists i, 0 <= i <= len(A)-1, A (i) = Key ))
+> ```
 
 首先我們先思考這個系統會有哪些的輸入輸出？輸入有 key 與陣列。key 本身沒有什麼好分割的，因此考慮陣列，依據題目的前置條件規定，陣列至少有一個元素，所以「一個元素」與「多個元素」應該屬於不同的分割。再考慮輸出來分割，可能有找到或沒找到，因此是兩個分割。在有找到的情況下位置又是另一個分割，可能是在陣列的第一個、最後一個會是中間的位置，會這樣分割是依據經驗判斷頭尾的位置可能會被忽略（邊界測試）。
 
@@ -318,11 +313,10 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 如果我們只從 output 來做測試，設計的測試案例雖然能夠涵蓋四種可能，但還是不足的，例如你可能設計 $a+b<c$ 的案例，測試的結果是滿足你的期待：非三角形，但因為沒有從 input 的角度來思考，忽略了 $b+c<a$ 的可能。
 
 #### Tomorrow
-:::success
-:basketball: nextDate()
-
-考慮 1812- 2012 年的任何日期，輸入一個日期，輸出他的下一天日期。注意：四的倍數是潤年，但 1900 除外。
-:::
+> [!NOTE]
+> :basketball: nextDate()
+>
+> 考慮 1812- 2012 年的任何日期，輸入一個日期，輸出他的下一天日期。注意：四的倍數是潤年，但 1900 除外。
 
 #### 簡易分割
 
@@ -362,12 +356,11 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 ==> [Next Day Example (slide)](https://docs.google.com/presentation/d/1IxfALssqJseO7JuX3i_gfKprWGqt765sOymSNgBtyjA/edit#slide=id.g25494e73315_0_685)
 
 #### Swimming-pool-partition-testing
-:::success
-:basketball: 針對[游泳池收費系統](#SwimmingPool)，請改以等價分割弱涵蓋方式進行測試
-1. 每一個列舉的資料都應該成為一個分割
-2. 考慮邊界，將邊界也列為一個分割
-3. 請先以 excel 規劃，再以 JUnit 程式碼實踐
-:::
+> [!NOTE]
+> :basketball: 針對[游泳池收費系統](#SwimmingPool)，請改以等價分割弱涵蓋方式進行測試
+> 1. 每一個列舉的資料都應該成為一個分割
+> 2. 考慮邊界，將邊界也列為一個分割
+> 3. 請先以 excel 規劃，再以 JUnit 程式碼實踐
 
 ### 更多的等價分割
 並不是數字方面的應用才能套用等價分割，等價分可也可以用在列舉條列（各種顏色、各種學制）等情況。另外除了功能測試以外，等價分割也可以應用在系統測試上，例如系統運作在各種不同的瀏覽器、作業系統等。
@@ -380,20 +373,18 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 
 看過前述幾個例子，當我們要執行非獨立測試時，測試案例的成長是很可怕的，例如有 $n$ 個變數，每一個可能有 $m$ 個分割，如果我們每個分割取一個值來做非獨立測試，則有 $m^n$ 個測試案例需要測試。這樣近乎窮盡式的測試方法 在成本可能太高。
 
-:::success
-:point_right: ==All-pairs testing==: A combinatorial method of software testing that, for each pair of input parameters to a system (typically, a software algorithm), tests all possible discrete combinations of those parameters. Also called *pairwise testing*.
-:::
+> [!NOTE]
+> :point_right: ==All-pairs testing==: A combinatorial method of software testing that, for each pair of input parameters to a system (typically, a software algorithm), tests all possible discrete combinations of those parameters. Also called *pairwise testing*.
 > 成對錯誤假設：錯誤會發生在兩兩配對的情況。
 
 #### Swimming-Pool-Simple
-:::info
-:basketball: 游泳池收費
-> 凱旋游泳池標準收費為 100 元。 (1) 星期六日200元, 除會員以外不打折。(2) 清晨6:00 以前所有人打八折; 中午11:00-13:00 九折 ▫  (3) 會員一律打五折。各打折不可重複，以最低價為主。
- 
-- d: {d1, d2} 分別代表 星期六日、一般時間。 
-- t: {t1, t2, t3} 分別代表清晨、中午、其他時段。
-- m: {m1, m2} 分別代表會員、非會員。
-:::
+> [!NOTE]
+> :basketball: 游泳池收費
+> > 凱旋游泳池標準收費為 100 元。 (1) 星期六日200元, 除會員以外不打折。(2) 清晨6:00 以前所有人打八折; 中午11:00-13:00 九折 ▫  (3) 會員一律打五折。各打折不可重複，以最低價為主。
+>
+> - d: {d1, d2} 分別代表 星期六日、一般時間。 
+> - t: {t1, t2, t3} 分別代表清晨、中午、其他時段。
+> - m: {m1, m2} 分別代表會員、非會員。
 如果採用乘積的方式進行測試，共有 `2*3*2=12` 個測試案例。下表則是使用全程對的方式。注意日期與時間有乘積、時間與會員有乘積、日期與會員有乘積，故稱為全成對的測試方法，數量也將為六個。當變數變多，可能的狀況變多時，全成對的方法會比全乘積的方式數量少很多。
 
 FIG: 收費系統- 使用全成對方法
@@ -471,15 +462,14 @@ Table: 表格說明
 | 8   | w3  | x2   | y2   | *z1* | p2  | q2  |
 
 #### Loan-testing
-:::success
-:basketball: 貸款
-
-是一個放款利率計算的部份介面。已知利率與貸款的金額、償還年限、是否為會員、是否是青年貸款有關係。請應用全成對測試策略，並用交錯法來設計測試案例。
-
-- 假設年數分為兩個分割，金額分為兩個分割，則需要多少個測試案例？測試案例為何？
-- 假設年數分為六個分割，金額分為三個分割，則需要多少個測試案例？測試案例為何？
-- 若用強涵蓋、弱涵蓋，則需要多少個測試案例？測試案例為何？
-:::
+> [!NOTE]
+> :basketball: 貸款
+>
+> 是一個放款利率計算的部份介面。已知利率與貸款的金額、償還年限、是否為會員、是否是青年貸款有關係。請應用全成對測試策略，並用交錯法來設計測試案例。
+>
+> - 假設年數分為兩個分割，金額分為兩個分割，則需要多少個測試案例？測試案例為何？
+> - 假設年數分為六個分割，金額分為三個分割，則需要多少個測試案例？測試案例為何？
+> - 若用強涵蓋、弱涵蓋，則需要多少個測試案例？測試案例為何？
 
 FIG: 放款利率計算
 
@@ -636,21 +626,20 @@ FIG: 全狀態轉移涵蓋
 
 我們來看看如何應用 JUnit進行物件的狀態測試。
 #### Stack-test
-:::success
-:basketball: test Stack
-
-設計一個 Stack 物件，裡面用陣列來儲存內容。有以下的介面：
-- `Stack(int n)`: 宣告裡面內容為 n 個的 Stack; 
-- `int pop() throws StackEmptyException()`: 當系統已經在 empty 的狀態又 pop 的話就會拋出例外;
-- `void push(int x) throws StackFullException()`：當系統已經在 full 的狀態又 push 的話就會拋出例外;
-- `boolean isEmpty()`：檢驗是否為空 Stack;
-- `boolean isFull()`：檢驗是否塞滿元素。
-
-1. 畫出 Stack 的狀態圖 
-2. 針對這個 Stack 設計測試案例，使得全狀態轉移涵蓋。
-3. 以 JUnit 來進行此測試
-4. 請檢驗程式碼之涵蓋度
-:::
+> [!NOTE]
+> :basketball: test Stack
+>
+> 設計一個 Stack 物件，裡面用陣列來儲存內容。有以下的介面：
+> - `Stack(int n)`: 宣告裡面內容為 n 個的 Stack; 
+> - `int pop() throws StackEmptyException()`: 當系統已經在 empty 的狀態又 pop 的話就會拋出例外;
+> - `void push(int x) throws StackFullException()`：當系統已經在 full 的狀態又 push 的話就會拋出例外;
+> - `boolean isEmpty()`：檢驗是否為空 Stack;
+> - `boolean isFull()`：檢驗是否塞滿元素。
+>
+> 1. 畫出 Stack 的狀態圖 
+> 2. 針對這個 Stack 設計測試案例，使得全狀態轉移涵蓋。
+> 3. 以 JUnit 來進行此測試
+> 4. 請檢驗程式碼之涵蓋度
 
 
 在多數的情況，我們必須先做一些基本的*資料設定*（或是初始狀態的設定)，才開始進行事件的輸入。例如要測試一個 Stack 的反應，我們要先設定 Stack 內有多少元素，例如是 3 個，那們我們給予連續三個 pop 的事件後，該物件應該來到 Empty 的狀態。
@@ -734,30 +723,29 @@ See [DemoJUnit](https://github.com/nlhsueh/sw-testing24/tree/main/Intellij/DemoJ
 2. 非獨立強固邊界測試
 3. 請撰寫程式碼與並應用該測試策略設計 JUnit 測試碼，並進行測試。
 
-:::success
-### 5.ex.loan 青年安心成家
-青年安心成家 (112-1 期末考題): 
-
-公股銀行辦理青年安心成家購屋優惠貸款，貸款說明如下：
-貸款標的：申請日前6個月起所購置之住宅。
-貸款對象：借款人符合民法規定之成年年齡以上，且借款人與其配偶及未成年子女均無自有住宅者。
-* 貸款成數：最高 8 成核貸。
-* 貸款額度：最高新臺幣1000萬元。貸款年限及償還方式：貸款年限最長40年，含寬限期5年，本息分期平均攤還或本金分期平均攤還。
-* 貸款利率：以中華郵政股份有限公司2年期定期儲金額度未達新臺幣500萬元機動利率為基準利率，自112年3月29日起為1.595%，優惠為 1.22%。計息方式採一段式機動利率、二段式機動利率 (TwoPhaseRating) 或混合式固定利率擇一，一經選定不得變更。各利率簡述如下：
-    * 一段式機動利率：按基準利率固定加0.585%（目前為1.805%）機動計息。但自110年1月1日起新貸放案件，按基準利率固定加0.555%（目前為1.775%）機動計息。
-    * 二段式機動利率：前 2 年按基準利率固定加0.345% (目前為1.565%）機動計息，第3年起按基準利率固定加0.645%（目前為1.865%）機動計息。
-    * 混合式固定利率：前2年採固定利率，第1年按「撥貸當時」基準利率固定加0.525%（目前為1.745%）固定計息，第2年按「撥貸當時」基準利率固定加0.625%（目前為1.845%）固定計息，第3年起按基準利率固定加0.645%（目前為1.865%）機動計息。
-
-今欲開發程式協助人民計算每月所需繳費的金額。程式分為兩部分，第一部分為檢驗資格 (`checkQualification()`)，第二部分為計算每月所需要的繳費 (`monthlyPay()`)。在程式開發之前，我們預先規劃採用 等價分割 進行有效的測試案例規劃，請
-
-* 針對檢驗資格(`checkQualification()`)採用強涵蓋 (strong coverage) 的方式進行案例規劃; 
-* 針對每月所需要的繳費採取弱涵蓋 (weak coverage)  
-* 針對每月所需要的繳費採取 全成對 (all pair testing) 或強涵蓋擇一的測試案例規劃。
-
-注意：
-* 你不需要提交程式碼; 請用 excel 進行測試案例的規劃，不需寫出預期輸出。
-* 做有效的測試規劃，並不是題目中所有的變數都必須是測試參數。
-:::
+> [!NOTE]
+> ### 5.ex.loan 青年安心成家
+> 青年安心成家 (112-1 期末考題): 
+>
+> 公股銀行辦理青年安心成家購屋優惠貸款，貸款說明如下：
+> 貸款標的：申請日前6個月起所購置之住宅。
+> 貸款對象：借款人符合民法規定之成年年齡以上，且借款人與其配偶及未成年子女均無自有住宅者。
+> * 貸款成數：最高 8 成核貸。
+> * 貸款額度：最高新臺幣1000萬元。貸款年限及償還方式：貸款年限最長40年，含寬限期5年，本息分期平均攤還或本金分期平均攤還。
+> * 貸款利率：以中華郵政股份有限公司2年期定期儲金額度未達新臺幣500萬元機動利率為基準利率，自112年3月29日起為1.595%，優惠為 1.22%。計息方式採一段式機動利率、二段式機動利率 (TwoPhaseRating) 或混合式固定利率擇一，一經選定不得變更。各利率簡述如下：
+>     * 一段式機動利率：按基準利率固定加0.585%（目前為1.805%）機動計息。但自110年1月1日起新貸放案件，按基準利率固定加0.555%（目前為1.775%）機動計息。
+>     * 二段式機動利率：前 2 年按基準利率固定加0.345% (目前為1.565%）機動計息，第3年起按基準利率固定加0.645%（目前為1.865%）機動計息。
+>     * 混合式固定利率：前2年採固定利率，第1年按「撥貸當時」基準利率固定加0.525%（目前為1.745%）固定計息，第2年按「撥貸當時」基準利率固定加0.625%（目前為1.845%）固定計息，第3年起按基準利率固定加0.645%（目前為1.865%）機動計息。
+>
+> 今欲開發程式協助人民計算每月所需繳費的金額。程式分為兩部分，第一部分為檢驗資格 (`checkQualification()`)，第二部分為計算每月所需要的繳費 (`monthlyPay()`)。在程式開發之前，我們預先規劃採用 等價分割 進行有效的測試案例規劃，請
+>
+> * 針對檢驗資格(`checkQualification()`)採用強涵蓋 (strong coverage) 的方式進行案例規劃; 
+> * 針對每月所需要的繳費採取弱涵蓋 (weak coverage)  
+> * 針對每月所需要的繳費採取 全成對 (all pair testing) 或強涵蓋擇一的測試案例規劃。
+>
+> 注意：
+> * 你不需要提交程式碼; 請用 excel 進行測試案例的規劃，不需寫出預期輸出。
+> * 做有效的測試規劃，並不是題目中所有的變數都必須是測試參數。
 
 [參考解答](https://docs.google.com/document/d/1A2xJHkzTFg3O9hxdNbJ1jGwldR0zTAw47SVRT9B8TZE/edit?usp=sharing)
 

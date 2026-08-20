@@ -342,7 +342,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -363,7 +363,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -383,7 +383,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -404,7 +404,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -424,7 +424,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -445,7 +445,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -471,6 +471,45 @@ style: |
 
 ---
 
+## Concept Check Question (CCQ 4)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**根據 IEEE 的定義與課程教材，下列何者不屬於「軟體」的範疇？**
+
+* **A.** 開發過程中的系統設計文件與測試案例
+* **B.** 為了執行程式所必須準備的系統初始化資料
+* **C.** 安裝與運作系統時所遵循的操作程序與流程
+* **D.** 僅限於伺服器上執行的編譯後二進位機器碼，不包含上述其他項目
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+  </div>
+</div>
+
+---
+
+## CCQ 4 - 答案與解析
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+### **正確答案：D**
+
+* **解析**：
+  * **選項 D 正確**：IEEE 定義明確指出，軟體不只有程式碼，操作程序 (Procedures), 文件 (Documentation) 與資料 (Data) 都是軟體不可分割的組成部分。
+  * **選項 A/B/C 錯誤**：它們均屬於 IEEE 定義中的軟體組成部分。
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
+  </div>
+</div>
+
+---
+
 ## 1.2.2 David Garvin 的五大品質觀點
 
 | 品質觀點 | 核心意義 | 軟體領域範例 |
@@ -480,6 +519,46 @@ style: |
 | **製造觀點** (Manufacturing) | 符合工程規格與標準流程 (Conformance) | 符合 ISO 標準、零缺陷 (Zero Bug) |
 | **產品觀點** (Product view) | 產品本身的內在技術特性與架構材質 | 高內聚低耦合、簡潔程式碼 |
 | **價值觀點** (Value-based) | 顧客願意支付的價格與性價比 (ROI) | 軟體帶來的商業價值與訂閱意願 |
+
+---
+
+## Concept Check Question (CCQ 5)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**某系統完全符合合約規格書的每一項功能要求，但架構混亂極難維護、擴充。依 Garvin 觀點，該軟體在何種觀點下可能被判定品質不良？**
+
+* **A.** 製造觀點（Manufacturing View）
+* **B.** 產品觀點（Product View）與專業內隱品質
+* **C.** 法律合約觀點
+* **D.** 外包計費觀點
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+  </div>
+</div>
+
+---
+
+## Concept Check Question (CCQ 5) - 答案與解析
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+### **正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：產品觀點著重於軟體內在結構特性（如模組化、架構整潔、可維護性）。雖然符合製造規格，但內在架構品質差。
+  * **選項 A 錯誤**：符合規格流程在製造觀點通常算合格。
+  * **選項 C/D 錯誤**：非 Garvin 的五大標準品質分類。
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
+  </div>
+</div>
 
 ---
 
@@ -494,41 +573,40 @@ style: |
 
 ---
 
-## Concept Check Question (CCQ 4)
+## Concept Check Question (CCQ 6)
 
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**某系統完全符合合約規格書的每一項功能要求，但架構混亂極難維護、擴充。依 Garvin 觀點，該軟體在何種觀點下可能被判定品質不良？**
+**以下關於軟體品質（Software Quality）定義的敘述，何者最符合 Pressman 對於專業開發軟體（Professionally developed software）的觀點？**
 
-* **A.** 製造觀點（Manufacturing View）
-* **B.** 產品觀點（Product View）與專業內隱品質
-* **C.** 法律合約觀點
-* **D.** 外包計費觀點
+* **A.** 只要程式執行時沒有出現錯誤（Bug），就是具備好品質的軟體
+* **B.** 軟體品質僅取決於是否完全滿足規格書中所定義的功能需求
+* **C.** 軟體品質不僅包含明訂的功能與效能需求，還包含明訂的開發標準，以及非明訂但專業軟體應具備的隱含特性（如可維護性、易讀性等）
+* **D.** 軟體品質完全取決於使用者主觀的滿意度，與開發流程或文件無關
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
 ---
 
-## CCQ 4 - 答案與解析
+## CCQ 6 - 答案與解析
 
 <div class="ccq-columns">
   <div class="ccq-text">
 
-### **正確答案：B**
+### **正確答案：C**
 
 * **解析**：
-  * **選項 B 正確**：產品觀點著重於軟體內在結構特性（如模組化、架構整潔、可維護性）。雖然符合製造規格，但內在架構品質差。
-  * **選項 A 錯誤**：符合規格流程在製造觀點通常算合格。
-  * **選項 C/D 錯誤**：非 Garvin 的五大標準品質分類。
+  * **選項 C 正確**：Pressman 定義強調了明訂需求、開發標準以及專業軟體隱含特性（如可維護性、可靠性等）三者並重。
+  * **選項 A/B/D 錯誤**：皆流於片面，忽略了專業軟體應具備的隱含品質或流程標準。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -553,7 +631,7 @@ style: |
 
 ---
 
-## Concept Check Question (CCQ 5)
+## Concept Check Question (CCQ 7)
 
 <div class="ccq-columns">
   <div class="ccq-text">
@@ -567,13 +645,13 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
 ---
 
-## CCQ 5 - 答案與解析
+## CCQ 7 - 答案與解析
 
 <div class="ccq-columns">
   <div class="ccq-text">
@@ -588,7 +666,85 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
+  </div>
+</div>
+
+---
+
+## Concept Check Question (CCQ 8)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**某軟體系統在進行人事模組的欄位長度修改時，意外導致完全無關的財務結算模組產生運行錯誤。這代表該軟體系統在 ISO 9126 品質模型中的哪一項特性表現不佳？**
+
+* **A.** 可分析性 (Analyzability)
+* **B.** 穩定性 (Stability)
+* **C.** 容錯度 (Fault tolerance)
+* **D.** 相互運作性 (Interoperability)
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+  </div>
+</div>
+
+---
+
+## CCQ 8 - 答案與解析
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+### **正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：穩定性 (Stability) 評估系統在受到變動時，對其他部分所造成負面衝擊（副作用）的敏感度。人事模組的變動意外導致無關財務模組出錯，顯示系統模組相依性過高、穩定性差。
+  * **選項 A/C/D 錯誤**：與修改後波及其他無關模組的副作用評估無關。
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
+  </div>
+</div>
+
+---
+
+## Concept Check Question (CCQ 9)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**在 ISO 9126 品質模型中，當我們要評估「軟體系統在不同的硬體、軟體或執行環境間進行轉移的難易程度」時，我們是在評估哪一項品質特性？**
+
+* **A.** 功能性 (Functionality)
+* **B.** 可維護性 (Maintainability)
+* **C.** 可攜性/可移植性 (Portability)
+* **D.** 效率性 (Efficiency)
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+  </div>
+</div>
+
+---
+
+## CCQ 9 - 答案與解析
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+### **正確答案：C**
+
+* **解析**：
+  * **選項 C 正確**：可攜性/可移植性 (Portability) 定義為軟體從一個環境移轉到另一個環境的能力。
+  * **選項 A/B/D 錯誤**：皆非環境轉移難易程度的主軸。
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -632,7 +788,7 @@ style: |
 
 ---
 
-## Concept Check Question (CCQ 6)
+## Concept Check Question (CCQ 10)
 
 <div class="ccq-columns">
   <div class="ccq-text">
@@ -646,13 +802,13 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
 ---
 
-## CCQ 6 - 答案與解析
+## CCQ 10 - 答案與解析
 
 <div class="ccq-columns">
   <div class="ccq-text">
@@ -665,7 +821,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 

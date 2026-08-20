@@ -24,10 +24,9 @@ FIG: 動態測試只能看到冰山一角
 
 「檢視」不只可以運用於程式碼的檢視，也可以擴大到需求規格書、設計規格書、配置的資料、測試資料等。正如同我們前面所提到的，軟體的錯誤來源大宗並不是原始碼、而是規格書、設計等，如果我們能夠早一點發現這些錯誤，就可以避免更大的錯誤、降低整體的品質成本。
 
-:::success
-同儕審查是軟體產業的最佳實務作法。
-Inspections are a software industry best practice.
-:::
+> [!NOTE]
+> 同儕審查是軟體產業的最佳實務作法。
+> Inspections are a software industry best practice.
 
 
 相較於動態測試，靜態檢視具備以下優點：
@@ -331,10 +330,9 @@ int qwq, qnq, quq
 float oOooo, ooOoo, oooOo
 ```
 
-:::success
-好的程式本身就是最好的註解。加程式註解前想想：如何改善程式碼讓我不需要加這個註解？改善程式碼並加上註解讓你的程式更清楚。
-Good code is its own best documentation. As you're about to add a comment, ask yourself, "How can I improve the code so that this comment isn't needed? Improve the code and then document it to make it even clearer. -- Steve McConnell
-:::
+> [!NOTE]
+> 好的程式本身就是最好的註解。加程式註解前想想：如何改善程式碼讓我不需要加這個註解？改善程式碼並加上註解讓你的程式更清楚。
+> Good code is its own best documentation. As you're about to add a comment, ask yourself, "How can I improve the code so that this comment isn't needed? Improve the code and then document it to make it even clearer. -- Steve McConnell
 
 ### 程式臭味檢視
 

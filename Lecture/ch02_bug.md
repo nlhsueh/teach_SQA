@@ -528,7 +528,6 @@ BTS 主要的功能如下：
 - 有任一長度 <= 0 時，應該拋出例外
 - 須滿足任兩邊和大於第三邊，若違反則拋出一個字定義的例外：TriangleException
 - 依據條件回傳 正三角形、等腰三角形、直角三角形、一般三角形。（請注意定義直角三角形的定義）
-:::
 
 
 了解 [MaxHeap](https://docs.google.com/presentation/d/11ajG_oQkdPvYaAa7-9oGG-bFU34YJMmq8zZZIFch-Y4/edit?usp=sharing) 的運作原理，針對 [MaxHeap](MaxHeap) 的程式碼進行追蹤測試，透過變數的變化、step into 的流程執行了解檢查該程式是否正確。

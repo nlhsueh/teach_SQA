@@ -257,7 +257,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -278,7 +278,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -311,7 +311,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -332,7 +332,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -364,7 +364,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -385,7 +385,7 @@ style: |
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 

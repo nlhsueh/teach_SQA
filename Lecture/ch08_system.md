@@ -4,11 +4,10 @@ Ch08 系統測試
 
 系統測試考慮整體的測試，這時候的測試，著重在系統整體的操作、效能是否正常，符合預期。軟硬體的問題必須同時被考慮。
 
-:::success
-> **System testing**
-這是對完整集成系統進行的測試，以評估系統是否符合其指定的要求。
-A testing conducted on a complete, integrated system to evaluate the system's compliance with its specified requirements.
-:::
+> [!NOTE]
+> > **System testing**
+> 這是對完整集成系統進行的測試，以評估系統是否符合其指定的要求。
+> A testing conducted on a complete, integrated system to evaluate the system's compliance with its specified requirements.
 
 ## 使用案例測試
 
@@ -198,10 +197,9 @@ Neilsen 檢驗法是一種專家檢驗法，包含以下的檢測項目：與真
 
 > 不懂電腦的人，往往是最好的測試者。
 
-:::success
-:football: 系統 UX 檢驗
-針對一個你常用的應用軟體（ 例如 line 或 選課系統），以 Neilsen 的方式檢視其符合程度：該軟體有哪些優缺點？該如何改善？
-:::
+> [!NOTE]
+> :football: 系統 UX 檢驗
+> 針對一個你常用的應用軟體（ 例如 line 或 選課系統），以 Neilsen 的方式檢視其符合程度：該軟體有哪些優缺點？該如何改善？
 
 ### Hollway 檢測法
 

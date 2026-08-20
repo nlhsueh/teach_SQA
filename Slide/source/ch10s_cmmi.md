@@ -223,7 +223,7 @@ style: |
 
 # 軟體品質保證 (SQA)
 
-### 第三章：軟體測試基礎
+### 第十章：軟體流程改善與 CMMI
 
 授課教師：軟體品質保證教學團隊
 
@@ -231,15 +231,15 @@ style: |
 
 <!-- _class: lead -->
 
-# **3.1 軟體測試原則**
+# **10.1 流程改善與軟體品質**
 
 ---
 
-## 3.1 軟體測試原則
+## 10.1 流程改善與軟體品質
 
-* **測試無法證明完全無錯**
-* **殺蟲劑悖論與窮盡測試的不可能**
-* **儘早測試與缺陷群聚效應**
+* **流程對產品品質的影響**
+* **PDCA 循環與持續改善**
+* **流程成熟度的概念**
 
 ---
 
@@ -248,16 +248,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「3.1 軟體測試原則」，下列何者敘述最為正確？**
+**針對「10.1 流程改善與軟體品質」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 測試無法證明完全無錯 是確保系統品質的重要實踐
+* **B.** 流程對產品品質的影響 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -271,29 +271,30 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：測試無法證明完全無錯 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：流程對產品品質的影響 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **3.2 測試的分類**
+# **10.2 CMMI 架構與五個成熟度層級**
 
 ---
 
-## 3.2 測試的分類
+## 10.2 CMMI 架構與五個成熟度層級
 
-* **驗證 (Verification) vs. 確認 (Validation)**
-* **靜態測試 vs. 動態測試**
-* **功能測試 vs. 結構測試**
-* **單元、整合與系統測試層級**
+* **Level 1 初始級 (Initial)**
+* **Level 2 管理級 (Managed)**
+* **Level 3 定義級 (Defined)**
+* **Level 4 數量化管理級 (Quantitatively Managed)**
+* **Level 5 最佳化級 (Optimizing)**
 
 ---
 
@@ -302,16 +303,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「3.2 測試的分類」，下列何者敘述最為正確？**
+**針對「10.2 CMMI 架構與五個成熟度層級」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 驗證 (Verification) vs. 確認 (Validation) 是確保系統品質的重要實踐
+* **B.** Level 1 初始級 (Initial) 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -325,28 +326,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：驗證 (Verification) vs. 確認 (Validation) 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：Level 1 初始級 (Initial) 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **3.3 V 開發模型與測試**
+# **10.3 流程領域 (Process Areas) 與實踐**
 
 ---
 
-## 3.3 V 開發模型與測試
+## 10.3 流程領域 (Process Areas) 與實踐
 
-* **V 模型對應關係**
-* **開發階段與測試階段的雙向回溯**
-* **驗收標準與規格追溯**
+* **專案管理、工程、支援與流程管理四大類**
+* **SQA 流程在 CMMI 中的角色與定位**
+* **現代敏捷與 CMMI 的結合**
 
 ---
 
@@ -355,16 +356,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「3.3 V 開發模型與測試」，下列何者敘述最為正確？**
+**針對「10.3 流程領域 (Process Areas) 與實踐」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** V 模型對應關係 是確保系統品質的重要實踐
+* **B.** 專案管理、工程、支援與流程管理四大類 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -378,68 +379,14 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：V 模型對應關係 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：專案管理、工程、支援與流程管理四大類 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
-<!-- _class: lead -->
-
-# **3.4 測試案例設計與 3W2H**
-
----
-
-## 3.4 測試案例設計與 3W2H
-
-* **測試案例 (Test Case) 的組成要素**
-* **Who 誰測試？ What 測什麼？**
-* **Why 為何測試？(回歸測試)**
-* **How 如何測試？ How 決定通過？(Test Oracle)**
-
----
-
-## Concept Check Question (CCQ 4)
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-**針對「3.4 測試案例設計與 3W2H」，下列何者敘述最為正確？**
-
-* **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 測試案例 (Test Case) 的組成要素 是確保系統品質的重要實踐
-* **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
-* **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-## CCQ 4 - 答案與解析
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-### **正確答案：B**
-
-* **解析**：
-  * **選項 B 正確**：測試案例 (Test Case) 的組成要素 確實是軟體品質保證中的核心重點。
-  * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
-  * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
-  * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -453,7 +400,7 @@ style: |
 
 ## 本章小結與重點
 
-* 掌握 **第三章：軟體測試基礎** 的核心概念與實務手法。
+* 掌握 **第十章：軟體流程改善與 CMMI** 的核心概念與實務手法。
 * 熟悉各項 SQA 技術在軟體生命週期中的應用時機與效益。
 * 課後請完成隨堂練習與 Lab 實作，以深化觀念。
 

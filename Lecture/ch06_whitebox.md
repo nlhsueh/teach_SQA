@@ -5,10 +5,9 @@ Ch06 白箱測試
 
 白箱測試是只在知道程式的內部結構下進行的測試，其測試的目的是了解程式碼被測試的程度。
 
-:::success
-**White Box Testing**
-A method of testing software that tests internal structures or workings of an application, as opposed to its functionality (i.e. black-box testing)}
-:::
+> [!NOTE]
+> **White Box Testing**
+> A method of testing software that tests internal structures or workings of an application, as opposed to its functionality (i.e. black-box testing)}
 
 ## 🧑‍💻Lab涵蓋度 
 
@@ -65,9 +64,8 @@ A,B,X若為(3,0,3)和(3,1,1)能使得 (A>1) AND (B=0)和(A=2) OR (X>1)這兩個�
 
 
 
-:::warning
-滿足「條件涵蓋度」的測試資料，一定滿足「分支涵蓋度」嗎？
-:::
+> [!WARNING]
+> 滿足「條件涵蓋度」的測試資料，一定滿足「分支涵蓋度」嗎？
 
 感覺起來很像是，但並非如此，例如此例：
 
@@ -78,9 +76,8 @@ A,B,X若為(3,0,3)和(3,1,1)能使得 (A>1) AND (B=0)和(A=2) OR (X>1)這兩個�
 
 上表中的 測試案例 t1, t2 雖然可以是條件 p, q, 都有 true, false, 但 p\&q 這個分支的值卻都是 false 的。
 
-:::warning
-實務上，通常我們使用「快捷求值」(short-circuit evaluation) 來進行邏輯運算，此運算下，條件涵蓋度百分百，也會滿足分支涵蓋度百分百。
-:::
+> [!WARNING]
+> 實務上，通常我們使用「快捷求值」(short-circuit evaluation) 來進行邏輯運算，此運算下，條件涵蓋度百分百，也會滿足分支涵蓋度百分百。
 
 上面的例子，當 p 為 False, q 並不會進行求值，稱之為「快捷求值」。
 
@@ -107,25 +104,24 @@ A,B,X若為(3,0,3)和(3,1,1)能使得 (A>1) AND (B=0)和(A=2) OR (X>1)這兩個�
 
 #### sample-code-01
 
-:::success
-針對以下程式 
-1. 設計一測試案例達到百分百敘述涵蓋度 (SC100); 
-2. 設計一測試案例達到百分百條件涵蓋度 (CC100)，但非百分百分支涵蓋度; 
-3. 設計一測試案例達到百分百分支涵蓋度 (BC100)，但非百分百條件涵蓋度 (!CC100)。
-
-```java
-read(X, Y)
-if ((X>10) && (Y==1))
-    X=1;
-else if ((X-Y) < 2)
-    X=2;
-if (Y >10)
-    X=3;
-print X
-```
-
-請畫出 測試涵蓋表  來檢驗。
-:::
+> [!NOTE]
+> 針對以下程式 
+> 1. 設計一測試案例達到百分百敘述涵蓋度 (SC100); 
+> 2. 設計一測試案例達到百分百條件涵蓋度 (CC100)，但非百分百分支涵蓋度; 
+> 3. 設計一測試案例達到百分百分支涵蓋度 (BC100)，但非百分百條件涵蓋度 (!CC100)。
+>
+> ```java
+> read(X, Y)
+> if ((X>10) && (Y==1))
+>     X=1;
+> else if ((X-Y) < 2)
+>     X=2;
+> if (Y >10)
+>     X=3;
+> print X
+> ```
+>
+> 請畫出 測試涵蓋表  來檢驗。
 
 
 要完成敘述涵蓋 (SC100) 是容易的，只要能夠讓 03, 05, 07 的敘述進入即可，因此我們設計 (X=11, Y=1) 及 (X=12, Y=11) 兩筆資料即可達到此涵蓋。
@@ -269,38 +265,37 @@ MC/DC 的核心理念是：**確保每個條件（Condition）都能獨立地影
 基本路徑測試（basis path testing） 白箱測試常見的方法，用以達成百分百敘述涵蓋度與分支涵蓋度。
 
 #### basis-path-testing-grade
-:::success
-輸入 50 個以下的學生人數之成績，成績限定在 0～100 分的範圍，計算所有學生成績的總和 sum、有效輸入學生成績個數valid，以及平均成績 average。
-輸入 -999 表示停止輸入。若 valid=0，則 average=-999。
-
-```java
-public double computeAverage(int[] grade) {
-    // (1)
-    int sum = 0, max=100, min=10, valid=0, index=0;
-    double average;
-
-    //                  (2)             (3)
-    while (grade[index] != -999 && index < 50) {
-        //               (4)                  (5)
-        if (grade[index] >= min && grade[index] <= max) {
-            // (6)
-            sum += grade[index];
-            valid++;
-        } else {
-            System.out.println("成績範圍錯誤"); // (7)
-        }
-        index++; // (8)
-    }
-    //       (9)
-    if (valid > 0)
-        average = (double) sum / valid; // (10)
-    else
-        average = -999; // (11)
-
-    return average; // (12)
-}
-```
-:::
+> [!NOTE]
+> 輸入 50 個以下的學生人數之成績，成績限定在 0～100 分的範圍，計算所有學生成績的總和 sum、有效輸入學生成績個數valid，以及平均成績 average。
+> 輸入 -999 表示停止輸入。若 valid=0，則 average=-999。
+>
+> ```java
+> public double computeAverage(int[] grade) {
+>     // (1)
+>     int sum = 0, max=100, min=10, valid=0, index=0;
+>     double average;
+>
+>     //                  (2)             (3)
+>     while (grade[index] != -999 && index < 50) {
+>         //               (4)                  (5)
+>         if (grade[index] >= min && grade[index] <= max) {
+>             // (6)
+>             sum += grade[index];
+>             valid++;
+>         } else {
+>             System.out.println("成績範圍錯誤"); // (7)
+>         }
+>         index++; // (8)
+>     }
+>     //       (9)
+>     if (valid > 0)
+>         average = (double) sum / valid; // (10)
+>     else
+>         average = -999; // (11)
+>
+>     return average; // (12)
+> }
+> ```
 
 
 
@@ -359,11 +354,10 @@ Path6: 1-2-3-4-5-6-7-8-2-…
 
 由於基本路徑測試把 branch 內的 condition 都拆開來，且確保每一個 condition 的真假都有成立過，所以可以滿足分支涵蓋度與條件涵蓋度。
 
-:::success
-當程式中的邏輯運算採用 short circuit evaluation 時，條件涵蓋度 100% 則分支涵蓋度也為 `100%`; 分支涵蓋度計算時的分母為 `2*n` 其中 `n` 為條件的個數。
-
-程式的 Cyclomatic Complexity 為 `n+1`; 亦即表示可以設計至多 `n+1` 個測試資料，使得條件涵蓋度 100%。 
-:::
+> [!NOTE]
+> 當程式中的邏輯運算採用 short circuit evaluation 時，條件涵蓋度 100% 則分支涵蓋度也為 `100%`; 分支涵蓋度計算時的分母為 `2*n` 其中 `n` 為條件的個數。
+>
+> 程式的 Cyclomatic Complexity 為 `n+1`; 亦即表示可以設計至多 `n+1` 個測試資料，使得條件涵蓋度 100%。 
     
 ## 資料流測試
 
@@ -411,19 +405,18 @@ Path6: 1-2-3-4-5-6-7-8-2-…
 
 #### all-du-testing
 
-:::success
-針對以下程式中的X, 設計測試案例使之達到 all-du 的百分百涵蓋度。
-```java
-read (X, Y)
-if ((X>10) || (Y==1))
-   X=1;
-else if ((X+Y) > 10)
-  X=2;
-if (Y >10)
-   X=3; 
-print x
-```
-:::
+> [!NOTE]
+> 針對以下程式中的X, 設計測試案例使之達到 all-du 的百分百涵蓋度。
+> ```java
+> read (X, Y)
+> if ((X>10) || (Y==1))
+>    X=1;
+> else if ((X+Y) > 10)
+>   X=2;
+> if (Y >10)
+>    X=3; 
+> print x
+> ```
 
 先列出所有的 X-def: 01, 03, 05, 07。所有的X-use：02, 04, 08。因為是 all-du 的涵蓋度，所以必須經過以下的 du pair: (01, 02), (01, 04), (01,08), (03, 04), (03, 08), (05, 07), (05, 08), (07, 08)。有些路徑是不可能通過的，例如 (03,04)。
 
@@ -513,20 +506,19 @@ int getMax2(int x, int y) {
 - 如果剩下的 存活變異體 不是等價變異，則增加測試案例。
 - 回到步驟 3，直到 存活變異體 為空。
 
-:::success
-:football: 考慮以下的程式 *P*。若我們有兩個變異 $P_1$ 是把 && 改成 ||， $P_2$ 是把 == 改成 <=，請問 test case (x=10, y=10) 能夠 kill 哪些變異？其所代表的涵意為何？
-
-```java
-read(X, Y)
-if ((X>=10) && (Y==1))
-   X=1;
-else if ((X-Y) < 2)
-   X=2;
-if (Y >10)
-   X=3;
-print X
-```
-:::
+> [!NOTE]
+> :football: 考慮以下的程式 *P*。若我們有兩個變異 $P_1$ 是把 && 改成 ||， $P_2$ 是把 == 改成 <=，請問 test case (x=10, y=10) 能夠 kill 哪些變異？其所代表的涵意為何？
+>
+> ```java
+> read(X, Y)
+> if ((X>=10) && (Y==1))
+>    X=1;
+> else if ((X-Y) < 2)
+>    X=2;
+> if (Y >10)
+>    X=3;
+> print X
+> ```
 
 測試案例 (10, 10) 對原來 $P$ 的測試 $P(10,10)$ 產出的結果為 $X=2$，$P_1(10,10)$ 為 $X=1$，輸出的結果不同了，表示此測試案例能夠偵測出不同，故刪除（kill）$P_1$。$P_2(10,10)$ 結果仍然為 $X=2$ 保持不變，無法刪除 $P_2$。因此我們必須再加入測試案例。
 
@@ -565,67 +557,66 @@ p3: if a < b then c:= a + 0;
 $p_1$, $p_2$, $p_3$ 這三個變異都是等價變異，任何資料都無法將之刪除。
 
 #### ex_mutation_test
-:::success
-:football: 針對以下程式 P 及其變異，回答 (1) 哪些是 被刪除變異體? (2) 這些這是案例有效嗎？變異刪除率為何？(3) 承2, 如果測試案例不有效，請新增測試案例。 
-
-```python=
-t1=[1,2,3]
-t2=[1,2,1]
-t3=[3,1,2]
-
-def p(a):
-    r = 0
-    for i in [1,2]:
-        if a[i] > a[r]:
-            r = i
-    return r
-
-def p1(a):
-    r = 0
-    for i in [0,1,2]:
-        if a[i] > a[r]:
-            r = i
-    return r
-
-def p2(a):
-    r = 0
-    for i in [1,2]:
-        if i > a[r]:
-            r = i
-    return r
-
-def p3(a):
-    r = 0
-    for i in [1,2]:
-        if a[i] >= a[r]:
-            r = i
-    return r
-
-def p4(a):
-    r = 0
-    for i in [1,2]:
-        if True:
-            r = i
-    return r
-```
-我們進行以下的檢驗：（python)
-```python=
-t = [t1, t2, t3]
-mu = [p1, p2, p3, p4]
-
-for tc in t:
-    print ('Test case: ', tc)
-    print ('P : ', p(tc), end='\t')
-    print ('P1: ', p1(tc), end='\t')
-    print ('P2: ', p2(tc), end='\t')
-    print ('P3: ', p3(tc), end='\t')
-    print ('P4: ', p4(tc), end='\t')
-    for m in mu:
-        if p(tc) != m(tc):
-            print ('\n Kill the mutation', m)
-    print ()
-```
-:::
+> [!NOTE]
+> :football: 針對以下程式 P 及其變異，回答 (1) 哪些是 被刪除變異體? (2) 這些這是案例有效嗎？變異刪除率為何？(3) 承2, 如果測試案例不有效，請新增測試案例。 
+>
+> ```python=
+> t1=[1,2,3]
+> t2=[1,2,1]
+> t3=[3,1,2]
+>
+> def p(a):
+>     r = 0
+>     for i in [1,2]:
+>         if a[i] > a[r]:
+>             r = i
+>     return r
+>
+> def p1(a):
+>     r = 0
+>     for i in [0,1,2]:
+>         if a[i] > a[r]:
+>             r = i
+>     return r
+>
+> def p2(a):
+>     r = 0
+>     for i in [1,2]:
+>         if i > a[r]:
+>             r = i
+>     return r
+>
+> def p3(a):
+>     r = 0
+>     for i in [1,2]:
+>         if a[i] >= a[r]:
+>             r = i
+>     return r
+>
+> def p4(a):
+>     r = 0
+>     for i in [1,2]:
+>         if True:
+>             r = i
+>     return r
+> ```
+> 我們進行以下的檢驗：（python)
+> ```python=
+> t = [t1, t2, t3]
+> mu = [p1, p2, p3, p4]
+>
+> for tc in t:
+>     print ('Test case: ', tc)
+>     print ('P : ', p(tc), end='\t')
+>     print ('P1: ', p1(tc), end='\t')
+>     print ('P2: ', p2(tc), end='\t')
+>     print ('P3: ', p3(tc), end='\t')
+>     print ('P4: ', p4(tc), end='\t')
+>     for m in mu:
+>         if p(tc) != m(tc):
+>             print ('\n Kill the mutation', m)
+>     print ()
+> ```
 
 
 ---
@@ -650,103 +641,98 @@ for tc in t:
 	
 	
 #### ex-coverage-binary-search
-:::success
-請寫出一個 Binary Search 的程式，並設計一些測試案例使得 
-	
-- 100% 敘述涵蓋度 
-- 100% 分支涵蓋度
-- 100% 條件涵蓋度
-	
-```java
-int binary_search(int A[], int key, int imin, int imax) {
-  while (imin < imax)    {
-       int imid = (int)floor((imin+imax)/2.0);
-       assert(imid < imax);
-       if (A[imid] < key)
-           imin = imid + 1;
-       else
-           imax = imid;
-   }
-   if ((imax == imin) && (A[imin] == key))
-        return imin;
-   else
-        return KEY_NOT_FOUND;
-}
-```	
-:::
+> [!NOTE]
+> 請寫出一個 Binary Search 的程式，並設計一些測試案例使得 
+>
+> - 100% 敘述涵蓋度 
+> - 100% 分支涵蓋度
+> - 100% 條件涵蓋度
+>
+> ```java
+> int binary_search(int A[], int key, int imin, int imax) {
+>   while (imin < imax)    {
+>        int imid = (int)floor((imin+imax)/2.0);
+>        assert(imid < imax);
+>        if (A[imid] < key)
+>            imin = imid + 1;
+>        else
+>            imax = imid;
+>    }
+>    if ((imax == imin) && (A[imin] == key))
+>         return imin;
+>    else
+>         return KEY_NOT_FOUND;
+> }
+> ```	
 
 #### ex-coverage-xy	
-:::success
-:football: 針對以下程式 
-	
-```java
-read(X, Y)
-if ((X>10) && (Y==1))
-   X=1;
-else if ((X-Y) < 2)
-   X=2;
-if (Y >10)
-   X=3;
-print X	
-```
-
-- 設計一測試案例使得 敘述涵蓋度 (SC) 為100%; 
-- 設計一測試案例使得 條件涵蓋度 (CC) 為 100%, 但 分支涵蓋度 (BC) 不為 100% 
-- 設計一測試案例使得 CC=100% , BC<>100% 
-- 設計一測試案例使得 CC=BC=100%
-:::
+> [!NOTE]
+> :football: 針對以下程式 
+>
+> ```java
+> read(X, Y)
+> if ((X>10) && (Y==1))
+>    X=1;
+> else if ((X-Y) < 2)
+>    X=2;
+> if (Y >10)
+>    X=3;
+> print X	
+> ```
+>
+> - 設計一測試案例使得 敘述涵蓋度 (SC) 為100%; 
+> - 設計一測試案例使得 條件涵蓋度 (CC) 為 100%, 但 分支涵蓋度 (BC) 不為 100% 
+> - 設計一測試案例使得 CC=100% , BC<>100% 
+> - 設計一測試案例使得 CC=BC=100%
 
 
 #### ex-triangle
-:::success
-針對以下程式，設計測試案例，使之100% condition coverage
-
-```java
-public class Triangle {
-    public static String getTriangleType(double a, double b, double c) {
-        if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) {
-            return "Not a valid triangle";
-        }
-
-        // Check for equilateral triangle
-        if (a == b && b == c && c == a) {
-            return "Equilateral";
-        }
-
-        // Check for isosceles triangle
-        if (a == b || b == c || a == c) {
-            return "Isosceles";
-        }
-
-        // Otherwise, it's a scalene triangle
-        return "Scalene"; // 不等邊三角形
-    }
-
-}
-```
-:::
+> [!NOTE]
+> 針對以下程式，設計測試案例，使之100% condition coverage
+>
+> ```java
+> public class Triangle {
+>     public static String getTriangleType(double a, double b, double c) {
+>         if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) {
+>             return "Not a valid triangle";
+>         }
+>
+>         // Check for equilateral triangle
+>         if (a == b && b == c && c == a) {
+>             return "Equilateral";
+>         }
+>
+>         // Check for isosceles triangle
+>         if (a == b || b == c || a == c) {
+>             return "Isosceles";
+>         }
+>
+>         // Otherwise, it's a scalene triangle
+>         return "Scalene"; // 不等邊三角形
+>     }
+>
+> }
+> ```
 		
 
 #### ex-coverage-bmi
-:::success
-針對以下程式，設計測試案例，以達到最佳的分支包含度。
-```java
-if (height > 2 || height <= 1) 
-   return -1;
-if (weight > 120 || weight <= 40) 
-   return -2;
-double BMI = weight /(height*height);
-if (BMI > 30) return -3;
-if (BMI < 15) return -4;
-return BMI;
-```		
-:::
+> [!NOTE]
+> 針對以下程式，設計測試案例，以達到最佳的分支包含度。
+> ```java
+> if (height > 2 || height <= 1) 
+>    return -1;
+> if (weight > 120 || weight <= 40) 
+>    return -2;
+> double BMI = weight /(height*height);
+> if (BMI > 30) return -3;
+> if (BMI < 15) return -4;
+> return BMI;
+> ```		
 
 
 #### ex-coverage-triangle
-:::success
-寫一個程式判斷三角形，並寫一點 JUnit 測試碼，執行測試時，以coverage testing 觀察測試涵蓋度，逐步提高測試率。
-:::
+> [!NOTE]
+> 寫一個程式判斷三角形，並寫一點 JUnit 測試碼，執行測試時，以coverage testing 觀察測試涵蓋度，逐步提高測試率。
 
 
 ### 基本路徑測試
@@ -767,13 +753,12 @@ return BMI;
 - 請寫出一個 selection sort 的程式，進行 basis path testing 的設計。
 
 #### ex-basis-path-testing-next-date
-:::success
-:football: 針對程式 [nextDate](#code-nextDate)，利用 basis path testing 的方式設計測試案例。
-	
-	- Cyclomatic complexity 為何
-	- Independent path 為何？
-	- 設計測試案例
-:::
+> [!NOTE]
+> :football: 針對程式 [nextDate](#code-nextDate)，利用 basis path testing 的方式設計測試案例。
+>
+> 	- Cyclomatic complexity 為何
+> 	- Independent path 為何？
+> 	- 設計測試案例
 
 #### code-nextDate
 ```java
@@ -821,12 +806,11 @@ return BMI;
     - 請寫出一個 selection sort 的程式，進行 all p-use 資料流測試。
 
 
-:::success
-:football: 針對 [nextDate](#code-nextDate) 進行資料流測試：
-	
-	- All definition testing 
-	- All c-use testing
-:::
+> [!NOTE]
+> :football: 針對 [nextDate](#code-nextDate) 進行資料流測試：
+>
+> 	- All definition testing 
+> 	- All c-use testing
 	
 
 ### 變異測試
@@ -872,39 +856,38 @@ while (…) {
 ```
 
 #### ex-mutation-xy
-:::success
-:football: 變異測試
-針對下方此程式，我們採用 mutation test 的方式來檢驗測試案例，假設我們產生以下變異：
-* P1 是把第二行的 && 改成 || (or)
-* P2 是把 == 改成 >=
-* P3 是把第四行的 < 改成 <=
-* P4 是把第六行的 > 改為 >= 
-* P5 是把第七行的 X=3 改為 X=1
-
-請參考 [此範例](#ex_mutation_test) 的做法
-* test case (x,y)= (1,1), (11,11), (3,3) 能夠 kill 哪些變異？其所代表的涵意為何？
-
-```python=
-def func(X, Y):
-    if ((X>10) and (Y==1))
-       X=1;
-    else if ((X-Y) < 2)
-       X=2;
-    if (Y >10)
-       X=3;
-    return X
-```
-* 延伸 [此範例](#ex_mutation_test) 的程式碼，設計一個 mu_score 函式可以檢驗一個測試案例群針對一群變異體的變異值。
-
-```python=
-def mu_score(Pt, Mt):
-    ''' 
-        Pt: [t1, t2, ...] 一維 list
-        Mt: [M1t, M2t, ...] 二維 list
-          Mit: [M1t1, M1t2, ...]
-    '''
-```
-:::
+> [!NOTE]
+> :football: 變異測試
+> 針對下方此程式，我們採用 mutation test 的方式來檢驗測試案例，假設我們產生以下變異：
+> * P1 是把第二行的 && 改成 || (or)
+> * P2 是把 == 改成 >=
+> * P3 是把第四行的 < 改成 <=
+> * P4 是把第六行的 > 改為 >= 
+> * P5 是把第七行的 X=3 改為 X=1
+>
+> 請參考 [此範例](#ex_mutation_test) 的做法
+> * test case (x,y)= (1,1), (11,11), (3,3) 能夠 kill 哪些變異？其所代表的涵意為何？
+>
+> ```python=
+> def func(X, Y):
+>     if ((X>10) and (Y==1))
+>        X=1;
+>     else if ((X-Y) < 2)
+>        X=2;
+>     if (Y >10)
+>        X=3;
+>     return X
+> ```
+> * 延伸 [此範例](#ex_mutation_test) 的程式碼，設計一個 mu_score 函式可以檢驗一個測試案例群針對一群變異體的變異值。
+>
+> ```python=
+> def mu_score(Pt, Mt):
+>     ''' 
+>         Pt: [t1, t2, ...] 一維 list
+>         Mt: [M1t, M2t, ...] 二維 list
+>           Mit: [M1t1, M1t2, ...]
+>     '''
+> ```
 
 
 ### 綜合

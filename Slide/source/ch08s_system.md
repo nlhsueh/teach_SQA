@@ -223,7 +223,7 @@ style: |
 
 # 軟體品質保證 (SQA)
 
-### 第七章：整合測試與模擬技術
+### 第八章：系統測試與非功能性測試
 
 授課教師：軟體品質保證教學團隊
 
@@ -231,16 +231,15 @@ style: |
 
 <!-- _class: lead -->
 
-# **7.1 整合測試策略**
+# **8.1 使用案例測試與 BDD**
 
 ---
 
-## 7.1 整合測試策略
+## 8.1 使用案例測試與 BDD
 
-* **大爆炸整合 (Big Bang) 的風險**
-* **由下而上整合 (Bottom-Up) 與 驅動程式 (Driver)**
-* **由上而下整合 (Top-Down) 與 虛設常式 (Stub)**
-* **三明治整合 (Sandwich Integration)**
+* **使用案例 (Use Case) 測試設計**
+* **行為驅動開發 (BDD) 概念**
+* **Cucumber 與 Gherkin 語法實踐**
 
 ---
 
@@ -249,16 +248,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「7.1 整合測試策略」，下列何者敘述最為正確？**
+**針對「8.1 使用案例測試與 BDD」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** 大爆炸整合 (Big Bang) 的風險 是確保系統品質的重要實踐
+* **B.** 使用案例 (Use Case) 測試設計 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -272,28 +271,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：大爆炸整合 (Big Bang) 的風險 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：使用案例 (Use Case) 測試設計 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **7.2 單元隔離與 Mockito 框架**
+# **8.2 可用性與使用者體驗測試**
 
 ---
 
-## 7.2 單元隔離與 Mockito 框架
+## 8.2 可用性與使用者體驗測試
 
-* **Test Double 種類：Dummy, Stub, Spy, Mock, Fake**
-* **Mockito 模擬行為 (when-then / given-when-then)**
-* **行為驗證 (verify) 與參數捕獲 (ArgumentCaptor)**
+* **Nielsen 10 大易用性啟發原則**
+* **A/B 測試 (A/B Testing) 實驗設計**
+* **可用性評估指標**
 
 ---
 
@@ -302,16 +301,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「7.2 單元隔離與 Mockito 框架」，下列何者敘述最為正確？**
+**針對「8.2 可用性與使用者體驗測試」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** Test Double 種類：Dummy, Stub, Spy, Mock, Fake 是確保系統品質的重要實踐
+* **B.** Nielsen 10 大易用性啟發原則 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -325,28 +324,28 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：Test Double 種類：Dummy, Stub, Spy, Mock, Fake 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：Nielsen 10 大易用性啟發原則 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
 <!-- _class: lead -->
 
-# **7.3 服務層與 API 整合測試**
+# **8.3 效能與負載測試**
 
 ---
 
-## 7.3 服務層與 API 整合測試
+## 8.3 效能與負載測試
 
-* **Spring Boot Test 整合架構**
-* **MockMvc 與 REST API 測試**
-* **資料庫測試與 Testcontainers**
+* **負載測試 (Load)、壓力測試 (Stress)、耐力測試 (Endurance)**
+* **度量指標：回應時間、吞吐量 (TPS/RPS)、錯誤率**
+* **虛擬使用者 (Virtual Users) 與負載模型**
 
 ---
 
@@ -355,16 +354,16 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**針對「7.3 服務層與 API 整合測試」，下列何者敘述最為正確？**
+**針對「8.3 效能與負載測試」，下列何者敘述最為正確？**
 
 * **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
-* **B.** Spring Boot Test 整合架構 是確保系統品質的重要實踐
+* **B.** 負載測試 (Load)、壓力測試 (Stress)、耐力測試 (Endurance) 是確保系統品質的重要實踐
 * **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
 * **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 
@@ -378,14 +377,66 @@ style: |
 ### **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：Spring Boot Test 整合架構 確實是軟體品質保證中的核心重點。
+  * **選項 B 正確**：負載測試 (Load)、壓力測試 (Stress)、耐力測試 (Endurance) 確實是軟體品質保證中的核心重點。
   * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
   * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
   * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
+  </div>
+</div>
+
+<!-- _class: lead -->
+
+# **8.4 JMeter 實務與非功能性測試**
+
+---
+
+## 8.4 JMeter 實務與非功能性測試
+
+* **JMeter 腳本錄製與參數化**
+* **相容性、安全性與回復性測試重點**
+
+---
+
+## Concept Check Question (CCQ 4)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**針對「8.4 JMeter 實務與非功能性測試」，下列何者敘述最為正確？**
+
+* **A.** 測試僅需在程式碼撰寫完成後由開發者單獨執行即可
+* **B.** JMeter 腳本錄製與參數化 是確保系統品質的重要實踐
+* **C.** 品質控制 (QC) 與品質保證 (QA) 完全等價且無區別
+* **D.** 達到 100% 程式碼涵蓋率代表軟體絕對無任何缺陷
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+  </div>
+</div>
+
+---
+
+## CCQ 4 - 答案與解析
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+### **正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：JMeter 腳本錄製與參數化 確實是軟體品質保證中的核心重點。
+  * **選項 A 錯誤**：測試應貫穿整個軟體生命週期，且包含獨立測試與同儕檢視。
+  * **選項 C 錯誤**：QC 著重於產品檢查與缺陷發現，QA 著重於流程建立與預防。
+  * **選項 D 錯誤**：高涵蓋率不代表無邏輯錯誤或規格遺漏，無法保證絕對零缺陷。
+
+  </div>
+  <div class="ccq-logo">
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -399,7 +450,7 @@ style: |
 
 ## 本章小結與重點
 
-* 掌握 **第七章：整合測試與模擬技術** 的核心概念與實務手法。
+* 掌握 **第八章：系統測試與非功能性測試** 的核心概念與實務手法。
 * 熟悉各項 SQA 技術在軟體生命週期中的應用時機與效益。
 * 課後請完成隨堂練習與 Lab 實作，以深化觀念。
 
