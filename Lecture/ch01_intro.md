@@ -201,7 +201,7 @@ D) 軟體品質完全取決於使用者主觀的滿意度，與開發流程或�
 </details>
 
 
-## 1.3 品質模型
+## 1.3 品質模型 (Software Quality Models)
 
 每一個產業都有各自的品質模型，做簡易家具的不會考慮到「維護性」的議題，椅子壞了換掉就是了，但汽車產業就一定要考慮到維護性，所以維護性是汽車產業的品質模型中的品質特性。
 
@@ -209,16 +209,31 @@ D) 軟體品質完全取決於使用者主觀的滿意度，與開發流程或�
 
 👉 不同物品的品質特性各有不同
 
-擴充性和跨平台執行就不是汽車產業重要的品質項目之一，但對軟體產業來說卻是非常的重要。不同產業、物品有其不同的品質模型。軟體品質模型有很多，例如 McCall, Boehm's Quality model, FURPS+ model 和 ISO 9126 ，以下我們介紹 ISO 9126 的品質模型。
+擴充性和跨平台執行就不是汽車產業重要的品質項目之一，但對軟體產業來說卻是非常的重要。不同產業、物品有其不同的品質模型。軟體品質模型有很多，例如 McCall, Boehm's Quality model, FURPS+ model，以及國際標準 **ISO 9126** 與其現代升級標準 **ISO 25010 (SQuaRE)**。
 
-### 1.3.1 ISO 9126
+### 🗺️ ISO 25010 軟體品質特性與實戰測試技術對照地圖
 
-ISO 9126 將品質分為六大特性，如 Fig ISO ，每一個特性下又分為若干個次因子，以下分項說明。
+軟體測試並非盲目寫 Code，本課程中學習的每一項測試與工程技術，本質上都是在度量並守護品質模型的具體維度：
+
+| ISO 25010 品質特性 | 核心子特性 (Sub-characteristics) | 本課程對應之測試與工程技術 |
+| :--- | :--- | :--- |
+| **功能適合性** (Functional Suitability) | 完備性、正確性、適切性 | 等價類分割 (EP)、邊界值分析 (BVA)、JUnit 5、BDD (Cucumber) |
+| **可靠性** (Reliability) | 成熟度、容錯度 (Fault Tolerance)、可回復性 | 斷言 (Assertions)、**屬性測試 (jqwik Property-Based Testing)**、混沌工程 (Chaos) |
+| **可維護性** (Maintainability) | 模組化、可分析性、可修改性、可測試性 | 靜態程式碼分析 (SonarQube/SpotBugs)、**變異測試 (PITest)**、依賴解耦 |
+| **安全性** (Security) | 機密性、完整性、抗抵賴性、真實性 | 靜態安全掃描 (AST/SAST)、**模糊測試 (Fuzzing with Jazzer)** |
+| **效能效率** (Performance Efficiency) | 時間行為 (延遲/回應時間)、資源利用率 | **k6 / Apache JMeter 高併發壓測**、GC 監控與記憶體洩漏分析 |
+| **相容性** (Compatibility) | 共存性、互通性 (Interoperability) | **微服務契約測試 (Pact)**、跨版本相容性測試 |
+| **可移植性** (Portability) | 適應性、易安裝性、易置換性 | **Testcontainers 容器化測試**、雲原生多環境測試 |
+| **易用性** (Usability) | 易識別性、易學習性、易操作性、錯誤保護 | **Playwright E2E 驗收測試**、使用者流程自動化驗證 |
+
+---
+
+### 1.3.1 ISO 9126 / ISO 25010 核心特性解析
+
+ISO 9126 將品質分為六大特性，現代 ISO 25010 則將其擴展為八大產品品質特性。以下分項說明：
 
 ![](../img/ch01/r1YdmoB03.png)
 
-
-        
 👉 ISO: ISO 9126 軟體品質模型
 
 #### 一、功能性 Functionality

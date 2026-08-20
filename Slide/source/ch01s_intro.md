@@ -614,9 +614,9 @@ style: |
 
 <!-- _class: lead -->
 
-# **1.3 品質模型 (ISO 9126)**
+# **1.3 品質模型 (ISO 9126 / ISO 25010)**
 
-> 每種產品都有其品質模型，軟體亦有其六大特性。
+> 品質模型是軟體工程的「指北針」，定義了何謂好軟體。
 
 ---
 
@@ -628,6 +628,21 @@ style: |
 * **效能性 (Efficiency)**：時間行為（回應時間）、資源利用率（CPU/RAM/I/O）。
 * **可維護性 (Maintainability)**：易分析性、易變更性、穩定性、易測試性。
 * **可移植性 (Portability)**：適應性、易安裝性、共存性、易置換性。
+
+---
+
+## 1.3.2 現代 ISO 25010 與實戰測試技術地圖
+
+| ISO 25010 品質特性 | 核心守護技術 (本學期重點) |
+| :--- | :--- |
+| **功能適合性** (Functional Suitability) | 等價類 (EP)、邊界值 (BVA)、JUnit 5、BDD (Cucumber) |
+| **可靠性** (Reliability) | 斷言 (Assertions)、**屬性測試 (jqwik)**、混沌工程 (Chaos) |
+| **可維護性** (Maintainability) | 靜態分析 (SonarQube/SpotBugs)、**變異測試 (PITest)** |
+| **安全性** (Security) | 靜態安全掃描 (AST/SAST)、**模糊測試 (Fuzzing)** |
+| **效能效率** (Performance Efficiency) | **k6 / Apache JMeter 高併發壓測**、記憶體分析 |
+| **相容性** (Compatibility) | **微服務契約測試 (Pact)**、跨版本相容性測試 |
+| **可移植性** (Portability) | **Testcontainers 容器化測試**、Docker 環境驗證 |
+| **易用性** (Usability) | **Playwright E2E 驗收測試**、UI 自動化流程 |
 
 ---
 
