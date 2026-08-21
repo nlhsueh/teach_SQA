@@ -78,24 +78,7 @@ D) 異常防護 (Exceptions)
 
 國際軟體測試認證委員會（ISTQB）規範了軟體測試的 **7 大核心原則**，這是每一位專業軟體工程師與 QA 架構師的思維基石：
 
-```mermaid
-mindmap
-  root((ISTQB 7 大測試原則))
-    原則 1: 測試顯示缺陷的存在而非不存在
-      Testing shows presence of defects
-    原則 2: 窮盡測試是不可能的
-      Exhaustive testing is impossible
-    原則 3: 及早測試節省時間與成本
-      Early testing / Shift-Left
-    原則 4: 缺陷群聚效應
-      Defects cluster together (80/20)
-    原則 5: 小心殺蟲劑悖論
-      Beware of the pesticide paradox
-    原則 6: 測試取決於上下文
-      Testing is context dependent
-    原則 7: 無錯謬誤
-      Absence-of-errors is a fallacy
-```
+<img src="../img/ch03/gemini_nb/istqb_7_principles.png" width="600">
 
 ---
 
