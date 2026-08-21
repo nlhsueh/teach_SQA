@@ -423,9 +423,7 @@ Record and replay
 
 ### 虛擬使用者 
 
-{%youtube 9Qw0i9fan5w %}
-
-JMeter part 1 影片解說 
+[▶️ 觀看影片：JMeter part 1 影片解說](https://youtu.be/9Qw0i9fan5w) 
 
 > Lab: HTTP 請求。  numguess 為一個簡易的猜數字程式。請利用 JMeter 設計一個測試案例模擬一個使用者進入 numberguess 程式的行為。
 

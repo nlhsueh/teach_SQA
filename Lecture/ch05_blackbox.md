@@ -5,19 +5,10 @@
 > **Black-box testing** A method of software testing that examines the functionality of an application without peering into its internal structures or workings.
 
 
-FIG: 黑箱測試
-
-
-```plantuml
-@startuml
-skinparam defaultFontName Arial
-
-rectangle "System" as System
-
-Input -> System : Data
-System -> Output : Processed Data
-
-@enduml
+```mermaid
+graph LR
+    Input([Input]) -->|Data| System[System]
+    System -->|Processed Data| Output([Output])
 ```	
 
 ## 🧑‍💻 5.1 Lab: JUnit
@@ -107,7 +98,7 @@ if (tall > 180)
 
 強固邊界測試
 
-![image](../img/ch05/rye0RV3e-x.png)
+<img src="../img/ch05/gemini_nb/robust_bva.png" width="400">
 
 
 
@@ -146,9 +137,9 @@ if (exam <= 60 && hw <= 60 ) //錯了
 
 當變數很多時，其所需要的測試資料數量是我們無法負擔的，所以有時候也進行部分的乘積，而不是全面的，例如我們猜測其中三個高度相關，僅對這三個變數進行乘積，其餘的還是用獨立式的作法。
 
-FIG: 非獨立型強固邊界測試
+FIG: 非獨立型一般邊界測試 (最差情況邊界測試)
 
-![image](../img/ch05/BJCMyrnxZe.png)
+<img src="../img/ch05/gemini_nb/worst_case_bva.png" width="400">
 
 
 
@@ -227,10 +218,10 @@ FIG: 三角形程式：非獨立型一般邊界測試
 
 FIG: 等價分割測試（圓形表示弱涵蓋測試、三角形表示強涵蓋測試）
 
-![image](../img/ch05/r1Pq1H2x-e.png)
+<img src="../img/ch05/gemini_nb/equivalence_partition.png" width="450">
 
 
-> :question: 
+> ❓ 
 總成績 (grade) 是由考試成績 (exam) 與作業成績 (hw) 合算出來的，其中考試成績佔60分，作業成績佔40分，輸入為 exam 與 hw 兩個成績, 輸出為總成績 A, B, C, D 四個等級分別代表 90, 80, 70以上及 70 以下。請利用等價劃分方法建立測試案例。
 
 ### 簡易等價分割
@@ -471,9 +462,9 @@ Table: 表格說明
 > - 假設年數分為六個分割，金額分為三個分割，則需要多少個測試案例？測試案例為何？
 > - 若用強涵蓋、弱涵蓋，則需要多少個測試案例？測試案例為何？
 
-FIG: 放款利率計算
+FIG: 放款利率計算介面
 
-![](../img/ch05/Byc4JbKg6.png)
+<img src="../img/ch05/gemini_nb/loan_calculator.jpg" width="550">
 
 #### 開發與工具
 
@@ -528,7 +519,16 @@ CAR 決策表設計法，其中 ==C: Condition== 表示每一個細項的狀況�
 
 FIG: 狀況，事件，規則表
 
-<img src="../img/ch05/rJjUHNIMp.png" width="450">
+| 條件與事件 | 規則 1 (R1) | 規則 2 (R2) | 規則 3 (R3) | 規則 4 (R4) |
+| :--- | :---: | :---: | :---: | :---: |
+| **條件 (Conditions)** | | | | |
+| C1: 條件 1 | Y | Y | N | N |
+| C2: 條件 2 | Y | N | Y | N |
+| C3: 條件 3 | Y | - | - | Y |
+| **動作 (Actions)** | | | | |
+| A1: 執行動作 1 | X | X | | |
+| A2: 執行動作 2 | | X | X | |
+| A3: 執行動作 3 | | | | X |
 
 
 在這個例子中，每一個 condition 都是一個條件為「真假」的變數，其實也可以試一個變數，而條件值為一個數字、範圍或描述性的條件。
@@ -537,14 +537,29 @@ FIG: 狀況，事件，規則表
 
 FIG: 三角形的狀況事件規則表（CAR table）
 
-<img src="../img/ch05/SJoOB4Izp.png" width="400">
+| 條件與動作 | R1 | R2 | R3 | R4 | R5 | R6 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **條件 (Conditions)** | | | | | | |
+| C1: $a < b + c$ 且 $b < a + c$ 且 $c < a + b$？ | N | Y | Y | Y | Y | Y |
+| C2: $a = b$？ | - | Y | Y | N | N | N |
+| C3: $b = c$？ | - | Y | N | Y | N | N |
+| C4: $a = c$？ | - | Y | N | N | Y | N |
+| **動作 (Actions)** | | | | | | |
+| A1: 輸出「非三角形」 | X | | | | | |
+| A2: 輸出「等邊三角形」 | | X | | | | |
+| A3: 輸出「等腰三角形」 | | | X | X | X | |
+| A4: 輸出「不等邊三角形」 | | | | | | X |
 
 > 在 nextDay() 的例子中，輸入一個日期，輸出是以下幾個動作是否執行：*impossible, increment day, increment month, increment year, reset day, reset month}。
 請以決策表設計測試案例。
 
-FIG: nextDay()
+FIG: nextDay() 等價類劃分
 
-<img src="../img/ch05/Hy9hr4LGa.png" width="400">
+| 變數 (Variable) | 有效等價類 (Valid Equivalence Classes) |
+| :--- | :--- |
+| **月份 (Month)** | M1 = {30天月份: 4, 6, 9, 11}<br>M2 = {31天月份: 1, 3, 5, 7, 8, 10, 12}<br>M3 = {二月: 2} |
+| **日期 (Day)** | D1 = {1 $\le$ day $\le$ 28}<br>D2 = {day = 29}<br>D3 = {day = 30}<br>D4 = {day = 31} |
+| **年份 (Year)** | Y1 = {世紀平年: year = 1900}<br>Y2 = {一般閏年: 1812 $\le$ year $\le$ 2012 且 year $\ne$ 1900 且 year mod 4 = 0}<br>Y3 = {一般平年: 1812 $\le$ year $\le$ 2012 且 year mod 4 $\ne$ 0} |
 
 
 - M1 = \{month: month has 30 days\} 
@@ -559,20 +574,45 @@ FIG: nextDay()
 - Y3 = \{year: (1812<=year<=2012 AND year!=0 mod 4\}
 
 FIG: 應用決策表測試法於 nextDay()
-<img src="../img/ch05/ByoGow1mT.png" width="600">
+
+| 規則 (Rules) | R1 | R2 | R3 | R4 | R5 | R6 | R7 | R8 | R9 | R10 | R11 | R12 | R13 | R14 | R15 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **條件 (Conditions)** | | | | | | | | | | | | | | | |
+| 月份 (Month) | M1 | M1 | M1 | M1 | M2 | M2 | M2 | M2 (Dec) | M2 (not Dec) | M3 | M3 | M3 | M3 | M3 | M3 |
+| 日期 (Day) | D1/D2 | D3 | D4 | - | D1/D2/D3 | D4 | - | D4 | D4 | D1 (1-27) | D1 (28) | D1 (28) | D2 (29) | D2 (29) | D3/D4 |
+| 年份 (Year) | - | - | - | - | - | - | - | - | - | - | Leap | Common | Leap | Common | - |
+| **動作 (Actions)** | | | | | | | | | | | | | | | |
+| A1: 日期加 1 | X | | | | X | | | | | X | X | | | | |
+| A2: 月份加 1, 日期歸 1 | | X | | | | | | | X | | | X | X | | |
+| A3: 年份加 1, 月/日歸 1 | | | | | | | | X | | | | | | | |
+| A4: 錯誤/不可能的日期 | | | X | | | | | | | | | | | X | X |
 
 
-:question: 透過上述的決策表我們發現有些地方是無法確定的（打X的部份），因此分割需要再細一些，怎麼做呢？有需要修改分割嗎？
+❓ 透過上述的決策表我們發現有些地方是無法確定的（打X的部份），因此分割需要再細一些，怎麼做呢？有需要修改分割嗎？
 
 ## 5.7 狀態測試
 
-:question: 沒有 return 的 function 怎麼測試？
+❓ 沒有 return 的 function 怎麼測試？
 
 前面我們所提到的測試多半著重在於輸入輸出的檢查，但是現在的軟體系統很多都是事件導向（event driven）的，系統內部會有一個狀態機（state machine）來記錄現有的狀態，並決定接受到狀態時應該做出什麼反應，轉移到哪一個狀態。像這一類的系統測試的重點就不是在功能是否正確，而是狀態的反應是否正確。
 
 FIG: 訂票系統的狀態圖
 
-![image.png](../img/ch05/r11wivJX6.png)
+```mermaid
+stateDiagram-v2
+    [*] --> Made : 預約 (giveInfo)
+    Made --> Paid : 付款 (payMoney)
+    Made --> CancelledByCustomer : 顧客取消 (cancel)
+    Made --> CancelledNonPay : 未付款取消 (payTimeExpire)
+    Paid --> Ticketed : 開票 (print)
+    Paid --> CancelledByCustomer : 顧客取消 (cancel)
+    Ticketed --> Used : 使用 (giveTicket)
+    Ticketed --> CancelledByCustomer : 顧客取消 (cancel)
+    
+    CancelledByCustomer --> [*]
+    CancelledNonPay --> [*]
+    Used --> [*]
+```
 
 
 圖表示一個飛機票的訂票系統，我們先把他的狀態定義出來：made (預約), paid（已付款）, ticketed（已開票）, used（已使用）, cancelled by customer（顧客取消）, cancelled nonpay（未付款取消）。狀態轉移（transition）上的格式為：
@@ -587,19 +627,15 @@ FIG: 訂票系統的狀態圖
 
 FIG: 全狀態轉移涵蓋
 
-![image.png](../img/ch05/HyPujPyXa.png)
+> 百分百狀態轉移涵蓋並不保證百分百事件涵蓋，因為可能有多個事件會造成相同的狀態轉移。
 
+為了達到全狀態與全狀態轉移的涵蓋，我們設計了以下 5 條測試路徑（事件序列）：
 
-> 百分百狀態轉移涵蓋並不保證百分百事件涵蓋，因為可以能有多個事件會造成相同的狀態轉移。
-
-上圖表示狀態轉移涵蓋的情況。深藍色的轉移情境表示狀態涵蓋度，而連同上方藍色的轉移情境表示狀態轉移涵蓋度。我們設計測試案例如下：
-
- 
-- giveInfo, payMoney, print, giveTicket
-- giveInfo, payMoney, print, cancel
-- giveInfo, payMoney, cancel
-- giveInfo, cancel
-- giveInfo, payTimeExpire
+- **路徑 1**：`giveInfo` -> `payMoney` -> `print` -> `giveTicket` (涵蓋 Made, Paid, Ticketed, Used)
+- **路徑 2**：`giveInfo` -> `payMoney` -> `print` -> `cancel` (涵蓋 Made, Paid, Ticketed, CancelledByCustomer)
+- **路徑 3**：`giveInfo` -> `payMoney` -> `cancel` (涵蓋 Made, Paid, CancelledByCustomer)
+- **路徑 4**：`giveInfo` -> `cancel` (涵蓋 Made, CancelledByCustomer)
+- **路徑 5**：`giveInfo` -> `payTimeExpire` (涵蓋 Made, CancelledNonPay)
 
 
 注意其中第五個測試案例需要產生過期未繳款的事件，這可能需要一段不短的時間（例如一個星期），會對測試造成困擾，所以通常需要假時間的建立以加快測試的效率。
@@ -670,6 +706,78 @@ assertTrue(s.isEmpty());
 
 See [DemoJUnit](https://github.com/nlhsueh/sw-testing24/tree/main/Intellij/DemoJunit) 下 `state/Stack` 的完整程式碼與測試碼。
 
+
+## 5.8 屬性基礎測試 (Property-Based Testing)
+
+在傳統的單元測試中，我們習慣採用 **範例基礎測試 (Example-Based Testing, EBT)**。我們手動挑選幾組具代表性的輸入資料（如邊界值、等價區間內的數值），然後寫出對應的預期輸出，並使用 `assertEquals` 等斷言進行驗證。然而，這種做法高度依賴測試工程師的經驗，容易漏掉那些難以預料的極端輸入（Edge Cases）。
+
+**屬性基礎測試 (Property-Based Testing, PBT)** 則是另一種典範轉移：它要求我們不去定義「具體的測試資料與預期輸出」，而是定義**「程式碼應該永遠滿足的數學屬性或狀態不變量 (Class/Algorithmic Invariants)」**。接著由測試框架自動生成成千上萬組不同的極端隨機測資，來試圖找出讓這個屬性失敗的反例。
+
+### 5.8.1 核心概念：不變量與隨機測資
+
+1. **屬性 (Property) / 不變量 (Invariant)**：
+   * 指的是不論輸入什麼資料，程式執行完畢後都必須成立的規則。
+   * *例如排序演算法*：給定任何 List `A`，排序後的 List `B` 必須滿足：
+     * `B` 的長度必須與 `A` 相同。
+     * `B` 內的所有元素必須與 `A` 相同（是 `A` 的排列組合）。
+     * 對於 `B` 中任何相鄰元素 $B[i]$ 與 $B[i+1]$，都必須滿足 $B[i] \le B[i+1]$。
+2. **自動生成測資 (Generator)**：
+   * 框架（如 Java 的 `jqwik`、Python 的 `Hypothesis`）會自動生成隨機字串、極大/極小整數、包含空值或重複元素的陣列等。
+3. **收斂 / 縮小化 (Shrinking)**：
+   * 當隨機生成的一萬組資料中，有一組極為複雜的資料導致測試失敗時，AI 框架會自動對該資料進行「簡化」，嘗試以最簡短、最容易讓人類看懂的「極簡反例」回報給開發者。
+   * *例如*：如果長度為 100 且包含特殊字元的隨機陣列在排序時出錯，PBT 框架經過 Shrinking 後，最終可能只會回報 `[0, -1]` 這樣簡單的反例，幫助工程師精準除錯。
+
+### 5.8.2 `jqwik` 實戰範例 (Java)
+
+以下是一個使用 `jqwik` 框架測試「整數加法交換律」與「相加不變量」的簡單範例：
+
+```java
+import net.jqwik.api.*;
+
+public class AdditionProperties {
+
+    // 測試加法交換律：a + b 必須等於 b + a
+    @Property
+    void additionIsCommutative(@ForAll int a, @ForAll int b) {
+        int result1 = a + b;
+        int result2 = b + a;
+        assert result1 == result2;
+    }
+
+    // 測試加法恆等律：任何數加上 0 必須等於自己
+    @Property
+    void additionWithZeroHasNoEffect(@ForAll int a) {
+        assert a + 0 == a;
+    }
+}
+```
+
+* **`@Property`**：告訴 jqwik 這是一個屬性測試，預設會自動執行 1000 次隨機測試。
+* **`@ForAll`**：指示框架自動為該參數生成各類極端值（包括整數最大值 `Integer.MAX_VALUE`、最小值、零、負數等）。
+
+> 🛠️ **實習手冊連結**：
+> * Property-Based Testing 實戰：[`../Lab/u04_utest/jqwik_property_based.md`](../Lab/u04_utest/jqwik_property_based.md)
+
+#### **概念核對問答 (CCQ 1)**
+
+**問題**
+
+【是非題】在屬性基礎測試 (Property-Based Testing) 中，我們不需要手動為每一組測試寫出精確的預期輸出數值（例如 `expected = 10`），而是定義程式執行時必須永遠維持的「屬性或不變量」，並交由測試框架隨機生成大量測資來尋找反例。
+
+A) 正確 (True)
+B) 錯誤 (False)
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：A**
+
+* **解析**：
+  * **正確**：PBT 的核心就是「規格即測試」。它不關注個別的特定輸入與輸出配對（Example），而是關注系統通用不變量（Property），框架會模擬極端狀態自動發送上萬組隨機輸入，若發現任何失敗的反例，還會進行收斂（Shrinking）以回報最簡潔的錯誤測資。
+
+</details>
+
+---
 
 ## ✨ Check
   

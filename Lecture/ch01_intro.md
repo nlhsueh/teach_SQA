@@ -1,67 +1,10 @@
 # Ch01 軟體危機、品質模型與 AI 時代的可靠性工程
-### Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineering
+
+Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineering
 
 > 😅 大家都知道「物質不滅定律」；身為資工系學生，我們更熟悉「Bug 不滅定律」。
 > 
 > 在 2026 年，寫出一段程式碼只要問 AI 3 秒鐘；但要證明這段程式碼在生產環境不會搞垮公司，可能要花上 3 個月。
-
----
-
-## ⚡ 0. 開局震撼：AI 寫的「完美」程式碼，為什麼會在 3 秒內讓公司破產？
-
-在進入理論之前，讓我們先看一段由現代頂級 AI（GPT-4 / Claude 3.5）生成的「銀行電子錢包轉帳服務」：
-
-```java
-public class WalletService {
-    private double balance = 1000.0; // 帳戶初始餘額 $1000
-
-    // AI 生成的轉帳方法：具備基本檢查與扣款邏輯
-    public boolean transfer(double amount) {
-        if (amount <= 0) {
-            return false;
-        }
-        if (balance >= amount) {
-            // 模擬網路延遲或資料庫查詢
-            try { Thread.sleep(10); } catch (InterruptedException e) {}
-            
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-}
-```
-
-### 🧪 現場破壞實驗 (Live Attack Experiment)
-這段程式碼看起來排版整齊、邏輯清晰，一般的單元測試 `assert transfer(100) == true` 也是綠燈通過。
-
-**但是，當我們用 50 個執行緒同時發送「轉帳 $100」的請求時：**
-
-```java
-// 50 個使用者同時並發轉帳 $100（總提款需求 $5000，但帳戶只有 $1000）
-ExecutorService executor = Executors.newFixedThreadPool(50);
-for (int i = 0; i < 50; i++) {
-    executor.submit(() -> walletService.transfer(100.0));
-}
-executor.shutdown();
-executor.awaitTermination(5, TimeUnit.SECONDS);
-
-System.out.println("最終餘額：" + walletService.getBalance());
-```
-
-**執行結果：**
-$$\text{最終餘額：} -3200.0 \quad \text{（帳戶原本只有 \$1000，居然被提走了 \$4200，嚴重超賣負債！）}$$
-
-> 💥 **震撼反思**：
-> 1. **AI 不會主動為你考慮並發安全性與狀態不變量（Invariants）**：AI 只根據常見的程式片段生成了順序執行代碼，缺乏對執行緒安全（Thread-safety）的原子性保護。
-> 2. **AI 產生的測試往往也是「自我印證的假綠燈」**：如果你叫 AI 幫這段代碼寫測試，AI 只會寫單執行緒測試，測試 100% 覆蓋率通過，讓你帶著虛假的安全感將炸彈推上線。
-> 3. **2026 資工系工程師的真正使命**：
->    * 寫程式碼（Coding）已經不是稀缺技能；
->    * **「定義規格與不變量」、「設計破壞性測試」、「建立自動化品質防線」才是人類工程師不可替代的核心價值！**
 
 ---
 
@@ -119,13 +62,92 @@ $$\text{最終餘額：} -3200.0 \quad \text{（帳戶原本只有 \$1000，居�
 
 ---
 
+### Case 5：AI 寫的程式碼 —— 為什麼會在 3 秒內讓公司破產？
+
+在進入理論之前，讓我們先看一段由現代頂級 AI（GPT-4 / Claude 3.5）生成的「銀行電子錢包轉帳服務」：
+
+```java
+public class WalletService {
+    private double balance = 1000.0; // 帳戶初始餘額 $1000
+
+    // AI 生成的轉帳方法：具備基本檢查與扣款邏輯
+    public boolean transfer(double amount) {
+        if (amount <= 0) {
+            return false;
+        }
+        if (balance >= amount) {
+            // 模擬網路延遲或資料庫查詢
+            try { Thread.sleep(10); } catch (InterruptedException e) {}
+            
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+```
+
+#### 🧪 現場破壞實驗 (Live Attack Experiment)
+這段程式碼看起來排版整齊、邏輯清晰，一般的單元測試 `assert transfer(100) == true` 也是綠燈通過。
+
+**但是，當我們用 50 個執行緒同時發送「轉帳 $100」的請求時：**
+
+```java
+// 50 個使用者同時並發轉帳 $100（總提款需求 $5000，但帳戶只有 $1000）
+ExecutorService executor = Executors.newFixedThreadPool(50);
+for (int i = 0; i < 50; i++) {
+    executor.submit(() -> walletService.transfer(100.0));
+}
+executor.shutdown();
+executor.awaitTermination(5, TimeUnit.SECONDS);
+
+System.out.println("最終餘額：" + walletService.getBalance());
+```
+
+**執行結果：**
+$$\text{最終餘額：} -3200.0 \quad \text{（帳戶原本只有 \$1000，居然被提走了 \$4200，嚴重超賣負債！）}$$
+
+> 💥 **震撼反思**：
+> 1. **AI 不會主動為你考慮並發安全性與狀態不變量（Invariants）**：AI 只根據常見的程式片段生成了順序執行程式碼，缺乏對執行緒安全（Thread-safety）的原子性保護。
+> 2. **AI 產生的測試往往也是「自我印證的假綠燈」**：如果你叫 AI 幫這段程式碼寫測試，AI 只會寫單執行緒測試，測試 100% 覆蓋率通過，讓你帶著虛假的安全感將炸彈推上線。
+> 3. **2026 資工系工程師的真正使命**：
+>    * 寫程式碼（Coding）已經不是稀缺技能；
+>    * **「定義規格與不變量」、「設計破壞性測試」、「建立自動化品質防線」才是人類工程師不可替代的核心價值！**
+
+---
+
 ### 1.1.5 軟體危機的本質：從 1968 到 2026
 
 * 1968 年 NATO 會議首次提出「軟體危機（Software Crisis）」：硬體飛速發展，而軟體開發卻面臨**預算超支、進度延期、品質低下、維護困難**。
 * **2026 年新軟體危機（The Verification Bottleneck）**：
-  * AI 讓寫代碼的速度提升了 10 倍，產出的程式碼量呈幾何級數暴增。
-  * 然而，人類驗證代碼、審查規格與確保系統可靠性的能力並沒有自動提升 10 倍！
+  * AI 讓寫程式碼的速度提升了 10 倍，產出的程式碼量呈幾何級數暴增。
+  * 然而，人類驗證程式碼、審查規格與確保系統可靠性的能力並沒有自動提升 10 倍！
   * **軟體危機沒有消失，它只是轉變為「可信賴度危機（Reliability Crisis）」**。
+
+### 📊 數據與實證：AI 讓程式產生的速度變快了，但品質有提升嗎？
+
+這是一個非常關鍵的工程思維問題。當開發團隊大量依賴 AI 程式碼編寫工具時，我們真的得到了高品質的軟體嗎？**答案可能恰恰相反。** 近年的多項權威實證研究與學術調查提供了驚人的數據支持：
+
+1. **程式碼維護性惡化：GitClear 縱向研究 (2020–2026)**
+   * GitClear 分析了 **1.5 億行程式碼** 的 Git Commit 數據，發現自 AI 輔助工具普及以來：
+     * **程式碼重複率 (Code Duplication)** 呈指數級上升。
+     * 衡量程式碼重構的關鍵指標 **「移動行數 (Moved Lines)」大幅下降**，表示工程師更少主動去重構、整理舊程式碼。
+     * **程式碼流失率 (Code Churn)** 顯著增高（剛寫好的程式碼在短時間內被刪除或重寫），這證明 AI 生成了大量看似可行、實則脆弱的程式碼，帶來了沈重的**長期維護性債務（Maintainability Debt）**。
+2. **52% 的高錯誤率與「虛假安全感」：Purdue University 實證研究**
+   * 普渡大學研究團隊評估了 ChatGPT 在回答 Stack Overflow 上的 517 個軟體工程問題時的表現：
+     * 結果顯示，**AI 的解答中有 52% 包含錯誤的程式碼或資訊**。
+     * 但更可怕的是，由於 AI 的語氣極度禮貌、條理清晰且「看似極度合理」，有高達 **39.3% 的使用者依然偏好並採信了 AI 的錯誤回答**。
+     * 這會使工程師產生錯誤的「安全感」，未經嚴謹驗證就直接將漏洞帶入系統中。
+3. **40% 的安全弱點隱患：紐約大學 (NYU) 等學術研究**
+   * 研究人員對 AI 生成的程式碼進行自動化安全掃描（基於 Common Weakness Enumeration, CWE 標準）：
+     * 結果發現，AI 在沒有特定安全提示的引導下，生成程式碼中 **有高達約 40% 包含已知的安全弱點（如：緩衝區溢位、SQL 注入、並發競爭危害）**。
+
+> 💡 **結論**：  
+> **在 2026 AI 時代，軟體開發的真正瓶頸（Bottleneck）已經從「程式碼寫不寫得出來 (Writing)」完全轉移到「程式碼到底正不正確 (Verification)」**。如果開發者缺乏品質保證知識，只盲信 AI 的「綠燈完成」，將會使軟體系統迅速崩潰。
 
 > 😂 **軟體和教堂非常相似——建成之後我們就開始祈禱。**
 > >> *Software and cathedrals are much the same – first we build them, then we pray.* (Sam Redwine)
@@ -262,7 +284,7 @@ $$\begin{aligned}
 ```
                        ┌── 預防成本 (Prevention): 培訓、流程標準、架構審查、契約設計
         ┌─ 一致性成本 ──┤
-        │  (Conformance)└── 評估成本 (Appraisal): 單元測試、代碼檢視、自動化 CI 測試
+        │  (Conformance)└── 評估成本 (Appraisal): 單元測試、程式碼檢視、自動化 CI 測試
 品質成本 ┤
         │  (Non-       ┌── 內部失敗 (Internal Failure): 上線前修 Bug、重構程式碼
         └─ 非一致性成本 ──┤
@@ -348,7 +370,7 @@ mindmap
 ## ✍️ 1.6 綜合練習與思維激盪
 
 1. **AI 時代的品質反思**：
-   * 當生成式 AI 可以在幾秒鐘內產生包含完整 Javadoc 的代碼時，為什麼軟體測試工程師的價值反而大幅提升？請從「Test Oracle 問題」與「自我印證偏誤」兩方面進行說明。
+   * 當生成式 AI 可以在幾秒鐘內產生包含完整 Javadoc 的程式碼時，為什麼軟體測試工程師的價值反而大幅提升？請從「Test Oracle 問題」與「自我印證偏誤」兩方面進行說明。
 2. **ISO 25010 維度分析**：
    * 請分析「微服務系統在後端資料庫當機重啟後，能在 5 秒內自動重新連線並將失敗的訊息重試成功，完全不丟失任何交易」，這體現了 ISO 25010 中的哪些品質特性？
 3. **愛國者飛彈與數值精度**：

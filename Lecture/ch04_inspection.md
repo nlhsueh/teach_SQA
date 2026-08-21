@@ -2,7 +2,7 @@
 
 > 到了測試階段才突然重視起品質，為時已晚。
 
-## 基本概念
+## 4.1 基本概念
 
 我們可能較常聽到軟體測試- 而且對他的印象都是「執行、觀看是否有錯誤」。事實上那只能看到「冰山的一角」，因為程式的複雜度很高，每一次執行所到的環境、狀態都不同，結果也會有所不同，這次是對的，未必代表程式是對的。例如一個程式：
  
@@ -13,10 +13,7 @@
 
 對於有經驗的工程師而言，檢視程式碼時就會懷疑為什麼 i 會從 1 開始，進而找出這個錯誤。但動態執行剛好能彰顯這個錯誤的機會可能不高。事實上，靜態程式碼檢視已經被視為效率很高、很重要的除錯方法。可惜國人用的並不多，可能是因為認識不夠，或是在趕案子的過程中省略到它了。
 
-<!-- <img src="img/inspection/Ice.png" width="500">
-FIG: 動態測試只能看到冰山一角
- -->
-![Ice](../img/ch04/SyITVj08T.png)
+<img src="../img/ch04/gemini_nb/testing_iceberg.jpg" width="500">
 
 #### 軟體檢視 Software inspection 
 
@@ -47,7 +44,7 @@ FIG: 動態測試只能看到冰山一角
 
 軟體開發的過程中如果都是冷冰冰的電腦行為，將沒有辦法建立其企業的品質文化。軟體檢視需要大量的人與人之間的互動，不斷的交換其品質的觀念與作法，相關人員將因此學習品質提昇的技巧，是建立品質文化很重要的活動。
 
-### 前置條件
+### 4.1.1 前置條件
 
 - 有正確明確的規格。
 - 成員應該了解熟悉組織標準。
@@ -56,7 +53,7 @@ FIG: 動態測試只能看到冰山一角
 - 管理者必須接受檢視在初期會增加成本。
 - 管理者不該把檢視當成員工考核。
 
-## 檢視方法
+## 4.2 檢視方法
 
 靜態檢視已經發展出很多的作法，以下幾個因素需要考慮：
 
@@ -85,24 +82,23 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 
 > 軟體檢視沒有絕對的形式，依組織特性客製化很重要。
 
-{%youtube ocMraYgqHvg %}
+[▶️ 觀看影片：軟體檢視與走查 (Software Inspection & Walkthrough)](https://youtu.be/ocMraYgqHvg)
 
 
-#### 流程 
+### 4.2.1 流程 
 
 比較完整的流程包含：計畫、會前會、個別準備、檢視會議、修改、再檢視。 
-- 計畫。選擇是適當的人來參與檢視。
-- 會前會。對專案做一說明，方便審查。
-- 個別準備。各參與人員在正式會議之前先檢視目的物。
-- 檢視會議。正式開始會議。
-- 修改。依據建議修改文件或程式。主席會決議是否需要再檢視，或是由撰寫自行檢查、或交由特定人再檢查。
-- 再檢視。依據上次的記錄進行再檢視。
+- **計畫**：選擇是適當的人來參與檢視，分配角色與任務。
+- **會前會**：對專案與系統規格做一說明，方便後續審查。
+- **個別準備**：各參與人員在正式會議之前，各自先行檢視目的物（程式碼或文件）並標記潛在缺陷。
+- **檢視會議**：正式開始會議，由主持人引導，閱讀者導讀，並由記錄者登錄所有發現的缺陷。
+- **修改**：依據會議產出的缺陷清單修改文件或程式碼。
+- **再檢視**：依據上次的修改記錄進行再檢視，或由主席決定是否合格。
 
-#### inspection_process
+![Software Inspection Flowchart](../img/ch04/gemini_nb/inspection_flow.jpg)
 
-![InspectionFlow](../img/ch04/r1AuBsC8p.png)
 
-#### 角色
+### 4.2.2 角色
 
 一般而言，在檢視的流程中，會包含以下的角色：
 - 作者或擁有者, 產生文件或程式者; 負責修改文件或程式者。
@@ -118,7 +114,7 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 > 軟體檢視的哲學簡單的說就是- 同事找到錯誤，絕對比顧客找到錯誤來的好。
 > We prefer to have a peer, rather than a customer, find a defect.
 
-### 檢視的指引
+### 4.2.3 檢視的指引
 
 - 人員的選擇與事先的準備	
 	- 限制參與人員。
@@ -141,9 +137,36 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 	- 記錄會議中所有決議。
 	- 處理後續的問題(Action item)並參與後續會議
 				
+### 4.2.4 AI 輔助下的現代檢視實踐 (AI-Assisted Inspection)
+
+在 2026 年的 AI 時代，**「人工檢視」**的流程已與 **大型語言模型（LLM）及 AI 代理（AI Agents）** 深度整合。AI 不僅大幅降低了人工檢視的時間成本，也重新定義了各階段的實踐方式：
+
+#### 1. 流程典範轉移：從「純人工會議」到「AI 先行，人類把關」
+
+傳統的軟體檢視（如 Fagan Inspection）需要團隊投入大量時間開會、人工逐行對照 Checklists。在現代軟體工程中，流程已轉變為：
+* **AI 第一道防線（靜態審查）**：
+  * 當開發者提交 Pull Request (PR) 時，CI/CD 流程中的 **AI PR 審查機器人**（如 *PR-Agent*, *CodiumAI*）會立即發起第一波檢視。
+  * AI 負責快速掃除**低階錯誤**（如未釋放資源、命名風格、基礎漏洞、未捕獲的例外）並自動產出 PR 變更摘要與修改建議。
+* **人機協同複審（人類焦點）**：
+  * 人類檢視者（Reviewers）在會議或個別準備時，只需聚焦於 **AI 難以看透的全局架構、商業邏輯正確性、以及系統可靠性不變量**。這樣可以將檢視速度從傳統的 `200 LOC/Hr` 提升數倍，並減少疲勞導致的漏網之魚。
+
+#### 2. 檢視角色的 AI 賦能
+
+傳統的檢視角色（主持人、作者、閱讀者、記錄者）在 AI 的協助下有了新型態的工作方式：
+
+* **作者 (Author) ── 自我檢視與預防**：
+  * 在送出審查前，作者可利用 IDE 中的 AI 助手（如 Copilot, Cursor）對選定程式碼進行 `Explain` 或 `Review`，在本地就完成第一輪缺陷修復。
+* **記錄者 (Scribe) ── 自動化會議記錄**：
+  * 檢視會議中，團隊不再需要手動編寫繁瑣的缺失清單（Defect List）。AI 會議記錄工具能即時將口頭討論語音轉文字（STT），自動分類出系統缺陷、重工項目（Action Items）與負責人。
+* **檢視者 (Reviewer) ── 智慧對話式審查**：
+  * 審查員可以直接在程式碼平台上與 AI 對話，詢問：「這段並發處理是否有潛在的 Deadlock 危機？」或「請幫我模擬十種可能讓此方法崩潰的極端輸入」。
+
+> [!TIP]
+> **AI 審查的盲點**：AI 雖然速度快、知識庫龐大，但容易產生「幻覺」（Hallucination），或因為缺乏上下文而給出看似合理卻破壞整體架構的建議。因此，**「人類工程師的最終驗證與決策」依然是守護軟體品質無可取代的終極防線**。
+
 以下幾節我們針對不同階段（需求規格階段、系統設計階段、系統開發階段）所進行的檢視做更詳細的描述。
 
-## 規格檢視
+## 4.3 規格檢視
 
 規格的制定是開發流程一開始的步驟，如果這個步驟錯了，後面的矯正所需要的時間或成本就更大了。以下是一些系統規格檢視（或審查）重要的項目：
 
@@ -160,15 +183,13 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 - **有組織的**。其中包含的要求易於查找；要求被安排在相互關聯的位置。
 
 
-#### complte_SRS
+#### Complete SRS
 
-<img src='../img/ch04/Hy0irj0I6.png' width='400'>
+<img src='../img/ch04/gemini_nb/complete_srs.png' width='400'>
 
-#### correct_SRS
-<img src='../img/ch04/SJX_6xeDT.png' width='300'>
+#### Traced SRS
 
-#### traced_SRS
-![tracedSRS](../img/ch04/HkpO6lePT.png)
+<img src='../img/ch04/gemini_nb/traced_srs.png' width='400'>
 
 
 規格又可以細分為需求規格與系統規格，比較嚴格的流程還可以區分需求規格檢視與系統規格檢視。
@@ -195,19 +216,59 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 - 儘量不要使用被動式：此參數會被初始化，被誰初始化？
 - 提到支援某軟體或協定時，說明是哪一個版本。
 
-:question: 針對此 [智慧校園服務系統- 軟體需求規格書](https://drive.google.com/file/d/0B_Be8Sd_tsM7S0t6bE5KV1hGeWs/view?usp=sharing)，透過上述的查核表檢查此規格是否合適。
+❓ 針對此 [智慧校園服務系統- 軟體需求規格書](https://drive.google.com/file/d/0B_Be8Sd_tsM7S0t6bE5KV1hGeWs/view?usp=sharing)，透過上述的查核表檢查此規格是否合適。
 
-:question: 課堂練習：針對一個三角形判斷的系統，寫出其規格書。透過上述的查核表檢查此規格是否合適。
+❓ 課堂練習：針對一個三角形判斷的系統，寫出其規格書。透過上述的查核表檢查此規格是否合適。
 
 > 品質的最簡單、最困難與最有效果的作法：review, review, review!
 
-## 設計檢視
+## 4.4 設計檢視
 
-![](https://factor-bytes.com/wp-content/uploads/2023/09/software-architechtural-cocerns-sketchnote.png)
-> Software architecture review
+![Design Review Diagram](../img/ch04/gemini_nb/design_review.jpg)
 
-![](https://media.licdn.com/dms/image/D5612AQGlfXMfF34ZFA/article-cover_image-shrink_720_1280/0/1707711363807?e=2147483647&v=beta&t=lxWBb2joed20pju2c36Tq-DZAZVZ-PbojQCyYmpcCfQ)
-> An example of software architecture model
+設計檢視（Design Review/Inspection）是在系統實作（撰寫程式碼）之前，對軟體系統的架構、模組關係、介面設計（API）以及資料庫模型（Schema）所進行的靜態審查。
+
+### 4.4.1 設計檢視的基本概念與流程
+
+* **核心目的**：
+  * **及早防錯（Shift-Left）**：設計階段的錯誤（如架構選型失誤、高耦合模組、資料庫設計瑕疵）若流到實作或測試階段才被發現，其修正成本將呈指數級增長。
+  * **確保非功能性屬性**：審查系統是否能滿足效能效率、安全性、可維護性、可靠性等 ISO 25010 所規範的品質指標。
+* **做法與流程**：
+  1. **準備階段**：設計團隊提供架構設計書、UML 圖（類別圖、順序圖等）、API 規格書（如 OpenAPI Spec）與資料庫關係圖（ERD），並備妥「設計檢核表 (Design Checklist)」。
+  2. **個別準備**：審查委員（技術主管、資安人員、同儕開發者）各自閱讀設計文件，標記不合理之處。
+  3. **審查會議**：召開會議討論，聚焦於介面界接、異常處理機制、系統容錯力，但不討論具體演算法實作細節。
+  4. **追蹤修改**：整理缺失，追蹤架構修正，確認無虞後方可啟動程式碼撰寫。
+
+### 4.4.2 AI 輔助下的現代設計檢視
+
+傳統設計檢視高度依賴資深工程師的直覺，耗時耗力。現代軟體工程結合生成式 AI（如 LLMs）已發展出新做法：
+* **威脅建模與風險推演**：
+  * 審查者可以將系統架構的文字描述或設計草圖輸入 AI，讓 AI 代理模擬攻擊者視角或極端併發情境，提出潛在風險（如：單點故障 SPOF、競爭條件 Race Condition、快取失效雪崩等）。
+* **API 規格書與合約一致性檢測**：
+  * AI 可自動掃描 OpenAPI (Swagger) 規格書，檢查介面命名規範、是否遺漏狀態碼定義（如 400 Bad Request、401 Unauthorized 等），並自動生成對應的測試合約（Contract）。
+* **資料庫綱要效能與架構評估**：
+  * AI 可以分析資料庫 DDL 腳本，自動檢查外鍵（Foreign Key）是否漏設索引、評估大量寫入時的鎖定效能，並針對讀寫分離與反正規化（Denormalization）提出前置建議。
+
+#### **概念核對問答 (CCQ 1)**
+
+**問題**
+
+【是非題】設計檢視（Design Review）最理想的執行時機，是在系統所有模組的單元測試與整合測試皆通過之後，以確保實際產出的系統與設計文件相符。
+
+A) 正確 (True)
+B) 錯誤 (False)
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **錯誤**：設計檢視應遵循「及早測試（Shift-Left）」原則，在**程式碼撰寫（Coding）開始之前**就進行。如果等到測試階段才發現架構設計的瑕疵，此時資料庫與程式碼都已成形，修改的代價將會非常高昂。
+
+</details>
+
+---
 
 下圖為一個簡約的設計查核表，檢查設計是滿足完整性、邏輯性、特殊情況的處理、方法呼叫、命名、與標準是否符合規範。
 
@@ -267,15 +328,23 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 	- Built-in test facilities. 
 - 是否所有的數學式子及圖形都有清楚的文字解說？
 
-### 設計模型檢核
+### 4.4.3 設計模型檢核
 
 當我們進行設計時，我們會採用一些設計模組，例如 DFD, UML, ER model 等。除了這些模型是「圖形視覺化」以外，另一個優點是這些模型有一定的規範，便於我們進行檢核。
 
 DFD/ER model 是一個我們經常用來做系統設計的工具，設計完成後我們需要進行檢驗。
 
 
-![dfd](../img/ch04/rkusLsA8p.png)
-> DFD (Data Flow Diagram) notation
+```mermaid
+graph LR
+    Entity[外部實體 <br> External Entity] -->|資料流 Data Flow| Process(處理過程 <br> Process)
+    Process -->|資料流 Data Flow| Store[(資料儲存 <br> Data Store)]
+    
+    style Entity fill:#f9f,stroke:#333,stroke-width:1px
+    style Process fill:#bbf,stroke:#333,stroke-width:1px
+    style Store fill:#ff9,stroke:#333,stroke-width:1px
+```
+> DFD (Data Flow Diagram) 核心元素標記法
 
 Check:
 - 外部實體必須是發送訊息到系統或從工程系統接收訊息的人或系統。
@@ -286,14 +355,26 @@ Check:
 - 每個資料存儲應該在DFD的某個地方有**至少一個輸入和一個輸出**。
 - 每個過程名稱應該以一個**動詞**開頭。
 
-![](https://www.conceptdraw.com/How-To-Guide/picture/data-flow-diagram-example.jpg)
-> An example of DFD
+```mermaid
+graph TD
+    Customer[顧客] -->|1. 提交訂單| OrderProcess(P1: 訂單處理)
+    OrderProcess -->|2. 檢查庫存| InventoryDB[(D1: 庫存資料庫)]
+    InventoryDB -->|3. 庫存狀態| OrderProcess
+    OrderProcess -->|4. 寫入訂單| OrderDB[(D2: 訂單資料庫)]
+    OrderProcess -->|5. 出貨通知| Customer
+    
+    style Customer fill:#f9f,stroke:#333,stroke-width:1px
+    style OrderProcess fill:#bbf,stroke:#333,stroke-width:1px
+    style InventoryDB fill:#ff9,stroke:#333,stroke-width:1px
+    style OrderDB fill:#ff9,stroke:#333,stroke-width:1px
+```
+> DFD (Data Flow Diagram) 資料流向圖範例
 
 這只是 DFD 的檢核表，如果組織採用的是其他的設計模型，就應該建立其相關的檢核表。
 
 > 經驗老道的工程師或許可以不需要檢核表而進行檢核，但在那之前，檢核表是必須的。
 
-## 🧑‍💻程式碼檢視
+## 4.5 🧑‍💻程式碼檢視
 
 程式碼檢視 Code inspection。
 
@@ -334,7 +415,9 @@ float oOooo, ooOoo, oooOo
 > 好的程式本身就是最好的註解。加程式註解前想想：如何改善程式碼讓我不需要加這個註解？改善程式碼並加上註解讓你的程式更清楚。
 > Good code is its own best documentation. As you're about to add a comment, ask yourself, "How can I improve the code so that this comment isn't needed? Improve the code and then document it to make it even clearer. -- Steve McConnell
 
-### 程式臭味檢視
+### 4.5.1 程式臭味檢視
+
+![Code Smells and Refactoring](../img/ch04/gemini_nb/code_smells.jpg)
 
 程式碼審查時也會針對程式碼臭味進行檢驗，並提出一些重整的建議。以下是部分 Folwer 提出的程式臭味：
 
@@ -355,11 +438,82 @@ float oOooo, ooOoo, oooOo
 - *過度的中間人 Middle Man*：太多的方法都是透過委託來進行，該類別的方法封裝要考慮改寫。
 - *狎暱關係 Inappropriate Intimacy*：類別間的過於親密的屬性存取，可以考慮分開來以 delegation 的方式來進行。例如不適當的宣告子類別，讓子類別任意存取父類別的資料。
 
-### 🧑‍💻PMD 工具使用
+### 4.5.2 安全漏洞檢視 (OWASP Top 10)
+
+![Secure Coding and OWASP Top 10](../img/ch04/gemini_nb/secure_coding.jpg)
+
+在進行程式碼檢視（Code Inspection）時，除了找出程式臭味與邏輯錯誤外，**安全性漏洞**的檢測也是重中之重。OWASP（Open Web Application Security Project，開放網路應用程式安全計畫）定期發布的 **OWASP Top 10** 是全球公認最關鍵的十大 Web 應用程式安全漏洞指標。
+
+靜態程式碼分析（SAST）工具（如 PMD、SonarQube）能有效自動化掃描出符合 OWASP Top 10 的安全性缺陷，防患於未然。
+
+#### 2021 年版 OWASP 十大安全漏洞說明
+
+1. **A01:2021-Broken Access Control (權限控制失效)**
+   * **說明**：使用者能夠存取未經授權的資源或執行未授權的操作（例如直接存取其他使用者的敏感資料或管理頁面）。
+   * **檢視重點**：檢查控制器（Controller）或 API 入口是否有明確的權限驗證與角色控制，避免使用未經防護的直接物件參照（IDOR）。
+
+2. **A02:2021-Cryptographic Failures (加密機制失效)**
+   * **說明**：敏感資料（如密碼、信用卡號、個人隱私資料）在傳輸或儲存時未經保護，或使用了過時且脆弱的加密演算法（如 MD5, SHA-1）。
+   * **檢視重點**：檢查密碼是否使用強雜湊（如 BCrypt、Argon2）並加鹽（Salt）；傳輸過程是否強制使用 HTTPS；敏感配置是否硬編碼（Hardcoded）在程式碼中。
+
+3. **A03:2021-Injection (注入攻擊)**
+   * **說明**：系統將不受信任的使用者輸入直接拼接到指令或查詢語句中，導致程式將資料誤判為指令執行（例如 SQL 注入、OS 指令注入、跨網站指令碼攻擊 XSS）。
+   * **檢視重點**：檢查資料庫查詢是否皆使用參數化查詢（Prepared Statements / Parameterized Queries）；對外部輸入是否進行嚴格的過濾與編碼。
+
+4. **A04:2021-Insecure Design (不安全設計)**
+   * **說明**：系統在設計與架構階段就存在安全性缺陷，而非實作時的錯誤。例如缺少防威脅建模、安全設計指引或極限防禦機制。
+   * **檢視重點**：評估整體架構是否遵循「最小權限原則」（Principle of Least Privilege）與「縱深防禦」（Defense in Depth）。
+
+5. **A05:2021-Security Misconfiguration (安全設定錯誤)**
+   * **說明**：伺服器、框架或應用程式沒有經過安全的初始化設定，例如開啟了不必要的預設功能、預設帳密未修改、或在生產環境中開啟了詳細的 Debug 錯誤追蹤堆疊。
+   * **檢視重點**：檢查部署設定檔，確保關閉詳細的異常錯誤堆疊輸出，避免將內部系統資訊洩露給攻擊者。
+
+6. **A06:2021-Vulnerable and Outdated Components (易受攻擊與過時的元件)**
+   * **說明**：專案中使用了已知有漏洞、過期或未維護的第三方函式庫或框架組件。
+   * **檢視重點**：使用依賴項掃描工具（如 Dependency-Check）定期盤點第三方 dependency，並保持升級。
+
+7. **A07:2021-Identification and Authentication Failures (識別與身分驗證失效)**
+   * **說明**：系統的身分驗證機制存在漏洞，使攻擊者能夠竊取 session、憑證或冒充使用者（例如未防護暴力破解、密碼長度過短、Session ID 可被預測）。
+   * **檢視重點**：確認有防範暴力破解機制、密碼強度符合規範、Session token 具備適當生命週期。
+
+8. **A08:2021-Software and Data Integrity Failures (軟體與資料完整性失效)**
+   * **說明**：在沒有進行完整性驗證的情況下，反序列化不受信任的資料，或引入不可信的套件庫更新來源，導致惡意程式碼被植入與執行。
+   * **檢視重點**：避免對不受信任的輸入進行直接的反序列化（Java Deserialization）；驗證下載元件的簽章與雜湊值。
+
+9. **A09:2021-Security Logging and Monitoring Failures (安全記錄與監控失效)**
+   * **說明**：沒有妥善記錄敏感安全性事件（如登入失敗、授權失敗），或日誌沒有得到適當監控，導致資安事件發生時無法及時偵測與事後追查。
+   * **檢視重點**：重要權限變更、系統錯誤、重要交易必須撰寫結構化日誌，並建立對應的警報機制。
+
+10. **A10:2021-Server-Side Request Forgery (SSRF，伺服器端請求偽造)**
+    * **說明**：Web 應用程式在未經驗證的情況下，根據使用者提供的 URL 參數發起伺服器端請求，導致攻擊者可利用伺服器作為跳板，探測內部私有網路。
+    * **檢視重點**：對使用者傳入的 URL 或 IP 進行嚴格白名單校驗，並限制伺服器可對外訪問的通訊協定與連接埠。
+
+#### **概念核對問答 (CCQ 2)**
+
+**問題**
+
+【是非題】在程式碼檢視中，若發現系統直接將詳細的例外錯誤堆疊資訊（如 `e.printStackTrace()`）輸出至前端頁面或公開日誌，這屬於 OWASP Top 10 中的「A05:2021-安全設定錯誤 (Security Misconfiguration)」漏洞範疇。
+
+A) 正確 (True)
+B) 錯誤 (False)
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：A**
+
+* **解析**：
+  * **正確**：在生產環境中輸出詳細的 Debug 資訊或錯誤堆疊（Stack Trace），會將系統內部的元件版本、程式碼路徑及資料庫結構暴露給外部，這屬於典型且嚴重的「安全設定錯誤 (Security Misconfiguration)」。正確做法應使用結構化日誌（如 Logback/SLF4J）將詳細錯誤記在後台受保護的日誌檔中，對前端使用者則回傳友善且模糊的錯誤訊息（如「系統發生未知錯誤，請聯絡管理員」）。
+
+</details>
+
+---
+
+### 4.5.3 🧑‍💻PMD 工具使用
 
 [Lab: PMD introduction](/HklWznIsJg)
 
-## 檢視的評估
+## 4.6 檢視的評估
 
 一般而言，檢視可降低後續測試時間與增加測試品質，即降低錯誤數量(預測最終軟體仍然存在的錯誤量)。但如何評估檢視的效益？仍可透過量化方法加以統計分析以作為後續改良的依據：
 
@@ -382,7 +536,7 @@ float oOooo, ooOoo, oooOo
 ---
 
 
-## 練習
+## 4.7 練習
 
 #### 軟體檢視
 - 關於軟體檢視（software inspection）以下何者為真？

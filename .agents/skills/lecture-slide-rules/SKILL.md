@@ -15,6 +15,8 @@ When the user gives the request:
   - **Step 2: Create Slide Source**: Create the slide presentation Markdown source file `Slide/source/chXXs_xxxx.md` using the Gaia theme, layout, and CCQ formatting rules specified below.
   - **Step 3: Compile PDF Slides**: Compile the slide presentation to `.pdf` format only, saving it into the `Slide/` folder. **Do not generate or keep `.html` slide files.**
 
+* **Slide Generation Restriction**: Do NOT automatically generate, modify, or compile slide files (`Slide/source/chXXs_xxxx.md`, `Slide/chXXs_xxxx.pdf`) when updating or modifying educational handbooks (`Lecture/chXX_xxxx.md`), unless the user explicitly requests slide creation or compilation in their prompt.
+
 ---
 
 ## 1. Educational Handbooks (Lecture Notes `.md`)
@@ -29,6 +31,9 @@ When the user gives the request:
 ### File Links / References
 - Always use relative paths for file links (e.g., `[debug.md](debug.md)` or `[DemoDebug](./DemoDebug)`) rather than absolute `file://` URIs, to ensure the links work when students clone the repository or view it on hosting platforms (like GitHub/HackMD).
 
+### Wording and Terminology Constraints
+- **Terminology Constraint**: Always use the term **「程式碼」** (traditional Chinese terminology). **Do not use 「代碼」** (simplified Chinese translation). If existing materials contain 「代碼」, replace them with 「程式碼」.
+
 ### Concept Check Questions (CCQ)
 - Insert a CCQ at the end of key sections to test student understanding.
 - **CCQ 設計與數量原則**：
@@ -38,7 +43,7 @@ When the user gives the request:
 - Answer keys and explanations must be hidden behind a `<details>` block.
 - Format:
   ```markdown
-  ### **2.X.X 隨堂測驗 (CCQ <N>)**
+  ### **2.X.X 概念核對問答 (CCQ <N>)**
 
   **問題**
 
@@ -50,7 +55,7 @@ When the user gives the request:
   D) Option D
 
   <details>
-  <summary>點擊查看【隨堂測驗】答案與解析</summary>
+  <summary>點擊查看【概念核對問答】答案與解析</summary>
 
   **正確答案：[Correct Option]**
 
