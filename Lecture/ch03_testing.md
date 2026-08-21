@@ -244,19 +244,7 @@ graph LR
 
 ### 4. 功能測試（黑箱） vs 結構測試（白箱）
 
-```mermaid
-graph TD
-    subgraph BlackBox [黑箱測試 Black-Box]
-        InputB[輸入] --> BoxB[? 內部邏輯隱藏 ?] --> OutputB[預期輸出]
-    end
-    
-    subgraph WhiteBox [白箱測試 White-Box]
-        InputW[輸入] --> BoxW[程式結構/路徑/分支] --> OutputW[實際輸出]
-    end
-    
-    style BoxB fill:#f9f,stroke:#333,stroke-width:1px
-    style BoxW fill:#bbf,stroke:#333,stroke-width:1px
-```
+<img src="../img/ch03/gemini_nb/blackbox_whitebox.jpg" width="550">
 
 * **黑箱測試 (Black-box)**：依據需求規格設計測資，不看內部實作。
 * **白箱測試 (White-box)**：依據程式內部邏輯分支、路徑設計測資。
@@ -265,17 +253,7 @@ graph TD
 
 ### 5. 測試層級：單元、整合與系統測試
 
-```mermaid
-graph TD
-    Acceptance[驗收測試 Acceptance Testing] --> System[系統測試 System Testing]
-    System --> Integration[整合測試 Integration Testing]
-    Integration --> Unit[單元測試 Unit Testing]
-    
-    style Acceptance fill:#f9f,stroke:#333,stroke-width:1px
-    style System fill:#bbf,stroke:#333,stroke-width:1px
-    style Integration fill:#ff9,stroke:#333,stroke-width:1px
-    style Unit fill:#dfd,stroke:#333,stroke-width:1px
-```
+<img src="../img/ch03/gemini_nb/testing_levels.jpg" width="550">
 
 * **單元測試 (Unit Test)**：針對最小可測試單元（Class / Method）進行邏輯驗證。
 * **整合測試 (Integration Test)**：驗證模組與模組、服務與資料庫之間的介面與協定。
@@ -392,16 +370,7 @@ D) 靜態程式碼檢視 (Code Review)
 > 📌 **現代標準測試案例結構**：
 > $\text{Test Case} = [\text{ID}, \text{Preconditions}, \text{Inputs}, \text{Expected Output}, \text{Postconditions/Invariants}]$
 
-```mermaid
-graph LR
-    Pre[1. Preconditions 前置條件] --> Inputs[2. Inputs 測試輸入]
-    Inputs --> Target[3. Test Target 測試主體]
-    Target --> Actual[4. Actual Output 實際輸出]
-    Actual <-->|Test Oracle| Expected[5. Expected Output 預期輸出]
-    
-    style Target fill:#bbf,stroke:#333,stroke-width:1px
-    style Expected fill:#dfd,stroke:#333,stroke-width:1px
-```
+<img src="../img/ch03/gemini_nb/test_case_structure.jpg" width="550">
 
 ---
 
@@ -417,27 +386,7 @@ graph LR
 
 ## 3.6 測試全景 3W2H 分類體系
 
-```mermaid
-graph TD
-    System[測試全景 3W2H 分類體系] --> Who[1. Who 誰來測試？]
-    System --> What[2. What 測什麼？]
-    System --> Why[3. Why 為何測試？]
-    System --> How[4. How 如何測試？]
-    System --> Evaluate[5. How to Evaluate 如何決定通過？]
-    
-    Who --> Dev[開發者 / QA / 使用者]
-    What --> Func[功能 / 非功能 / 安全]
-    Why --> Verification[驗證 / 確認]
-    How --> Static[靜態 / 動態]
-    Evaluate --> Oracle[涵蓋率 / Test Oracle]
-    
-    style System fill:#bbf,stroke:#333,stroke-width:1px
-    style Who fill:#f9f,stroke:#333,stroke-width:1px
-    style What fill:#f9f,stroke:#333,stroke-width:1px
-    style Why fill:#f9f,stroke:#333,stroke-width:1px
-    style How fill:#f9f,stroke:#333,stroke-width:1px
-    style Evaluate fill:#f9f,stroke:#333,stroke-width:1px
-```
+<img src="../img/ch03/gemini_nb/testing_landscape_3w2h.jpg" width="550">
 
 ### 面向一：Who 誰來測試？
 * **開發工程師**：單元測試 (Unit Test)、TDD。
@@ -478,12 +427,7 @@ graph TD
 * **猴子測試 / 隨機測試 (Monkey / Random Test)**：注入大量隨機事件檢驗系統強固性。
 * **錄製與回放 (Record & Replay)**：透過使用者軌跡錄製自動生成測試腳本。
 
-```mermaid
-graph LR
-    A[錄製操作] --> B[生成測試代碼]
-    B --> C[自動執行]
-    C --> D[報告與截圖]
-```
+<img src="../img/ch03/gemini_nb/record_replay_flow.jpg" width="550">
 
 ---
 
@@ -493,17 +437,7 @@ graph LR
 * **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
 * **啟發式一致性檢驗**：與使用者期望一致、與同類競品一致、與產品風格一致。
 
-```mermaid
-graph TD
-    Input[測試輸入 Inputs] --> Program[受測程式 Program Under Test]
-    Program --> Actual[實際輸出 Actual Outcome]
-    Input --> Oracle[測試預言機 Test Oracle]
-    Oracle --> Expected[預期輸出 Expected Outcome]
-    Actual <-->|比對 Comparator| Expected
-    
-    style Program fill:#bbf,stroke:#333,stroke-width:1px
-    style Oracle fill:#f9f,stroke:#333,stroke-width:1px
-```
+<img src="../img/ch03/gemini_nb/test_oracle_comparator.jpg" width="550">
 
 #### 🔮 3.6.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
 
