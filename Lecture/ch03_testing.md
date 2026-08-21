@@ -17,7 +17,58 @@
 
 ---
 
-## 3.1 ISTQB 軟體測試 7 大經典原則 (The 7 Testing Principles)
+## 3.1 防禦性架構與合約設計 (Design by Contract)
+
+開車遇到綠燈時，多數老司機依然會減速並左右張望，因為無法保證其他人不會闖紅燈。寫程式亦是如此。**防禦性編程 (Defensive Programming)** 是一種主動預防錯誤擴散的工程態度。
+
+### 3.1.1 契約式設計的三大核心要素 (Bertrand Meyer)
+
+```
+        ┌── 前置條件 (Preconditions): 呼叫者必須滿足的條件 (若不滿足，方法拒絕執行)
+契約設計 ┼── 後置條件 (Postconditions): 方法執行完畢後保證達成的狀態
+        └── 類別不變量 (Class Invariants): 物件在任何公開方法執行前後必須永遠為真的法則
+```
+
+* **狀態不變量 (Invariants) 的重要性**：
+  * *例如銀行帳戶*：`balance >= 0`、`totalDeposits == sum(transactions)`。
+  * 任何操作若破壞了不變量，系統應立即自我熔斷，避免髒資料寫入資料庫。這也是後續**屬性基礎測試 (Property-Based Testing)** 的核心基石！
+
+### 3.1.2 斷言 (Assertion) vs 例外處理 (Exception)
+
+| 機制 | 目的 | 適用時機 | 生產環境行為 |
+| :--- | :--- | :--- | :--- |
+| **斷言 (Assertion)** | 捕捉「程式設計師自身的邏輯 Bug」或內部不變量 | 私有方法參數檢查、演算法內部狀態、不可能到達的分支 | 可被 `-ea` / `-da` 開關關閉 |
+| **例外 (Exception)** | 處理「執行時外部可預期的異常環境」 | 公開 API 參數驗證、網路中斷、檔案不存在、使用者輸入錯誤 | 永遠處於啟用狀態，需有明確捕獲處理 |
+
+> 🛠️ **實習手冊連結**：
+> * 斷言實務：[`Lab/u02_preventive/assertion.md`](../Lab/u02_preventive/assertion.md)
+> * 例外架構：[`Lab/u02_preventive/exception.md`](../Lab/u02_preventive/exception.md)
+> * 結構化日誌：[`Lab/u02_preventive/logging.md`](../Lab/u02_preventive/logging.md)
+
+#### **概念核對問答 (CCQ 1)**
+
+**問題**
+
+在契約式設計 (Design by Contract) 中，由「呼叫者 (Caller)」負責滿足、若不滿足則被呼叫方法將拒絕執行，這在契約三要素中屬於？
+
+A) 前置條件 (Preconditions)  
+B) 後置條件 (Postconditions)  
+C) 類別不變量 (Class Invariants)  
+D) 異常防護 (Exceptions)  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：A**
+
+* **解析**：
+  * **選項 A 正確**：前置條件 (Preconditions) 是呼叫者必須滿足的契約條件，用以保護被呼叫方法免於不合法的輸入；後置條件由被呼叫者保證達成；類別不變量是物件狀態在方法執行前後均須滿足的約束。
+
+</details>
+
+---
+
+## 3.2 ISTQB 軟體測試 7 大經典原則 (The 7 Testing Principles)
 
 > 📚 **權威參考文獻與標準 (References & Standards)**：
 > 1. **ISTQB CTFL v4.0**：[ISTQB Certified Tester Foundation Level Syllabus (2023)](https://www.istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0)
@@ -60,7 +111,7 @@ mindmap
 
 ### 原則 2：窮盡測試是不可能的 (Exhaustive testing is impossible)
 
-<img src="../img/ch03/HJISXY9ea.png" width=100>
+📋 **窮盡測試的限制**：
 
 * **組合爆炸的現實**：
   考慮一個極為簡單的邏輯判斷：
@@ -97,7 +148,7 @@ mindmap
   * 在開發單元測試時抓出 Bug：**\$10**
   * 軟體上線到生產環境後發生故障的維護與賠償代價：**\$100 ～ \$1000+**！
 
-![](../img/ch03/Hkd4EK5eT.png)
+<img src="../img/ch03/gemini_nb/bug_cost_curve.png" width="550">
 
 ---
 
@@ -138,7 +189,7 @@ mindmap
 
 ---
 
-#### **隨堂測驗 (CCQ 1)**
+#### **概念核對問答 (CCQ 2)**
 
 **問題**
 
@@ -150,7 +201,7 @@ C) 只要測試覆蓋率達到 100%，系統必然在法律上具備合規性
 D) 這是硬體浮點數運算器的製造缺陷  
 
 <details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
 
 **正確答案：B**
 
@@ -161,7 +212,7 @@ D) 這是硬體浮點數運算器的製造缺陷
 
 ---
 
-## 3.2 測試的多維度分類體系
+## 3.3 測試的多維度分類體系
 
 ### 1. 驗證 (Verification) vs 確認 (Validation)
 
@@ -175,7 +226,7 @@ graph LR
 * **Verification**：*Are we building the product right?* 確保程式碼符合設計與規格。
 * **Validation**：*Are we building the right product?* 確保軟體真正解決使用者痛點。
 
-![](../img/ch03/SJX8EY9e6.png)
+
 
 ---
 
@@ -193,7 +244,19 @@ graph LR
 
 ### 4. 功能測試（黑箱） vs 結構測試（白箱）
 
-![](../img/ch03/S1FD4Yqla.png)
+```mermaid
+graph TD
+    subgraph BlackBox [黑箱測試 Black-Box]
+        InputB[輸入] --> BoxB[? 內部邏輯隱藏 ?] --> OutputB[預期輸出]
+    end
+    
+    subgraph WhiteBox [白箱測試 White-Box]
+        InputW[輸入] --> BoxW[程式結構/路徑/分支] --> OutputW[實際輸出]
+    end
+    
+    style BoxB fill:#f9f,stroke:#333,stroke-width:1px
+    style BoxW fill:#bbf,stroke:#333,stroke-width:1px
+```
 
 * **黑箱測試 (Black-box)**：依據需求規格設計測資，不看內部實作。
 * **白箱測試 (White-box)**：依據程式內部邏輯分支、路徑設計測資。
@@ -202,7 +265,17 @@ graph LR
 
 ### 5. 測試層級：單元、整合與系統測試
 
-![](../img/ch03/SyMtNK9g6.png)
+```mermaid
+graph TD
+    Acceptance[驗收測試 Acceptance Testing] --> System[系統測試 System Testing]
+    System --> Integration[整合測試 Integration Testing]
+    Integration --> Unit[單元測試 Unit Testing]
+    
+    style Acceptance fill:#f9f,stroke:#333,stroke-width:1px
+    style System fill:#bbf,stroke:#333,stroke-width:1px
+    style Integration fill:#ff9,stroke:#333,stroke-width:1px
+    style Unit fill:#dfd,stroke:#333,stroke-width:1px
+```
 
 * **單元測試 (Unit Test)**：針對最小可測試單元（Class / Method）進行邏輯驗證。
 * **整合測試 (Integration Test)**：驗證模組與模組、服務與資料庫之間的介面與協定。
@@ -244,20 +317,53 @@ double div(double x, double y) {
              /__________________\
 ```
 
+<img src="../img/ch03/gemini_nb/test_pyramid.png" width="450">
+
 * **反模式：冰淇淋甜筒 (Ice Cream Cone)**：缺乏單元測試，過度依賴脆弱且昂貴的 UI E2E 測試，導致 CI 構建緩慢且頻繁誤報。
 
 ---
 
-## 3.3 V 開發模型與雙向追溯 (The V-Model)
+## 3.4 V 開發模型與雙向追溯 (The V-Model)
 
-![V model](../img/ch03/SyGoNt5lp.png)
+```mermaid
+graph TD
+    subgraph Development [開發階段]
+        SRS[需求分析 SRS]
+        ADD[架構設計 ADD]
+        SDD[詳細設計 SDD]
+        Coding[撰寫程式 Coding]
+    end
+    
+    subgraph Testing [測試階段]
+        Acceptance[驗收測試 Acceptance]
+        Integration[整合測試 Integration]
+        Unit[單元測試 Unit]
+    end
+    
+    SRS --> ADD
+    ADD --> SDD
+    SDD --> Coding
+    
+    Coding --> Unit
+    Unit --> Integration
+    Integration --> Acceptance
+    
+    SRS <.->|雙向追溯| Acceptance
+    ADD <.->|雙向追溯| Integration
+    SDD <.->|雙向追溯| Unit
+    
+    style Coding fill:#dfd,stroke:#333,stroke-width:1px
+    style Unit fill:#f9f,stroke:#333,stroke-width:1px
+    style Integration fill:#f9f,stroke:#333,stroke-width:1px
+    style Acceptance fill:#f9f,stroke:#333,stroke-width:1px
+```
 
 * **需求分析 (SRS)** $\leftrightarrow$ **系統測試計畫 (System Test Plan) / 驗收測試**
 * **高階架構設計 (ADD)** $\leftrightarrow$ **整合測試計畫 (Integration Test Plan)**
 * **詳細模組設計 (SDD)** $\leftrightarrow$ **單元測試計畫 (Unit Test Plan)**
 * **核心價值**：**測試設計與開發規格同步前置產出**，避免「實作後測試偏差」。
 
-#### **隨堂測驗 (CCQ 2)**
+#### **概念核對問答 (CCQ 3)**
 
 **問題**
 
@@ -269,7 +375,7 @@ C) 驗收測試 (Acceptance Testing)
 D) 靜態程式碼檢視 (Code Review)  
 
 <details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
 
 **正確答案：B**
 
@@ -280,9 +386,9 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-## 3.4 測試案例設計：規格、程式與驗證行為
+## 3.5 測試案例設計：規格、程式與驗證行為
 
-![](../img/ch03/rJeyNHK9e6.png)
+<img src="../img/ch03/gemini_nb/behavior_venn.png" width="450">
 
 👉 測試案例與規格、程式行為的文氏圖關聯
 
@@ -299,7 +405,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-### 3.4.2 測試案例 (Test Case) vs 測試資料 (Test Data)
+### 3.5.1 測試案例 (Test Case) vs 測試資料 (Test Data)
 
 * **測試案例 (Test Case)**：測試架構與邏輯分流的規劃。
 * **測試資料 (Test Data)**：具體代入執行的數值。
@@ -317,11 +423,20 @@ D) 靜態程式碼檢視 (Code Review)
 > 📌 **現代標準測試案例結構**：
 > $\text{Test Case} = [\text{ID}, \text{Preconditions}, \text{Inputs}, \text{Expected Output}, \text{Postconditions/Invariants}]$
 
-![](../img/ch03/SkHLHKcg6.png)
+```mermaid
+graph LR
+    Pre[1. Preconditions 前置條件] --> Inputs[2. Inputs 測試輸入]
+    Inputs --> Target[3. Test Target 測試主體]
+    Target --> Actual[4. Actual Output 實際輸出]
+    Actual <-->|Test Oracle| Expected[5. Expected Output 預期輸出]
+    
+    style Target fill:#bbf,stroke:#333,stroke-width:1px
+    style Expected fill:#dfd,stroke:#333,stroke-width:1px
+```
 
 ---
 
-### 🤖 3.4.3 AI 輔助測試案例生成：優勢、陷阱與人機協同
+### 🤖 3.5.2 AI 輔助測試案例生成：優勢、陷阱與人機協同
 
 | 項目 | 人類工程師的優勢 | AI (LLM) 助手的優勢 | 人機協同黃金 SOP (SQA 2.0) |
 | :--- | :--- | :--- | :--- |
@@ -331,9 +446,29 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-## 3.5 測試全景 3W2H 分類體系
+## 3.6 測試全景 3W2H 分類體系
 
-![](../img/ch03/SyDwSFql6.png)
+```mermaid
+graph TD
+    System[測試全景 3W2H 分類體系] --> Who[1. Who 誰來測試？]
+    System --> What[2. What 測什麼？]
+    System --> Why[3. Why 為何測試？]
+    System --> How[4. How 如何測試？]
+    System --> Evaluate[5. How to Evaluate 如何決定通過？]
+    
+    Who --> Dev[開發者 / QA / 使用者]
+    What --> Func[功能 / 非功能 / 安全]
+    Why --> Verification[驗證 / 確認]
+    How --> Static[靜態 / 動態]
+    Evaluate --> Oracle[涵蓋率 / Test Oracle]
+    
+    style System fill:#bbf,stroke:#333,stroke-width:1px
+    style Who fill:#f9f,stroke:#333,stroke-width:1px
+    style What fill:#f9f,stroke:#333,stroke-width:1px
+    style Why fill:#f9f,stroke:#333,stroke-width:1px
+    style How fill:#f9f,stroke:#333,stroke-width:1px
+    style Evaluate fill:#f9f,stroke:#333,stroke-width:1px
+```
 
 ### 面向一：Who 誰來測試？
 * **開發工程師**：單元測試 (Unit Test)、TDD。
@@ -374,11 +509,12 @@ D) 靜態程式碼檢視 (Code Review)
 * **猴子測試 / 隨機測試 (Monkey / Random Test)**：注入大量隨機事件檢驗系統強固性。
 * **錄製與回放 (Record & Replay)**：透過使用者軌跡錄製自動生成測試腳本。
 
-<div style="display: flex; gap: 10px;">
-  <img src="../img/ch03/r1OoBt5ga.png" width="30%">
-  <img src="../img/ch03/Skw3SK5xT.png" width="30%">
-  <img src="../img/ch03/SkNTHK9ea.png" width="30%">
-</div>
+```mermaid
+graph LR
+    A[錄製操作] --> B[生成測試代碼]
+    B --> C[自動執行]
+    C --> D[報告與截圖]
+```
 
 ---
 
@@ -388,9 +524,19 @@ D) 靜態程式碼檢視 (Code Review)
 * **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
 * **啟發式一致性檢驗**：與使用者期望一致、與同類競品一致、與產品風格一致。
 
-![](../img/ch03/B1aCSY5lp.png)
+```mermaid
+graph TD
+    Input[測試輸入 Inputs] --> Program[受測程式 Program Under Test]
+    Program --> Actual[實際輸出 Actual Outcome]
+    Input --> Oracle[測試預言機 Test Oracle]
+    Oracle --> Expected[預期輸出 Expected Outcome]
+    Actual <-->|比對 Comparator| Expected
+    
+    style Program fill:#bbf,stroke:#333,stroke-width:1px
+    style Oracle fill:#f9f,stroke:#333,stroke-width:1px
+```
 
-#### 🔮 3.5.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
+#### 🔮 3.6.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
 
 > **什麼是 Test Oracle？**
 > 「Test Oracle」是指**能夠判斷受測程式輸出是否正確的機制或基準**。
@@ -412,7 +558,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-## ✍️ 3.6 綜合練習
+## ✍️ 3.7 綜合練習
 
 ### 一、測試原則與理論辨析
 1. 為了確保軟體絕對正確，我們是否應該進行窮盡式測試（Exhaustive Testing）？為什麼？
