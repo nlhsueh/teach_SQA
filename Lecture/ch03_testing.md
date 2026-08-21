@@ -325,38 +325,7 @@ double div(double x, double y) {
 
 ## 3.4 V 開發模型與雙向追溯 (The V-Model)
 
-```mermaid
-graph TD
-    subgraph Development [開發階段]
-        SRS[需求分析 SRS]
-        ADD[架構設計 ADD]
-        SDD[詳細設計 SDD]
-        Coding[撰寫程式 Coding]
-    end
-    
-    subgraph Testing [測試階段]
-        Acceptance[驗收測試 Acceptance]
-        Integration[整合測試 Integration]
-        Unit[單元測試 Unit]
-    end
-    
-    SRS --> ADD
-    ADD --> SDD
-    SDD --> Coding
-    
-    Coding --> Unit
-    Unit --> Integration
-    Integration --> Acceptance
-    
-    SRS <.->|雙向追溯| Acceptance
-    ADD <.->|雙向追溯| Integration
-    SDD <.->|雙向追溯| Unit
-    
-    style Coding fill:#dfd,stroke:#333,stroke-width:1px
-    style Unit fill:#f9f,stroke:#333,stroke-width:1px
-    style Integration fill:#f9f,stroke:#333,stroke-width:1px
-    style Acceptance fill:#f9f,stroke:#333,stroke-width:1px
-```
+<img src="../img/ch03/gemini_nb/v_model.jpg" width="550">
 
 * **需求分析 (SRS)** $\leftrightarrow$ **系統測試計畫 (System Test Plan) / 驗收測試**
 * **高階架構設計 (ADD)** $\leftrightarrow$ **整合測試計畫 (Integration Test Plan)**
