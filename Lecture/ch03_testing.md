@@ -284,7 +284,7 @@ double div(double x, double y) {
 
 ## 3.4 V 開發模型與雙向追溯 (The V-Model)
 
-<img src="../img/ch03/gemini_nb/v_model.jpg" width="550">
+<img src="../img/ch03/gemini_nb/vmodel.excalidraw.svg" width="550">
 
 * **需求分析 (SRS)** $\leftrightarrow$ **系統測試計畫 (System Test Plan) / 驗收測試**
 * **高階架構設計 (ADD)** $\leftrightarrow$ **整合測試計畫 (Integration Test Plan)**
