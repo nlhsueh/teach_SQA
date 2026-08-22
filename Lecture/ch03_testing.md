@@ -78,8 +78,6 @@ D) 異常防護 (Exceptions)
 
 國際軟體測試認證委員會（ISTQB）規範了軟體測試的 **7 大核心原則**，這是每一位專業軟體工程師與 QA 架構師的思維基石：
 
-<img src="../img/ch03/gemini_nb/istqb_7_principles.png" width="600">
-
 ---
 
 ### 原則 1：測試顯示缺陷的存在，而非不存在 (Testing shows the presence of defects, not their absence)
@@ -420,7 +418,20 @@ D) 靜態程式碼檢視 (Code Review)
 * **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
 * **啟發式一致性檢驗**：與使用者期望一致、與同類競品一致、與產品風格一致。
 
-<img src="../img/ch03/gemini_nb/test_oracle_comparator.jpg" width="550">
+```mermaid
+graph LR
+    Input["測試輸入<br>(Test Inputs)"] --> PUT["受測程式<br>(Program Under Test)"]
+    Input --> Oracle["測試預言機<br>(Test Oracle / Spec)"]
+    
+    PUT --> Actual["實際結果<br>(Actual Outcome)"]
+    Oracle --> Expected["預期結果<br>(Expected Outcome)"]
+    
+    Actual --> Comp{"比對與驗證<br>(Comparator)"}
+    Expected --> Comp
+    
+    Comp -->|結果一致| Pass["✅ Pass 通過"]
+    Comp -->|結果不符| Fail["❌ Fail 判定缺陷"]
+```
 
 #### 🔮 3.6.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
 
