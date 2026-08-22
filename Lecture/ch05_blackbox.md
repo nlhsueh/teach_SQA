@@ -106,7 +106,7 @@ if (tall > 180)
 
 #### SwimmingPool
 > [!NOTE]
-> :basketball: 以下是逢甲游泳池收費系統的規則：
+> 🏀 以下是逢甲游泳池收費系統的規則：
 > * (1) 一般票價 200 
 > * (2) 星期六日250元,除會員以外不打折 
 > * (3) 12歲以下、60歲（含）以上打八折，限定 3-75 歲可入內游泳 
@@ -189,7 +189,7 @@ FIG: 三角形程式：非獨立型一般邊界測試
 通常邊界測試與等價分割一起使用，接下來看等價分割。
 
 > [!NOTE]
-> :basketball: 如[游泳池收費系統](#SwimmingPool)，請改以非獨立測試進行。
+> 🏀 如[游泳池收費系統](#SwimmingPool)，請改以非獨立測試進行。
 
 * [游泳池測試案例](https://docs.google.com/spreadsheets/d/1aE21HM1CCYPJtRBcb2hvYnHtOtqTdbzhQizSfn26hPk/edit?gid=0#gid=0)
 * [三角形測試案例](https://docs.google.com/spreadsheets/d/1fIEwtWf-MoXyBnr1eCET8lsrLSKQgCnYiq6w9WGZOMQ/edit?gid=1805558459#gid=1805558459)
@@ -254,7 +254,7 @@ FIG: 成績程式的等價分割
 
 #### Binary-Search
 > [!NOTE]
-> :basketball: Binary Search
+> 🏀 Binary Search
 >
 > 針對以下 Binary Search 的設計規格（注意這不是程式碼，裡面甚至也沒有演算法），依據等價分割的方法來進行測試案例設計。
 >
@@ -305,7 +305,7 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 
 #### Tomorrow
 > [!NOTE]
-> :basketball: nextDate()
+> 🏀 nextDate()
 >
 > 考慮 1812- 2012 年的任何日期，輸入一個日期，輸出他的下一天日期。注意：四的倍數是潤年，但 1900 除外。
 
@@ -348,7 +348,7 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 
 #### Swimming-pool-partition-testing
 > [!NOTE]
-> :basketball: 針對[游泳池收費系統](#SwimmingPool)，請改以等價分割弱涵蓋方式進行測試
+> 🏀 針對[游泳池收費系統](#SwimmingPool)，請改以等價分割弱涵蓋方式進行測試
 > 1. 每一個列舉的資料都應該成為一個分割
 > 2. 考慮邊界，將邊界也列為一個分割
 > 3. 請先以 excel 規劃，再以 JUnit 程式碼實踐
@@ -365,12 +365,12 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 看過前述幾個例子，當我們要執行非獨立測試時，測試案例的成長是很可怕的，例如有 $n$ 個變數，每一個可能有 $m$ 個分割，如果我們每個分割取一個值來做非獨立測試，則有 $m^n$ 個測試案例需要測試。這樣近乎窮盡式的測試方法 在成本可能太高。
 
 > [!NOTE]
-> :point_right: ==All-pairs testing==: A combinatorial method of software testing that, for each pair of input parameters to a system (typically, a software algorithm), tests all possible discrete combinations of those parameters. Also called *pairwise testing*.
+> 👉 ==All-pairs testing==: A combinatorial method of software testing that, for each pair of input parameters to a system (typically, a software algorithm), tests all possible discrete combinations of those parameters. Also called *pairwise testing*.
 > 成對錯誤假設：錯誤會發生在兩兩配對的情況。
 
 #### Swimming-Pool-Simple
 > [!NOTE]
-> :basketball: 游泳池收費
+> 🏀 游泳池收費
 > > 凱旋游泳池標準收費為 100 元。 (1) 星期六日200元, 除會員以外不打折。(2) 清晨6:00 以前所有人打八折; 中午11:00-13:00 九折 ▫  (3) 會員一律打五折。各打折不可重複，以最低價為主。
 >
 > - d: {d1, d2} 分別代表 星期六日、一般時間。 
@@ -454,7 +454,7 @@ Table: 表格說明
 
 #### Loan-testing
 > [!NOTE]
-> :basketball: 貸款
+> 🏀 貸款
 >
 > 是一個放款利率計算的部份介面。已知利率與貸款的金額、償還年限、是否為會員、是否是青年貸款有關係。請應用全成對測試策略，並用交錯法來設計測試案例。
 >
@@ -663,7 +663,7 @@ FIG: 全狀態轉移涵蓋
 我們來看看如何應用 JUnit進行物件的狀態測試。
 #### Stack-test
 > [!NOTE]
-> :basketball: test Stack
+> 🏀 test Stack
 >
 > 設計一個 Stack 物件，裡面用陣列來儲存內容。有以下的介面：
 > - `Stack(int n)`: 宣告裡面內容為 n 個的 Stack; 
@@ -702,7 +702,7 @@ s.pop();
 assertTrue(s.isEmpty());
 ```
 
-:joy: 我是一個苦命的程式設計師，今晚加班到快通宵了，睏得快睜不開眼了，女上司很關心，問我要不要吃宵夜。我沒好氣地說，宵夜就算了，能讓我睡一覺就行了。女上司紅著臉說了句討厭啊，然後坐在我身邊不動，距離我很近，搞得我很緊張... *難道她發現我的程式有 bug？*
+😂 我是一個苦命的程式設計師，今晚加班到快通宵了，睏得快睜不開眼了，女上司很關心，問我要不要吃宵夜。我沒好氣地說，宵夜就算了，能讓我睡一覺就行了。女上司紅著臉說了句討厭啊，然後坐在我身邊不動，距離我很近，搞得我很緊張... *難道她發現我的程式有 bug？*
 
 See [DemoJUnit](https://github.com/nlhsueh/sw-testing24/tree/main/Intellij/DemoJunit) 下 `state/Stack` 的完整程式碼與測試碼。
 

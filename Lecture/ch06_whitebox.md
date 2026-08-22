@@ -507,7 +507,7 @@ int getMax2(int x, int y) {
 - 回到步驟 3，直到 存活變異體 為空。
 
 > [!NOTE]
-> :football: 考慮以下的程式 *P*。若我們有兩個變異 $P_1$ 是把 && 改成 ||， $P_2$ 是把 == 改成 <=，請問 test case (x=10, y=10) 能夠 kill 哪些變異？其所代表的涵意為何？
+> 🏈 考慮以下的程式 *P*。若我們有兩個變異 $P_1$ 是把 && 改成 ||， $P_2$ 是把 == 改成 <=，請問 test case (x=10, y=10) 能夠 kill 哪些變異？其所代表的涵意為何？
 >
 > ```java
 > read(X, Y)
@@ -558,7 +558,7 @@ $p_1$, $p_2$, $p_3$ 這三個變異都是等價變異，任何資料都無法將
 
 #### ex_mutation_test
 > [!NOTE]
-> :football: 針對以下程式 P 及其變異，回答 (1) 哪些是 被刪除變異體? (2) 這些這是案例有效嗎？變異刪除率為何？(3) 承2, 如果測試案例不有效，請新增測試案例。 
+> 🏈 針對以下程式 P 及其變異，回答 (1) 哪些是 被刪除變異體? (2) 這些這是案例有效嗎？變異刪除率為何？(3) 承2, 如果測試案例不有效，請新增測試案例。 
 >
 > ```python=
 > t1=[1,2,3]
@@ -667,7 +667,7 @@ $p_1$, $p_2$, $p_3$ 這三個變異都是等價變異，任何資料都無法將
 
 #### ex-coverage-xy	
 > [!NOTE]
-> :football: 針對以下程式 
+> 🏈 針對以下程式 
 >
 > ```java
 > read(X, Y)
@@ -754,7 +754,7 @@ $p_1$, $p_2$, $p_3$ 這三個變異都是等價變異，任何資料都無法將
 
 #### ex-basis-path-testing-next-date
 > [!NOTE]
-> :football: 針對程式 [nextDate](#code-nextDate)，利用 basis path testing 的方式設計測試案例。
+> 🏈 針對程式 [nextDate](#code-nextDate)，利用 basis path testing 的方式設計測試案例。
 >
 > 	- Cyclomatic complexity 為何
 > 	- Independent path 為何？
@@ -807,7 +807,7 @@ $p_1$, $p_2$, $p_3$ 這三個變異都是等價變異，任何資料都無法將
 
 
 > [!NOTE]
-> :football: 針對 [nextDate](#code-nextDate) 進行資料流測試：
+> 🏈 針對 [nextDate](#code-nextDate) 進行資料流測試：
 >
 > 	- All definition testing 
 > 	- All c-use testing
@@ -857,7 +857,7 @@ while (…) {
 
 #### ex-mutation-xy
 > [!NOTE]
-> :football: 變異測試
+> 🏈 變異測試
 > 針對下方此程式，我們採用 mutation test 的方式來檢驗測試案例，假設我們產生以下變異：
 > * P1 是把第二行的 && 改成 || (or)
 > * P2 是把 == 改成 >=
