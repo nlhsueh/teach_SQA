@@ -101,7 +101,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BMICalculatorVisibleTest {
     private WebDriver driver;
-    String testedURL = "http://127.0.0.1:5500/lab/u09_web_testing/bmi.html";
+    String testedURL = "http://127.0.0.1:5500/lab/u08_web_testing/bmi.html";
 
     @BeforeEach
 void setUp() {

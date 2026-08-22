@@ -138,7 +138,7 @@ Ch08 系統測試
 
 總的來說，Cucumber 是一個強大的 BDD 工具，它不僅有助於確保軟體的正確性，還促進了團隊之間的良好溝通和協作。
 
-* [BMI 範例](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u09_web_testing/intro_BDD.md)
+* [BMI 範例](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u08_web_testing/intro_BDD.md)
 * [Ninja 購物網範例 (Intellij)](https://github.com/nlhsueh/cucumber_ninja)
     * [demo site](https://tutorialsninja.com/demo/)
 

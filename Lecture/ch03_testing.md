@@ -41,9 +41,9 @@
 | **例外 (Exception)** | 處理「執行時外部可預期的異常環境」 | 公開 API 參數驗證、網路中斷、檔案不存在、使用者輸入錯誤 | 永遠處於啟用狀態，需有明確捕獲處理 |
 
 > 🛠️ **實習手冊連結**：
-> * 斷言實務：[`Lab/u02_preventive/assertion.md`](../Lab/u02_preventive/assertion.md)
-> * 例外架構：[`Lab/u02_preventive/exception.md`](../Lab/u02_preventive/exception.md)
-> * 結構化日誌：[`Lab/u02_preventive/logging.md`](../Lab/u02_preventive/logging.md)
+> * 斷言實務：[`Lab/u03_preventive/assertion.md`](../Lab/u03_preventive/assertion.md)
+> * 例外架構：[`Lab/u03_preventive/exception.md`](../Lab/u03_preventive/exception.md)
+> * 結構化日誌：[`Lab/u03_preventive/logging.md`](../Lab/u03_preventive/logging.md)
 
 #### **概念核對問答 (CCQ 1)**
 

@@ -15,9 +15,9 @@ graph LR
 
 <!-- [JUnit](https://hackmd.io/@nlhsueh/HJIj6Ea01e) -->
 [JUnit on GitHub](
-https://github.com/nlhsueh/sw-testing24/blob/main/lab/u04_utest/intro_junit.md)
+https://github.com/nlhsueh/sw-testing24/blob/main/lab/u05_utest/intro_junit.md)
 
-#### ❓ 概念核對問答 (CCQ 1)
+#### 概念核對問答 (CCQ 1)
 * **是非題**：在 JUnit 中，`assertSame(a, b)` 斷言的作用與 `assertEquals(a, b)` 完全相同，都是在驗證兩個物件的內容值是否相等（即比對 `a.equals(b)`）。
 
 <details>
@@ -209,12 +209,12 @@ FIG: 三角形程式：非獨立型一般邊界測試
 * [游泳池測試案例](https://docs.google.com/spreadsheets/d/1aE21HM1CCYPJtRBcb2hvYnHtOtqTdbzhQizSfn26hPk/edit?gid=0#gid=0)
 * [三角形測試案例](https://docs.google.com/spreadsheets/d/1fIEwtWf-MoXyBnr1eCET8lsrLSKQgCnYiq6w9WGZOMQ/edit?gid=1805558459#gid=1805558459)
 
-#### ❓ 概念核對問答 (CCQ 2)
-* **單選題**：假設某個受測方法接受 $n$ 個彼此獨立的輸入參數。若採用「獨立型強固邊界測試 (Independent Robust BVA)」，其設計出的測試案例數量應為多少？
-  A) $4n + 1$  
-  B) $6n + 1$  
-  C) $5^n$  
-  D) $7^n$  
+#### 概念核對問答 (CCQ 2)
+* **單選題**：假設某個受測方法接受 $3$ 個彼此獨立的輸入參數。若採用「獨立型強固邊界測試 (Independent Robust BVA)」，其設計出的測試案例數量應為多少？
+  A) $13$  
+  B) $19$  
+  C) $125$  
+  D) $343$  
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -393,7 +393,7 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 
 事實上，等價分割是為種觀念，在每個測試活動中都可應用。
 
-#### ❓ 概念核對問答 (CCQ 3)
+#### 概念核對問答 (CCQ 3)
 * **單選題**：在等價分割測試 (Equivalence Partitioning) 中，「弱 (Weak)」與「強 (Strong)」分類法的主要區別是什麼？
   A) 「弱」只涵蓋有效等價類，而「強」同時涵蓋有效與無效等價類  
   B) 「弱」基於單一錯誤假設（每個測試案例只測試一個區間的代表值），而「強」則基於多重錯誤假設（測試參數間代表值的笛卡爾積組合）  
@@ -530,7 +530,7 @@ All pair testing 工具的開發：
 * **Allpairs Generator**, 容易取得，免費, Perl 腳本, 無原生的 Java 版本,Perl 寫成的腳本，需要在系統中安裝 Perl 環境。
 * ACTS (NIST), 容易取得，免費, Java (JAR 檔案), 由美國國家標準與技術研究院 (NIST) 開發的，是 Java 寫成的, 功能強大，支援更高的強度 (t-way)，且為 Java 使用者設計。
 
-#### ❓ 概念核對問答 (CCQ 4)
+#### 概念核對問答 (CCQ 4)
 * **單選題**：全成對測試 (Pairwise / All-Pairs Testing) 能夠大幅縮減測試案例數量，其在工程上的核心理論依據是什麼？
   A) 軟體系統中的缺陷通常需要至少三個以上的參數交互作用才會觸發  
   B) 絕大多數的軟體缺陷都是由「單一變數」或「任意兩個變數之間的交互作用 (2-way Interaction)」所引起的  
@@ -580,7 +580,7 @@ Failure Mode and Effects Analysis, FMEA
     * **高風險優先：** 識別出那些**最可能**出錯或一旦出錯會造成**最嚴重影響**的因子和類別。
     * **低風險簡化：** 對於那些幾乎不可能出錯、或者其錯誤影響很小的因子，可以將其測試降級為**僅進行有效類別的組合測試**，甚至只進行**單個有效值**的測試。
 
-#### ❓ 概念核對問答 (CCQ 5)
+#### 概念核對問答 (CCQ 5)
 * **單選題**：關於「正交表測試 (Orthogonal Array Testing)」與一般「成對測試 (Pairwise Testing)」的比較，下列敘述何者正確？
   A) 正交表測試是隨機產生的，而 Pairwise 必須透過數學嚴格推導  
   B) 兩者都關注參數間的配對，但正交表更強調各因子組合的「均勻平衡性（正交性）」，而 Pairwise 僅要求任意兩因子的組合至少出現一次，因此 Pairwise 的案例數量通常更少且更有彈性  
@@ -701,7 +701,7 @@ FIG: 應用決策表測試法於 nextDay()
 
 ## 5.7 狀態測試
 
-❓ 沒有 return 的 function 怎麼測試？
+沒有 return 的 function 怎麼測試？
 
 前面我們所提到的測試多半著重在於輸入輸出的檢查，但是現在的軟體系統很多都是事件導向（event driven）的，系統內部會有一個狀態機（state machine）來記錄現有的狀態，並決定接受到狀態時應該做出什麼反應，轉移到哪一個狀態。像這一類的系統測試的重點就不是在功能是否正確，而是狀態的反應是否正確。
 
@@ -766,8 +766,6 @@ FIG: 全狀態轉移涵蓋
 前面 JUnit 的測試都著重在某方法（副程式）的功能測試，但現在的系統多半是物件導向，只測試功能導向式不夠的。回想一下，我們用 JUnit 測試時，都針對有回傳值的功能做檢驗，例如 `assertEquals(12, a.m1())`。如果 m1() 的方式並沒有回傳值，難道我們就不用測試了嗎？
 
 在物件狀態測試中，我們要檢驗的是「物件的狀態是否如我們預期的變化」。例如執行完 m1() 後物件的狀態變為 *isComplete*，我們就可以透過`assertTrue(a.isComplete())` 來檢驗。物件內部的屬性代表著它的狀態，「執行動作、改變狀態」，是物件開發的特性之一。
-
-
 
 我們來看看如何應用 JUnit進行物件的狀態測試。
 #### Stack-test
@@ -883,13 +881,10 @@ public class AdditionProperties {
 * **`@ForAll`**：指示框架自動為該參數生成各類極端值（包括整數最大值 `Integer.MAX_VALUE`、最小值、零、負數等）。
 
 > 🛠️ **實習手冊連結**：
-> * Property-Based Testing 實戰：[`../Lab/u04_utest/jqwik_property_based.md`](../Lab/u04_utest/jqwik_property_based.md)
+> * Property-Based Testing 實戰：[`../Lab/u05_utest/jqwik_property_based.md`](../Lab/u05_utest/jqwik_property_based.md)
 
-#### ❓ 概念核對問答 (CCQ 8)
-
-**問題**
-
-【是非題】在屬性基礎測試 (Property-Based Testing) 中，我們不需要手動為每一組測試寫出精確的預期輸出數值（例如 `expected = 10`），而是定義程式執行時必須永遠維持的「屬性或不變量」，並交由測試框架隨機生成大量測資來尋找反例。
+#### 概念核對問答 (CCQ 8)
+在屬性基礎測試 (Property-Based Testing) 中，我們不需要手動為每一組測試寫出確切的預期輸出數值，而是定義程式執行時必須永遠維持的「屬性或不變量」，並交由測試框架隨機生成大量測資來尋找反例。
 
 A) 正確 (True)
 B) 錯誤 (False)

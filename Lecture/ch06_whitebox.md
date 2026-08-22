@@ -11,7 +11,7 @@ Ch06 白箱測試
 
 ## 🧑‍💻Lab涵蓋度 
 
-[涵蓋度 Lab](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u04_utest/whitebox_test.md)
+[涵蓋度 Lab](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u06_mutation/whitebox_test.md)
 
 ## 測試涵蓋度
 
@@ -626,7 +626,7 @@ $p_1$, $p_2$, $p_3$ 這三個變異都是等價變異，任何資料都無法將
 
 ### 🧑‍💻Lab變異測試
 
-* [nlh lab](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u04_utest/mutation_test.md)
+* [nlh lab](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u06_mutation/mutation_test.md)
 * [PIT mutation test](http://pitest.org/)
 
 ## 練習

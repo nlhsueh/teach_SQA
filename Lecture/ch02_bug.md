@@ -244,7 +244,7 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 * **例外斷點 (Exception Breakpoints)**：只要系統拋出特定 Exception（如 `NullPointerException`）立刻自動中斷並定格 Call Stack。
 * **變數求值 (Evaluate Expression)**：在程式暫停時即時執行運算式驗證假設。
 
-> 🛠️ **實習演練手冊**：請參閱 [`Lab/u01_debug/debug.md`](../Lab/u01_debug/debug.md) 與 [`Lab/u01_debug/Intellij.md`](../Lab/u01_debug/Intellij.md) 進行除錯實務操作。
+> 🛠️ **實習演練手冊**：請參閱 [`Lab/u02_debug/debug.md`](../Lab/u02_debug/debug.md) 與 [`Lab/u02_debug/Intellij.md`](../Lab/u02_debug/Intellij.md) 進行除錯實務操作。
 
 ---
 
@@ -272,9 +272,9 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 | **例外 (Exception)** | 處理「執行時外部可預期的異常環境」 | 公開 API 參數驗證、網路中斷、檔案不存在、使用者輸入錯誤 | 永遠處於啟用狀態，需有明確捕獲處理 |
 
 > 🛠️ **實習手冊連結**：
-> * 斷言實務：[`Lab/u02_preventive/assertion.md`](../Lab/u02_preventive/assertion.md)
-> * 例外架構：[`Lab/u02_preventive/exception.md`](../Lab/u02_preventive/exception.md)
-> * 結構化日誌：[`Lab/u02_preventive/logging.md`](../Lab/u02_preventive/logging.md)
+> * 斷言實務：[`Lab/u03_preventive/assertion.md`](../Lab/u03_preventive/assertion.md)
+> * 例外架構：[`Lab/u03_preventive/exception.md`](../Lab/u03_preventive/exception.md)
+> * 結構化日誌：[`Lab/u03_preventive/logging.md`](../Lab/u03_preventive/logging.md)
 
 ---
 
