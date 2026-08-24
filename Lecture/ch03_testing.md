@@ -23,11 +23,12 @@
 
 ### 3.1.1 契約式設計的三大核心要素 (Bertrand Meyer)
 
-```
-        ┌── 前置條件 (Preconditions): 呼叫者必須滿足的條件 (若不滿足，方法拒絕執行)
-契約設計 ┼── 後置條件 (Postconditions): 方法執行完畢後保證達成的狀態
-        └── 類別不變量 (Class Invariants): 物件在任何公開方法執行前後必須永遠為真的法則
-```
+<img src="../img/ch02/gemini_nb/design_by_contract_simplified.jpg" width="650">
+
+**圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心法則**
+1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
+2.  **Postconditions (後置條件 - `ensures`)**：方法正常執行完畢後，向呼叫者保證達成的狀態與輸出結果。
+3.  **Class Invariants (類別不變量 - `maintains`)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`）。
 
 * **狀態不變量 (Invariants) 的重要性**：
   * *例如銀行帳戶*：`balance >= 0`、`totalDeposits == sum(transactions)`。
@@ -77,6 +78,17 @@ D) 異常防護 (Exceptions)
 > 4. **IEEE 829 / ISO 29119**：Software and System Test Documentation Standard
 
 國際軟體測試認證委員會（ISTQB）規範了軟體測試的 **7 大核心原則**，這是每一位專業軟體工程師與 QA 架構師的思維基石：
+
+<img src="../img/ch03/gemini_nb/istqb_seven_principles.jpg" width="650">
+
+**圖形解說：ISTQB 軟體測試 7 大經典原則總覽**
+1.  **1. Testing shows the presence of defects (測試顯示缺陷的存在)**：測試能證明有錯，無法證明軟體絕對無錯。
+2.  **2. Exhaustive testing is impossible (窮盡測試是不可能的)**：輸入組合呈指數級爆炸，測試必須基於風險進行關鍵取樣。
+3.  **3. Early testing saves time and money (及早測試 / 測試左移)**：在需求與架構階段抓錯，成本只有生產環境的百分之一 (1:10:100 定律)。
+4.  **4. Defects cluster together (缺陷群聚效應)**：80% 的重大 Bug 往往集中在 20% 最複雜的模組中。
+5.  **5. Beware of the pesticide paradox (小心殺蟲劑悖論)**：同一套測試反覆跑久了會產生抗藥性，必須定期更新並引入隨機/屬性測試。
+6.  **6. Testing is context dependent (測試取決於上下文)**：航太醫療需要嚴格形式化驗證，敏捷 Web 側重快速 CI/CD 回歸與壓測。
+7.  **7. Absence-of-errors fallacy (無錯謬誤)**：零語法錯誤不等於成功的系統，不符真實業務與使用者需求的軟體依然是失敗的。
 
 ---
 
@@ -197,15 +209,15 @@ D) 這是硬體浮點數運算器的製造缺陷
 
 ### 1. 驗證 (Verification) vs 確認 (Validation)
 
-```mermaid
-graph LR
-    Spec["規格需求書 (SRS)"] -->|實作| Code["程式碼產物"]
-    Code -->|Verification 驗證| Spec
-    User["使用者真實需求"] -->|Validation 確認| Code
-```
+<img src="../img/ch03/gemini_nb/verification_vs_validation.jpg" width="650">
 
-* **Verification**：*Are we building the product right?* 確保程式碼符合設計與規格。
-* **Validation**：*Are we building the right product?* 確保軟體真正解決使用者痛點。
+**圖形解說：Verification（驗證）與 Validation（確認）之核心差異**
+*   **【左側】Verification (驗證)**：
+    *   *關鍵提問*：**「Are we building the product right?（我們是否正確地建造軟體？）」**
+    *   *目標*：確保程式碼與架構嚴格符合設計圖、SRS 規格書與編碼規範（製程導向）。
+*   **【右側】Validation (確認)**：
+    *   *關鍵提問*：**「Are we building the right product?（我們是否建造了正確的軟體？）」**
+    *   *目標*：確保軟體交付後真正切中使用者痛點、滿足業務目標與商業價值（產品導向）。
 
 
 
@@ -225,20 +237,24 @@ graph LR
 
 ### 4. 功能測試（黑箱） vs 結構測試（白箱）
 
-<img src="../img/ch03/gemini_nb/blackbox_whitebox.jpg" width="550">
+<img src="../img/ch03/gemini_nb/blackbox_vs_whitebox_testing.jpg" width="650">
 
-* **黑箱測試 (Black-box)**：依據需求規格設計測資，不看內部實作。
-* **白箱測試 (White-box)**：依據程式內部邏輯分支、路徑設計測資。
+**圖形解說：黑箱測試 (Black-Box) vs 白箱測試 (White-Box)**
+*   **【左側】黑箱測試 (Black-Box Testing - 規格導向)**：
+    *   受測系統為不透明的黑盒子，測試人員不檢視內部程式碼，僅依據需求規格 (SRS) 與邊界設計輸入 (Inputs)，驗證輸出 (Outputs) 是否符合預期。
+*   **【右側】白箱測試 (White-Box Testing - 結構導向)**：
+    *   受測系統為透明的玻璃盒子，測試人員檢視內部程式邏輯，依據陳述句 (Statements)、分支 (Branches)、條件 (Conditions) 與路徑 (Paths) 設計測資，追求高程式碼覆蓋率。
 
 ---
 
 ### 5. 測試層級：單元、整合與系統測試
 
-<img src="../img/ch03/gemini_nb/testing_levels.jpg" width="550">
+<img src="../img/ch03/gemini_nb/testing_levels_hierarchy.jpg" width="650">
 
-* **單元測試 (Unit Test)**：針對最小可測試單元（Class / Method）進行邏輯驗證。
-* **整合測試 (Integration Test)**：驗證模組與模組、服務與資料庫之間的介面與協定。
-* **系統測試 (System Test)**：在真實或模擬環境中進行端到端整體運作驗證。
+**圖形解說：三大核心測試層級**
+1.  **1. Unit Testing (單元測試)**：針對最小獨立模組或方法（Class/Method）進行隔離驗證，速度極快。
+2.  **2. Integration Testing (整合測試)**：驗證跨模組介面、微服務 API 與資料庫之間的通訊協定與資料傳遞。
+3.  **3. System Testing (系統測試)**：在完整模擬或真實環境中執行端到端 (E2E) 使用者工作流程與非功能需求驗證。
 
 #### 💡 單元模組的可測試性 (Testability)
 模組設計應遵循「邏輯與 UI 分離」：
@@ -265,20 +281,13 @@ double div(double x, double y) {
 
 ### 6. 現代測試金字塔 (The Practical Test Pyramid)
 
-```
-                    / \
-                   / E2E \       <-- 端到端測試 (Playwright/Cypress) 成本高、速度慢
-                  /------- \
-                 / Service  \    <-- 整合/契約測試 (Pact/Testcontainers)
-                / Integration\
-               /--------------\
-              /   Unit Tests   \  <-- 單元測試 (JUnit 5/jqwik) 速度極快、數量最多
-             /__________________\
-```
+<img src="../img/ch03/gemini_nb/practical_test_pyramid.jpg" width="650">
 
-<img src="../img/ch03/gemini_nb/test_pyramid.png" width="450">
-
-* **反模式：冰淇淋甜筒 (Ice Cream Cone)**：缺乏單元測試，過度依賴脆弱且昂貴的 UI E2E 測試，導致 CI 構建緩慢且頻繁誤報。
+**圖形解說：Martin Fowler 現代實踐測試金字塔**
+*   **頂層：UI / E2E Tests (端到端測試)**：數量最少、執行最慢、維護成本最高（Playwright / Cypress）。
+*   **中層：Integration / Service Tests (整合與服務測試)**：數量與速度適中，驗證 API 與資料庫合約（Testcontainers / Pact）。
+*   **底層：Unit Tests (單元測試)**：數量最多、執行極快（毫秒級）、維護成本最低（JUnit 5 / Mockito）。
+*   **反模式：冰淇淋甜筒 (Ice Cream Cone)**：缺乏底層單元測試，過度依賴脆弱且昂貴的 UI E2E 測試，導致 CI 構建緩慢且頻繁誤報。
 
 ---
 
@@ -351,7 +360,14 @@ D) 靜態程式碼檢視 (Code Review)
 > 📌 **現代標準測試案例結構**：
 > $\text{Test Case} = [\text{ID}, \text{Preconditions}, \text{Inputs}, \text{Expected Output}, \text{Postconditions/Invariants}]$
 
-<img src="../img/ch03/gemini_nb/test_case_structure.jpg" width="550">
+<img src="../img/ch03/gemini_nb/test_case_structure.jpg" width="650">
+
+**圖形解說：現代標準測試案例五大核心構成要件 (Standard Test Case Anatomy)**
+1.  **Component 1: Test ID & Summary (識別碼與摘要)**：唯一編號（如 `TC-AUTH-001`）與簡明測試目的說明。
+2.  **Component 2: Preconditions (前置條件與環境)**：執行測試前系統必須處於的初始狀態（如特定登入身分、資料庫初始資料 Fixtures）。
+3.  **Component 3: Test Inputs (測試輸入資料)**：傳入受測方法的參數、HTTP Request Payload 或使用者操作事件。
+4.  **Component 4: Expected Outcome (預期結果與 Oracle)**：系統應回傳之正確值、HTTP 狀態碼或畫面渲染結果。
+5.  **Component 5: Postconditions & Assertions (後置條件與狀態斷言)**：執行後系統資料庫的狀態驗證、不變量檢查與測試後的環境復原 (Cleanup)。
 
 ---
 
