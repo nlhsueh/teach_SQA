@@ -393,22 +393,22 @@ D) 靜態程式碼檢視 (Code Review)
 
 <img src="../img/ch03/gemini_nb/testing_landscape_3w2h.jpg" width="650">
 
-**圖形解說：測試全景 3W2H 分類體系與典型案例**
+**圖形解說：測試全景 3W2H 分類體系與核心構面**
 1.  **1. WHO（誰來測試）**：
-    *   *案例 1（開發者）*：**Developer** 負責撰寫 Unit Tests 與 TDD 測試。
-    *   *案例 2（品保團隊）*：**QA Engineer** 負責建置自動化框架與執行 Alpha Testing。
+    *   **Developer**：負責撰寫 Unit Tests 與落實 TDD 單元驗證。
+    *   **QA Engineer**：負責建置自動化框架與執行 Alpha Testing。
 2.  **2. WHAT（測什麼）**：
-    *   *案例 1（功能面）*：**Functional** 驗證規格邏輯、輸入欄位與邊界條件。
-    *   *案例 2（非功能面）*：**Non-Functional** 檢驗效能負載 (Performance) 與資安防禦 (Security)。
+    *   **Functional**：驗證商業邏輯規格 (Specs & Logic) 與邊界條件。
+    *   **Non-Functional**：檢驗系統效能 (Performance) 與資安防禦 (Security)。
 3.  **3. WHY（為何測試）**：
-    *   *案例 1（風險緩解）*：**Risk Mitigation** 透過回歸測試 (Regression) 確保新變更不破壞既有功能。
-    *   *案例 2（防禦合約）*：**Contract Defense** 驗證前置條件與狀態不變量 (Invariants)。
+    *   **Risk Mitigation**：防範迴歸缺陷 (Regression & Bug Defense)，降低變更風險。
+    *   **Contract Defense**：確保狀態不變量與合約保證 (Invariants & Guarantees)。
 4.  **4. HOW（如何測試）**：
-    *   *案例 1（自動化腳本）*：**Scripted CI/CD** 依據預定義斷言在管線中自動執行。
-    *   *案例 2（探索性測試）*：**Exploratory Testing** 依賴專家直覺與經驗動態挖掘邊界弱點。
+    *   **Scripted CI/CD**：於自動化管線中依預定義腳本批量執行。
+    *   **Exploratory**：測試者動態探索系統 (Dynamic & Manual Probing)，以經驗挖掘潛在弱點。
 5.  **5. HOW TO EVALUATE（如何評估通過）**：
-    *   *案例 1（覆蓋率度量）*：**Coverage Metrics** 透過 JaCoCo 計算行涵蓋與分支涵蓋率。
-    *   *案例 2（測試預言機比對）*：**Test Oracle Comparator** 檢驗實際輸出與預期結果的一致性。
+    *   **Coverage Metrics**：透過量化指標計算程式碼行涵蓋與分支涵蓋率。
+    *   **Test Oracle**：比對預期結果與實際輸出 (Expected vs. Actual) 判定測試成敗。
 
 ### 面向一：Who 誰來測試？
 * **開發工程師**：單元測試 (Unit Test)、TDD。

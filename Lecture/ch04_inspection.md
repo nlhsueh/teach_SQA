@@ -160,6 +160,16 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 				
 ### 4.2.4 AI 輔助下的現代檢視實踐 (AI-Assisted Inspection)
 
+<img src="../img/ch04/gemini_nb/ai_assisted_inspection.jpg" width="650">
+
+**圖形解說：**
+* **Stage 1: AI 第一道防線 (AI First Line of Defense)**：當開發者提交 Pull Request 時，AI PR 審查機器人（如 PR-Agent、CodiumAI）自動生成變更摘要、掃除低階語法錯誤與程式碼臭味、並即時捕捉未釋放資源與基礎漏洞。
+* **Stage 2: 人類專家複審 (Human Expert Review)**：人類檢視者聚焦於 AI 難以洞察的全局系統架構、領域商業邏輯正確性、以及系統可靠性不變量與邊界極端案例。
+* **檢視角色的 AI 賦能 (Role Transformation)**：
+  * **作者 (Author)**：於 IDE 本地透過 Copilot / Cursor 進行自我檢視與預防修復。
+  * **檢視者 (Reviewer)**：在程式碼平台上與 AI 對話，進行深層威脅推演與並發死結模擬。
+  * **記錄者 (Scribe)**：利用語音轉文字（STT）工具即時記錄會議結論，自動生成缺陷與行動項目（Action Items）清單。
+
 在 2026 年的 AI 時代，**「人工檢視」**的流程已與 **大型語言模型（LLM）及 AI 代理（AI Agents）** 深度整合。AI 不僅大幅降低了人工檢視的時間成本，也重新定義了各階段的實踐方式：
 
 #### 1. 流程典範轉移：從「純人工會議」到「AI 先行，人類把關」
@@ -215,48 +225,78 @@ D) 重做 (Rework)
 
 ## 4.3 規格檢視
 
-規格的制定是開發流程一開始的步驟，如果這個步驟錯了，後面的矯正所需要的時間或成本就更大了。以下是一些系統規格檢視（或審查）重要的項目：
+規格的制定是開發流程一開始的步驟，如果這個步驟錯了，後面的矯正所需要的時間或成本就更大了。
 
-- **正確**。其中所述的每一個要求都代表了建構系統所需的內容。
-- **不模稜兩可**。其中所述的每一個要求只有一種解釋。
-- **完整的**。軟體應該完成的所有任務都包含在SRS中。
-- **可驗證的**。當且僅當其中的每一個要求都是可驗證的時，SRS才是可驗證的；一個要求是可驗證的當且僅當存在某個有限成本效益的過程，人或機器可以通過該過程檢查實際構建的軟體產品是否符合該要求。
-- **一致的**。其中沒有一個要求與其他前置文件相衝突，且其中的要求子集不相衝突。
-- **顧客能了解的**。顧客能夠閱讀並理解規範。
-- **可回朔的**。建立客戶需求和系統需求之間的追溯性。如果其每個要求的起源是清晰的，則SRS是可追溯的。
-- **可追朔的**。為了設計或測試軟體的任何組件，必須知道哪些要求（也許）正在被組件滿足。
-- **設計獨立的**。它不暗示特定的軟體架構或算法；SRS中的任何要求都不應該限制設計只能有一個替代方案。
-- **簡潔的**。
-- **有組織的**。其中包含的要求易於查找；要求被安排在相互關聯的位置。
+<img src="../img/ch04/gemini_nb/srs_quality_attributes.jpg" width="650">
 
-#### Traced SRS
+**圖形解說：**
+* **🎯 Correct (正確性)**：規格中的每項要求皆準確代表建構系統所需的真實內容。
+* **🔍 Unambiguous (無歧義性)**：每條敘述僅有唯一合理解釋，避免產生誤解。
+* **📦 Complete (完整性)**：軟體應完成的所有任務與邊界條件皆完整包含在 SRS 中。
+* **✅ Verifiable (可驗證性)**：存在有限成本效益的過程，能由人或機器客觀檢驗軟體是否符合該要求。
+* **⚖️ Consistent (一致性)**：內外部條款互不衝突，各要求子集之間亦保持一致。
+* **🔗 Traceable (可追溯性)**：具備清晰的雙向追溯鏈（可回溯至來源需求，亦可向前追溯至設計與測試組件）。
+* **🧩 Design-Independent (設計獨立性)**：專注於「要做什麼」，不預先限制特定架構或演算法。
+* **🤝 Understandable (易理解性)**：條理清晰，使非技術背景的客戶與利害關係人亦能輕鬆閱讀並理解。
 
-<img src='../img/ch04/gemini_nb/traced_srs.png' width='400'>
+#### 系統規格檢視（SRS Review）核心檢核清單：
 
+- 🎯 **Correct (正確)**：其中所述的每一個要求都代表了建構系統所需的內容。
+- 🔍 **Unambiguous (不模稜兩可)**：其中所述的每一個要求只有一種解釋。
+- 📦 **Complete (完整的)**：軟體應該完成的所有任務都包含在 SRS 中。
+- ✅ **Verifiable (可驗證的)**：當且僅當其中的每一個要求都是可驗證的時，SRS 才是可驗證的；一個要求是可驗證的當且僅當存在某個有限成本效益的過程，人或機器可以通過該過程檢查實際構建的軟體產品是否符合該要求。
+- ⚖️ **Consistent (一致的)**：其中沒有一個要求與其他前置文件相衝突，且 SRS 內部的要求子集不相衝突。
+- 🤝 **Understandable (顧客能了解的)**：顧客與利害關係人能夠順暢閱讀並理解規範。
+- 🔗 **Traceable (可追溯/可回溯的)**：
+  - **Traced (可回溯)**：建立客戶需求和系統需求之間的追溯性，每個要求的起源皆清晰明確。
+  - **Traceable (可向前追溯)**：為了設計或測試軟體的任何組件，必須知道哪些要求正在被該組件滿足。
+- 🧩 **Design-Independent (設計獨立的)**：不暗示特定的軟體架構或演算法；SRS 中的任何要求都不應該限制設計只能有單一替代方案。
+- ✂️ **Concise (簡潔的)**：文字精煉扼要，不包含無意義的贅述。
+- 🗂️ **Organized (有組織的)**：其中包含的要求易於查找，要求被妥善安排在相互關聯的位置。
+
+---
 
 規格又可以細分為需求規格與系統規格，比較嚴格的流程還可以區分需求規格檢視與系統規格檢視。
 
 > 當一個規格是不模糊的、可驗證的、完整且一致的，對客戶而言它可能是不容易了解的。
 > When an SRS is  un-ambiguous, more verifiable, complete and consistent, it is not understandable by customers. 
 
-寫規格書的一些建議：
+寫規格書的一些實用建議（7 大撰寫準則）：
 
-- 結構化的方式來組織你的文件；
-- 一致性的圖形符號和字眼；
-- 說明或定義所有的縮寫；
-- 文件必須包含目錄，如果能包含索引表、字彙表更好；
-- 總是從讀者的角度來來觀看此文件：如果我對此系統不熟悉，我能了解此文件嗎？
-- 當你在解釋一個結構（或架構），畫一張圖輔助說明吧；
-- 畫架構圖時，應有文字輔以說明，圖內的專有名詞與文字應一致；
-- 當你寫出一些數學式，用文字的方式解釋它；
-- 當你定義了一些計算，至少用兩個例子說明它；
-- 當你說「總是、所有、沒有任何、都不會」時，再想一下吧，真的如此嗎？
-- 當你說「很明顯的，因此，很清楚的，顯然的」時，邏輯上真的如此嗎？
-- 當你說「一些，有時候，通常，經常，大部分」時，請明確；
-- 當你在列表後加上「等等、依此類推、類似」時，讀者真的能夠依此類推嗎？
--  當你說「處理（process）」，是如何被處理？
-- 儘量不要使用被動式：此參數會被初始化，被誰初始化？
-- 提到支援某軟體或協定時，說明是哪一個版本。
+<img src="../img/ch04/gemini_nb/srs_writing_tips.jpg" width="650">
+
+**圖形解說：**
+* **Structured Format (結構化排版)**：以結構化層次組織文件，具備完整目錄、章節標題、索引表與字彙表（定義所有縮寫）。
+* **Visual Diagrams (視覺架構圖)**：解釋系統結構時畫圖輔助說明，圖文名詞與圖形符號保持一致，並附文字解說。
+* **Concrete Examples (具體範例)**：定義數學公式或複雜計算時，用文字解釋並至少搭配兩個具體數據範例。
+* **Precise Wording (精確用詞)**：杜絕模糊詞彙（如「一些、通常、大部分、等等、依此類推」），明確界定處理（Process）流程。
+* **Realistic Scope (務實邊界)**：避免使用過度絕對的詞彙（如「總是、所有、絕不、很明顯地」），嚴防邏輯漏洞。
+* **Active Voice (主動語態)**：避免模糊被動句（如「參數會被初始化」），明確指定執行主體與責任歸屬。
+* **Explicit Versions (明確版本)**：提及外部相依套件、通訊協定或平台時，務必精確標註支援之版本號。
+
+#### 規格撰寫最佳實務檢核清單：
+
+- 📑 **Structured Format (結構組織)**：
+  - 以結構化方式組織文件，包含目錄、索引表與字彙縮寫定義表。
+  - 始終站在非技術讀者角度思考：「若對此系統不熟悉，能否輕易讀懂？」
+- 🖼️ **Visual Diagrams (圖文並茂)**：
+  - 解釋架構或關聯時繪製圖形輔助，圖形符號與專有名詞前後保持一致。
+  - 所有架構圖皆需附上文字說明，確保圖文相輔相成。
+- 🔢 **Concrete Examples (具體範例)**：
+  - 寫出數學式時以文字詳細說明；定義演算法或計算規則時，至少提供兩個具體實例輔助理解。
+- 🎯 **Precise Wording (精確用詞)**：
+  - 避免「一些、有時候、通常、大部分」等模糊量詞，改用精確數值或範圍。
+  - 避免在列表後使用「等等、依此類推、類似」，明確列舉完整範圍。
+  - 說明「處理 (Process)」時，必須具體寫出「如何被處理」。
+- 🚫 **Realistic Scope (務實邊界)**：
+  - 謹慎使用「總是、所有、沒有任何、都不會」等絕對詞，確認極端邊界是否真能達成。
+  - 避免濫用「很明顯的、顯然的、因此」，確保每個結論具備嚴謹邏輯依據。
+- 👤 **Active Voice (主動語態)**：
+  - 儘量避免被動語態（如「參數會被初始化」），明確指名「由何元件/模組初始化」。
+- 🏷️ **Explicit Versions (明確版本)**：
+  - 提及支援某軟體、第三方套件或網路協定時，必須清楚指明所支援之確切版本。
+
+
 
 ❓ 針對此 [智慧校園服務系統- 軟體需求規格書](https://drive.google.com/file/d/0B_Be8Sd_tsM7S0t6bE5KV1hGeWs/view?usp=sharing)，透過上述的查核表檢查此規格是否合適。
 
@@ -281,9 +321,9 @@ D) 規格書必須僅由開發人員撰寫，完全不允許顧客檢閱以防�
 **正確答案：A**
 
 * **解析**：
-  * **A) 正確**：雙向追溯（Bidirectional Traceability）是指前向追溯（每一項使用者需求都有對應的系統規格與測試案例來滿足）與後向追溯（每一項系統規格、代碼與測試案例都有明確的來源需求，而非憑空捏造）。這能確保開發既不遺漏需求，也沒有開發不必要的功能。
-  * **B) 錯誤**：規格書長度與代碼行數並無此正比規律。
-  * **C) 錯誤**：規格書是針對系統需求與規格的追溯，不是逐行對應代碼與類別屬性。
+  * **A) 正確**：雙向追溯（Bidirectional Traceability）是指前向追溯（每一項使用者需求都有對應的系統規格與測試案例來滿足）與後向追溯（每一項系統規格、程式碼與測試案例都有明確的來源需求，而非憑空捏造）。這能確保開發既不遺漏需求，也沒有開發不必要的功能。
+  * **B) 錯誤**：規格書長度與程式碼行數並無此正比規律。
+  * **C) 錯誤**：規格書是針對系統需求與規格的追溯，不是逐行對應程式碼與類別屬性。
   * **D) 錯誤**：規格檢視必須有顧客或領域專家的參與，以確認系統設計與其真實期望一致。
 
 </details>
@@ -353,90 +393,60 @@ B) 錯誤 (False)
 | 標準     | 是否遵循所有相關組織標準。                                     |       |      |
 
 
-更完整的檢核表如下。事實上，不同的組織可以依據其特性、需求、文化建立不同的檢核表。
+更完整的設計檢核表可歸納為以下五大核心維度（組織亦可依特性客製調整）：
 
-- 對於以下的設計實體（design entity）是否以下的屬性都有適當描述？ 
-    - 唯一的識別碼、代稱或名稱。	
-    - 型態，例如資料庫、程式模組或檔案等。	
-    - 目的。
-    - 功能。 
-    - 相依性，與其他模組或是功能規格的關係。 
-    - 介面，描述一個設計模組的程式介面。 
-    - 資料，內含的資料。
-- 設計與需求的關係是否清楚描述？是否描述為何採取此設計架構？
-- 是否此架構簡潔明瞭？
-	- 是否符合高內聚力、低耦合度的原則？ 
-	- 低階的模組設計是否被高階的元件所聚合？亦即，設計是否具備階層式？ 
-	- 使用標準的元件。
-	- 是否直覺容易了解？可否有更精簡易懂的方案？
-- 此架構是否完整？	
-	- 是否包含所有需求？
-	- 檢查一些重要的需求，檢視此架構是否能夠符合	
-- 是否元件的描述正確且完整？	
-	- 是否可以單獨的被建構？ 
-	- 介面細節是否清楚？		
-		- 副程式的種類、名稱、參數型態、回傳型態、前置條件、後置條件等。
-		- 檔案名稱、格式、存取權。
-		- 可能採取的程式語言是否可以支援？ 
-		- 不必要的實作細節是否被描述了？
-- 元件之間的關係是否有清楚的描述？最好是以圖形的方式描述清楚。
-- 所提的解決方案是否可行？元件是否可被確實的實踐，並且與其他元件整合？
-- 是否描述相關的架構角度 （architectural views）? 
-	- **Logical** (Structural) view：邏輯的設計，例如透過類別圖來描述每個邏輯實體的功能。 
-	- **Process** view： 控制緒如何被設置、互動與結束。
-	- **Physical** view：各程式實體如何被配置在電腦、網路、手機等計算單元上？可透過 deploy diagram 來描述。 
-	- **Development** view：系統配置的角度。
-- 是否考慮以下的設計議題並提出解決方案？	
-	- Exception handling. 
-	- Initialization and reset. 
-	- Memory management. 
-	- Security. 
-	- Internationalization. 
-	- Built-in help. 
-	- Built-in test facilities. 
-- 是否所有的數學式子及圖形都有清楚的文字解說？
+1. **實體與介面完整性 (Entities & Interfaces)**
+   - 各設計實體（模組、資料庫、檔案）皆具備唯一識別碼、明確目的與相依關係。
+   - 元件介面細節完整（副程式名稱、參數型態、回傳值、前置/後置條件等）。
+   - 避免洩漏不必要的內部實作細節，維持良好模組封裝。
+2. **架構品質與設計原則 (Architecture & Principles)**
+   - 符合高內聚力、低耦合度（High Cohesion, Low Coupling）原則。
+   - 採用階層式模組聚合，架構簡潔直覺、易於理解與維護。
+   - 優先重複利用標準化、成熟穩定的元件。
+3. **需求追溯與功能完整 (Traceability & Completeness)**
+   - 架構完整涵蓋所有系統需求，並清楚記錄採取此架構設計之決策理由。
+   - 逐一檢視關鍵與高風險需求，確認架構能被確實滿足。
+   - 提出的解決方案具備工程可行性，元件可被單獨建構與順暢整合。
+4. **多維度架構視角 (Architectural Views)**
+   - **邏輯視角 (Logical View)**：透過類別圖或概念模型明確定義各邏輯實體職責。
+   - **行程視角 (Process View)**：清楚描述執行緒配置、並行控制、狀態互動與生命週期。
+   - **實體與開發視角 (Physical & Development View)**：透過部署圖（Deployment Diagram）定義硬體/網路配置與系統建置結構。
+5. **關鍵非功能設計議題 (Key Design Issues)**
+   - 例外處理與系統復原機制（Exception handling, Initialization & Reset）。
+   - 資源管理與安全防護（Memory management & Security）。
+   - 國際化與內建測試/輔助機制（Internationalization, Built-in help & Test facilities）。
 
 ### 4.4.3 設計模型檢核
 
-當我們進行設計時，我們會採用一些設計模組，例如 DFD, UML, ER model 等。除了這些模型是「圖形視覺化」以外，另一個優點是這些模型有一定的規範，便於我們進行檢核。
+當我們進行設計時，我們會採用一些設計模型，例如 DFD, UML, ER model 等。除了這些模型是「圖形視覺化」以外，另一個優點是這些模型有一定的規範，便於我們進行檢核。
 
 DFD/ER model 是一個我們經常用來做系統設計的工具，設計完成後我們需要進行檢驗。
 
+<img src="../img/ch04/gemini_nb/dfd_core_elements.jpg" width="650">
 
-```mermaid
-graph LR
-    Entity[外部實體 <br> External Entity] -->|資料流 Data Flow| Process(處理過程 <br> Process)
-    Process -->|資料流 Data Flow| Store[(資料儲存 <br> Data Store)]
-    
-    style Entity fill:#f9f,stroke:#333,stroke-width:1px
-    style Process fill:#bbf,stroke:#333,stroke-width:1px
-    style Store fill:#ff9,stroke:#333,stroke-width:1px
-```
-> DFD (Data Flow Diagram) 核心元素標記法
+**圖形解說：**
+* **External Entity (外部實體)**：代表發送訊息至系統或從系統接收訊息的外部人員或系統（資料來源或終點）。
+* **Process (處理過程)**：代表將輸入資料轉換為輸出資料的處理動作，名稱通常以「動詞 + 名詞」形式命名。
+* **Data Store (資料儲存)**：代表靜態保存資料的儲存庫、資料庫表格或檔案。
+* **Data Flow (資料流)**：代表資料在實體、處理過程與資料儲存之間流動的有向管道，必須清楚標示資料名稱。
 
-Check:
-- 外部實體必須是發送訊息到系統或從工程系統接收訊息的人或系統。
-- 資料流必須始終帶有它們包含的資料的標籤。在資料流描述中不要使用動詞。
-- 父級和子級圖表應該是**一致的**。在一級DFD上不要顯示從外部實體來或去的資料流，而在上下文圖表上卻沒有顯示（反之亦然）。
-- 檢查資料流向和從資料存儲中的方向。
-- 確保每個過程至少有一個**輸入**和一個**輸出**。
-- 每個資料存儲應該在DFD的某個地方有**至少一個輸入和一個輸出**。
-- 每個過程名稱應該以一個**動詞**開頭。
+#### DFD 檢核要點 (Inspection Checklist)：
+- **外部實體 (External Entity)**：必須是發送訊息到系統或從系統接收訊息的外部人員或第三方系統。
+- **資料流標籤 (Data Flow)**：資料流必須始終帶有包含資料內容的標籤，在名稱中應使用名詞而非動詞。
+- **層級一致性 (Consistency)**：父級與子級圖表應該是一致的；在一級 DFD 上出現的外部實體與資料流，必須與上下文圖表（Context Diagram）完全吻合。
+- **流向正確性 (Flow Direction)**：嚴格檢查資料流入與流出資料儲存（Data Store）的方向是否合乎邏輯。
+- **處理平衡 (Process Balance)**：確保每個處理過程（Process）至少具備一個**輸入**和一個**輸出**。
+- **儲存平衡 (Store Balance)**：每個資料儲存應該在 DFD 流程中具備**至少一個輸入（寫入）和一個輸出（讀取）**。
+- **動作命名 (Action Naming)**：每個處理過程的名稱應該以一個**動詞**或「動詞 + 名詞」形式開頭。
 
-```mermaid
-graph TD
-    Customer[顧客] -->|1. 提交訂單| OrderProcess(P1: 訂單處理)
-    OrderProcess -->|2. 檢查庫存| InventoryDB[(D1: 庫存資料庫)]
-    InventoryDB -->|3. 庫存狀態| OrderProcess
-    OrderProcess -->|4. 寫入訂單| OrderDB[(D2: 訂單資料庫)]
-    OrderProcess -->|5. 出貨通知| Customer
-    
-    style Customer fill:#f9f,stroke:#333,stroke-width:1px
-    style OrderProcess fill:#bbf,stroke:#333,stroke-width:1px
-    style InventoryDB fill:#ff9,stroke:#333,stroke-width:1px
-    style OrderDB fill:#ff9,stroke:#333,stroke-width:1px
-```
-> DFD (Data Flow Diagram) 資料流向圖範例
+<img src="../img/ch04/gemini_nb/dfd_order_flow.jpg" width="650">
+
+**圖形解說：**
+* **顧客訂單流程 (Order Processing Flow)**：
+  * `1. 提交訂單 (Place Order)`：外部實體（顧客 Customer）傳送訂單資料至處理過程（P1: 訂單處理 Order Processing）。
+  * `2. 檢查庫存 (Check Stock) / 3. 庫存狀態 (Stock Status)`：訂單處理過程向資料儲存（D1: 庫存資料庫 Inventory DB）發起庫存查詢並接收即時庫存狀態。
+  * `4. 寫入訂單 (Save Order)`：確認庫存後，將有效訂單寫入資料儲存（D2: 訂單資料庫 Order DB）。
+  * `5. 出貨確認 (Order Confirmation)`：處理過程回傳出貨通知與確認訊息給外部實體（顧客 Customer）。
 
 這只是 DFD 的檢核表，如果組織採用的是其他的設計模型，就應該建立其相關的檢核表。
 
@@ -444,34 +454,44 @@ graph TD
 
 ## 4.5 🧑‍💻程式碼檢視
 
-程式碼檢視 Code inspection。
+程式碼檢視（Code Inspection）是靜態測試的核心實踐，透過結構化檢核表在編譯與測試執行前掃除各類潛在缺陷。
 
-- 資料錯誤 Data faults。變數在應用時有無產生異常。
-- 變數未初始化就使用 Variables used before initialization
-- 變數宣告但不曾使用 Variables declared but never used
-- 變數被指定兩次值，但過程中未被使用 Variables assigned twice but never used between assignments
-- 超過陣列範圍的使用 Possible array bound violations 
-- 沒有宣告的變數 Undeclared variables
-- 控制錯誤 Control faults 
-- 無法到達的程式碼 Unreachable code
-- 輸入輸出錯誤 Input/output faults 
-- 變數值印出兩次，但中間沒有新的給定值。Variables output twice with no intervening assignment
-- 介面錯誤 Interface faults 
-- 參數型態不吻合 Parameter type mismatches
-- 參數個數錯誤 Parameter number mismatches
-- 功能的結果回傳卻沒有使用 Non-usage of the results of functions
-- 不曾被呼叫的功能與方法 Uncalled functions and procedures
-- 編碼規範
-	- 命名規範
-	- 介面整合規範
-	- 資料查詢規範
-	- 安全編碼規範
-	
+<img src="../img/ch04/gemini_nb/code_inspection_categories.jpg" width="650">
+
+**圖形解說：**
+* **Data Faults (資料錯誤)**：變數未初始化即使用、宣告未用、重複賦值未讀取或陣列索引越界。
+* **Control Faults (控制流程錯誤)**：包含無法執行的無效死碼（Unreachable code）、潛在無窮迴圈或邏輯跳轉缺陷。
+* **I/O Faults (輸入/輸出錯誤)**：重複輸出未改變數值、檔案串流未關閉或格式不符等 I/O 異常。
+* **Interface Faults (介面錯誤)**：方法參數型態/數量不吻合、忽略回傳值、或宣告未被呼叫的孤立方法。
+* **Coding Standards (編碼規範)**：命名慣例、安全編碼規範與架構分層存取守則。
+
+#### 程式碼檢視常見缺陷分類與檢核項目：
+
+- 📊 **Data Faults (資料錯誤)**
+  - ⚠️ **Uninitialized Variables**：變數未初始化即使用 (*Variables used before initialization*)
+  - 🗑️ **Unused Variables**：變數宣告卻從未使用 (*Variables declared but never used*)
+  - 🔄 **Redundant Assignment**：變數被指定兩次值，但過程中未被使用 (*Variables assigned twice but never used*)
+  - 🚫 **Array Bound Violations**：超過陣列索引界限之風險 (*Possible array bound violations*)
+  - ❓ **Undeclared Variables**：使用未宣告之變數 (*Undeclared variables*)
+- 🔀 **Control Faults (控制流程錯誤)**
+  - 🛑 **Unreachable Code**：無法到達的死碼 (*Unreachable code*)
+  - ♾️ **Loop / Jump Faults**：邏輯跳轉異常或潛在無窮迴圈
+- 📥 **I/O Faults (輸入輸出錯誤)**
+  - 🖨️ **Duplicate Output**：變數值連續輸出兩次，但中間未給定新值 (*Variables output twice with no intervening assignment*)
+  - 💾 **Unclosed Resources**：I/O 資料串流或檔案開啟後未正確關閉釋放
+- 🔌 **Interface Faults (介面錯誤)**
+  - ⚡ **Parameter Type Mismatches**：呼叫時參數型態不吻合
+  - 🔢 **Parameter Number Mismatches**：呼叫時參數個數不符
+  - 📭 **Ignored Return Values**：方法執行的回傳結果未被接收使用 (*Non-usage of the results of functions*)
+  - 👻 **Uncalled Functions**：不曾被呼叫的冗餘功能或方法 (*Uncalled functions and procedures*)
+- 📐 **Coding Standards (編碼規範)**
+  - 🏷️ **Naming Conventions**：變數、類別與方法之命名規範
+  - 🔗 **Interface Integration**：介面整合與模組封裝規範
+  - 🗃️ **Query Standards**：資料庫查詢與存取規範
+  - 🛡️ **Secure Coding**：安全編碼規範（防範 SQL 注入、XSS 等）
 
 #### 遭透了的變數命名
 
-
-#### bad_var_namming...
 
 ```java
 String OwO, OnO, OuO
@@ -481,7 +501,7 @@ float oOooo, ooOoo, oooOo
 
 > [!NOTE]
 > 好的程式本身就是最好的註解。加程式註解前想想：如何改善程式碼讓我不需要加這個註解？改善程式碼並加上註解讓你的程式更清楚。
-> Good code is its own best documentation. As you're about to add a comment, ask yourself, "How can I improve the code so that this comment isn't needed? Improve the code and then document it to make it even clearer. -- Steve McConnell
+>> Good code is its own best documentation. As you're about to add a comment, ask yourself, "How can I improve the code so that this comment isn't needed? Improve the code and then document it to make it even clearer. -- *Steve McConnell*
 
 ### 4.5.1 程式臭味檢視
 
