@@ -376,12 +376,14 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 壓測工具通常透過負載產生器（Load Generator）在單台或分散式節點中模擬數百至數萬名「虛擬使用者 (Virtual Users, VUs)」，向受測伺服器並發發送請求。
 
 #### fig-virtual-user 
-使用虛擬使用者進行壓力測試
+
 ![image](../img/ch08/HJEFskS4T.png)
+使用虛擬使用者進行壓力測試
 
 #### fig-load-generator
-多台的負載產生器進行分散式加壓
+
 ![image](../img/ch08/BkJb3JSET.png)
+多台的負載產生器進行分散式加壓
 
 ---
 
@@ -425,16 +427,18 @@ graph LR
     *   當回應時間暴增時，需比對 CPU 使用率是否達到 80% 以上、資料庫是否有慢查詢 (Slow Queries) 或鎖定等待 (Lock Contention)。
 
 #### fig-response-time-graph
-回應時間曲線與飽和點示意
+
 ![image](../img/ch08/rkdcnyBET.png)
+回應時間曲線與飽和點示意
 
 #### fig-cpu-utilization
-CPU 使用率與回應時間關聯分析
+
 ![image](../img/ch08/BJpnnkBVa.png)
+CPU 使用率與回應時間關聯分析
 
 ---
 
-### 8.6.7 現代壓測工具與實戰手冊
+### 8.6.7 現代壓測工具
 
 在業界實務中，壓測工具可分為兩大流派：
 *   **現代雲原生流派：k6 (Load as Code)**：以 JavaScript/TypeScript 撰寫腳本、原生支援 CI/CD Quality Gate、極致輕量高並發。
@@ -476,22 +480,9 @@ CPU 使用率與回應時間關聯分析
     5.  **A05: 安全設定缺陷 (Security Misconfiguration)**：開啟預設密碼、未關閉除錯模式 (Debug Mode)、暴露過多錯誤堆疊資訊。
     6.  **A06: 易受攻擊與過時的組件 (Vulnerable and Outdated Components)**：使用含已知 CVE 漏洞的開源套件（如 Log4j 漏洞）。
 
-### 8.9.2 安全測試的四大核心作法 (Testing Approaches)
+### 8.7.2 安全測試的四大核心作法 (Testing Approaches)
 
-```mermaid
-graph TD
-    subgraph SecurityDefense["現代 DevSecOps 安全測試全防線"]
-        SAST["白箱：SAST 靜態程式碼分析<br>(SonarQube / Semgrep)"]
-        SCA["相依性：SCA 軟體成分分析<br>(Dependency-Check / Snyk)"]
-        DAST["黑箱：DAST 動態滲透掃描<br>(OWASP ZAP / Burp Suite)"]
-        FUZZ["前沿：Fuzzing 模糊安全測試<br>(Jazzer / AFL)"]
-    end
-
-    Dev["開發與 Commit"] --> SAST
-    Build["Maven/Gradle 建構"] --> SCA
-    Deploy["Staging 測試環境"] --> DAST
-    Runtime["極限邊界防禦"] --> FUZZ
-```
+<img src="../img/ch08/gemini_nb/security_testing_pipeline.jpg" width="650">
 
 1.  **SAST (Static Application Security Testing，靜態應用安全測試)**：
     *   在編譯期或靜態分析階段掃描原始碼，尋找硬編碼密碼 (Hardcoded Secrets)、不安全的 SQL 拼接或危險函式調用。
@@ -502,11 +493,7 @@ graph TD
 4.  **Fuzzing (模糊安全測試)**：
     *   自動生成大量非預期的突變 Byte 陣列或畸形字串餵給解析器，專門用來挖掘記憶體洩漏、未捕獲例外與系統崩潰漏洞（例如使用 Google Jazzer）。
 
-### 8.9.3 安全測試的標準執行程序 (Security Testing Procedure)
-
-```
-[階段 1: 威脅建模 (STRIDE)] ➔ [階段 2: 安全需求定義 (ASVS)] ➔ [階段 3: 自動化掃描與手動滲透] ➔ [階段 4: 漏洞評估 (CVSS) 與修補驗收]
-```
+### 8.7.3 安全測試的標準執行程序 (Security Testing Procedure)
 
 1.  **步驟 1：威脅建模 (Threat Modeling)**：
     *   在架構設計初期採用 **STRIDE 模型** 分析潛在威脅：
@@ -520,11 +507,11 @@ graph TD
 
 ---
 
-## 8.10 回復性與彈性測試 (Recoverability & Resilience Testing)
+## 8.8 回復性與彈性測試 (Recoverability & Resilience Testing)
 
 回復性測試（Recoverability Testing）檢驗系統在遭受硬體故障、網路中斷、資料庫當機或斷電等非預期災難時，**能否平穩容錯、保護資料一致性並在時限內自動回復正常運作**。
 
-### 8.10.1 核心觀念與四大關鍵度量指標
+### 8.8.1 核心觀念與四大關鍵度量指標
 
 ```mermaid
 timeline
@@ -544,7 +531,7 @@ timeline
 4.  **RPO (Recovery Point Objective，復原點目標)**：
     *   災難發生時，業務能容忍的**最大資料遺失量**。例如 RPO = 0 表示不允許遺失任何一筆已確認交易。
 
-### 8.10.2 回復性測試的實施作法
+### 8.8.2 回復性測試的實施作法
 
 1.  **資料庫交易回滾測試 (Transaction Rollback & WAL Integrity)**：
     *   在執行跨表格轉帳交易的第 2 個 SQL 步驟時，強行切斷資料庫連線，驗證資料庫是否能依靠 WAL (Write-Ahead Logging) 與交易機制正確回滾，避免產生「A 帳戶扣款但 B 帳戶未入帳」的資料不一致。
@@ -555,7 +542,7 @@ timeline
 4.  **混沌工程故障注入 (Chaos Engineering & Fault Injection)**：
     *   在系統運行時主動注入混亂（例如隨機終止 Pod、注入 3000ms 網路延遲、模擬硬碟 100% 滿載），驗證微服務架構的自律修復能力。
 
-### 8.10.3 回復性測試的標準執行程序
+### 8.8.3 回復性測試的標準執行程序
 
 1.  **步驟 1：建立穩態假說 (Define Steady State Hypothesis)**：
     *   定義系統正常時的指標（例如：API 吞吐量 = 500 RPS，P99 響應時間 < 200ms，錯誤率 < 0.1%）。
@@ -570,7 +557,7 @@ timeline
 
 ---
 
-## 8.11 練習與討論
+## 8.9 練習與討論
 
 #### 使用案例測試
 
