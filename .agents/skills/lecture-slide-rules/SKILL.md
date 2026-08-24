@@ -21,11 +21,16 @@ When the user gives the request:
 
 ## 1. Educational Handbooks (Lecture Notes `.md`)
 
-### Image Insertion
-- Insert conceptual illustration diagrams from `img/ch0X/gemini_nb/` into appropriate spots under header sections to aid visual learning.
+### 概念圖繪製與插入規則 (Concept Diagrams)
+- **概念圖必須為 AI 繪圖 (非 Mermaid)**：當指令提及「繪製概念圖」、「畫概念圖」或「加上概念圖」時，**一律使用 AI 繪圖工具 (`generate_image`) 產生高質感的資訊圖表 (Infographic)**，並儲存至 `img/chXX/gemini_nb/` 目錄中。**嚴禁使用 Mermaid 語法替代概念圖**。
+- **圖形下方必附詳細文字解說**：每張概念圖下方，**必須有條理地附上針對該圖中各階段、元件或欄位的完整文字解說**，確保讀者能對照圖形深度理解。
 - Format:
   ```markdown
-  ![Caption Text](../img/ch0X/gemini_nb/XX_image.jpeg)
+  <img src="../img/ch0X/gemini_nb/XX_image.jpg" width="650">
+
+  **圖形解說：**
+  * **Stage 1 (階段名稱)**：詳細說明...
+  * **Stage 2 (階段名稱)**：詳細說明...
   ```
 
 ### File Links / References

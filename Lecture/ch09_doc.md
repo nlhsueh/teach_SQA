@@ -13,16 +13,19 @@
 
 ## 9.1 測試文件的基本概念與核心價值
 
-在敏捷開發與現代軟體工程中，「測試文件」的形式已大幅演進，但其背後的四大核心目的始終不變：
+在敏捷開發與現代軟體工程中，「測試文件」的形式已大幅演進，但其背後的四大核心價值始終不變：
 
-```mermaid
-graph TD
-    Goal["測試文件的四大核心價值"]
-    Goal --> Align["1. 對齊規格認知 (Alignment)<br>確保開發、測試與 PO 對『完成 (DoD)』有一致理解"]
-    Goal --> Trace["2. 需求雙向可追溯性 (Traceability)<br>證明每一條商業需求皆有對應的測試覆蓋 (RTM)"]
-    Goal --> Repro["3. 缺陷精準重現 (Reproducibility)<br>提供標準化步驟，消除『在我的電腦上明明正常』"]
-    Goal --> Audit["4. 品質治理與審計 (Governance & Audit)<br>為金融、醫療、航空等高可靠系統提供合規證明"]
-```
+<img src="../img/ch09/gemini_nb/test_doc_core_values.jpg" width="650">
+
+**圖形解說：測試文件的四大核心價值**
+1.  **1. 對齊規格認知 (Alignment)**：
+    *   消除產品經理 (PO)、開發工程師與測試工程師之間的認知落差，確保所有人對「完成定義 (Definition of Done, DoD)」有精確且一致的標準。
+2.  **2. 需求雙向可追溯性 (Traceability)**：
+    *   建立需求追溯矩陣 (RTM)，將 User Story ➔ 實作程式碼 (Code) ➔ 測試案例 (Test Case) 緊密串聯，證明每一項商業需求皆經過嚴格檢驗，無遺漏亦無冗餘代碼。
+3.  **3. 缺陷精準重現 (Reproducibility)**：
+    *   提供客觀、科學且可重複執行的驗證步驟，徹底終結「在我的電腦上明明正常」的推諉現象，加速除錯與修復週期。
+4.  **4. 品質治理與審計合規 (Governance & Audit)**：
+    *   為金融、醫療、航太與高可靠度分散式系統提供法律與安全稽核之客觀品質證明（如 ISO 25010 / FDA / PCI-DSS 合規）。
 
 *   **傳統重型文件 vs. 現代活文件 (Living Documentation)**：
     *   **傳統做法**：耗費數週撰寫上百頁 Word 測試計畫，寫完後系統需求早已變更，文件淪為「寫完即丟的死文件」。
@@ -35,6 +38,13 @@ graph TD
 IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表性的測試文件標準。傳統 IEEE 829 定義了八大階段十餘種繁複報告，現代工程可將其**精簡提煉為三大核心支柱 (3 Core Pillars)**：
 
 <img src="../img/ch09/gemini_nb/ieee829_three_pillars.jpg" width="650">
+
+**圖形解說：IEEE 829 現代精簡三大支柱**
+*   **第一支柱：測試計畫 (Test Planning)**：確立宏觀戰略，釐清範疇邊界 (Scope)、時程進度 (Schedule)、團隊資源 (Resources) 與品質通過門檻 (Pass/Fail Criteria)。
+*   **第二支柱：測試規格 (Test Specifications)**：制定具體戰術，涵蓋架構設計 (Test Design)、具體測試案例 (Test Cases: 前置條件、輸入測資、預期輸出) 與執行步驟 (Test Procedures)。
+*   **第三支柱：測試執行與報告 (Test Execution & Reporting)**：記錄客觀數據，包含執行日誌 (Test Logs)、缺陷事件單 (Incident Reports) 與發布總結報告 (Test Summary Report)。
+
+---
 
 ### 9.2.1 第一支柱：測試計畫 (Test Plan)
 測試計畫是高階戰略藍圖，釐清測試的**邊界、資源與驗收門檻**：
@@ -74,6 +84,15 @@ IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表
 生成式 AI 與 LLM 的成熟，徹底顛覆了測試文件的撰寫與維護成本。測試文件不再是負擔，而是能夠**被 AI 理解、自動生成、並直接驅動自動化執行的「活資產」**。
 
 <img src="../img/ch09/gemini_nb/ai_test_documentation_workflow.jpg" width="650">
+
+**圖形解說：AI 輔助現代化測試文件五大階段工作流**
+*   **Stage 1：需求規格輸入 (User Story / PRD Input)**：產品經理提供原始 PRD 規格文件或使用者故事 (User Stories)。
+*   **Stage 2：AI 核心分析引擎 (AI Brain / LLM Engine)**：大型語言模型依據等價劃分、邊界值分析與防禦性不變量 (Invariants) 進行語意分析與測試路徑展開。
+*   **Stage 3：自動產出活文件 (Automated Living Documentation)**：
+    *   生成可直接執行的 **Gherkin BDD Feature Files**（規格即代碼）。
+    *   生成涵蓋 Happy Path 與極端邊界的結構化 **測試案例矩陣 (Structured Test Matrix)**。
+*   **Stage 4：CI/CD 全自動化流水線執行 (CI/CD Pipeline Execution)**：代碼 Commit 後自動觸發 JUnit 5、Playwright 與 Testcontainers 執行，即時產出綠燈驗證報表。
+*   **Stage 5：智慧缺陷與總結報告 (Smart AI Incident & Summary Report)**：若執行失敗，AI 自動萃取錯誤堆疊與容器日誌，直接產出含**根本原因分析 (RCA)** 與修復建議的缺陷報告。
 
 ### 9.3.1 規格即代碼 (Doc as Code) 與 BDD 活文件
 *   **Markdown + Git 協同審查**：
