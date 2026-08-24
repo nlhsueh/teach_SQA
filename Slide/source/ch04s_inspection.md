@@ -10,6 +10,23 @@ style: |
     font-family: 'Helvetica Neue', Arial, sans-serif;
     padding: 40px;
     font-size: 24px;
+    line-height: 1.6;
+  }
+  ul, ol {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  li {
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+  li > ul, li > ol {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  li > ul > li, li > ol > li {
+    margin-bottom: 6px;
+    font-size: 0.9em;
   }
   h1 {
     color: #0b3c5d;
@@ -210,6 +227,12 @@ style: |
   section.lead p strong {
     color: #328cc1;
   }
+  section.lead blockquote {
+    font-size: 1.25em;
+    line-height: 1.5;
+    margin-top: 25px;
+    padding: 10px 24px;
+  }
   footer {
     position: absolute;
     left: 40px;
@@ -225,7 +248,7 @@ style: |
 
 ### 第四章：軟體檢視 (Software Inspection)
 
-授課教師：軟體品質保證教學團隊
+授課教師：薛念林教授 (with Gemini AI)
 
 ---
 
@@ -276,10 +299,10 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**【是非題】靜態測試（如軟體檢視、規格檢視）可以在程式碼實際執行之前，檢查需求、設計、程式碼甚至測試資料中的異常，以早期發現錯誤、降低整體的軟體品質成本。**
+**靜態測試（如軟體檢視、規格檢視）可以在程式碼實際執行之前，檢查需求、設計、程式碼甚至測試資料中的異常，以早期發現錯誤、降低整體的軟體品質成本。**
 
-* **A.** 正確 (True)
-* **B.** 錯誤 (False)
+* **A.** 正確
+* **B.** 錯誤
 
   </div>
   <div class="ccq-logo">
@@ -569,10 +592,10 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**【是非題】設計檢視（Design Review）最理想的執行時機，是在系統所有模組的單元測試與整合測試皆通過之後，以確保實際產出的系統與設計文件相符。**
+**設計檢視（Design Review）最理想的執行時機，是在系統所有模組的單元測試與整合測試皆通過之後，以確保實際產出的系統與設計文件相符。**
 
-* **A.** 正確 (True)
-* **B.** 錯誤 (False)
+* **A.** 正確
+* **B.** 錯誤
 
   </div>
   <div class="ccq-logo">
@@ -676,10 +699,10 @@ style: |
 <div class="ccq-columns">
   <div class="ccq-text">
 
-**【是非題】在程式碼檢視中，若發現系統直接將詳細的例外錯誤堆疊資訊（如 `e.printStackTrace()`）輸出至前端頁面或公開日誌，這屬於 OWASP Top 10 中的「A05:2021-安全設定錯誤 (Security Misconfiguration)」漏洞範疇。**
+**在程式碼檢視中，若發現系統直接將詳細的例外錯誤堆疊資訊（如 `e.printStackTrace()`）輸出至前端頁面或公開日誌，這屬於 OWASP Top 10 中的「A05:2021-安全設定錯誤 (Security Misconfiguration)」漏洞範疇。**
 
-* **A.** 正確 (True)
-* **B.** 錯誤 (False)
+* **A.** 正確
+* **B.** 錯誤
 
   </div>
   <div class="ccq-logo">

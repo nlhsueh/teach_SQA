@@ -80,9 +80,24 @@ When the user gives the request:
 
 ### Layout and Stylings
 - Copy frontmatter styling config from `ch01s_intro.md` to ensure layout consistency.
-- Use `_class: lead` for title slides and section transition slides to center text horizontally and vertically.
-- Hide header text and display the footer fixed at the bottom-left on all `lead` slides using these CSS rules:
-  ```css
+- **Title Slide Instructor Requirement**:
+  - Always set instructor info as: `授課教師：薛念林教授 (with Gemini AI)`.
+- **Slide Body Spacing and Line Height**:
+  - Set `line-height: 1.6` on `section`.
+  - Set `margin-bottom: 12px` (or `14px`) on main `li` items to ensure clear spacing between major topics.
+  - Set smaller sub-item spacing (`margin-bottom: 6px`) and `font-size: 0.9em` for nested lists.
+- **Section Transition Slides (`_class: lead`)**:
+  - Use `_class: lead` for title slides and section transition slides to center text horizontally and vertically.
+  - Make the subtitle / quote on transition slides prominent with larger font:
+    ```css
+    section.lead blockquote {
+      font-size: 1.15em;
+      line-height: 1.5;
+      margin-top: 20px;
+    }
+    ```
+  - Hide header text and display the footer fixed at the bottom-left on all `lead` slides using these CSS rules:
+    ```css
     footer {
       position: absolute;
       left: 40px;
@@ -92,7 +107,7 @@ When the user gives the request:
     section.lead header {
       display: none !important;
     }
-  ```
+    ```
 
 ### HTML Tag Restrictions
 - **Do not use block-level HTML tags** (like `<div>` or `<p>`) in slide content, as they interfere with the Markdown parser and break Marp's slide separators (`---`).
@@ -106,7 +121,7 @@ When the user gives the request:
   <!-- _class: full-image-slide -->
 
   <div class="centered-image">
-    <img src="../img/ch0X/gemini_nb/XX_image.jpeg" alt="Caption" />
+    <img src="../../img/ch0X/gemini_nb/XX_image.jpeg" alt="Caption" />
   </div>
   ```
 
@@ -115,6 +130,10 @@ When the user gives the request:
 ## 3. Slide CCQ Formatting
 
 Use a standard two-slide sequence for every Concept Check Question in the slide deck to maintain visual consistency.
+
+### CCQ Design & Wording Rules
+- **No Tag Prefix**: Do **NOT** include `【是非題】` in the slide question text.
+- **Clean True/False Options**: For True/False questions, use `* **A.** 正確` and `* **B.** 錯誤` directly without English suffixes like `(True)` or `(False)`.
 
 ### Question Slide
 ```markdown
@@ -134,7 +153,7 @@ Use a standard two-slide sequence for every Concept Check Question in the slide 
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/question_icon.svg" alt="Question" />
   </div>
 </div>
 ```
@@ -155,7 +174,7 @@ Use a standard two-slide sequence for every Concept Check Question in the slide 
 
   </div>
   <div class="ccq-logo">
-    <img src="../img/ch01/answer_icon.svg" alt="Answer" />
+    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 ```
@@ -170,3 +189,4 @@ Use a standard two-slide sequence for every Concept Check Question in the slide 
   ```
 - Verify that the compiled PDF output is placed correctly in the `Slide` folder.
 - **CRITICAL RULE**: When making slides, you only need to create the `.md` source and compile the `.pdf` output. **Do not create, compile, or keep `.html` slide files.**
+
