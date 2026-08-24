@@ -225,9 +225,33 @@ Record and replay tool
 
 為了消除「記憶體資料庫的幻覺」，我們應該在測試中使用**與生產環境完全一致的真實資料庫**。**Testcontainers** 是一個主流的 Java 測試庫，它利用 Docker 在測試啟動時，動態拉起真實的 PostgreSQL、Redis 或 Kafka 容器。
 
-Testcontainers 的特點包括：
-*   **拋棄式容器**：測試開始時自動啟動 Docker 容器，測試結束時自動銷毀，不污染開發環境。
-*   **隨機動態 Port**：容器啟動時會綁定到 Docker 主機的隨機 Port，避免測試在 CI 伺服器上併發執行時產生 Port 衝突。
+```mermaid
+graph TD
+    subgraph TestProcess["JVM 測試進程 (JUnit 5 + Spring Boot)"]
+        Test["整合測試案例<br>(@Testcontainers)"]
+        Props["動態連線注入<br>(@DynamicPropertySource)"]
+    end
+
+    subgraph DockerHost["Docker 容器環境 (Docker Daemon)"]
+        Ryuk["Ryuk 清理守護容器<br>(自動回收銷毀)"]
+        
+        subgraph RealContainers["拋棄式真實服務容器"]
+            Postgres["🐘 PostgreSQL 容器<br>(隨機 Port: 54321 -> 5432)"]
+            Redis["⚡ Redis / Kafka 容器<br>(隨機 Port: 63790 -> 6379)"]
+        end
+    end
+
+    Test -->|1. 發送啟動請求| Ryuk
+    Ryuk -->|2. 動態拉起| RealContainers
+    RealContainers -.->|3. 回傳動態 JDBC URL / Port| Props
+    Test ==>|4. 執行真實 SQL 查詢與並發交易驗證| Postgres
+    Test -.->|5. 測試結束自動終結清理| Ryuk
+```
+
+Testcontainers 的核心特點包括：
+*   **拋棄式容器 (Disposable Containers)**：測試開始時自動啟動 Docker 容器，測試結束時自動銷毀，不殘留任何髒資料、不污染開發環境。
+*   **隨機動態 Port 映射**：容器啟動時會綁定到 Docker 主機的隨機 Port，避免測試在 CI/CD 伺服器上併發執行時產生 Port 佔用衝突。
+*   **環境一致性 (Environment Parity)**：在本地端、CI 伺服器與生產環境皆運行相同的 Docker 官方鏡像，徹底解決「在我電腦上是好的」難題。
 
 ### 8.3.3 API 整合測試實務
 
