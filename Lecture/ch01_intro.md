@@ -175,72 +175,42 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 ---
 
-## 1.2 什麼是軟體？軟體的四大組成要素
+## 1.2 軟體的本質與品質維度（軟體四要素 ＆ Garvin 五大品質觀點）
 
-軟體是什麼？僅僅是可執行的二進位檔案或原始程式碼嗎？IEEE（Standard 610.12）給出了更廣泛的定義：
+軟體到底是什麼？僅僅是可執行的二進位檔案或原始程式碼嗎？根據 IEEE（Standard 610.12）的權威定義，軟體是一個完整的系統化工程產物：
 
 > **Software (軟體)**:
 > Computer **programs** (程式), **procedures** (程序), and possibly associated **documentation** (文件) and **data** (資料) pertaining to the operation of a computer system.
 
-```mermaid
-mindmap
-  root((Software 軟體))
-    Programs 程式碼
-      原始碼 Source Code
-      編譯產物 Bytecode/Binary
-    Procedures 作業程序
-      部署規範 CI/CD Pipeline
-      維運手冊 Runbooks
-    Documentation 文件
-      需求規格 SRS/OpenAPI
-      測試計畫與測試案例
-    Data 資料
-      系統配置設定檔
-      初始化與測試資料集
-```
+而當我們探討「軟體品質」時，哈佛商學院教授 David Garvin 在《Managing Quality》中指出，品質並非單一維度，而是由多重視角交織而成的立體概念。
 
-* **程式必須是為了給人看而寫，命令機器執行只是附帶任務。**
-  >> *Programs must be written for people to read, and only incidentally for machines to execute.* (Abelson / Sussman)
+<img src="../img/ch01/gemini_nb/software_elements_quality_views.jpg" width="650">
 
-#### **隨堂測驗 (CCQ 2)**
-
-**問題**
-
-根據 IEEE 對於「軟體 (Software)」的定義與現代軟體工程概念，下列何者不屬於軟體的完整範疇？
-
-A) 團隊維護的 OpenAPI / Swagger 介面合約規格書  
-B) 部署於 Kubernetes 叢集中的環境變數設定檔與初始資料庫 Migration 腳本  
-C) 伺服器機房所使用的實體散熱風扇與不斷電電源硬體設備 (UPS)  
-D) 團隊定義的 Git PR 審查程序與自動化 CI 測試腳本  
-
-<details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
-
-**正確答案：C**
-
-* **解析**：
-  * **選項 C 正確**：實體風扇與不斷電電源屬於硬體基礎設施（Hardware），不屬於軟體的四要素（Programs, Procedures, Documentation, Data）。
-
-</details>
-
----
-
-## 1.3 何謂品質？David Garvin 的五大品質觀點
-
-哈佛商學院教授 David Garvin 在《Managing Quality》一書中指出，不同人對品質有不同的視角，軟體品質亦然：
+**圖形解說：軟體四要素與 Garvin 五大品質觀點的協同作用**
+*   **【左側】軟體的四大組成要素 (4 Elements of Software)**：
+    1.  **1. Program / Code (程式碼)**：包含原始碼 (Source Code) 與編譯產物，負責執行指令與具體邏輯。
+    2.  **2. Procedures / CI-CD (作業程序)**：包含版本控管規範、CI/CD 自動化流水線、自動化測試規程與維運 Runbooks。
+    3.  **3. Documentation / Specs (規格與文件)**：包含需求規格書 (SRS)、OpenAPI 介面合約、測試計畫與架構設計藍圖（規格即活文件）。
+    4.  **4. Data / Config (資料與配置)**：包含資料庫初始化腳本 (Migration)、測試測資集 (Test Fixtures) 與環境變數設定檔。
+*   **【右側】Garvin 五大品質觀點 (5 Quality Dimensions)**：
+    *   **A. 超自然觀點 (Transcendental / UX View)**：無法精確量化，但一體驗就能感受到其精緻、優雅與直覺的極致美感（如絲滑的動畫與直覺的微互動）。
+    *   **B. 使用者觀點 (User View - Fitness for Use)**：軟體是否能切中真實使用者的痛點、滿足業務需求並帶來實質效益（合用性）。
+    *   **C. 製造觀點 (Manufacturing View - Conformance)**：軟體產出物與工程流程是否 100% 符合規格、通過靜態檢測與 ISO 流程規範（符合度）。
+    *   **D. 產品觀點 (Product View - Architecture)**：產品本身的內在結構品質，如高內聚低耦合、強固型態、可測試性與可維護性。
+    *   **E. 價值觀點 (Value / ROI View)**：軟體帶來的商業價值與產出是否顯著高於其開發、測試與維運之總成本（投資報酬率）。
 
 | 品質觀點 | 核心定義 | 軟體工程實例 | 忽略該觀點的後果 |
 | :--- | :--- | :--- | :--- |
 | **超自然觀點**<br>(Transcendental) | 無法精確量化，但一體驗就能感受到其精緻與美感 | 極致流暢的 UI/UX、細膩的動畫微互動 | 軟體感覺粗製濫造、冰冷難用 |
 | **使用者觀點**<br>(User View) | 符合使用者真實需求與期望 (Fitness for Use) | 解決使用者痛點、操作直覺易上手 | 功能很強但沒人想用 (Shelfware) |
-| **製造觀點**<br>(Manufacturing View) | 符合工程規格與標準流程 (Conformance) | 遵循 Clean Code 規範、零規格偏離、通過 ISO 認證 | 規格本身有漏洞時，做出一套完美的垃圾 |
+| **製造觀點**<br>(Manufacturing View) | 符合工程規格與標準流程 (Conformance) | 遵循 Clean Code 規範、零規格偏離、通過 Quality Gate | 規格本身有漏洞時，做出一套完美的垃圾 |
 | **產品觀點**<br>(Product View) | 產品本身的內在技術特性與架構材質 | 高內聚低耦合、強固的型態系統、低圈複雜度 | 架構腐化，改一個小功能引發全面崩潰 |
 | **價值觀點**<br>(Value-based View) | 顧客願意支付的成本與性價比 (ROI) | 軟體帶來的商業價值大於開發與維運成本 | 開發成本失控超支，商業上不可行 |
 
-> 👍 **所謂的品質就是當沒有人看時，仍然把事情做對。** —— *Henry Ford*
+> 👍 **程式必須是為了給人看而寫，命令機器執行只是附帶任務。** —— *Abelson & Sussman*  
 > 👍 **品質不是動作，是一種習慣。** —— *Aristotle*
 
-#### **隨堂測驗 (CCQ 3)**
+#### **隨堂測驗 (CCQ 2)**
 
 **問題**
 
@@ -263,9 +233,9 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-## 1.4 軟體品質工程核心概念：V&V 與品質成本
+## 1.3 軟體品質工程核心概念：V&V、品質成本 (CoQ) 與測試左移
 
-### 1.4.1 驗證與確認 (Verification vs. Validation, V&V)
+### 1.3.1 驗證與確認 (Verification vs. Validation, V&V)
 
 軟體測試與品質保證的靈魂大問：
 
@@ -277,9 +247,7 @@ $$\begin{aligned}
 * **Verification (驗證)**：確保軟體產出物符合上個階段設定的規格（檢視程式碼是否符合設計圖、單元測試是否符合規格）。
 * **Validation (確認)**：確保軟體真正滿足使用者的真實業務需求（驗收測試、易用性測試、現場 Beta 測試）。
 
----
-
-### 1.4.2 軟體品質成本 (Cost of Quality, CoQ) 與 1:10:100 定律
+### 1.3.2 軟體品質成本 (Cost of Quality, CoQ) 與 1:10:100 定律
 
 ```
                        ┌── 預防成本 (Prevention): 培訓、流程標準、架構審查、契約設計
@@ -296,6 +264,38 @@ $$\begin{aligned}
   * **開發/測試階段** 抓出並修復一個 Bug 的成本：**$10**
   * **產品上線發布後** 發生故障的修復與賠償代價：**$100 ～ $1000+**！
 * **測試左移 (Shift-Left Testing)**：將品質活動儘早融入開發流程，是降低軟體總擁有成本的最有效手段。
+
+---
+
+## 1.4 軟體工程流程與生命週期中的品質把關 (SDLC & CI/CD Quality Governance)
+
+軟體工程的核心哲學在於：**「品質不是最後靠測試敲打出來的，而是在整個生命週期中逐步建造並防護出來的 (Quality is built-in, not tested-in)。」** 不同的軟體開發生命週期 (SDLC) 模型，代表了人類在軟體品質管理思維上的演進：
+
+<img src="../img/ch01/gemini_nb/sdlc_quality_gates.jpg" width="650">
+
+**圖形解說：四大主流軟體生命週期模型與品質治理機制**
+1.  **瀑布模型 (Waterfall Model - 傳統線性)**：
+    *   **品質機制**：採用嚴格的階段門閥 (Phase Gates) 與正式交付物簽核。
+    *   **品質盲點**：測試活動被推遲到生命週期最後階段才進行，導致需求與設計缺陷極晚才被發現，修復成本呈指數級爆炸（1:10:100 陷阱）。
+2.  **V 模型 (V-Model - 驗證與確認對稱模型)**：
+    *   **品質機制**：將「開發階段 (Verification)」與「測試層級 (Validation)」建立高度對稱與平行規劃：
+        *   需求分析 ➔ 同步規劃 **驗收測試 (Acceptance Testing)**
+        *   系統架構 ➔ 同步規劃 **系統與整合測試 (System & Integration Testing)**
+        *   模組設計 ➔ 同步規劃 **單元測試 (Unit Testing)**
+    *   **品質優勢**：在編寫第一行程式碼之前，測試案例規格就已經隨同設計圖定義完成。
+3.  **敏捷 Scrum 模型 (Agile Scrum - 迭代開發與即時反饋)**：
+    *   **品質機制**：以 2~4 週的短 Sprint 進行迭代，透過以下機制內建品質：
+        *   **完成定義 (Definition of Done, DoD)**：包含測試覆蓋率、靜態掃描零重大違規、CI 綠燈。
+        *   **驗收條件 (Acceptance Criteria)**：將使用者故事具象化為可驗收的驗證條件。
+        *   **每日立會與回顧會議 (Retrospective)**：即時暴露阻塞與品質風險。
+4.  **現代 DevOps 與 CI/CD 連續品質門檻 (Continuous Quality Gates)**：
+    *   **品質機制**：將品質保證全面「代碼化」與「自動化」，在每一次 Commit 到發布上線的整個流水線中設置嚴密的自動化品質防線：
+        *   **Commit 階段**：本地 Pre-commit Hook、語法 Lint 與型態檢查。
+        *   **Automated Static Analysis (SAST 階段)**：SonarQube 掃描程式碼異味 (Code Smells) 與 OWASP 安全弱點。
+        *   **Unit Tests 階段**：JUnit 5 + Mockito 執行極速單元測試與 JaCoCo 覆蓋率檢驗。
+        *   **Integration Container Tests 階段**：Testcontainers 一鍵拉起真實 Docker 資料庫驗證資料存取與 API 合約。
+        *   **E2E & Staging Gate 階段**：Playwright 自動化 Web UI 流程驗收，並執行 DAST 滲透掃描與 k6 壓測。
+        *   **Production Release 階段**：藍綠/金絲雀發布 (Canary)，搭配即時監控可觀測性 (Observability) 與混沌自癒。
 
 ---
 
