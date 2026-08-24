@@ -293,12 +293,20 @@ double div(double x, double y) {
 
 ## 3.4 V 開發模型與雙向追溯 (The V-Model)
 
-<img src="../img/ch03/gemini_nb/vmodel.excalidraw.svg" width="550">
+<img src="../img/ch03/gemini_nb/v_model_sdlc_testing.jpg" width="650">
 
-* **需求分析 (SRS)** $\leftrightarrow$ **系統測試計畫 (System Test Plan) / 驗收測試**
-* **高階架構設計 (ADD)** $\leftrightarrow$ **整合測試計畫 (Integration Test Plan)**
-* **詳細模組設計 (SDD)** $\leftrightarrow$ **單元測試計畫 (Unit Test Plan)**
-* **核心價值**：**測試設計與開發規格同步前置產出**，避免「實作後測試偏差」。
+**圖形解說：V 開發模型與雙向追溯（Development & Testing Traceability）**
+*   **【左側下降臂（開發階段）】**：
+    1.  **Requirements Analysis (需求分析 - SRS)**：定義使用者與業務規格。
+    2.  **High-Level Architecture (高階架構設計 - ADD)**：定義子系統架構與介面協定。
+    3.  **Detailed Component Design (詳細模組設計 - SDD)**：定義單一類別與方法邏輯。
+*   **【底部頂點（程式實作）】**：
+    *   **Coding / Implementation (程式碼撰寫與建置)**：以 Java 等語言將設計轉化為可執行之原始程式碼產物。
+*   **【右側上升臂（測試驗證）】**：
+    1.  **Unit Testing (單元測試)**：直接對應並驗證左側的「詳細模組設計 (SDD)」。
+    2.  **Integration Testing (整合測試)**：直接對應並驗證左側的「高階架構設計 (ADD)」。
+    3.  **Acceptance / System Testing (系統與驗收測試)**：直接對應並驗證左側的「需求規格 (SRS)」。
+*   **核心價值**：**測試設計與開發規格同步前置產出（水平雙向追溯線）**，避免「實作後測試偏差」。
 
 #### **概念核對問答 (CCQ 3)**
 
@@ -383,7 +391,24 @@ D) 靜態程式碼檢視 (Code Review)
 
 ## 3.6 測試全景 3W2H 分類體系
 
-<img src="../img/ch03/gemini_nb/testing_landscape_3w2h.jpg" width="550">
+<img src="../img/ch03/gemini_nb/testing_landscape_3w2h.jpg" width="650">
+
+**圖形解說：測試全景 3W2H 分類體系與典型案例**
+1.  **1. WHO（誰來測試）**：
+    *   *案例 1（開發者）*：**Developer** 負責撰寫 Unit Tests 與 TDD 測試。
+    *   *案例 2（品保團隊）*：**QA Engineer** 負責建置自動化框架與執行 Alpha Testing。
+2.  **2. WHAT（測什麼）**：
+    *   *案例 1（功能面）*：**Functional** 驗證規格邏輯、輸入欄位與邊界條件。
+    *   *案例 2（非功能面）*：**Non-Functional** 檢驗效能負載 (Performance) 與資安防禦 (Security)。
+3.  **3. WHY（為何測試）**：
+    *   *案例 1（風險緩解）*：**Risk Mitigation** 透過回歸測試 (Regression) 確保新變更不破壞既有功能。
+    *   *案例 2（防禦合約）*：**Contract Defense** 驗證前置條件與狀態不變量 (Invariants)。
+4.  **4. HOW（如何測試）**：
+    *   *案例 1（自動化腳本）*：**Scripted CI/CD** 依據預定義斷言在管線中自動執行。
+    *   *案例 2（探索性測試）*：**Exploratory Testing** 依賴專家直覺與經驗動態挖掘邊界弱點。
+5.  **5. HOW TO EVALUATE（如何評估通過）**：
+    *   *案例 1（覆蓋率度量）*：**Coverage Metrics** 透過 JaCoCo 計算行涵蓋與分支涵蓋率。
+    *   *案例 2（測試預言機比對）*：**Test Oracle Comparator** 檢驗實際輸出與預期結果的一致性。
 
 ### 面向一：Who 誰來測試？
 * **開發工程師**：單元測試 (Unit Test)、TDD。
@@ -434,20 +459,15 @@ D) 靜態程式碼檢視 (Code Review)
 * **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
 * **啟發式一致性檢驗**：與使用者期望一致、與同類競品一致、與產品風格一致。
 
-```mermaid
-graph LR
-    Input["測試輸入<br>(Test Inputs)"] --> PUT["受測程式<br>(Program Under Test)"]
-    Input --> Oracle["測試預言機<br>(Test Oracle / Spec)"]
-    
-    PUT --> Actual["實際結果<br>(Actual Outcome)"]
-    Oracle --> Expected["預期結果<br>(Expected Outcome)"]
-    
-    Actual --> Comp{"比對與驗證<br>(Comparator)"}
-    Expected --> Comp
-    
-    Comp -->|結果一致| Pass["✅ Pass 通過"]
-    Comp -->|結果不符| Fail["❌ Fail 判定缺陷"]
-```
+<img src="../img/ch03/gemini_nb/test_oracle_comparator.jpg" width="650">
+
+**圖形解說：Test Oracle Comparator（測試預言機與比對器架構）**
+*   **輸入分流 (Test Inputs)**：同一組測試輸入同時餵入兩條並行路徑：
+    1.  **受測程式 (Program Under Test - PUT)** ➔ 產生「實際執行結果 (Actual Outcome)」。
+    2.  **測試預言機 (Test Oracle / Specification)** ➔ 產生「理論預期結果 (Expected Outcome)」。
+*   **比對仲裁 (Comparator / Assertion Engine)**：由斷言引擎（如 JUnit `assertEquals`）比對兩者：
+    *   **Match (一致)** ➔ 判定測試 **PASS（通過 ✅）**。
+    *   **Mismatch (不符)** ➔ 判定測試 **FAIL（缺陷判定 ❌）**。
 
 #### 🔮 3.6.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
 
