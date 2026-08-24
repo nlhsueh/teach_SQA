@@ -290,6 +290,8 @@ public class UserApiIntegrationTest {
 }
 ```
 
+> 🛠️ **對應實習手冊**：詳細的 Testcontainers + Spring Boot + PostgreSQL/Redis 實戰演練與 Docker 環境配置，請參考 [**Lab 10：Testcontainers 真實容器化整合測試**](../Lab/u07_integration/testcontainers_spring.md)。
+
 ## 8.4 微服務契約測試與現代 E2E 測試
 
 當系統架構走向微服務 (Microservices) 或分散式架構時，系統測試的焦點從「單一系統的行為」轉變為「服務與服務之間的合約相容性」以及「端到端 (End-to-End) 的完整使用者旅程驗證」。
