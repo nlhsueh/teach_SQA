@@ -223,7 +223,7 @@ Record and replay tool
 
 ### 8.3.2 Testcontainers 簡介
 
-為了消除「記憶體資料庫的幻覺」，我們應該在測試中使用**與生產環境完全一致的真實資料庫**。**Testcontainers** 是一個主流的 Java 測試庫，它利用 Docker 在測試啟動時，動態拉起真實的 PostgreSQL、Redis 或 Kafka 容器。
+為了消除「記憶體資料庫的幻覺」，我們應該在測試中使用**與生產環境完全一致的真實資料庫**。[**Testcontainers**](https://testcontainers.com/) 是一個主流的 Java 開源測試庫（[官方文件](https://java.testcontainers.org/) ｜ [快速指南 Guides](https://testcontainers.com/guides/)），它利用 Docker 在測試啟動時，動態拉起真實的 PostgreSQL、Redis、MongoDB 或 Kafka 容器。
 
 ```mermaid
 graph TD
