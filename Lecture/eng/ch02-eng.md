@@ -244,10 +244,10 @@ Even under green lights, experienced drivers slow down and look both ways becaus
 
 ### 2.4.2 Assertions vs. Exception Handling
 
-| Mechanism | Purpose | When to Use | Production Environment Behavior |
-| :--- | :--- | :--- | :--- |
-| **Assertion** | Catching "programmer's own logic bugs" or internal invariants | Private method parameter validation, internal algorithm state, unreachable branches | Can be disabled via `-ea` / `-da` flags |
-| **Exception** | Handling "expected external runtime anomalies" | Public API parameter validation, network outages, missing files, user input errors | Always active; must be explicitly handled/caught |
+| Mechanism     | Purpose                                                       | When to Use                                                                         | Production Environment Behavior                  |
+| :--------------| :--------------------------------------------------------------| :------------------------------------------------------------------------------------| :-------------------------------------------------|
+| **Assertion** | Catching "programmer's own logic bugs" or internal invariants | Private method parameter validation, internal algorithm state, unreachable branches | Can be disabled via `-ea` / `-da` flags          |
+| **Exception** | Handling "expected external runtime anomalies"                | Public API parameter validation, network outages, missing files, user input errors  | Always active; must be explicitly handled/caught |
 
 > 🛠️ **Lab Guides Links**:
 > * Assertions: [`Lab/u03_preventive/assertion.md`](../../Lab/u03_preventive/assertion.md)
