@@ -5,7 +5,7 @@
 > **Black-box testing** A method of software testing that examines the functionality of an application without peering into its internal structures or workings.
 
 
-<img src="../img/ch05/gemini_nb/black_box_testing_concept.jpg" width="650">
+<img src="../img/ch05/black_box_testing_concept.jpg" width="650">
 
 **圖形解說：黑箱測試 (Black-Box Testing) 概念架構**
 * **【左側】測試輸入 (Input Data)**：包含有效輸入 (Valid Inputs)、邊界值 (Boundary Values) 與無效/格式錯誤輸入 (Invalid Inputs)。
@@ -114,7 +114,7 @@ if (tall > 180)
 
 強固邊界測試
 
-<img src="../img/ch05/gemini_nb/robust_bva.png" width="400">
+<img src="../img/ch05/robust_bva.png" width="400">
 
 
 
@@ -155,7 +155,7 @@ if (exam <= 60 && hw <= 60 ) //錯了
 
 FIG: 非獨立型一般邊界測試 (最差情況邊界測試)
 
-<img src="../img/ch05/gemini_nb/worst_case_bva.png" width="400">
+<img src="../img/ch05/worst_case_bva.png" width="400">
 
 
 
@@ -254,7 +254,7 @@ FIG: 三角形程式：非獨立型一般邊界測試
 
 FIG: 等價分割測試（圓形表示弱涵蓋測試、三角形表示強涵蓋測試）
 
-<img src="../img/ch05/gemini_nb/equivalence_partition.png" width="450">
+<img src="../img/ch05/equivalence_partition.png" width="450">
 
 
 > ❓ 
@@ -517,7 +517,7 @@ Table: 表格說明
 
 FIG: 放款利率計算介面
 
-<img src="../img/ch05/gemini_nb/loan_calculator.jpg" width="550">
+<img src="../img/ch05/loan_calculator.jpg" width="550">
 
 #### 開發與工具
 
@@ -706,7 +706,7 @@ FIG: 應用決策表測試法於 nextDay()
 
 前面我們所提到的測試多半著重在於輸入輸出的檢查，但是現在的軟體系統很多都是事件導向（event driven）的，系統內部會有一個狀態機（state machine）來記錄現有的狀態，並決定接受到狀態時應該做出什麼反應，轉移到哪一個狀態。像這一類的系統測試的重點就不是在功能是否正確，而是狀態的反應是否正確。
 
-<img src="../img/ch05/gemini_nb/airline_booking_state_machine.jpg" width="650">
+<img src="../img/ch05/airline_booking_state_machine.jpg" width="650">
 
 **圖形解說：航空訂票系統狀態機 (State Machine Lifecycle)**
 * **主流程 (Happy Path)**：

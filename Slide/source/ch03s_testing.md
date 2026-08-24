@@ -367,7 +367,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/istqb_seven_principles.jpg" alt="ISTQB 7 Principles" />
+  <img src="../../img/ch03/istqb_seven_principles.jpg" alt="ISTQB 7 Principles" />
 </div>
 
 ---
@@ -460,7 +460,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/verification_vs_validation.jpg" alt="Verification vs Validation" />
+  <img src="../../img/ch03/verification_vs_validation.jpg" alt="Verification vs Validation" />
 </div>
 
 ---
@@ -479,7 +479,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/blackbox_vs_whitebox_testing.jpg" alt="Blackbox vs Whitebox" />
+  <img src="../../img/ch03/blackbox_vs_whitebox_testing.jpg" alt="Blackbox vs Whitebox" />
 </div>
 
 ---
@@ -498,7 +498,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/testing_levels_hierarchy.jpg" alt="Testing Levels Hierarchy" />
+  <img src="../../img/ch03/testing_levels_hierarchy.jpg" alt="Testing Levels Hierarchy" />
 </div>
 
 ---
@@ -517,7 +517,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/practical_test_pyramid.jpg" alt="Practical Test Pyramid" />
+  <img src="../../img/ch03/practical_test_pyramid.jpg" alt="Practical Test Pyramid" />
 </div>
 
 ---
@@ -545,7 +545,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/v_model_sdlc_testing.jpg" alt="V Model SDLC Testing" />
+  <img src="../../img/ch03/v_model_sdlc_testing.jpg" alt="V Model SDLC Testing" />
 </div>
 
 ---
@@ -611,7 +611,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/test_case_structure.jpg" alt="Test Case Structure" />
+  <img src="../../img/ch03/test_case_structure.jpg" alt="Test Case Structure" />
 </div>
 
 ---
@@ -629,7 +629,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/testing_landscape_3w2h.jpg" alt="Testing Landscape 3W2H" />
+  <img src="../../img/ch03/testing_landscape_3w2h.jpg" alt="Testing Landscape 3W2H" />
 </div>
 
 ---
@@ -649,7 +649,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch03/gemini_nb/test_oracle_comparator.jpg" alt="Test Oracle Comparator" />
+  <img src="../../img/ch03/test_oracle_comparator.jpg" alt="Test Oracle Comparator" />
 </div>
 
 ---

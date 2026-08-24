@@ -26,7 +26,7 @@
 
 口語上常用「Bug」統稱所有問題，但在軟體工程國際標準（IEEE 610.12）中，對錯誤的發生有著非常嚴密的四階段因果鏈：
 
-<img src="../img/ch02/gemini_nb/bug_causality_chain.jpg" width="650">
+<img src="../img/ch02/bug_causality_chain.jpg" width="650">
 
 **圖形解說：IEEE 610.12 臭蟲四階段因果鏈**
 1.  **1. Human Mistake / Error (人類犯錯)**：分析師、架構師或工程師的心智失誤、誤解需求或打錯程式碼。
@@ -82,7 +82,7 @@ D) 該程式碼完全符合軟體品質的正確性定義
 - *規格二：* 設計一個除法器，使用者可以輸入被除數、除數。使用者不得輸入除數為 0。（*缺點：未說明輸入 0 時系統該如何處理*）
 - *規格三：* 設計一個除法器，使用者輸入除數若為 0，系統應清除結果欄位，並回傳 HTTP 400 及友善錯誤提示「除數不得為零」。（*優良的契約規格*）
 
-<img src="../img/ch02/gemini_nb/spec_fault_failure_venn.jpg" width="650">
+<img src="../img/ch02/spec_fault_failure_venn.jpg" width="650">
 
 **圖形解說：規格 (Spec)、程式缺陷 (Fault) 與系統失效 (Failure) 之交集關係**
 *   **Latent Fault (潛伏缺陷)**：程式碼有 Bug（如記憶體洩漏或特定邊界條件溢位），但在一般情境下未觸發對外失效。
@@ -152,7 +152,7 @@ D) 只要客戶願意加錢，所有未明訂的規格才需要被修復
 
 ### 2.2.2 科學除錯五步驟
 
-<img src="../img/ch02/gemini_nb/scientific_debugging_steps.jpg" width="650">
+<img src="../img/ch02/scientific_debugging_steps.jpg" width="650">
 
 **圖形解說：科學除錯五步驟流程**
 1.  **1. Reproduce (穩定重現)**：建立一個能 100% 重現 Bug 的最小失敗測試案例 (Minimal Failing Test Case)。
@@ -232,7 +232,7 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ### 2.4.1 契約式設計的三大核心要素 (Bertrand Meyer)
 
-<img src="../img/ch02/gemini_nb/design_by_contract_simplified.jpg" width="650">
+<img src="../img/ch02/design_by_contract_simplified.jpg" width="650">
 
 **圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心法則**
 1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
@@ -282,7 +282,7 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 在專業軟體團隊中，缺陷的追蹤與管理具備嚴謹的狀態轉換流程：
 
-<img src="../img/ch02/gemini_nb/defect_lifecycle_complete.jpg" width="650">
+<img src="../img/ch02/defect_lifecycle_complete.jpg" width="650">
 
 **圖形解說：完整缺陷追蹤生命週期 (Bug Workflow)**
 *   **主流程狀態 (Main Flow)**：
@@ -303,7 +303,7 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 在缺陷管理系統（如 Jira / GitHub Issues）中，**嚴重度**（技術衝擊）與**優先級**（業務急迫性）是兩個正交的度量維度：
 
-<img src="../img/ch02/gemini_nb/defect_severity_vs_priority.jpg" width="650">
+<img src="../img/ch02/defect_severity_vs_priority.jpg" width="650">
 
 **圖形解說：嚴重度 (Severity) vs 優先級 (Priority) 2x2 決策矩陣**
 1.  **1. 高嚴重度 + 高優先級 (Critical Impact - 立即修復)**：

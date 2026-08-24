@@ -679,7 +679,7 @@ public class PrimeIntegrationTest {
 
 [**Testcontainers**](https://testcontainers.com/)（[官方文件](https://java.testcontainers.org/) ｜ [快速指南 Guides](https://testcontainers.com/guides/)）是目前 Java 整合測試的黃金標準：
 
-<img src="../img/ch07/gemini_nb/testcontainers_architecture_flow.jpg" width="650">
+<img src="../img/ch07/testcontainers_architecture_flow.jpg" width="650">
 
 **圖形解說：Testcontainers 架構與容器生命週期流轉 (Architecture Flow)**
 * **1. 測試進程發起啟動 (Startup Request)**：JUnit 5 測試類別標註 `@Testcontainers` 與 `@Container`，測試啟動時向 Docker Daemon 發送環境構建請求。

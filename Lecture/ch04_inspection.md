@@ -13,7 +13,7 @@
 
 對於有經驗的工程師而言，檢視程式碼時就會懷疑為什麼 i 會從 1 開始，進而找出這個錯誤。但動態執行剛好能彰顯這個錯誤的機會可能不高。事實上，靜態程式碼檢視已經被視為效率很高、很重要的除錯方法。可惜國人用的並不多，可能是因為認識不夠，或是在趕案子的過程中省略到它了。
 
-<img src="../img/ch04/gemini_nb/testing_iceberg.jpg" width="500">
+<img src="../img/ch04/testing_iceberg.jpg" width="500">
 
 #### 軟體檢視 Software inspection 
 
@@ -116,7 +116,7 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 - **修改**：依據會議產出的缺陷清單修改文件或程式碼。
 - **再檢視**：依據上次的修改記錄進行再檢視，或由主席決定是否合格。
 
-![Software Inspection Flowchart](../img/ch04/gemini_nb/inspection_flow.jpg)
+![Software Inspection Flowchart](../img/ch04/inspection_flow.jpg)
 
 
 ### 4.2.2 角色
@@ -160,7 +160,7 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 				
 ### 4.2.4 AI 輔助下的現代檢視實踐 (AI-Assisted Inspection)
 
-<img src="../img/ch04/gemini_nb/ai_assisted_inspection.jpg" width="650">
+<img src="../img/ch04/ai_assisted_inspection.jpg" width="650">
 
 **圖形解說：**
 * **Stage 1: AI 第一道防線 (AI First Line of Defense)**：當開發者提交 Pull Request 時，AI PR 審查機器人（如 PR-Agent、CodiumAI）自動生成變更摘要、掃除低階語法錯誤與程式碼臭味、並即時捕捉未釋放資源與基礎漏洞。
@@ -227,7 +227,7 @@ D) 重做 (Rework)
 
 規格的制定是開發流程一開始的步驟，如果這個步驟錯了，後面的矯正所需要的時間或成本就更大了。
 
-<img src="../img/ch04/gemini_nb/srs_quality_attributes.jpg" width="650">
+<img src="../img/ch04/srs_quality_attributes.jpg" width="650">
 
 **圖形解說：**
 * **🎯 Correct (正確性)**：規格中的每項要求皆準確代表建構系統所需的真實內容。
@@ -263,7 +263,7 @@ D) 重做 (Rework)
 
 寫規格書的一些實用建議（7 大撰寫準則）：
 
-<img src="../img/ch04/gemini_nb/srs_writing_tips.jpg" width="650">
+<img src="../img/ch04/srs_writing_tips.jpg" width="650">
 
 **圖形解說：**
 * **Structured Format (結構化排版)**：以結構化層次組織文件，具備完整目錄、章節標題、索引表與字彙表（定義所有縮寫）。
@@ -332,7 +332,7 @@ D) 規格書必須僅由開發人員撰寫，完全不允許顧客檢閱以防�
 
 ## 4.4 設計檢視
 
-![Design Review Diagram](../img/ch04/gemini_nb/design_review.jpg)
+![Design Review Diagram](../img/ch04/design_review.jpg)
 
 設計檢視（Design Review/Inspection）是在系統實作（撰寫程式碼）之前，對軟體系統的架構、模組關係、介面設計（API）以及資料庫模型（Schema）所進行的靜態審查。
 
@@ -422,7 +422,7 @@ B) 錯誤 (False)
 
 DFD/ER model 是一個我們經常用來做系統設計的工具，設計完成後我們需要進行檢驗。
 
-<img src="../img/ch04/gemini_nb/dfd_core_elements.jpg" width="650">
+<img src="../img/ch04/dfd_core_elements.jpg" width="650">
 
 **圖形解說：**
 * **External Entity (外部實體)**：代表發送訊息至系統或從系統接收訊息的外部人員或系統（資料來源或終點）。
@@ -439,7 +439,7 @@ DFD/ER model 是一個我們經常用來做系統設計的工具，設計完成�
 - **儲存平衡 (Store Balance)**：每個資料儲存應該在 DFD 流程中具備**至少一個輸入（寫入）和一個輸出（讀取）**。
 - **動作命名 (Action Naming)**：每個處理過程的名稱應該以一個**動詞**或「動詞 + 名詞」形式開頭。
 
-<img src="../img/ch04/gemini_nb/dfd_order_flow.jpg" width="650">
+<img src="../img/ch04/dfd_order_flow.jpg" width="650">
 
 **圖形解說：**
 * **顧客訂單流程 (Order Processing Flow)**：
@@ -456,7 +456,7 @@ DFD/ER model 是一個我們經常用來做系統設計的工具，設計完成�
 
 程式碼檢視（Code Inspection）是靜態測試的核心實踐，透過結構化檢核表在編譯與測試執行前掃除各類潛在缺陷。
 
-<img src="../img/ch04/gemini_nb/code_inspection_categories.jpg" width="650">
+<img src="../img/ch04/code_inspection_categories.jpg" width="650">
 
 **圖形解說：**
 * **Data Faults (資料錯誤)**：變數未初始化即使用、宣告未用、重複賦值未讀取或陣列索引越界。
@@ -505,7 +505,7 @@ float oOooo, ooOoo, oooOo
 
 ### 4.5.1 程式臭味檢視
 
-![Code Smells and Refactoring](../img/ch04/gemini_nb/code_smells.jpg)
+![Code Smells and Refactoring](../img/ch04/code_smells.jpg)
 
 程式碼審查時也會針對程式碼臭味進行檢驗，並提出一些重整的建議。以下是部分 Folwer 提出的程式臭味：
 
@@ -528,7 +528,7 @@ float oOooo, ooOoo, oooOo
 
 ### 4.5.2 安全漏洞檢視 (OWASP Top 10)
 
-![Secure Coding and OWASP Top 10](../img/ch04/gemini_nb/secure_coding.jpg)
+![Secure Coding and OWASP Top 10](../img/ch04/secure_coding.jpg)
 
 在進行程式碼檢視（Code Inspection）時，除了找出程式臭味與邏輯錯誤外，**安全性漏洞**的檢測也是重中之重。OWASP（Open Web Application Security Project，開放網路應用程式安全計畫）定期發布的 **OWASP Top 10** 是全球公認最關鍵的十大 Web 應用程式安全漏洞指標。
 

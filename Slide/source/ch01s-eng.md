@@ -336,7 +336,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/mars_climate_orbiter_unit_mismatch.jpg" alt="Mars Climate Orbiter Unit Mismatch" />
+  <img src="../../img/ch01/mars_climate_orbiter_unit_mismatch.jpg" alt="Mars Climate Orbiter Unit Mismatch" />
 </div>
 
 ---
@@ -357,7 +357,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/nagoya_air_crash_hmi_conflict.jpg" alt="Nagoya Air Crash HMI Conflict" />
+  <img src="../../img/ch01/nagoya_air_crash_hmi_conflict.jpg" alt="Nagoya Air Crash HMI Conflict" />
 </div>
 
 ---
@@ -540,7 +540,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/software_four_elements.jpg" alt="Software Four Elements" />
+  <img src="../../img/ch01/software_four_elements.jpg" alt="Software Four Elements" />
 </div>
 
 ---
@@ -597,7 +597,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/garvin_quality_views.jpg" alt="Garvin Quality Views" />
+  <img src="../../img/ch01/garvin_quality_views.jpg" alt="Garvin Quality Views" />
 </div>
 
 ---
@@ -699,7 +699,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/product_quality_models_comparison.jpg" alt="Product Quality Models Comparison" />
+  <img src="../../img/ch01/product_quality_models_comparison.jpg" alt="Product Quality Models Comparison" />
 </div>
 
 ---
@@ -733,7 +733,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/iso25010_eight_characteristics.jpg" alt="ISO 25010 Eight Characteristics" />
+  <img src="../../img/ch01/iso25010_eight_characteristics.jpg" alt="ISO 25010 Eight Characteristics" />
 </div>
 
 ---
@@ -885,7 +885,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/v_model_quality_symmetry.jpg" alt="V-Model Quality Symmetry" />
+  <img src="../../img/ch01/v_model_quality_symmetry.jpg" alt="V-Model Quality Symmetry" />
 </div>
 
 ---
@@ -906,7 +906,7 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/devops_cicd_quality_gates.jpg" alt="DevOps CI/CD Quality Gates" />
+  <img src="../../img/ch01/devops_cicd_quality_gates.jpg" alt="DevOps CI/CD Quality Gates" />
 </div>
 
 ---
@@ -933,7 +933,7 @@ CoQ ────┤
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/cost_of_quality_coq.jpg" alt="Cost of Quality CoQ" />
+  <img src="../../img/ch01/cost_of_quality_coq.jpg" alt="Cost of Quality CoQ" />
 </div>
 
 ---

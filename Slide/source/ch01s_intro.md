@@ -336,7 +336,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/mars_climate_orbiter_unit_mismatch.jpg" alt="火星探測器單位錯誤" />
+  <img src="../../img/ch01/mars_climate_orbiter_unit_mismatch.jpg" alt="火星探測器單位錯誤" />
 </div>
 
 ---
@@ -357,7 +357,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/nagoya_air_crash_hmi_conflict.jpg" alt="名古屋空難人機衝突" />
+  <img src="../../img/ch01/nagoya_air_crash_hmi_conflict.jpg" alt="名古屋空難人機衝突" />
 </div>
 
 ---
@@ -540,7 +540,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/software_four_elements.jpg" alt="軟體四要素" />
+  <img src="../../img/ch01/software_four_elements.jpg" alt="軟體四要素" />
 </div>
 
 ---
@@ -597,7 +597,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/garvin_quality_views.jpg" alt="Garvin五大品質觀點" />
+  <img src="../../img/ch01/garvin_quality_views.jpg" alt="Garvin五大品質觀點" />
 </div>
 
 ---
@@ -699,7 +699,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/product_quality_models_comparison.jpg" alt="產品品質模型對比" />
+  <img src="../../img/ch01/product_quality_models_comparison.jpg" alt="產品品質模型對比" />
 </div>
 
 ---
@@ -733,7 +733,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/iso25010_eight_characteristics.jpg" alt="ISO 25010 八大品質特性" />
+  <img src="../../img/ch01/iso25010_eight_characteristics.jpg" alt="ISO 25010 八大品質特性" />
 </div>
 
 ---
@@ -885,7 +885,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/v_model_quality_symmetry.jpg" alt="V模型開發與測試對稱" />
+  <img src="../../img/ch01/v_model_quality_symmetry.jpg" alt="V模型開發與測試對稱" />
 </div>
 
 ---
@@ -906,7 +906,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/devops_cicd_quality_gates.jpg" alt="DevOps CI/CD連續品質門檻" />
+  <img src="../../img/ch01/devops_cicd_quality_gates.jpg" alt="DevOps CI/CD連續品質門檻" />
 </div>
 
 ---
@@ -929,7 +929,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch01/gemini_nb/cost_of_quality_coq.jpg" alt="品質成本CoQ" />
+  <img src="../../img/ch01/cost_of_quality_coq.jpg" alt="品質成本CoQ" />
 </div>
 
 ---

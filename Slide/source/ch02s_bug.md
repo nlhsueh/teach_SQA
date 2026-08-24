@@ -310,7 +310,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch02/gemini_nb/bug_causality_chain.jpg" alt="Bug Causality Chain" />
+  <img src="../../img/ch02/bug_causality_chain.jpg" alt="Bug Causality Chain" />
 </div>
 
 ---
@@ -331,7 +331,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch02/gemini_nb/spec_fault_failure_venn.jpg" alt="Spec Fault Failure Venn" />
+  <img src="../../img/ch02/spec_fault_failure_venn.jpg" alt="Spec Fault Failure Venn" />
 </div>
 
 ---
@@ -445,7 +445,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch02/gemini_nb/scientific_debugging_steps.jpg" alt="Scientific Debugging Steps" />
+  <img src="../../img/ch02/scientific_debugging_steps.jpg" alt="Scientific Debugging Steps" />
 </div>
 
 ---
@@ -536,7 +536,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch02/gemini_nb/design_by_contract_simplified.jpg" alt="Design by Contract Simplified" />
+  <img src="../../img/ch02/design_by_contract_simplified.jpg" alt="Design by Contract Simplified" />
 </div>
 
 ---
@@ -577,7 +577,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch02/gemini_nb/defect_lifecycle_complete.jpg" alt="Defect Lifecycle Complete" />
+  <img src="../../img/ch02/defect_lifecycle_complete.jpg" alt="Defect Lifecycle Complete" />
 </div>
 
 ---
@@ -599,7 +599,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch02/gemini_nb/defect_severity_vs_priority.jpg" alt="Defect Severity vs Priority" />
+  <img src="../../img/ch02/defect_severity_vs_priority.jpg" alt="Defect Severity vs Priority" />
 </div>
 
 ---

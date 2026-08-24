@@ -658,7 +658,7 @@ D) 在計算變異分數 (Mutation Score) 時，等價變異體應計入被殺�
 ### 6.5.3 人機協同單元測試工作流 (SOP)
 在使用 AI 生成白箱單元測試時，開發者絕不能「盲目信任」AI 輸出的測試程式碼，必須遵循以下人機協同的黃金工作流：
 
-<img src="../img/ch06/gemini_nb/human_ai_unit_testing_workflow.jpg" width="650">
+<img src="../img/ch06/human_ai_unit_testing_workflow.jpg" width="650">
 
 **圖形解說：人機協同單元測試五大標準階段 (Human-AI Testing SOP)**
 * **Step 1：提供待測程式碼 (Developer Feeds Source Code)**：開發者將 Java 原始程式碼與基本介面契約提供給 AI 工具。

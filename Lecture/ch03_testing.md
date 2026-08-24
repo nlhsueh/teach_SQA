@@ -23,7 +23,7 @@
 
 ### 3.1.1 契約式設計的三大核心要素 (Bertrand Meyer)
 
-<img src="../img/ch02/gemini_nb/design_by_contract_simplified.jpg" width="650">
+<img src="../img/ch02/design_by_contract_simplified.jpg" width="650">
 
 **圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心法則**
 1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
@@ -79,7 +79,7 @@ D) 異常防護 (Exceptions)
 
 國際軟體測試認證委員會（ISTQB）規範了軟體測試的 **7 大核心原則**，這是每一位專業軟體工程師與 QA 架構師的思維基石：
 
-<img src="../img/ch03/gemini_nb/istqb_seven_principles.jpg" width="650">
+<img src="../img/ch03/istqb_seven_principles.jpg" width="650">
 
 **圖形解說：ISTQB 軟體測試 7 大經典原則總覽**
 1.  **1. Testing shows the presence of defects (測試顯示缺陷的存在)**：測試能證明有錯，無法證明軟體絕對無錯。
@@ -141,7 +141,7 @@ D) 異常防護 (Exceptions)
   * 在開發單元測試時抓出 Bug：**\$10**
   * 軟體上線到生產環境後發生故障的維護與賠償代價：**\$100 ～ \$1000+**！
 
-<img src="../img/ch03/gemini_nb/bug_cost_curve.png" width="550">
+<img src="../img/ch03/bug_cost_curve.png" width="550">
 
 ---
 
@@ -209,7 +209,7 @@ D) 這是硬體浮點數運算器的製造缺陷
 
 ### 1. 驗證 (Verification) vs 確認 (Validation)
 
-<img src="../img/ch03/gemini_nb/verification_vs_validation.jpg" width="650">
+<img src="../img/ch03/verification_vs_validation.jpg" width="650">
 
 **圖形解說：Verification（驗證）與 Validation（確認）之核心差異**
 *   **【左側】Verification (驗證)**：
@@ -237,7 +237,7 @@ D) 這是硬體浮點數運算器的製造缺陷
 
 ### 4. 功能測試（黑箱） vs 結構測試（白箱）
 
-<img src="../img/ch03/gemini_nb/blackbox_vs_whitebox_testing.jpg" width="650">
+<img src="../img/ch03/blackbox_vs_whitebox_testing.jpg" width="650">
 
 **圖形解說：黑箱測試 (Black-Box) vs 白箱測試 (White-Box)**
 *   **【左側】黑箱測試 (Black-Box Testing - 規格導向)**：
@@ -249,7 +249,7 @@ D) 這是硬體浮點數運算器的製造缺陷
 
 ### 5. 測試層級：單元、整合與系統測試
 
-<img src="../img/ch03/gemini_nb/testing_levels_hierarchy.jpg" width="650">
+<img src="../img/ch03/testing_levels_hierarchy.jpg" width="650">
 
 **圖形解說：三大核心測試層級**
 1.  **1. Unit Testing (單元測試)**：針對最小獨立模組或方法（Class/Method）進行隔離驗證，速度極快。
@@ -281,7 +281,7 @@ double div(double x, double y) {
 
 ### 6. 現代測試金字塔 (The Practical Test Pyramid)
 
-<img src="../img/ch03/gemini_nb/practical_test_pyramid.jpg" width="650">
+<img src="../img/ch03/practical_test_pyramid.jpg" width="650">
 
 **圖形解說：Martin Fowler 現代實踐測試金字塔**
 *   **頂層：UI / E2E Tests (端到端測試)**：數量最少、執行最慢、維護成本最高（Playwright / Cypress）。
@@ -293,7 +293,7 @@ double div(double x, double y) {
 
 ## 3.4 V 開發模型與雙向追溯 (The V-Model)
 
-<img src="../img/ch03/gemini_nb/v_model_sdlc_testing.jpg" width="650">
+<img src="../img/ch03/v_model_sdlc_testing.jpg" width="650">
 
 **圖形解說：V 開發模型與雙向追溯（Development & Testing Traceability）**
 *   **【左側下降臂（開發階段）】**：
@@ -333,7 +333,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ## 3.5 測試案例設計：規格、程式與驗證行為
 
-<img src="../img/ch03/gemini_nb/behavior_venn.png" width="450">
+<img src="../img/ch03/behavior_venn.png" width="450">
 
 👉 測試案例與規格、程式行為的文氏圖關聯
 
@@ -368,7 +368,7 @@ D) 靜態程式碼檢視 (Code Review)
 > 📌 **現代標準測試案例結構**：
 > `Test Case = [ID, Preconditions, Inputs, Expected Output, Postconditions/Invariants]`
 
-<img src="../img/ch03/gemini_nb/test_case_structure.jpg" width="650">
+<img src="../img/ch03/test_case_structure.jpg" width="650">
 
 **圖形解說：現代標準測試案例五大核心構成要件 (Standard Test Case Anatomy)**
 1.  **Component 1: Test ID & Summary (識別碼與摘要)**：唯一編號（如 `TC-AUTH-001`）與簡明測試目的說明。
@@ -391,7 +391,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ## 3.6 測試全景 3W2H 分類體系
 
-<img src="../img/ch03/gemini_nb/testing_landscape_3w2h.jpg" width="650">
+<img src="../img/ch03/testing_landscape_3w2h.jpg" width="650">
 
 **圖形解說：測試全景 3W2H 分類體系與核心構面**
 1.  **1. WHO（誰來測試）**：
@@ -449,7 +449,7 @@ D) 靜態程式碼檢視 (Code Review)
 * **猴子測試 / 隨機測試 (Monkey / Random Test)**：注入大量隨機事件檢驗系統強固性。
 * **錄製與回放 (Record & Replay)**：透過使用者軌跡錄製自動生成測試腳本。
 
-<img src="../img/ch03/gemini_nb/record_replay_flow.jpg" width="550">
+<img src="../img/ch03/record_replay_flow.jpg" width="550">
 
 ---
 
@@ -459,7 +459,7 @@ D) 靜態程式碼檢視 (Code Review)
 * **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
 * **啟發式一致性檢驗**：與使用者期望一致、與同類競品一致、與產品風格一致。
 
-<img src="../img/ch03/gemini_nb/test_oracle_comparator.jpg" width="650">
+<img src="../img/ch03/test_oracle_comparator.jpg" width="650">
 
 **圖形解說：Test Oracle Comparator（測試預言機與比對器架構）**
 *   **輸入分流 (Test Inputs)**：同一組測試輸入同時餵入兩條並行路徑：

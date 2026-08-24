@@ -27,7 +27,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 1998 年 NASA 發射「火星氣候軌道探測器」（Mars Climate Orbiter，造價近 2 億美元），抵達火星後失聯焚毀。
 
-<img src="../img/ch01/gemini_nb/mars_climate_orbiter_unit_mismatch.jpg" width="650">
+<img src="../img/ch01/mars_climate_orbiter_unit_mismatch.jpg" width="650">
 
 **圖形解說：跨模組介面契約斷裂導致太空船墜毀**
 *   **【左側】承包商軟體端（洛克希德馬丁）**：地面控制程式以 **英制單位（磅力·秒，lbf·s）** 輸出推進器衝量數據。
@@ -42,7 +42,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 1994 年 4 月 26 日，華航 CI140 班機（空中巴士 A300-622R）在名古屋機場降落時墜毀，**264 人罹難**。
 
-<img src="../img/ch01/gemini_nb/nagoya_air_crash_hmi_conflict.jpg" width="650">
+<img src="../img/ch01/nagoya_air_crash_hmi_conflict.jpg" width="650">
 
 **圖形解說：人機介面衝突 (HMI Mode Confusion) 與控制權仲裁缺失**
 *   **【左側】機師手動操作 (Manual Push)**：副駕駛誤觸「重飛（Go-Around / TOGA）」模式後，正副駕駛試圖手動前推操縱桿（Down Elevators）強壓機首下降以利降落。
@@ -183,7 +183,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 > **Software (軟體)**:
 > Computer **programs** (程式), **procedures** (程序), and possibly associated **documentation** (文件) and **data** (資料) pertaining to the operation of a computer system.
 
-<img src="../img/ch01/gemini_nb/software_four_elements.jpg" width="650">
+<img src="../img/ch01/software_four_elements.jpg" width="650">
 
 **圖形解說：軟體四大核心要素 (IEEE 610.12)**
 1.  **Programs (程式碼)**：包含原始碼 (Source Code)、編譯產物 (Bytecode/Binary) 與執行腳本，負責承載業務邏輯與演算法。
@@ -197,7 +197,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 當我們探討「軟體品質」時，哈佛商學院教授 David Garvin 在《Managing Quality》中指出，品質並非單一維度，而是由多重視角交織而成的立體概念：
 
-<img src="../img/ch01/gemini_nb/garvin_quality_views.jpg" width="650">
+<img src="../img/ch01/garvin_quality_views.jpg" width="650">
 
 **圖形解說：David Garvin 五大品質觀點**
 1.  **1. 超自然觀點 (Transcendental View)**：無法精確量化，但一體驗就能感受到其精緻、優雅與直覺的極致美感（如絲滑流暢的 UI/UX 與微互動）。
@@ -258,7 +258,7 @@ D) 超自然觀點 (Transcendental View)
 
 軟體品質並不是「越完美越好」，而是在成本與效益之間取得最佳平衡。在軟體品質管理中，品質成本 (Cost of Quality, CoQ) 分為**一致性成本**與**非一致性成本**：
 
-<img src="../img/ch01/gemini_nb/cost_of_quality_coq.jpg" width="650">
+<img src="../img/ch01/cost_of_quality_coq.jpg" width="650">
 
 **圖形解說：品質成本架構 (CoQ) 與 1:10:100 缺陷倍增定律**
 *   **一致性成本 (Conformance Costs - 主動投資品質)**：
@@ -283,7 +283,7 @@ D) 超自然觀點 (Transcendental View)
 
 在傳統線性模型（瀑布模型）中，測試常被延後至編程結束後才進行，落入 1:10:100 的高昂修復陷阱。為解決此問題，**V 模型 (V-Model)** 建立了開發階段與測試層級的嚴密對稱與平行規劃：
 
-<img src="../img/ch01/gemini_nb/v_model_quality_symmetry.jpg" width="650">
+<img src="../img/ch01/v_model_quality_symmetry.jpg" width="650">
 
 **圖形解說：V 模型 (V-Model) 開發與測試層級對稱圖**
 *   **左側：開發階段 (Verification)** ➔ **右側：測試層級 (Validation)** 平行對稱：
@@ -299,7 +299,7 @@ D) 超自然觀點 (Transcendental View)
 
 在現代雲原生與微服務時代，軟體以每日甚至每小時的頻率持續交付。品質保證已全面升級為**自動化流水線上的「連續品質門檻 (Continuous Quality Gates)」**：
 
-<img src="../img/ch01/gemini_nb/devops_cicd_quality_gates.jpg" width="650">
+<img src="../img/ch01/devops_cicd_quality_gates.jpg" width="650">
 
 **圖形解說：現代 DevOps CI/CD 流水線中的 6 大連續品質門檻**
 1.  **1. Code Commit 門檻**：本地 Git Pre-commit Hook 自動執行代碼格式化與快速靜態語法檢查。
@@ -315,7 +315,7 @@ D) 超自然觀點 (Transcendental View)
 
 每一個產業都有其獨特的品質模型。例如製造簡易塑膠椅的廠商不會將「可維修性」列為核心品質指標，椅子壞了直接丟棄換新即可；但汽車產業就必須將「可維護性 (Maintainability)」與「安全性 (Safety)」置於最高優先級。
 
-<img src="../img/ch01/gemini_nb/product_quality_models_comparison.jpg" width="650">
+<img src="../img/ch01/product_quality_models_comparison.jpg" width="650">
 
 **圖形解說：不同產業與物品具備截然不同的品質模型**
 1.  **汽車產業 (Automobile)**：優先著重於 **安全性 (Safety)**、**可維護性 (Maintainability)** 與 **抗損耐用度 (Repairability)**。
@@ -329,7 +329,7 @@ D) 超自然觀點 (Transcendental View)
 
 國際標準組織早期制定了 **ISO 9126**（定義 6 大特性）；現代 **ISO 25010 (SQuaRE, 軟體產品品質要求與評估標準)** 進一步擴展為 **8 大產品品質特性 (Product Quality)**：
 
-<img src="../img/ch01/gemini_nb/iso25010_eight_characteristics.jpg" width="650">
+<img src="../img/ch01/iso25010_eight_characteristics.jpg" width="650">
 
 **圖形解說：ISO 25010 八大產品品質特性（第一層核心維度）**
 

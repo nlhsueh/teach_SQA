@@ -412,7 +412,7 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 
 分析效能測試數據時，重點在於找出**系統瓶頸 (Bottlenecks)** 與**效能拐點**：
 
-<img src="../img/ch08/gemini_nb/performance_testing_three_golden_metrics.jpg" width="650">
+<img src="../img/ch08/performance_testing_three_golden_metrics.jpg" width="650">
 
 **圖形解說：效能測試三大黃金指標與飽和點分析**
 * **1. 回應時間延遲分位數 (Response Latency Percentiles)**：揚棄平均數陷阱，聚焦於 P95（95% 請求之最大延遲）與 P99 長尾延遲，真實反映極端負載下的使用者真實感受。
@@ -480,7 +480,7 @@ CPU 使用率與回應時間關聯分析
 
 ### 8.7.2 安全測試的四大核心作法 (Testing Approaches)
 
-<img src="../img/ch08/gemini_nb/security_testing_pipeline.jpg" width="650">
+<img src="../img/ch08/security_testing_pipeline.jpg" width="650">
 
 1.  **SAST (Static Application Security Testing，靜態應用安全測試)**：
     *   在編譯期或靜態分析階段掃描原始碼，尋找硬編碼密碼 (Hardcoded Secrets)、不安全的 SQL 拼接或危險函式調用。
@@ -511,7 +511,7 @@ CPU 使用率與回應時間關聯分析
 
 ### 8.8.1 核心觀念與四大關鍵度量指標
 
-<img src="../img/ch08/gemini_nb/system_resilience_timeline_metrics.jpg" width="650">
+<img src="../img/ch08/system_resilience_timeline_metrics.jpg" width="650">
 
 **圖形解說：系統故障與高可用回復時間軸 (Resilience & Availability Timeline)**
 * **MTBF (平均故障間隔時間)**：衡量系統在正常運轉期間 (Normal Operation) 的持續穩定度，數值愈長愈可靠。

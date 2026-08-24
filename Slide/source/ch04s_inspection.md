@@ -310,7 +310,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/testing_iceberg.jpg" alt="Testing Iceberg" />
+  <img src="../../img/ch04/testing_iceberg.jpg" alt="Testing Iceberg" />
 </div>
 
 ---
@@ -404,7 +404,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/inspection_flow.jpg" alt="Inspection Flow" />
+  <img src="../../img/ch04/inspection_flow.jpg" alt="Inspection Flow" />
 </div>
 
 ---
@@ -424,7 +424,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/ai_assisted_inspection.jpg" alt="AI Assisted Inspection" />
+  <img src="../../img/ch04/ai_assisted_inspection.jpg" alt="AI Assisted Inspection" />
 </div>
 
 ---
@@ -492,7 +492,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/srs_quality_attributes.jpg" alt="SRS Quality Attributes" />
+  <img src="../../img/ch04/srs_quality_attributes.jpg" alt="SRS Quality Attributes" />
 </div>
 
 ---
@@ -512,7 +512,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/srs_writing_tips.jpg" alt="SRS Writing Tips" />
+  <img src="../../img/ch04/srs_writing_tips.jpg" alt="SRS Writing Tips" />
 </div>
 
 ---
@@ -579,7 +579,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/design_review.jpg" alt="Design Review" />
+  <img src="../../img/ch04/design_review.jpg" alt="Design Review" />
 </div>
 
 ---
@@ -601,7 +601,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/dfd_core_elements.jpg" alt="DFD Core Elements" />
+  <img src="../../img/ch04/dfd_core_elements.jpg" alt="DFD Core Elements" />
 </div>
 
 ---
@@ -609,7 +609,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/dfd_order_flow.jpg" alt="DFD Order Flow" />
+  <img src="../../img/ch04/dfd_order_flow.jpg" alt="DFD Order Flow" />
 </div>
 
 ---
@@ -670,7 +670,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/code_inspection_categories.jpg" alt="Code Inspection Categories" />
+  <img src="../../img/ch04/code_inspection_categories.jpg" alt="Code Inspection Categories" />
 </div>
 
 ---
@@ -691,7 +691,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/code_smells.jpg" alt="Code Smells" />
+  <img src="../../img/ch04/code_smells.jpg" alt="Code Smells" />
 </div>
 
 ---
@@ -714,7 +714,7 @@ style: |
 <!-- _class: full-image-slide -->
 
 <div class="centered-image">
-  <img src="../../img/ch04/gemini_nb/secure_coding.jpg" alt="Secure Coding OWASP Top 10" />
+  <img src="../../img/ch04/secure_coding.jpg" alt="Secure Coding OWASP Top 10" />
 </div>
 
 ---
