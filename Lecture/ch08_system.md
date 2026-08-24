@@ -412,14 +412,12 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 
 分析效能測試數據時，重點在於找出**系統瓶頸 (Bottlenecks)** 與**效能拐點**：
 
-```mermaid
-graph LR
-    subgraph Analysis["效能分析三大黃金指標"]
-        Latency["P95 / P99 延遲分位數<br>(淘汰平均數陷阱)"]
-        RPS["系統吞吐量 (RPS / TPS)<br>(判斷是否達到飽和點)"]
-        Errors["錯誤率 (Error Rate)<br>(HTTP 500 / Timeout)"]
-    end
-```
+<img src="../img/ch08/gemini_nb/performance_testing_three_golden_metrics.jpg" width="650">
+
+**圖形解說：效能測試三大黃金指標與飽和點分析**
+* **1. 回應時間延遲分位數 (Response Latency Percentiles)**：揚棄平均數陷阱，聚焦於 P95（95% 請求之最大延遲）與 P99 長尾延遲，真實反映極端負載下的使用者真實感受。
+* **2. 系統吞吐量與飽和點 (System Throughput & Saturation Point)**：隨著負載增加，監控 RPS (Requests Per Second) 的增長趨勢。當 RPS 達到高原（飽和點）且回應時間出現指數級拐點飆升時，即為系統容量極限。
+* **3. 系統錯誤率 (Total Error Rate)**：監控 HTTP 5xx 伺服器崩潰、連線逾時 (Timeouts) 與拒絕連線 (Connection Drops) 比例，評估系統高壓下的穩定度。
 
 1.  **回應時間曲線圖與飽和點 (Saturation Point)**：
     *   隨著並發人數增加，若吞吐量 (RPS) 不再上升，且回應時間呈現指數級飆升，該臨界點即為系統的 **飽和點**。
@@ -513,14 +511,13 @@ CPU 使用率與回應時間關聯分析
 
 ### 8.8.1 核心觀念與四大關鍵度量指標
 
-```mermaid
-timeline
-    title 系統故障與回復時間軸 (MTBF / MTTR / RTO / RPO)
-    Normal : 系統正常運轉中 (MTBF 衡量此穩定期間)
-    Failure : 💥 突發故障中斷 (RPO 衡量此點前遺失之資料量)
-    Down : 系統中斷停擺 (RTO 衡量業務容忍之最長中斷時間)
-    Recovered : 系統自動修復完成 (MTTR 衡量實際修復耗時)
-```
+<img src="../img/ch08/gemini_nb/system_resilience_timeline_metrics.jpg" width="650">
+
+**圖形解說：系統故障與高可用回復時間軸 (Resilience & Availability Timeline)**
+* **MTBF (平均故障間隔時間)**：衡量系統在正常運轉期間 (Normal Operation) 的持續穩定度，數值愈長愈可靠。
+* **RPO (復原點目標 - 最大容許資料遺失量)**：突發故障發生時 (Sudden Failure Incident)，往前推算系統允許遺失資料的最大時間窗口（如 RPO = 0 表示不允許任何交易遺失）。
+* **RTO (復原時間目標 - 最大容許停機時間)**：業務層面容許系統處於停機中斷 (System Downtime) 的最長時限。
+* **MTTR (平均修復時間 - 實際修復耗時)**：工程團隊或自動化自癒機制將系統從中斷復原至正常服務 (Recovered & Self-Healed) 的實際平均耗時。
 
 1.  **MTTR (Mean Time to Recovery，平均修復時間)**：
     *   系統從發生故障到完全回復正常服務的平均時間（越短越好，現代目標為秒級自癒）。

@@ -679,28 +679,14 @@ public class PrimeIntegrationTest {
 
 [**Testcontainers**](https://testcontainers.com/)（[官方文件](https://java.testcontainers.org/) ｜ [快速指南 Guides](https://testcontainers.com/guides/)）是目前 Java 整合測試的黃金標準：
 
-```mermaid
-graph TD
-    subgraph TestProcess["JVM 測試進程 (JUnit 5 + Spring Boot)"]
-        Test["整合測試案例<br>(@Testcontainers)"]
-        Props["動態連線注入<br>(@DynamicPropertySource)"]
-    end
+<img src="../img/ch07/gemini_nb/testcontainers_architecture_flow.jpg" width="650">
 
-    subgraph DockerHost["Docker 容器環境 (Docker Daemon)"]
-        Ryuk["Ryuk 清理守護容器<br>(自動回收銷毀)"]
-        
-        subgraph RealContainers["拋棄式真實服務容器"]
-            Postgres["🐘 PostgreSQL 容器<br>(隨機 Port: 54321 -> 5432)"]
-            Redis["⚡ Redis / Kafka 容器<br>(隨機 Port: 63790 -> 6379)"]
-        end
-    end
-
-    Test -->|1. 發送啟動請求| Ryuk
-    Ryuk -->|2. 動態拉起| RealContainers
-    RealContainers -.->|3. 回傳動態 JDBC URL / Port| Props
-    Test ==>|4. 執行真實 SQL 查詢與並發交易驗證| Postgres
-    Test -.->|5. 測試結束自動終結清理| Ryuk
-```
+**圖形解說：Testcontainers 架構與容器生命週期流轉 (Architecture Flow)**
+* **1. 測試進程發起啟動 (Startup Request)**：JUnit 5 測試類別標註 `@Testcontainers` 與 `@Container`，測試啟動時向 Docker Daemon 發送環境構建請求。
+* **2. 守護容器管理 (Ryuk Cleanup Daemon)**：自動拉起專屬守護程序 Ryuk，監控測試生命週期並動態拉起真實的 PostgreSQL、Redis 等拋棄式容器。
+* **3. 動態配置注入 (Inject Dynamic Connection Info)**：容器隨機映射 Host Port（防 Port 衝突），並透過 `@DynamicPropertySource` 將即時 JDBC URL、用戶名密碼動態注入 Spring Context。
+* **4. 真實環境測試 (Execute Real SQL & Transactions)**：測試案例直接對真實 PostgreSQL / Redis 容器執行並發交易與 SQL 查詢，徹底消除 H2 記憶體資料庫的相容性假象。
+* **5. 自動終結清理 (Automatic Cleanup on Teardown)**：測試結束時 Ryuk 自動回收銷毀所有容器，不留下任何殘留資料與資源佔用。
 
 #### Testcontainers 的三大核心優勢：
 * **拋棄式容器 (Disposable Containers)**：測試開始時由守護程序（Ryuk）自動拉起 Docker 容器，測試完畢自動銷毀，不殘留任何髒資料。

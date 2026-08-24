@@ -1,4 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="150" height="150">
-  <circle cx="50" cy="50" r="45" fill="#f0fdfa" stroke="#0d9488" stroke-width="5"/>
-  <path d="M35 50 L45 60 L65 40" fill="none" stroke="#0d9488" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Transparent background, No outer frame -->
+
+  <!-- Small minimalist blackboard / presentation lines on the left background -->
+  <path d="M12 25 L12 75" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M18 35 L32 35 M18 45 L28 45 M18 55 L30 55" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Teacher Body (3/4 view facing viewer, torso turned slightly towards blackboard on the left) -->
+  <path d="M38 92 C38 76 50 68 68 68 C80 68 90 75 90 92" fill="#0b3c5d"/>
+  
+  <!-- Collar and Tie -->
+  <polygon points="56,68 62,75 66,68" fill="#ffffff"/>
+  <polygon points="61,74 58,82 62,90 65,82" fill="#328cc1"/>
+
+  <!-- Left Arm / Hand pointing towards blackboard/explanation -->
+  <path d="M44 74 Q28 66 22 52" fill="none" stroke="#0b3c5d" stroke-width="6" stroke-linecap="round"/>
+  <!-- Pointing Hand -->
+  <circle cx="21" cy="50" r="4.5" fill="#fed7aa"/>
+  <!-- Pointer stick or gesture line -->
+  <line x1="20" y1="48" x2="10" y2="38" stroke="#328cc1" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Head (3/4 angle, looking left towards board while smiling warmly at audience) -->
+  <circle cx="62" cy="44" r="16" fill="#fed7aa"/>
+
+  <!-- Hair (Sleek professional hair) -->
+  <path d="M46 42 C46 27 54 23 64 23 C74 23 80 28 80 40 C75 33 68 31 60 31 C52 31 48 35 46 42 Z" fill="#1e293b"/>
+
+  <!-- Glasses (3/4 perspective: left lens smaller/profile, right lens wider) -->
+  <rect x="50" y="39" width="8" height="7" rx="2" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+  <rect x="61" y="39" width="10" height="7" rx="2" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+  <line x1="58" y1="42" x2="61" y2="42" stroke="#1e293b" stroke-width="1.8"/>
+
+  <!-- Eyes looking sideways towards the board with a warm expression -->
+  <circle cx="53" cy="42" r="1.3" fill="#1e293b"/>
+  <circle cx="65" cy="42" r="1.3" fill="#1e293b"/>
+
+  <!-- Friendly Smile -->
+  <path d="M54 51 Q59 56 65 51" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Subtle Spark of Idea / Teaching insight -->
+  <path d="M12 28 L12 22 M8 25 L16 25" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
 </svg>

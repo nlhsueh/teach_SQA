@@ -60,7 +60,18 @@ style: |
     content: none !important;
   }
   table {
+    margin: 20px auto;
+    border-collapse: collapse;
     font-size: 20px;
+  }
+  th {
+    border-bottom: 2px solid #0b3c5d;
+    padding: 8px 16px;
+    text-align: left;
+  }
+  td {
+    padding: 8px 16px;
+    border-bottom: 1px solid #e0e0e0;
   }
   section:has(div.ccq-columns),
   section:has(div.discussion-columns),
@@ -77,6 +88,13 @@ style: |
   }
   div.ccq-text {
     flex: 70%;
+  }
+  div.ccq-answer {
+    margin-top: 14px;
+    margin-left: 20px;
+    font-size: 0.85em;
+    color: #777;
+    font-weight: 500;
   }
   div.ccq-logo {
     flex: 30%;
@@ -232,6 +250,8 @@ style: |
     line-height: 1.5;
     margin-top: 25px;
     padding: 10px 24px;
+    text-align: left;
+    display: inline-block;
   }
   footer {
     position: absolute;
@@ -249,6 +269,19 @@ style: |
 ### 第四章：軟體檢視 (Software Inspection)
 
 授課教師：薛念林教授 (with Gemini AI)
+
+---
+
+## 本章重點 (Chapter Highlights)
+
+* **4.1 基本概念 (Fundamentals)**：
+  * 動態測試盲點、靜態檢視優勢、Fagan 檢視法起源。
+* **4.2 檢視流程與角色 (Inspection Process & Roles)**：
+  * 六大標準流程（規劃 ➔ 概觀 ➔ 準備 ➔ 會議 ➔ 重工 ➔ 追蹤）與四大角色職責。
+* **4.3 檢視的成效與經濟效益 (Economics & Checklists)**：
+  * 1:10:100 成本法則、檢查表 (Checklist) 實務。
+* **4.4 現代同儕審查與 AI 輔助 (Modern Review & AI)**：
+  * GitHub PR 審查黃金法則、AI 程式碼檢視人機協同工作流。
 
 ---
 
@@ -312,17 +345,15 @@ style: |
 
 ---
 
-## CCQ 1 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：A**
 
 * **解析**：
   * **正確**：靜態測試的主要優勢在於不需執行程式即可找出問題。
   * 可應用於軟體開發生命週期的任何階段（包括規格書、設計圖與程式碼）。
   * 透過早期發現缺陷，能大幅降低後期修復 Bug 的成本（品質成本）。
+
+<div class="ccq-answer">正確答案：A</div>
 
   </div>
   <div class="ccq-logo">
@@ -418,18 +449,16 @@ style: |
 
 ---
 
-## CCQ 2 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **A 錯誤**：準備階段是參與者各自研讀材料、尋找缺陷的獨立活動。
   * **B 正確**：概述（Overview）階段是由作者向小組簡報，說明背景脈絡與規格規則，幫助小組建立共識。
   * **C 錯誤**：檢視會議是全體角色聚集，以朗讀和討論方式發掘與記錄缺陷的會議。
   * **D 錯誤**：重做階段是作者在會議後修復發現缺陷的階段。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -508,18 +537,16 @@ style: |
 
 ---
 
-## CCQ 3 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：A**
 
 * **解析**：
   * **A 正確**：雙向追溯（Bidirectional Traceability）包含前向追溯（需求對應到規格與測試）與後向追溯（規格、程式碼與測試能回溯至起源需求）。
   * **B 錯誤**：規格書字數與程式碼行數並無固定正比關係。
   * **C 錯誤**：規格追溯並非逐行對應程式碼與 UML 屬性。
   * **D 錯誤**：規格檢視必須有顧客或領域專家參與驗證。
+
+<div class="ccq-answer">正確答案：A</div>
 
   </div>
   <div class="ccq-logo">
@@ -605,16 +632,14 @@ style: |
 
 ---
 
-## CCQ 4 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **錯誤**：設計檢視應遵循「及早測試（Shift-Left）」原則，在**程式碼撰寫（Coding）開始之前**就進行。
   * 如果等到測試階段才發現架構設計的瑕疵，此時資料庫與程式碼都已成形，修改的代價將會非常高昂。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -712,17 +737,15 @@ style: |
 
 ---
 
-## CCQ 5 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：A**
 
 * **解析**：
   * **正確**：在生產環境中輸出詳細的 Debug 資訊或錯誤堆疊（Stack Trace），會將系統內部的元件版本、程式碼路徑及資料庫結構暴露給外部。
   * 這屬於典型且嚴重的「安全設定錯誤 (Security Misconfiguration)」。
   * 正確做法應使用結構化日誌記錄內部，前端僅回傳友善且模糊的錯誤訊息。
+
+<div class="ccq-answer">正確答案：A</div>
 
   </div>
   <div class="ccq-logo">
@@ -774,18 +797,16 @@ style: |
 
 ---
 
-## CCQ 6 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **A 錯誤**：檢視速率太快代表走馬看花，通常會漏掉深層錯誤，品質反而下降。
   * **B 正確**：超出合理負荷會導致缺陷漏到後續階段（Defect Leakage），維持合理速率（如 200–400 LOC/Hr）至關重要。
   * **C 錯誤**：檢視會議需要充分時間研討與發掘缺陷，5 分鐘無法達成目的。
   * **D 錯誤**：度量指標用於過程改善與品質預測，絕非用來懲罰工程師。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">

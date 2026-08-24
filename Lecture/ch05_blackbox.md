@@ -5,11 +5,12 @@
 > **Black-box testing** A method of software testing that examines the functionality of an application without peering into its internal structures or workings.
 
 
-```mermaid
-graph LR
-    Input([Input]) -->|Data| System[System]
-    System -->|Processed Data| Output([Output])
-```	
+<img src="../img/ch05/gemini_nb/black_box_testing_concept.jpg" width="650">
+
+**圖形解說：黑箱測試 (Black-Box Testing) 概念架構**
+* **【左側】測試輸入 (Input Data)**：包含有效輸入 (Valid Inputs)、邊界值 (Boundary Values) 與無效/格式錯誤輸入 (Invalid Inputs)。
+* **【中央】受測系統 (System Under Test, SUT)**：系統內部程式碼、資料結構與演算法細節對測試人員隱藏不透明（黑盒子），聚焦於系統「做什麼 (What)」，而非「如何做 (How)」。
+* **【右側】輸出驗證 (Expected vs. Actual Output)**：比對受測系統實際產出的行為 (Actual Output) 是否完全符合需求規格所定義的預期結果 (Expected Output)。	
 
 ## 🧑‍💻 5.1 Lab: JUnit
 
@@ -705,23 +706,17 @@ FIG: 應用決策表測試法於 nextDay()
 
 前面我們所提到的測試多半著重在於輸入輸出的檢查，但是現在的軟體系統很多都是事件導向（event driven）的，系統內部會有一個狀態機（state machine）來記錄現有的狀態，並決定接受到狀態時應該做出什麼反應，轉移到哪一個狀態。像這一類的系統測試的重點就不是在功能是否正確，而是狀態的反應是否正確。
 
-FIG: 訂票系統的狀態圖
+<img src="../img/ch05/gemini_nb/airline_booking_state_machine.jpg" width="650">
 
-```mermaid
-stateDiagram-v2
-    [*] --> Made : 預約 (giveInfo)
-    Made --> Paid : 付款 (payMoney)
-    Made --> CancelledByCustomer : 顧客取消 (cancel)
-    Made --> CancelledNonPay : 未付款取消 (payTimeExpire)
-    Paid --> Ticketed : 開票 (print)
-    Paid --> CancelledByCustomer : 顧客取消 (cancel)
-    Ticketed --> Used : 使用 (giveTicket)
-    Ticketed --> CancelledByCustomer : 顧客取消 (cancel)
-    
-    CancelledByCustomer --> [*]
-    CancelledNonPay --> [*]
-    Used --> [*]
-```
+**圖形解說：航空訂票系統狀態機 (State Machine Lifecycle)**
+* **主流程 (Happy Path)**：
+  1. **Made (已預約)**：接收 `giveInfo` 事件後建立訂位。
+  2. **Paid (已付款)**：接收 `payMoney` 事件後完成扣款。
+  3. **Ticketed (已開票)**：接收 `print` 事件後完成開票。
+  4. **Used (已使用)**：接收 `giveTicket` 登機使用後順利結案。
+* **取消與例外分支**：
+  * **CancelledByCustomer (顧客主動取消)**：在 Made、Paid、Ticketed 狀態下均可觸發 `cancel` 轉移至此狀態。
+  * **CancelledNonPay (未付款逾期取消)**：在 Made 狀態下因付款超時 (`payTimeExpire`) 自動轉移至此狀態。
 
 
 圖表示一個飛機票的訂票系統，我們先把他的狀態定義出來：made (預約), paid（已付款）, ticketed（已開票）, used（已使用）, cancelled by customer（顧客取消）, cancelled nonpay（未付款取消）。狀態轉移（transition）上的格式為：

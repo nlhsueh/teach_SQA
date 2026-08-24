@@ -658,18 +658,14 @@ D) 在計算變異分數 (Mutation Score) 時，等價變異體應計入被殺�
 ### 6.5.3 人機協同單元測試工作流 (SOP)
 在使用 AI 生成白箱單元測試時，開發者絕不能「盲目信任」AI 輸出的測試程式碼，必須遵循以下人機協同的黃金工作流：
 
-```mermaid
-graph TD
-    A[提供待測程式碼給 AI] --> B[AI 分析控制流並生成 JUnit 測試]
-    B --> C[執行 JaCoCo 檢查測試覆蓋率]
-    C --> D{覆蓋率是否達標?}
-    D -- 否 --> E[將未覆蓋分支反饋給 AI 並補足測資]
-    E --> C
-    D -- 是 --> F[工程師人工審查 Assertions 的正確性]
-    F --> G{斷言是否僅合理化現有代碼?}
-    G -- 是 --> H[修改 Assert 預期值為真實業務規格]
-    G -- 否 --> I[提交並整合進 CI/CD 品質門檻]
-```
+<img src="../img/ch06/gemini_nb/human_ai_unit_testing_workflow.jpg" width="650">
+
+**圖形解說：人機協同單元測試五大標準階段 (Human-AI Testing SOP)**
+* **Step 1：提供待測程式碼 (Developer Feeds Source Code)**：開發者將 Java 原始程式碼與基本介面契約提供給 AI 工具。
+* **Step 2：AI 靜態分析與測試生成 (AI Analysis & Test Generation)**：AI 分析方法控制流程圖 (CFG)，自動生成初步 JUnit 單元測試套件。
+* **Step 3：覆蓋率度量 (Measure Coverage with JaCoCo)**：執行 JaCoCo 測量陳述句與分支涵蓋度；若未達標（如 < 85%），將未覆蓋分支路徑反饋給 AI 補足極端測資。
+* **Step 4：人類工程師手動審查 (Human Engineer Manual Review)**：人類專家審查斷言 (Assertions) 的正確性，防止 AI 產生自我印證的「假綠燈」，並將預期值對齊真實領域業務規格。
+* **Step 5：整合進 CI/CD 品質門檻 (Merge into CI/CD Quality Gate)**：測試通過驗證後 Commit 併入主線，確保回歸測試防護網生效。
 
 ### 6.5.4 AI 提示詞範本 (AI Prompt Templates)
 

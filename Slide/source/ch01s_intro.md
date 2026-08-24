@@ -10,6 +10,23 @@ style: |
     font-family: 'Helvetica Neue', Arial, sans-serif;
     padding: 40px;
     font-size: 24px;
+    line-height: 1.6;
+  }
+  ul, ol {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  li {
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+  li > ul, li > ol {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  li > ul > li, li > ol > li {
+    margin-bottom: 6px;
+    font-size: 0.9em;
   }
   h1 {
     color: #0b3c5d;
@@ -43,7 +60,18 @@ style: |
     content: none !important;
   }
   table {
+    margin: 20px auto;
+    border-collapse: collapse;
     font-size: 20px;
+  }
+  th {
+    border-bottom: 2px solid #0b3c5d;
+    padding: 8px 16px;
+    text-align: left;
+  }
+  td {
+    padding: 8px 16px;
+    border-bottom: 1px solid #e0e0e0;
   }
   section:has(div.ccq-columns),
   section:has(div.discussion-columns),
@@ -60,6 +88,13 @@ style: |
   }
   div.ccq-text {
     flex: 70%;
+  }
+  div.ccq-answer {
+    margin-top: 14px;
+    margin-left: 20px;
+    font-size: 0.85em;
+    color: #777;
+    font-weight: 500;
   }
   div.ccq-logo {
     flex: 30%;
@@ -210,6 +245,14 @@ style: |
   section.lead p strong {
     color: #328cc1;
   }
+  section.lead blockquote {
+    font-size: 1.25em;
+    line-height: 1.5;
+    margin-top: 25px;
+    padding: 10px 24px;
+    text-align: left;
+    display: inline-block;
+  }
   footer {
     position: absolute;
     left: 40px;
@@ -221,11 +264,24 @@ style: |
   }
 ---
 
-# 軟體品質保證導論 (SQA)
+# 軟體品質保證 (SQA)
 
 ### 第一章：簡介與軟體品質概念
 
-授課教師：軟體品質保證教學團隊
+授課教師：薛念林教授 (with Gemini AI)
+
+---
+
+## 本章重點 (Chapter Highlights)
+
+* **1.1 軟體危機 (Software Crisis)**：
+  * 歷史重大案例（愛國者、NASA、華航、迪士尼、戶政系統）與省思。
+* **1.2 軟體品質與定義 (Quality Definitions)**：
+  * IEEE 軟體四要件、Garvin 五大品質觀點、品質三層次定義。
+* **1.3 品質模型 (Quality Models)**：
+  * ISO 9126 六大特性與現代 ISO 25010 實戰測試技術地圖。
+* **1.4 品質控制與品質保證 (QC vs. QA & CoQ)**：
+  * QC 產品事後檢驗 vs. QA 流程事前預防、CoQ 品質成本模型。
 
 ---
 
@@ -277,6 +333,14 @@ style: |
 
 ---
 
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/mars_climate_orbiter_unit_mismatch.jpg" alt="火星探測器單位錯誤" />
+</div>
+
+---
+
 ## Case 3：華航名古屋空難 (1994)
 
 * **事件背景**：
@@ -290,6 +354,14 @@ style: |
 
 ---
 
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/nagoya_air_crash_hmi_conflict.jpg" alt="名古屋空難人機衝突" />
+</div>
+
+---
+
 ## Case 4：迪士尼《獅子王》遊戲與相容性危機 (1994)
 
 * **事件背景**：
@@ -298,7 +370,7 @@ style: |
   * 遊戲採用微軟剛推出的 WinG 繪圖函式庫，但僅在極少數特定硬體上測試，**未進行廣泛相容性測試**。
   * 在大量家用 PC（如特定視訊晶片）上啟動即藍屏當機或程式崩潰。
 * **災難後果**：
-  * 聖誕節當日客服電話被憤怒家長打爆，造成品牌重大打擊。
+  * 聖誕節當日客服電話被憤怒家長打爆，造成 brand 重大打擊。
 * **SQA 啟示**：跨硬體/作業系統的多樣化**相容性測試（Compatibility Testing）**，促使微軟催生標準化 DirectX 架構。
 
 ---
@@ -348,18 +420,16 @@ style: |
 
 ---
 
-## CCQ 1 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **選項 B 正確**：愛國者系統採用 24-bit 浮點數記錄時間，每小時有微小的截斷誤差。連開 100 小時累積了 0.33 秒延遲，對 4.2 馬赫的飛彈造成約 600 公尺偏差。
   * **選項 A 錯誤**：雷達與發射系統通訊正常，是追蹤計算偏差。
   * **選項 C 錯誤**：系統未當機，而是內部時鐘與真實時間不同步。
   * **選項 D 錯誤**：並非目標辨識錯誤，而是目標軌跡計算位置偏移。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -389,18 +459,16 @@ style: |
 
 ---
 
-## CCQ 2 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **選項 B 正確**：洛克希德馬丁輸出英制單位（$\text{lbf}\cdot\text{s}$），JPL 輸入端預設公制單位（$\text{N}\cdot\text{s}$），介面契約不相容導致推力計算錯誤。
   * **選項 A 錯誤**：問題出在數值單位不相容，非執行緒排程。
   * **選項 C 錯誤**：現代軟體工程高度仰賴合約定義良好的模組化元件。
   * **選項 D 錯誤**：天體力學軌道計算對參數極度敏感，57 公里高度直接進入大氣層摩擦燒毀。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -430,18 +498,16 @@ style: |
 
 ---
 
-## CCQ 3 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **選項 B 正確**：駕駛員在不知電腦仍處於「重飛」自動控制狀態下手動下壓機首，電腦持續推升機尾配平「糾正」駕駛員，人機爭奪控制權導致失速墜毀。
   * **選項 A 錯誤**：無電腦病毒因素。
   * **選項 C 錯誤**：非數值除零例外。
   * **選項 D 錯誤**：高度感測正常，核心問題為人機狀態可見度與控制權優先級邏輯缺陷。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -471,6 +537,14 @@ style: |
 
 ---
 
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/software_four_elements.jpg" alt="軟體四要素" />
+</div>
+
+---
+
 ## Concept Check Question (CCQ 4)
 
 <div class="ccq-columns">
@@ -491,16 +565,14 @@ style: |
 
 ---
 
-## CCQ 4 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：D**
 
 * **解析**：
   * **選項 D 正確**：IEEE 定義明確指出，軟體不只有程式碼，操作程序 (Procedures), 文件 (Documentation) 與資料 (Data) 都是軟體不可分割的組成部分。
   * **選項 A/B/C 錯誤**：它們均屬於 IEEE 定義中的軟體組成部分。
+
+<div class="ccq-answer">正確答案：D</div>
 
   </div>
   <div class="ccq-logo">
@@ -519,6 +591,14 @@ style: |
 | **製造觀點** (Manufacturing) | 符合工程規格與標準流程 (Conformance) | 符合 ISO 標準、零缺陷 (Zero Bug) |
 | **產品觀點** (Product view) | 產品本身的內在技術特性與架構材質 | 高內聚低耦合、簡潔程式碼 |
 | **價值觀點** (Value-based) | 顧客願意支付的價格與性價比 (ROI) | 軟體帶來的商業價值與訂閱意願 |
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/garvin_quality_views.jpg" alt="Garvin五大品質觀點" />
+</div>
 
 ---
 
@@ -542,17 +622,15 @@ style: |
 
 ---
 
-## Concept Check Question (CCQ 5) - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **選項 B 正確**：產品觀點著重於軟體內在結構特性（如模組化、架構整潔、可維護性）。雖然符合製造規格，但內在架構品質差。
   * **選項 A 錯誤**：符合規格流程在製造觀點通常算合格。
   * **選項 C/D 錯誤**：非 Garvin 的五大標準品質分類。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -593,16 +671,14 @@ style: |
 
 ---
 
-## CCQ 6 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：C**
 
 * **解析**：
   * **選項 C 正確**：Pressman 定義強調了明訂需求、開發標準以及專業軟體隱含特性（如可維護性、可靠性等）三者並重。
   * **選項 A/B/D 錯誤**：皆流於片面，忽略了專業軟體應具備的隱含品質或流程標準。
+
+<div class="ccq-answer">正確答案：C</div>
 
   </div>
   <div class="ccq-logo">
@@ -617,6 +693,14 @@ style: |
 # **1.3 品質模型 (ISO 9126 / ISO 25010)**
 
 > 品質模型是軟體工程的「指北針」，定義了何謂好軟體。
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/product_quality_models_comparison.jpg" alt="產品品質模型對比" />
+</div>
 
 ---
 
@@ -641,8 +725,16 @@ style: |
 | **安全性** (Security) | 靜態安全掃描 (AST/SAST)、**模糊測試 (Fuzzing)** |
 | **效能效率** (Performance Efficiency) | **k6 / Apache JMeter 高併發壓測**、記憶體分析 |
 | **相容性** (Compatibility) | **微服務契約測試 (Pact)**、跨版本相容性測試 |
-| **可移植性** (Portability) | **Testcontainers 容器化測試**、Docker 環境驗證 |
+| **可移植性** (Portability) | **Testcontainers 容器化測試**、Docker environment 驗證 |
 | **易用性** (Usability) | **Playwright E2E 驗收測試**、UI 自動化流程 |
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/iso25010_eight_characteristics.jpg" alt="ISO 25010 八大品質特性" />
+</div>
 
 ---
 
@@ -666,18 +758,16 @@ style: |
 
 ---
 
-## CCQ 7 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：A**
 
 * **解析**：
   * **選項 A 正確**：網路斷線屬於環境異常，系統能在異常下維持運作並迅速恢復資料狀態，屬於可靠性中的容錯度 (Fault Tolerance) 與回復性 (Recoverability)。
   * **選項 B 錯誤**：可移植性指跨平台搬移的能力。
   * **選項 C 錯誤**：可用性著重於使用者操作體驗。
   * **選項 D 錯誤**：合規性指符合法律或產業標準。
+
+<div class="ccq-answer">正確答案：A</div>
 
   </div>
   <div class="ccq-logo">
@@ -707,16 +797,14 @@ style: |
 
 ---
 
-## CCQ 8 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **選項 B 正確**：穩定性 (Stability) 評估系統在受到變動時，對其他部分所造成負面衝擊（副作用）的敏感度。人事模組的變動意外導致無關財務模組出錯，顯示系統模組相依性過高、穩定性差。
   * **選項 A/C/D 錯誤**：與修改後波及其他無關模組的副作用評估無關。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
@@ -746,16 +834,14 @@ style: |
 
 ---
 
-## CCQ 9 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：C**
 
 * **解析**：
   * **選項 C 正確**：可攜性/可移植性 (Portability) 定義為軟體從一個環境移轉到另一個環境的能力。
   * **選項 A/B/D 錯誤**：皆非環境轉移難易程度的主軸。
+
+<div class="ccq-answer">正確答案：C</div>
 
   </div>
   <div class="ccq-logo">
@@ -784,22 +870,67 @@ style: |
 
 ---
 
-## 1.4.2 軟體品質成本 (Cost of Quality, CoQ)
+## 1.4.2 V 模型 (V-Model)：開發與測試的對稱性
 
-```
-                       ┌── 預防成本 (Prevention): 培訓、流程標準、設計審查
-        ┌─ 一致性成本 ──┤
-        │  (Conformance)└── 評估成本 (Appraisal): 單元測試、代碼檢視、自動化測試
-品質成本 ┤
-        │  (Non-       ┌── 內部失敗 (Internal Failure): 上線前修 Bug、重構
-        └─ 非一致性成本 ──┤
-           conformance)└── 外部失敗 (External Failure): 上線後當機、客戶客訴、賠償
-```
+* **驗證 (Verification，左側)** 與 **確認 (Validation，右側)**。
+* 建立開發階段與對應測試層級之間的平行映射關係：
+  * **需求分析** ➔ **驗收測試 (Acceptance Testing)**
+  * **系統架構** ➔ **系統測試 (System Testing)**
+  * **元件設計** ➔ **整合測試 (Integration Testing)**
+  * **編寫程式碼** ➔ **單元測試 (Unit Testing)**
+* **核心價值**：在撰寫實際業務程式碼之前，提早設計測試案例以防止缺陷洩漏。
 
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/v_model_quality_symmetry.jpg" alt="V模型開發與測試對稱" />
+</div>
+
+---
+
+## 1.4.3 現代敏捷與 DevOps 連續品質門檻 (Continuous Quality Gates)
+
+* **連續品質門檻**：在 CI/CD 流水線的各個階段自動執行品質檢查。
+* **六大關鍵品質門檻**：
+  1. **代碼提交門檻 (Code Commit)**：Git Pre-commit Hook 自動檢查格式與語法。
+  2. **SAST 靜態代碼門檻**：SonarQube 掃描代碼異味與安全弱點。
+  3. **單元測試與覆蓋率門檻**：JUnit 5 測試與 JaCoCo 覆蓋率驗證（如 >80%）。
+  4. **整合測試門檻**：Testcontainers 自動拉起真實數據庫驗證 API 契約。
+  5. **E2E 與安全門檻**：Playwright 自動模擬使用者流程與動態安全掃描。
+  6. **生產環境門檻**：金絲雀部署與可觀測性系統監控。
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/devops_cicd_quality_gates.jpg" alt="DevOps CI/CD連續品質門檻" />
+</div>
+
+---
+
+## 1.4.4 軟體品質成本 (Cost of Quality, CoQ)
+
+* **一致性成本**：
+  * **預防成本**：培訓、流程標準、設計審查。
+  * **評估成本**：單元測試、程式碼檢視、自動化測試。
+* **非一致性成本**：
+  * **內部失敗**：上線前修 Bug、重構。
+  * **外部失敗**：上線後當機、客戶客訴、賠償。
 * **1:10:100 定律**：
   * 需求階段修復 Bug 成本為 **$1**
   * 開發/測試階段修復成本為 **$10**
   * 產品上線後修復成本高達 **$100+** 且伴隨商譽損害！
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/gemini_nb/cost_of_quality_coq.jpg" alt="品質成本CoQ" />
+</div>
 
 ---
 
@@ -823,16 +954,14 @@ style: |
 
 ---
 
-## CCQ 10 - 答案與解析
-
 <div class="ccq-columns">
   <div class="ccq-text">
-
-### **正確答案：B**
 
 * **解析**：
   * **選項 B 正確**：靜態分析與測試屬於「評估/檢查現有品質」（Appraisal Cost）；人員教育培訓與標準制定屬於「事前預防缺陷發生」（Prevention Cost）。兩者皆屬「一致性成本」。
   * **選項 A/C/D 錯誤**：失敗成本指 Bug 已經產生後帶來的除錯與修復代價。
+
+<div class="ccq-answer">正確答案：B</div>
 
   </div>
   <div class="ccq-logo">
