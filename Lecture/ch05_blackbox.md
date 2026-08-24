@@ -881,7 +881,7 @@ public class AdditionProperties {
 * **`@ForAll`**：指示框架自動為該參數生成各類極端值（包括整數最大值 `Integer.MAX_VALUE`、最小值、零、負數等）。
 
 > 🛠️ **實習手冊連結**：
-> * Property-Based Testing 實戰：[`../Lab/u05_utest/jqwik_property_based.md`](../Lab/u05_utest/jqwik_property_based.md)
+> * Property-Based Testing 實戰：[`../Lab/u05_bbtest/jqwik_property_based.md`](../Lab/u05_bbtest/jqwik_property_based.md)
 
 #### 概念核對問答 (CCQ 8)
 在屬性基礎測試 (Property-Based Testing) 中，我們不需要手動為每一組測試寫出確切的預期輸出數值，而是定義程式執行時必須永遠維持的「屬性或不變量」，並交由測試框架隨機生成大量測資來尋找反例。

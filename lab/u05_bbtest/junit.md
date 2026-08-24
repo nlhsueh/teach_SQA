@@ -674,6 +674,122 @@ void testSomething() {
 
 Assumptions的使用方法能夠提供更靈活的控制，可以根據特定的前提條件來選擇是否執行測試，從而更好地管理和組織測試案例。
 
+# AI-Assisted JUnit Test Generation (AI 輔助單元測試生成)
+
+在 2026 AI 時代，手動撰寫每一行單元測試已非唯一選擇。然而，**AI 助手需要精確且具備領域知識的 Prompt，才能生成出高品質、涵蓋邊界條件的測試程式碼**。以下練習將引導你如何扮演「Oracle」與「Prompt 工程師」，利用 AI 輔助生成 JUnit 5 測試。
+
+## AI 輔助測試生成教學 (Tutorial: AI-Assisted Test Generation)
+
+在軟體工程中，利用大型語言模型 (LLM) 生成單元測試已成為業界常態。然而，「自動生成」並不代表「可以盲目信任」。以下是利用 AI 進行單元測試開發的核心觀念與 Prompt 設計技巧。
+
+### 1. 核心觀念：AI 是生成器，你才是「Oracle（神諭/預言者）」
+*   **AI 的盲點**：AI 只能「讀取」你提供的程式碼，並根據程式碼的現有邏輯去猜測預期行為。如果你的程式碼本身有 Bug，AI 在生成測試時，**只會根據錯誤的邏輯去編寫對應的 Assertion 以讓測試通過**（此現象稱為 *Reasoning about existing behavior*）。
+*   **Oracle（測試神諭）**：在測試理論中，Oracle 指的是「判定測試結果是否正確的標準」。**你（開發者/測試工程師）才是唯一知道正確規格的人**。因此，AI 生成完測試後，你必須人工審查每一個 `assertEquals` 或 `assertThrows` 的預期值是否真正符合系統設計規格，而非只是在合理化 Bug。
+
+### 2. 高品質測試生成 Prompt 的四大要素
+寫出好的 Prompt 是工程師的核心競爭力。一個能精準生成單元測試的 Prompt 應包含以下四個關鍵要素：
+
+| 要素 | 說明 | 範例 |
+| :--- | :--- | :--- |
+| **1. 設定角色 (Role)** | 指定 AI 的專業角色，使其產出符合業界標準的測試結構。 | 「你是一位資深 Java QA 工程師，擅長編寫強固的單元測試...」 |
+| **2. 指定框架與規格** | 明確指定使用的框架版本與語法風格，避免 AI 混用 JUnit 4 與 JUnit 5 的過時語法。 | 「請使用 JUnit 5 (Jupiter) 撰寫測試，並使用 `@ParameterizedTest` 與 `assertThrows`。」 |
+| **3. 注入測試設計方法 (Knowledge)** | 指引 AI 應用特定的測試設計方法論（如邊界值分析、等價分割），而非隨機猜測資料。 | 「請針對此方法進行**等價區間分割**，特別針對 `X` 的邊界值（極大值、極小值、無效輸入）設計測資...」 |
+| **4. 指定程式碼風格** | 要求 AI 使用良好的命名、`@DisplayName`、或是利用 `assertAll()` 進行群組斷言。 | 「請為每個測試方法加上中文的 `@DisplayName`，並使用 `assertAll` 包裝同一個物件狀態的斷言。」 |
+
+---
+
+### 3. 範作導讀：好的與壞的 Prompt 差異
+
+#### ❌ 壞的 Prompt (過於籠統)
+> 「幫我為這個 Java 程式寫單元測試：[貼上程式碼]」
+> *   **後果**：AI 通常會產生幾組非常簡單的快樂路徑 (Happy Paths) 測試，遺漏所有邊界條件與例外處理，且可能混用 JUnit 4 的舊語法（例如 `@Test(expected = ...)`）。
+
+####  好的 Prompt (注入測試知識)
+> 「請扮演資深的 Java 測試工程師。以下是我的待測程式碼，請使用 **JUnit 5 (Jupiter)** 幫我撰寫單元測試。
+>
+> 待測程式碼：
+> ```java
+> [貼上程式碼]
+> ```
+> 
+> **撰寫要求**：
+> 1. 請應用**等價分割法**與**邊界值分析**，針對輸入參數設計正常、異常及邊界值的測試案例。
+> 2. 請使用 JUnit 5 的 **`@ParameterizedTest`** 搭配 **`@CsvSource`** 來進行參數化測試。
+> 3. 請針對例外狀況（例如引數小於零），使用 **`assertThrows`** 驗證是否拋出 `IllegalArgumentException`。
+> 4. 請為每個測試方法編寫易讀的 `@DisplayName`。」
+
+---
+
+## 1. AI 輔助參數化邊界測試 (AI-Assisted Parameterized Testing)
+考慮以下日期驗證方法：
+```java
+public class DateValidator {
+    public static boolean isValidDate(int year, int month, int day) {
+        if (year < 1 || month < 1 || month > 12 || day < 1) {
+            return false;
+        }
+        int[] daysInMonth = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        // Leap year check
+        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+            daysInMonth[2] = 29;
+        }
+        return day <= daysInMonth[month];
+    }
+}
+```
+
+*   **練習任務**：
+    1.  **設計 Prompt**：請為 AI 助手（如 Gemini 或 Copilot）設計一段 Prompt，請它使用 JUnit 5 的 `@ParameterizedTest` 與 `@CsvSource` 生成此方法的測試案例。
+    2.  **知識注入**：在 Prompt 中，你**必須明確指定**你要測試的**等價分類 (Equivalence Classes)** 與**邊界值 (Boundary Values)**（例如：正常的大月小月、平年2月、閏年2月、無效的年月日常見邊界等）。若只輸入 "write unit tests for this code"，AI 通常會遺漏關鍵的邊界（如 `2000/2/29` 閏年與 `1900/2/29` 平年）。
+    3.  **執行與審查**：將 AI 生成的測試程式碼放進專案執行。檢查 AI 生成的斷言 (Assertions) 是否有邏輯錯誤（AI 常會盲目合理化程式碼的錯誤行為）。
+    4.  **繳交**：繳交你所撰寫的 **Prompt 內容** 以及 **修正後的 JUnit 5 測試程式碼**。
+
+## 2. AI 輔助狀態與例外測試 (AI-Assisted Exception Testing)
+考慮以下固定容量的堆疊 (Stack) 介面與實作：
+```java
+public class FixedStack<T> {
+    private final T[] elements;
+    private int size = 0;
+    private final int capacity;
+
+    @SuppressWarnings("unchecked")
+    public FixedStack(int capacity) {
+        this.capacity = capacity;
+        this.elements = (T[]) new Object[capacity];
+    }
+
+    public void push(T item) {
+        if (size >= capacity) {
+            throw new IllegalStateException("Stack is full");
+        }
+        elements[size++] = item;
+    }
+
+    public T pop() {
+        if (size == 0) {
+            throw new java.util.EmptyStackException();
+        }
+        T item = elements[--size];
+        elements[size] = null; // prevent memory leak
+        return item;
+    }
+
+    public T peek() {
+        if (size == 0) {
+            throw new java.util.EmptyStackException();
+        }
+        return elements[size - 1];
+    }
+}
+```
+
+*   **練習任務**：
+    1.  **設計 Prompt**：請撰寫一段 Prompt，引導 AI 針對 `FixedStack` 進行測試。Prompt 中必須明確要求 AI：
+        *   使用 JUnit 5 的 `assertThrows()` 驗證邊界例外（對空堆疊 `pop`/`peek` 拋出 `EmptyStackException`；對滿堆疊 `push` 拋出 `IllegalStateException`）。
+        *   使用 `assertAll()` 將一組相關的狀態斷言（例如連續 `push` 後的狀態與 `peek` 結果）包裝在一起。
+    2.  **執行與審查**：執行 AI 產出的測試碼。觀察 AI 是否正確模擬了堆疊的狀態轉移？斷言是否正確？
+    3.  **繳交**：繳交你所撰寫的 **Prompt 內容** 與 **最後執行的 JUnit 5 測試程式碼**。
+
 ## Exercise
 
 - 以下何者為真？（多選）	
