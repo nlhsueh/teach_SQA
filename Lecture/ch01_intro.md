@@ -16,7 +16,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 在 1991 年 2 月波斯灣戰爭中，一枚伊拉克發射的飛毛腿飛彈擊中美軍沙烏地達蘭基地，造成 **28 名美軍死亡、100 多人受傷**。
 
-![](../img/ch01/HkUgfsBRn.png)
+<img src="../img/ch01/HkUgfsBRn.png" width="300">
 
 * **致命軟體缺陷**：愛國者系統時鐘暫存器採用 **24-bit 浮點數** 設計，將時間轉換為 0.1 秒單位時產生了微小的截斷誤差（約 $0.000000095$ 秒）。
 * **災難放大**：雷達系統連續開機運作超過 **100 小時** 未重啟，微小的精度誤差累計達 **0.33 秒**。
@@ -29,7 +29,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 1998 年 NASA 發射「火星氣候軌道探測器」（Mars Climate Orbiter，造價近 2 億美元），抵達火星後失聯焚毀。
 
-![](../img/ch01/ByBqT9KRn.png)
+<img src="../img/ch01/ByBqT9KRn.png" width="650">
 
 👉 Mars Climate Orbiter crash in 1998
 
@@ -45,7 +45,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 1994 年 4 月 26 日，華航 CI140 班機（空中巴士 A300-622R）在名古屋機場降落時墜毀，**264 人罹難**。
 
-![1994 名古屋空難](https://attach.setn.com/newsimages/2021/04/26/3128315-PH.jpg)
+<img src="https://attach.setn.com/newsimages/2021/04/26/3128315-PH.jpg" width="650">
 
 * **致命軟體缺陷**：副駕駛進場時誤觸「重飛（Go-Around）」模式；駕駛員隨後試圖手動強壓機首下降，但機載飛控電腦因處於自動重飛模式，強行將水平安定面向上配平以抬高機首。
 * **災難後果**：**電腦與機師互相爭奪控制權**，飛機仰角過大失速墜毀。空巴隨後發出維修指令，全面修改飛控軟體邏輯。
@@ -177,27 +177,35 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 ## 1.2 軟體的本質與品質維度（軟體四要素 ＆ Garvin 五大品質觀點）
 
+### 1.2.1 軟體的四大組成要素 (IEEE 610.12)
+
 軟體到底是什麼？僅僅是可執行的二進位檔案或原始程式碼嗎？根據 IEEE（Standard 610.12）的權威定義，軟體是一個完整的系統化工程產物：
 
 > **Software (軟體)**:
 > Computer **programs** (程式), **procedures** (程序), and possibly associated **documentation** (文件) and **data** (資料) pertaining to the operation of a computer system.
 
-而當我們探討「軟體品質」時，哈佛商學院教授 David Garvin 在《Managing Quality》中指出，品質並非單一維度，而是由多重視角交織而成的立體概念。
+<img src="../img/ch01/gemini_nb/software_four_elements.jpg" width="650">
 
-<img src="../img/ch01/gemini_nb/software_elements_quality_views.jpg" width="650">
+**圖形解說：軟體四大核心要素 (IEEE 610.12)**
+1.  **Programs (程式碼)**：包含原始碼 (Source Code)、編譯產物 (Bytecode/Binary) 與執行腳本，負責承載業務邏輯與演算法。
+2.  **Procedures (作業程序)**：包含 CI/CD 自動化建置腳本、部署規程、維運手冊 (Runbooks) 與版本發布規範。
+3.  **Documentation (文件與規格)**：包含需求規格書 (SRS)、OpenAPI 介面契約、架構設計圖與測試計畫（規格即活文件）。
+4.  **Data (資料與配置)**：包含資料庫初始化結構 (Migration)、環境變數配置設定檔與測試測資集 (Test Fixtures)。
 
-**圖形解說：軟體四要素與 Garvin 五大品質觀點的協同作用**
-*   **【左側】軟體的四大組成要素 (4 Elements of Software)**：
-    1.  **1. Program / Code (程式碼)**：包含原始碼 (Source Code) 與編譯產物，負責執行指令與具體邏輯。
-    2.  **2. Procedures / CI-CD (作業程序)**：包含版本控管規範、CI/CD 自動化流水線、自動化測試規程與維運 Runbooks。
-    3.  **3. Documentation / Specs (規格與文件)**：包含需求規格書 (SRS)、OpenAPI 介面合約、測試計畫與架構設計藍圖（規格即活文件）。
-    4.  **4. Data / Config (資料與配置)**：包含資料庫初始化腳本 (Migration)、測試測資集 (Test Fixtures) 與環境變數設定檔。
-*   **【右側】Garvin 五大品質觀點 (5 Quality Dimensions)**：
-    *   **A. 超自然觀點 (Transcendental / UX View)**：無法精確量化，但一體驗就能感受到其精緻、優雅與直覺的極致美感（如絲滑的動畫與直覺的微互動）。
-    *   **B. 使用者觀點 (User View - Fitness for Use)**：軟體是否能切中真實使用者的痛點、滿足業務需求並帶來實質效益（合用性）。
-    *   **C. 製造觀點 (Manufacturing View - Conformance)**：軟體產出物與工程流程是否 100% 符合規格、通過靜態檢測與 ISO 流程規範（符合度）。
-    *   **D. 產品觀點 (Product View - Architecture)**：產品本身的內在結構品質，如高內聚低耦合、強固型態、可測試性與可維護性。
-    *   **E. 價值觀點 (Value / ROI View)**：軟體帶來的商業價值與產出是否顯著高於其開發、測試與維運之總成本（投資報酬率）。
+---
+
+### 1.2.2 何謂品質？David Garvin 的五大品質觀點
+
+當我們探討「軟體品質」時，哈佛商學院教授 David Garvin 在《Managing Quality》中指出，品質並非單一維度，而是由多重視角交織而成的立體概念：
+
+<img src="../img/ch01/gemini_nb/garvin_quality_views.jpg" width="650">
+
+**圖形解說：David Garvin 五大品質觀點**
+1.  **1. 超自然觀點 (Transcendental View)**：無法精確量化，但一體驗就能感受到其精緻、優雅與直覺的極致美感（如絲滑流暢的 UI/UX 與微互動）。
+2.  **2. 使用者觀點 (User View - Fitness for Use)**：軟體是否能切中真實使用者的痛點、滿足業務需求並帶來實質效益（合用性）。
+3.  **3. 製造觀點 (Manufacturing View - Conformance)**：軟體產出物與工程流程是否 100% 符合規格、通過靜態檢測與 Quality Gate（符合度）。
+4.  **4. 產品觀點 (Product View - Architecture)**：產品內在結構特性，如高內聚低耦合、強固型態、可測試性與可維護性。
+5.  **5. 價值觀點 (Value-based View - ROI)**：軟體帶來的商業價值與產出是否顯著高於其開發、測試與維運之總成本（投資報酬率）。
 
 | 品質觀點 | 核心定義 | 軟體工程實例 | 忽略該觀點的後果 |
 | :--- | :--- | :--- | :--- |
@@ -247,55 +255,62 @@ $$\begin{aligned}
 * **Verification (驗證)**：確保軟體產出物符合上個階段設定的規格（檢視程式碼是否符合設計圖、單元測試是否符合規格）。
 * **Validation (確認)**：確保軟體真正滿足使用者的真實業務需求（驗收測試、易用性測試、現場 Beta 測試）。
 
+---
+
 ### 1.3.2 軟體品質成本 (Cost of Quality, CoQ) 與 1:10:100 定律
 
-```
-                       ┌── 預防成本 (Prevention): 培訓、流程標準、架構審查、契約設計
-        ┌─ 一致性成本 ──┤
-        │  (Conformance)└── 評估成本 (Appraisal): 單元測試、程式碼檢視、自動化 CI 測試
-品質成本 ┤
-        │  (Non-       ┌── 內部失敗 (Internal Failure): 上線前修 Bug、重構程式碼
-        └─ 非一致性成本 ──┤
-           conformance)└── 外部失敗 (External Failure): 生產環境當機、客戶賠償、商譽損害
-```
+軟體品質並不是「越完美越好」，而是在成本與效益之間取得最佳平衡。在軟體品質管理中，品質成本 (Cost of Quality, CoQ) 分為**一致性成本**與**非一致性成本**：
 
-* **1:10:100 定律 (The Rule of Tens)**：
-  * **需求/設計階段** 抓出並修復一個 Bug 的成本：**$1**
-  * **開發/測試階段** 抓出並修復一個 Bug 的成本：**$10**
-  * **產品上線發布後** 發生故障的修復與賠償代價：**$100 ～ $1000+**！
-* **測試左移 (Shift-Left Testing)**：將品質活動儘早融入開發流程，是降低軟體總擁有成本的最有效手段。
+<img src="../img/ch01/gemini_nb/cost_of_quality_coq.jpg" width="650">
+
+**圖形解說：品質成本架構 (CoQ) 與 1:10:100 缺陷倍增定律**
+*   **一致性成本 (Conformance Costs - 主動投資品質)**：
+    *   **預防成本 (Prevention)**：架構審查、合約設計 (Design by Contract)、工程培訓與靜態代碼規範。
+    *   **評估成本 (Appraisal)**：單元測試 (Unit Tests)、靜態程式碼分析 (SonarQube) 與同行代碼審查 (Code Review)。
+*   **非一致性成本 (Non-Conformance Costs - 忽視品質的慘痛代價)**：
+    *   **內部失敗成本 (Internal Failure)**：上線前發現 Bug 導致的除錯 (Debugging)、重構與重測返工成本。
+    *   **外部失敗成本 (External Failure)**：生產環境崩潰 (Outage)、客戶求償、緊急熱修復 (Hotfix) 與商譽破產。
+*   **1:10:100 定律 (The Rule of Tens)**：
+    *   在**需求/設計階段** 發現並修復缺陷的代價為 **$1**。
+    *   若拖延至**開發/測試階段** 修復代價暴增至 **$10**。
+    *   若洩漏至**產品發布後 (Production Phase)**，修復代價與災難損失將高達 **$100 ～ $1000+**！
+*   **測試左移 (Shift-Left Testing)**：將品質活動儘早移至生命週期前端，是降低軟體總擁有成本的最有效手段。
 
 ---
 
 ## 1.4 軟體工程流程與生命週期中的品質把關 (SDLC & CI/CD Quality Governance)
 
-軟體工程的核心哲學在於：**「品質不是最後靠測試敲打出來的，而是在整個生命週期中逐步建造並防護出來的 (Quality is built-in, not tested-in)。」** 不同的軟體開發生命週期 (SDLC) 模型，代表了人類在軟體品質管理思維上的演進：
+軟體工程的核心哲學在於：**「品質不是最後靠測試敲打出來的，而是在整個生命週期中逐步建造並防護出來的 (Quality is built-in, not tested-in)。」**
 
-<img src="../img/ch01/gemini_nb/sdlc_quality_gates.jpg" width="650">
+### 1.4.1 傳統模型與 V 模型：對稱性與早期測試規劃
 
-**圖形解說：四大主流軟體生命週期模型與品質治理機制**
-1.  **瀑布模型 (Waterfall Model - 傳統線性)**：
-    *   **品質機制**：採用嚴格的階段門閥 (Phase Gates) 與正式交付物簽核。
-    *   **品質盲點**：測試活動被推遲到生命週期最後階段才進行，導致需求與設計缺陷極晚才被發現，修復成本呈指數級爆炸（1:10:100 陷阱）。
-2.  **V 模型 (V-Model - 驗證與確認對稱模型)**：
-    *   **品質機制**：將「開發階段 (Verification)」與「測試層級 (Validation)」建立高度對稱與平行規劃：
-        *   需求分析 ➔ 同步規劃 **驗收測試 (Acceptance Testing)**
-        *   系統架構 ➔ 同步規劃 **系統與整合測試 (System & Integration Testing)**
-        *   模組設計 ➔ 同步規劃 **單元測試 (Unit Testing)**
-    *   **品質優勢**：在編寫第一行程式碼之前，測試案例規格就已經隨同設計圖定義完成。
-3.  **敏捷 Scrum 模型 (Agile Scrum - 迭代開發與即時反饋)**：
-    *   **品質機制**：以 2~4 週的短 Sprint 進行迭代，透過以下機制內建品質：
-        *   **完成定義 (Definition of Done, DoD)**：包含測試覆蓋率、靜態掃描零重大違規、CI 綠燈。
-        *   **驗收條件 (Acceptance Criteria)**：將使用者故事具象化為可驗收的驗證條件。
-        *   **每日立會與回顧會議 (Retrospective)**：即時暴露阻塞與品質風險。
-4.  **現代 DevOps 與 CI/CD 連續品質門檻 (Continuous Quality Gates)**：
-    *   **品質機制**：將品質保證全面「代碼化」與「自動化」，在每一次 Commit 到發布上線的整個流水線中設置嚴密的自動化品質防線：
-        *   **Commit 階段**：本地 Pre-commit Hook、語法 Lint 與型態檢查。
-        *   **Automated Static Analysis (SAST 階段)**：SonarQube 掃描程式碼異味 (Code Smells) 與 OWASP 安全弱點。
-        *   **Unit Tests 階段**：JUnit 5 + Mockito 執行極速單元測試與 JaCoCo 覆蓋率檢驗。
-        *   **Integration Container Tests 階段**：Testcontainers 一鍵拉起真實 Docker 資料庫驗證資料存取與 API 合約。
-        *   **E2E & Staging Gate 階段**：Playwright 自動化 Web UI 流程驗收，並執行 DAST 滲透掃描與 k6 壓測。
-        *   **Production Release 階段**：藍綠/金絲雀發布 (Canary)，搭配即時監控可觀測性 (Observability) 與混沌自癒。
+在傳統線性模型（瀑布模型）中，測試常被延後至編程結束後才進行，落入 1:10:100 的高昂修復陷阱。為解決此問題，**V 模型 (V-Model)** 建立了開發階段與測試層級的嚴密對稱與平行規劃：
+
+<img src="../img/ch01/gemini_nb/v_model_quality_symmetry.jpg" width="650">
+
+**圖形解說：V 模型 (V-Model) 開發與測試層級對稱圖**
+*   **左側：開發階段 (Verification)** ➔ **右側：測試層級 (Validation)** 平行對稱：
+    1.  **需求分析 (Requirements Analysis)** ➔ 同步規劃並設計 **驗收測試 (Acceptance Testing)**。
+    2.  **系統架構 (System Architecture)** ➔ 同步規劃並設計 **系統測試 (System Testing)**。
+    3.  **元件設計 (Component Design)** ➔ 同步規劃並設計 **整合測試 (Integration Testing)**。
+    4.  **編寫程式碼 (Coding)** ➔ 實作並執行 **單元測試 (Unit Testing)**。
+*   **核心價值**：在寫下第一行業務程式碼之前，驗收與整合測試的規格與邊界就已經隨同架構圖確立完成。
+
+---
+
+### 1.4.2 現代敏捷與 DevOps CI/CD 連續品質門檻 (Continuous Quality Gates)
+
+在現代雲原生與微服務時代，軟體以每日甚至每小時的頻率持續交付。品質保證已全面升級為**自動化流水線上的「連續品質門檻 (Continuous Quality Gates)」**：
+
+<img src="../img/ch01/gemini_nb/devops_cicd_quality_gates.jpg" width="650">
+
+**圖形解說：現代 DevOps CI/CD 流水線中的 6 大連續品質門檻**
+1.  **1. Code Commit 門檻**：本地 Git Pre-commit Hook 自動執行代碼格式化與快速靜態語法檢查。
+2.  **2. SAST 靜態程式碼品質門檻**：SonarQube / SpotBugs 掃描程式碼異味 (Code Smells)、技術債與 OWASP 安全弱點。
+3.  **3. Unit Tests & 覆蓋率門檻**：JUnit 5 執行毫秒級單元測試，並由 JaCoCo 驗證行覆蓋率與分支覆蓋率門檻（如 > 80%）。
+4.  **4. Integration Tests 容器整合門檻**：Testcontainers 一鍵拉起真實 Docker 容器（PostgreSQL / Redis），驗證真實資料庫存取與 API 契約。
+5.  **5. E2E & Security Scan 驗收門檻**：Playwright 自動化模擬真實使用者操作流程，搭配 OWASP ZAP 進行動態滲透掃描。
+6.  **6. Production & Observability 部署自癒門檻**：透過金絲雀 (Canary) 或藍綠部署平滑發布，並由可觀測性 (Observability) 系統即時監控 P99 延遲與異常告警。
 
 ---
 
