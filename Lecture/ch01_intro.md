@@ -316,52 +316,75 @@ $$\begin{aligned}
 
 ## 1.5 現代軟體品質模型 (ISO 9126 $\rightarrow$ ISO 25010)
 
-每一個產業都有各自的品質模型。對於軟體系統而言，國際標準組織制定了著名的品質模型體系：
+每一個產業都有其獨特的品質模型。例如製造簡易塑膠椅的廠商不會將「可維修性」列為核心品質指標，椅子壞了直接丟棄換新即可；但汽車產業就必須將「可維護性 (Maintainability)」與「安全性 (Safety)」置於最高優先級。
 
-![](../img/ch01/BJFQmsH03.png)
+<img src="../img/ch01/gemini_nb/product_quality_models_comparison.jpg" width="650">
 
-👉 不同物品的品質特性各有不同
+**圖形解說：不同產業與物品具備截然不同的品質模型**
+1.  **汽車產業 (Automobile)**：優先著重於 **安全性 (Safety)**、**可維護性 (Maintainability)** 與 **抗損耐用度 (Repairability)**。
+2.  **精品機械錶 (Luxury Mechanical Watch)**：優先著重於 **走時精確度 (Precision)**、**工藝品質 (Craftsmanship)** 與 **超自然美感 (Transcendental Elegance)**。
+3.  **速食餐廳 (Fast Food Restaurant)**：優先著重於 **出餐速度 (Speed)**、**口味一致性 (Consistency)** 與 **性價比 (Value)**。
+4.  **軟體系統 (Software Systems)**：優先著重於 **高併發擴充性 (Scalability)**、**資訊安全 (Security)**、**跨平台移植性 (Portability)** 與 **容錯自癒力 (Fault Tolerance)**。
 
-### 1.5.1 從 ISO 9126 到 ISO 25010 (SQuaRE)
+---
 
-早期 **ISO 9126** 定義了 6 大品質特性；現代 **ISO 25010 (SQuaRE, 軟體產品品質要求與評估標準)** 將其擴展為 **8 大產品品質特性 (Product Quality)** 與 **5 大使用品質 (Quality in Use)**：
+### 1.5.1 ISO 25010 八大產品品質特性 (Product Quality Characteristics)
 
-```mermaid
-mindmap
-  root((ISO 25010 軟體品質))
-    Functional Suitability 功能適合性
-      完備性 Completeness
-      正確性 Correctness
-      適切性 Appropriateness
-    Reliability 可靠性
-      成熟度 Maturity
-      容錯度 Fault tolerance
-      可回復性 Recoverability
-    Performance Efficiency 效能效率
-      時間行為 Time behavior
-      資源利用率 Resource utilization
-      容量 Capacity
-    Usability 易用性
-      易學習性 Learnability
-      易操作性 Operability
-      錯誤防護 User error protection
-    Security 安全性
-      機密性 Confidentiality
-      完整性 Integrity
-      抗抵賴性 Non-repudiation
-    Maintainability 可維護性
-      模組化 Modularity
-      可分析性 Analyzability
-      可修改性 Modifiability
-      可測試性 Testability
-    Portability 可移植性
-      適應性 Adaptability
-      易安裝性 Installability
-      易置換性 Replaceability
-    Compatibility 相容性
-      共存性 Co-existence
-      互通性 Interoperability
-```
+國際標準組織早期制定了 **ISO 9126**（定義 6 大特性）；現代 **ISO 25010 (SQuaRE, 軟體產品品質要求與評估標準)** 進一步擴展為 **8 大產品品質特性 (Product Quality)**：
+
+<img src="../img/ch01/gemini_nb/iso25010_eight_characteristics.jpg" width="650">
+
+**圖形解說：ISO 25010 八大產品品質特性（第一層核心維度）**
+
+#### 1. 功能適合性 (Functional Suitability)
+系統所提供的功能是否滿足明訂與隱含的業務需求：
+*   **功能完備性 (Completeness)**：功能涵蓋了所有指定的任務與使用者目標。
+*   **功能正確性 (Correctness / Accurateness)**：系統產出精確無誤的結果（例如：ATM 提款功能不僅能吐鈔，且扣款金額與吐鈔張數必須分毫不差）。
+*   **功能適切性 (Appropriateness / Suitability)**：功能是否符合軟體本質定位（例如：一款純文字 Markdown 筆記軟體若強行塞入線上聊天與直播功能，即違反適切性）。
+
+#### 2. 可靠性 (Reliability)
+系統在特定條件與時限內維持指定效能水準的能力：
+*   **成熟度 (Maturity)**：在正常運作下避免發生故障的能力（低故障率）。
+*   **容錯度 (Fault Tolerance)**：當面對非法輸入、硬體異常或網路抖動時，系統依然能正常運作而不崩潰（例如：接收到畸形 JSON 時拋出友好提示而非直接當機）。
+*   **可回復性 (Recoverability)**：發生故障中斷後，重新建立服務並復原受影響資料的能力（例如：資料庫當機重啟後透過 WAL 日誌在秒級內回復資料一致性）。
+
+#### 3. 效能效率 (Performance Efficiency)
+系統在特定條件下所展現的效能與資源消耗比例：
+*   **時間行為 (Time Behavior)**：系統處理請求的反應時間、延遲與吞吐量（例如：API P99 響應時間 < 200ms）。
+*   **資源利用率 (Resource Utilization)**：執行時所消耗的 CPU、記憶體、硬碟 I/O 與網路頻寬數量。
+*   **容量 (Capacity)**：系統能支援的最大並發連線數或資料儲存上限。
+
+#### 4. 易用性 (Usability)
+使用者學習、操作與喜愛該系統的容易程度：
+*   **易識別性 (Appropriateness Recognizability)**：使用者能否一眼看出該軟體是否符合其需求。
+*   **易學習性 (Learnability)**：新手使用者需要多少時間才能熟練掌握基本操作。
+*   **易操作性 (Operability)**：系統控制與操作是否直覺、流暢。
+*   **使用者錯誤防護 (User Error Protection)**：在使用者進行高危險操作前給予警告或確認（例如：格式化磁碟前跳出二次確認視窗）。
+
+#### 5. 安全性 (Security)
+系統保護資訊與資料免受惡意攻擊與未授權存取的能力：
+*   **機密性 (Confidentiality)**：確保只有獲得授權的人員能存取敏感資料（如密碼加鹽雜湊存儲、傳輸全面 HTTPS 加密）。
+*   **完整性 (Integrity)**：防止未授權的修改或竄改。
+*   **抗抵賴性 (Non-repudiation)**：能證明特定動作或交易確實由特定人員發起（如數位簽章與不可篡改的稽核日誌）。
+*   **真實性 (Authenticity)** 與 **授權能力 (Accountability)**。
+
+#### 6. 可維護性 (Maintainability)
+工程團隊修改、優化、修復或調適軟體的有效性與效率：
+*   **模組化 (Modularity)**：軟體由相對獨立的模組構成，修改單一模組不會對其他模組造成不可預期的連鎖破壞。
+*   **可分析性 (Analyzability)**：診斷軟體缺陷或評估修改影響的難易程度（例如：具備良好的結構化 Logging 與分散式追蹤 Tracing）。
+*   **可修改性 (Modifiability)**：在不降低整體品質的前提下修改程式碼的難易度。
+*   **可測試性 (Testability)**：為軟體建立測試並執行驗證的難易程度（高內聚低耦合的架構具備極高的可測試性）。
+
+#### 7. 可移植性 (Portability)
+系統從一個硬體、軟體或作業環境轉移至另一環境的適應能力：
+*   **適應性 (Adaptability)**：在無需進行額外開發下適應不同作業系統或雲端平台的能力。
+*   **易安裝性 (Installability)**：在指定環境下成功部署並運行的簡易度。
+*   **易置換性 (Replaceability)**：在相同環境下替換同類軟體產品的能力（例如：使用 Docker 容器與 Testcontainers 實現開發機、CI 伺服器與生產環境的 100% 一致性）。
+
+#### 8. 相容性 (Compatibility)
+系統與其他軟體產品在共享硬體或網路環境時的共處與互動能力：
+*   **共存性 (Co-existence)**：與其他獨立軟體共享公共資源（如記憶體、通訊埠）而互不干擾。
+*   **互通性 (Interoperability)**：透過標準協定或 API（如 REST / GraphQL / LDAP）與外部系統順暢交換資訊並協同作業。
 
 ---
 
