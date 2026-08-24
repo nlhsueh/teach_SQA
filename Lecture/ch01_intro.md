@@ -16,8 +16,6 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 在 1991 年 2 月波斯灣戰爭中，一枚伊拉克發射的飛毛腿飛彈擊中美軍沙烏地達蘭基地，造成 **28 名美軍死亡、100 多人受傷**。
 
-<img src="../img/ch01/HkUgfsBRn.png" width="300">
-
 * **致命軟體缺陷**：愛國者系統時鐘暫存器採用 **24-bit 浮點數** 設計，將時間轉換為 0.1 秒單位時產生了微小的截斷誤差（約 $0.000000095$ 秒）。
 * **災難放大**：雷達系統連續開機運作超過 **100 小時** 未重啟，微小的精度誤差累計達 **0.33 秒**。
 * **致命後果**：飛毛腿飛彈速度達 4.2 馬赫（1.5 km/s），0.33 秒相當於 **600 公尺距離偏差**。雷達搜尋窗無法鎖定目標，攔截飛彈根本沒有發射。
@@ -29,15 +27,14 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 1998 年 NASA 發射「火星氣候軌道探測器」（Mars Climate Orbiter，造價近 2 億美元），抵達火星後失聯焚毀。
 
-<img src="../img/ch01/ByBqT9KRn.png" width="650">
+<img src="../img/ch01/gemini_nb/mars_climate_orbiter_unit_mismatch.jpg" width="650">
 
-👉 Mars Climate Orbiter crash in 1998
-
-* **致命軟體缺陷**：兩個合作研發團隊使用了不同的度量單位：
-  * 洛克希德馬丁（承包商）：**英制單位**（磅力·秒，$\text{lbf}\cdot\text{s}$）
-  * NASA 噴射推進實驗室 (JPL)：**公制單位**（牛頓·秒，$\text{N}\cdot\text{s}$）
-* **災難後果**：地面控制軟體未做單位轉換直接計算推力，導致探測器軌道高度從預計的 140 公里降至 **57 公里**，直接在火星大氣層中摩擦解體焚毀。
-* **SQA 啟示**：**跨模組介面契約（Interface Contract）**、型態安全與規格檢視的重要性。
+**圖形解說：跨模組介面契約斷裂導致太空船墜毀**
+*   **【左側】承包商軟體端（洛克希德馬丁）**：地面控制程式以 **英制單位（磅力·秒，$\text{lbf}\cdot\text{s}$）** 輸出推進器衝量數據。
+*   **【中間】介面契約斷裂 (Interface Contract Breakdown)**：兩端系統缺乏嚴謹的介面型態定義與自動化單位轉換機制。
+*   **【右側】NASA JPL 導航接收端**：太空船導航軟體預設以 **公制單位（牛頓·秒，$\text{N}\cdot\text{s}$）** 解析輸入數據，導致推力計算出現 $4.45$ 倍的嚴重偏差。
+*   **災難後果**：軌道高度預計 140 公里，實際暴跌至 **57 公里**，直接在火星大氣層中摩擦燃燒解體。
+*   **SQA 啟示**：**跨模組介面契約（Interface Contract）**、強型態檢驗與規格審查的重要性。
 
 ---
 
@@ -45,11 +42,13 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 1994 年 4 月 26 日，華航 CI140 班機（空中巴士 A300-622R）在名古屋機場降落時墜毀，**264 人罹難**。
 
-<img src="https://attach.setn.com/newsimages/2021/04/26/3128315-PH.jpg" width="650">
+<img src="../img/ch01/gemini_nb/nagoya_air_crash_hmi_conflict.jpg" width="650">
 
-* **致命軟體缺陷**：副駕駛進場時誤觸「重飛（Go-Around）」模式；駕駛員隨後試圖手動強壓機首下降，但機載飛控電腦因處於自動重飛模式，強行將水平安定面向上配平以抬高機首。
-* **災難後果**：**電腦與機師互相爭奪控制權**，飛機仰角過大失速墜毀。空巴隨後發出維修指令，全面修改飛控軟體邏輯。
-* **SQA 啟示**：人機互動（HMI/UX）狀態透明度、異常操作回饋與自動化控制權限優先級設計。
+**圖形解說：人機介面衝突 (HMI Mode Confusion) 與控制權仲裁缺失**
+*   **【左側】機師手動操作 (Manual Push)**：副駕駛誤觸「重飛（Go-Around / TOGA）」模式後，正副駕駛試圖手動前推操縱桿（Down Elevators）強壓機首下降以利降落。
+*   **【右側】飛控電腦自動配平 (Autopilot Automatic Climb)**：機載飛控電腦因處於「自動重飛」模式，強行將水平安定面（Horizontal Stabilizer）向上配平以抬高機首爬升。
+*   **【中央衝突】模式混淆與控制權爭奪 (Control Fight)**：駕駛員未察覺電腦仍在執行重飛指令，人機力量相互抵消；最終水平安定面達到極限仰角，飛機在低空發生**氣動失速 (Aerodynamic Stall)** 墜毀。
+*   **SQA 啟示**：人機互動（HMI/UX）狀態透明度、異常操作回饋與自動化控制權限仲裁設計。
 
 ---
 
