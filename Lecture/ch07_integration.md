@@ -75,11 +75,11 @@ public testIsPrime() {
 以上圖為例，若我們採取由下往上的測試方式，其測試流程如下：
 
  
-- 分別以 $b$, $c$, $a$ 等 driver 測試 E, F, G, D 是否功能正常。$b$ 模擬 B 測試 E-F 之間的間接的互動是否符合預期。
-- 用 B 替換 $b$, 利用 driver $a$ 測試 B-E-F 溝通是否正常。
-- 用 C 替換 $c$, 利用 driver $a$ 測試  B-C 溝通是否正常。
-- 用 D 替換 $d$, 利用 driver $a$ 測試  B-C-D 溝通是否正常。
-- 用 A 替換 $a$, 利用 driver $x$ 測試 A-B, A-C, A-D 溝通是否正常。。
+- 分別以 `b`, `c`, `a` 等 driver 測試 E, F, G, D 是否功能正常。`b` 模擬 B 測試 E-F 之間的間接的互動是否符合預期。
+- 用 B 替換 `b`, 利用 driver `a` 測試 B-E-F 溝通是否正常。
+- 用 C 替換 `c`, 利用 driver `a` 測試  B-C 溝通是否正常。
+- 用 D 替換 `d`, 利用 driver `a` 測試  B-C-D 溝通是否正常。
+- 用 A 替換 `a`, 利用 driver `x` 測試 A-B, A-C, A-D 溝通是否正常。。
 
 
 > 由下而上的整合測試，關鍵點在於設計「測試驅動程式」（test driver）
@@ -129,11 +129,11 @@ int[] getPrimeNumber(int x) {
 以 [fig-top-down](#fig-top-down) 為例，若我們採取由上往下的測試方式，其測試流程如下：
 
  
-- 開發 A 模組時採用 $b$, $c$, $d$ 等 Stub
+- 開發 A 模組時採用 `b`, `c`, `d` 等 Stub
 - 測試 A 模組是否正常
-- 用 B, C, D 取代 $b$, $c$, $d$，測試 A, B, C, D 整合起來是否正常
-- 用 E, F 取代 $e$, $f$，測試 A, B, C, D E, F 整合起來是否正常
-- 用 G 取代 $g$, 測試 A, B, C, D E, F, G 整合起來是否正常
+- 用 B, C, D 取代 `b`, `c`, `d`，測試 A, B, C, D 整合起來是否正常
+- 用 E, F 取代 `e`, `f`，測試 A, B, C, D E, F 整合起來是否正常
+- 用 G 取代 `g`, 測試 A, B, C, D E, F, G 整合起來是否正常
 
 #### fig-top-down
 ![image](../img/ch07/Sye8GJrVT.png)

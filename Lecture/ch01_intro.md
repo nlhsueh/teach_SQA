@@ -16,7 +16,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 在 1991 年 2 月波斯灣戰爭中，一枚伊拉克發射的飛毛腿飛彈擊中美軍沙烏地達蘭基地，造成 **28 名美軍死亡、100 多人受傷**。
 
-* **致命軟體缺陷**：愛國者系統時鐘暫存器採用 **24-bit 浮點數** 設計，將時間轉換為 0.1 秒單位時產生了微小的截斷誤差（約 $0.000000095$ 秒）。
+* **致命軟體缺陷**：愛國者系統時鐘暫存器採用 **24-bit 浮點數** 設計，將時間轉換為 0.1 秒單位時產生了微小的截斷誤差（約 0.000000095 秒）。
 * **災難放大**：雷達系統連續開機運作超過 **100 小時** 未重啟，微小的精度誤差累計達 **0.33 秒**。
 * **致命後果**：飛毛腿飛彈速度達 4.2 馬赫（1.5 km/s），0.33 秒相當於 **600 公尺距離偏差**。雷達搜尋窗無法鎖定目標，攔截飛彈根本沒有發射。
 * **SQA 啟示**：數值精度問題、浮點數累計誤差，以及**長時運行可靠度測試（Long-term Stress/Reliability Testing）**的重要性。
@@ -30,9 +30,9 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 <img src="../img/ch01/gemini_nb/mars_climate_orbiter_unit_mismatch.jpg" width="650">
 
 **圖形解說：跨模組介面契約斷裂導致太空船墜毀**
-*   **【左側】承包商軟體端（洛克希德馬丁）**：地面控制程式以 **英制單位（磅力·秒，$\text{lbf}\cdot\text{s}$）** 輸出推進器衝量數據。
+*   **【左側】承包商軟體端（洛克希德馬丁）**：地面控制程式以 **英制單位（磅力·秒，lbf·s）** 輸出推進器衝量數據。
 *   **【中間】介面契約斷裂 (Interface Contract Breakdown)**：兩端系統缺乏嚴謹的介面型態定義與自動化單位轉換機制。
-*   **【右側】NASA JPL 導航接收端**：太空船導航軟體預設以 **公制單位（牛頓·秒，$\text{N}\cdot\text{s}$）** 解析輸入數據，導致推力計算出現 $4.45$ 倍的嚴重偏差。
+*   **【右側】NASA JPL 導航接收端**：太空船導航軟體預設以 **公制單位（牛頓·秒，N·s）** 解析輸入數據，導致推力計算出現 4.45 倍的嚴重偏差。
 *   **災難後果**：軌道高度預計 140 公里，實際暴跌至 **57 公里**，直接在火星大氣層中摩擦燃燒解體。
 *   **SQA 啟示**：**跨模組介面契約（Interface Contract）**、強型態檢驗與規格審查的重要性。
 
@@ -108,7 +108,7 @@ System.out.println("最終餘額：" + walletService.getBalance());
 ```
 
 **執行結果：**
-$$\text{最終餘額：} -3200.0 \quad \text{（帳戶原本只有 \$1000，居然被提走了 \$4200，嚴重超賣負債！）}$$
+> ⚠️ **最終餘額：-3200.0**（帳戶原本只有 $1000，居然被提走了 $4200，嚴重超賣負債！）
 
 > 💥 **震撼反思**：
 > 1. **AI 不會主動為你考慮並發安全性與狀態不變量（Invariants）**：AI 只根據常見的程式片段生成了順序執行程式碼，缺乏對執行緒安全（Thread-safety）的原子性保護。
@@ -246,10 +246,8 @@ D) 超自然觀點 (Transcendental View)
 
 軟體測試與品質保證的靈魂大問：
 
-$$\begin{aligned}
-\textbf{Verification (驗證)} &: \text{Are we building the product \textbf{right}? （我們是否有正確地建造軟體？）} \\
-\textbf{Validation (確認)} &: \text{Are we building the \textbf{right} product? （我們建造的是否是正確的軟體？）}
-\end{aligned}$$
+> 🔍 **Verification (驗證)**：*Are we building the product **right**?*（我們是否有正確地建造軟體？）  
+> 🎯 **Validation (確認)**：*Are we building the **right** product?*（我們建造的是否是正確的軟體？）
 
 * **Verification (驗證)**：確保軟體產出物符合上個階段設定的規格（檢視程式碼是否符合設計圖、單元測試是否符合規格）。
 * **Validation (確認)**：確保軟體真正滿足使用者的真實業務需求（驗收測試、易用性測試、現場 Beta 測試）。
@@ -313,7 +311,7 @@ $$\begin{aligned}
 
 ---
 
-## 1.5 現代軟體品質模型 (ISO 9126 $\rightarrow$ ISO 25010)
+## 1.5 現代軟體品質模型 (ISO 9126 → ISO 25010)
 
 每一個產業都有其獨特的品質模型。例如製造簡易塑膠椅的廠商不會將「可維修性」列為核心品質指標，椅子壞了直接丟棄換新即可；但汽車產業就必須將「可維護性 (Maintainability)」與「安全性 (Safety)」置於最高優先級。
 

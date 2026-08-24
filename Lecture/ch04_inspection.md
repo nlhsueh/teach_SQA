@@ -522,7 +522,7 @@ float oOooo, ooOoo, oooOo
 - *冗員類別 Lazy Class*：沒什麼功能的類別。
 - *不實用的一般性 Speculative Generality*: 預留的太多不實用的擴充點。為了滿足「擴充性上的彈性」，我們常常會把程式寫的複雜些 可以看看 design pattern 的書，但是仔細想一想，是不是這些擴充真的需要？還是為了設計而設計。
 - *暫時欄位 Temporary Field*: 有一些暫時欄位只對某些特殊的方法或特殊時機才會用到，令人難以了解他的意義。例如為了不想傳太多參數就把某些值以 instance variable 的方式寫在類別內。
-- *過度的訊息串 Message Chains*：$a.getB().getC().getD()$ ... 當訊息串過長時可能是功能封裝的有問題，可能要考慮直接的訊息傳遞。
+- *過度的訊息串 Message Chains*：`a.getB().getC().getD()` ... 當訊息串過長時可能是功能封裝的有問題，可能要考慮直接的訊息傳遞。
 - *過度的中間人 Middle Man*：太多的方法都是透過委託來進行，該類別的方法封裝要考慮改寫。
 - *狎暱關係 Inappropriate Intimacy*：類別間的過於親密的屬性存取，可以考慮分開來以 delegation 的方式來進行。例如不適當的宣告子類別，讓子類別任意存取父類別的資料。
 
