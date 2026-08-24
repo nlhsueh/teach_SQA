@@ -211,97 +211,16 @@ Record and replay tool
 * [Rapi recorder](https://github.com/RapiTest/rapi)
 
 
-## 8.3 真實環境整合測試與 API 測試
+## 8.3 微服務契約測試與現代 E2E 測試
 
-在進行 API 或資料存取層的整合測試時，過去開發者常使用 H2 或 SQLite 等記憶體資料庫 (In-Memory Database) 來進行測試。然而，這種做法在現代軟體工程中已被視為一種反模式。
+在完成模組與資料庫層級的整合測試（詳見 [第 7 章 整合測試](ch07_integration.md)）之後，當系統架構走向微服務 (Microservices) 或前後端分離時，系統測試的焦點從「單一系統的行為」提升為「服務與服務之間的合約相容性」以及「端到端 (End-to-End, E2E) 的完整使用者旅程驗證」。
 
-### 8.3.1 記憶體資料庫的幻覺
-
-記憶體資料庫雖然啟動速度極快（毫秒級），但它會帶給開發者「測試通過」的虛假安全感：
-1.  **資料庫方言與語法差異**：H2 的 SQL 語法與真實的 PostgreSQL / MySQL 並非完全相容。當使用特定資料庫的進階功能（如 PostgreSQL 的 `JSONB` 欄位、視圖、預存程序或複雜的視窗函數）時，H2 測試通常會報錯或無法模擬。
-2.  **併發與鎖定行為不同**：H2 的併發讀寫鎖定機制與真實資料庫完全不同，這會導致許多在開發環境測試通過的程式碼，在生產環境併發量高時直接當機。
-
-### 8.3.2 Testcontainers 簡介
-
-為了消除「記憶體資料庫的幻覺」，我們應該在測試中使用**與生產環境完全一致的真實資料庫**。[**Testcontainers**](https://testcontainers.com/) 是一個主流的 Java 開源測試庫（[官方文件](https://java.testcontainers.org/) ｜ [快速指南 Guides](https://testcontainers.com/guides/)），它利用 Docker 在測試啟動時，動態拉起真實的 PostgreSQL、Redis、MongoDB 或 Kafka 容器。
-
-```mermaid
-graph TD
-    subgraph TestProcess["JVM 測試進程 (JUnit 5 + Spring Boot)"]
-        Test["整合測試案例<br>(@Testcontainers)"]
-        Props["動態連線注入<br>(@DynamicPropertySource)"]
-    end
-
-    subgraph DockerHost["Docker 容器環境 (Docker Daemon)"]
-        Ryuk["Ryuk 清理守護容器<br>(自動回收銷毀)"]
-        
-        subgraph RealContainers["拋棄式真實服務容器"]
-            Postgres["🐘 PostgreSQL 容器<br>(隨機 Port: 54321 -> 5432)"]
-            Redis["⚡ Redis / Kafka 容器<br>(隨機 Port: 63790 -> 6379)"]
-        end
-    end
-
-    Test -->|1. 發送啟動請求| Ryuk
-    Ryuk -->|2. 動態拉起| RealContainers
-    RealContainers -.->|3. 回傳動態 JDBC URL / Port| Props
-    Test ==>|4. 執行真實 SQL 查詢與並發交易驗證| Postgres
-    Test -.->|5. 測試結束自動終結清理| Ryuk
-```
-
-Testcontainers 的核心特點包括：
-*   **拋棄式容器 (Disposable Containers)**：測試開始時自動啟動 Docker 容器，測試結束時自動銷毀，不殘留任何髒資料、不污染開發環境。
-*   **隨機動態 Port 映射**：容器啟動時會綁定到 Docker 主機的隨機 Port，避免測試在 CI/CD 伺服器上併發執行時產生 Port 佔用衝突。
-*   **環境一致性 (Environment Parity)**：在本地端、CI 伺服器與生產環境皆運行相同的 Docker 官方鏡像，徹底解決「在我電腦上是好的」難題。
-
-### 8.3.3 API 整合測試實務
-
-在 Spring Boot 中，我們可以結合 `Testcontainers` 進行資料庫整合測試。以下是一個使用 `@Container` 註解動態拉起真實 PostgreSQL 的測試設定範例：
-
-```java
-@SpringBootTest
-@Testcontainers
-@AutoConfigureMockMvc
-public class UserApiIntegrationTest {
-
-    // 動態啟動 PostgreSQL 容器
-    @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
-
-    // 將容器的隨機 Port 動態註冊到 Spring 資料庫配置中
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-    }
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    void testCreateUser() throws Exception {
-        String userJson = "{\"username\": \"alex\", \"email\": \"alex@example.com\"}";
-        
-        mockMvc.perform(post("/api/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(userJson))
-                .andExpect(status().isCreated());
-    }
-}
-```
-
-> 🛠️ **對應實習手冊**：詳細的 Testcontainers + Spring Boot + PostgreSQL/Redis 實戰演練與 Docker 環境配置，請參考 [**Lab 10：Testcontainers 真實容器化整合測試**](../Lab/u07_integration/testcontainers_spring.md)。
-
-## 8.4 微服務契約測試與現代 E2E 測試
-
-當系統架構走向微服務 (Microservices) 或分散式架構時，系統測試的焦點從「單一系統的行為」轉變為「服務與服務之間的合約相容性」以及「端到端 (End-to-End) 的完整使用者旅程驗證」。
-
-### 8.4.1 分散式系統與微服務 API 挑戰
+### 8.3.1 分散式系統與微服務 API 挑戰
 
 在微服務中，API 的變更極易引發服務中斷。例如，消費者 (Consumer) 服務依賴提供者 (Provider) 服務提供的 `/api/user/{id}` 介面。如果提供者在未告知的情況下修改了欄位名稱或刪除了某個欄位，消費者在呼叫時就會直接崩潰。
 為了避免這種狀況，我們通常採取兩種防禦手段：**契約測試 (Contract Testing)** 與 **現代化 E2E 測試**。
 
-### 8.4.2 契約測試與 Pact
+### 8.3.2 契約測試與 Pact
 
 **契約測試**是一種用來驗證兩個獨立服務（例如前端與後端，或微服務 A 與微服務 B）之間的 API 溝通協定是否吻合的測試方法。其中最主流的框架為 **Pact**。
 
@@ -311,7 +230,7 @@ public class UserApiIntegrationTest {
     3.  **Provider 驗證**：Provider 啟動測試，從 Pact Broker 下載契約文件，並對自身的真實控制層發送請求，驗證自身輸出的 JSON 格式是否完全符合 Consumer 的期待。
 *   *優點*：不需要啟動雙方的真實服務進行即時對接，即可在 CI 流程中攔截任何破壞性的 API 變更 (Breaking Changes)。
 
-### 8.4.3 現代 E2E 測試與 Playwright
+### 8.3.3 現代 E2E 測試與 Playwright
 
 當我們需要驗證整個系統「從前端 UI 一路到底層資料庫」的完整業務流時，我們需要撰寫端到端 (E2E) 測試。
 過去開發者多使用 Selenium。然而，Selenium 存在著瀏覽器啟動慢、測試易不穩定 (Flaky Tests)、以及非同步等待處理困難等問題。
@@ -321,27 +240,48 @@ public class UserApiIntegrationTest {
 2.  **抗網路波動與 Mocking**：支援在測試中攔截並模擬 HTTP/HTTPS 請求，允許在 E2E 測試中 mock 部分緩慢或不穩定的外部 API。
 3.  **強大的工具鏈 (Trace Viewer)**：提供測試錄影、截圖與 Trace 檢視器，當 CI 測試失敗時，可以直接回放測試執行的每一幀 (Frame)並查看 DOM 狀態與網絡請求。
 
-```javascript
-// Playwright E2E 測試範例 (JavaScript)
-const { test, expect } = require('@playwright/test');
+```java
+// Playwright E2E 測試範例 (Java)
+package lab.sqa.e2e;
 
-test('使用者應能成功登入並查看儀表板', async ({ page }) => {
-  // 1. 導向登入頁
-  await page.goto('http://localhost:3000/login');
+import com.microsoft.playwright.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-  // 2. 輸入帳密 (自動等待輸入框就緒)
-  await page.fill('#username', 'testuser');
-  await page.fill('#password', 'password123');
+public class WebLoginE2ETest {
+    static Playwright playwright;
+    static Browser browser;
 
-  // 3. 點擊登入
-  await page.click('#login-button');
+    @BeforeAll
+    static void setUp() {
+        playwright = Playwright.create();
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+    }
 
-  // 4. 驗證登入成功後的 DOM 狀態
-  await expect(page.locator('#dashboard-welcome')).toHaveText('歡迎回來，testuser');
-});
+    @Test
+    void testUserLogin() {
+        BrowserContext context = browser.newContext();
+        Page page = context.newPage();
+        
+        // 1. 導向登入頁
+        page.navigate("http://localhost:8080/login");
+
+        // 2. 輸入帳密 (自動等待輸入框就緒)
+        page.fill("#username", "alice");
+        page.fill("#password", "password123");
+
+        // 3. 點擊登入
+        page.click("#login-button");
+
+        // 4. 驗證登入成功後的歡迎文字
+        assertEquals("歡迎回來，alice", page.textContent("#welcome-banner"));
+    }
+}
 ```
 
-## 8.5 可用性測試
+> 🛠️ **對應實習手冊**：詳細的 Pact 契約測試與 Playwright 現代化 Web E2E 測試實務，請參考 [**Lab 11：微服務契約測試 (Pact) ＆ 現代 Playwright E2E 自動化**](../Lab/u08_contract_e2e/pact_and_playwright.md)。
+
+## 8.4 可用性測試
 
 拿出你的 iphone 手機，操作 77-38.5, 看看答案是多少？疑，是 0? 你能說明為什麼嗎？
 

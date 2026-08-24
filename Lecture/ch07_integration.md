@@ -663,9 +663,105 @@ public class PrimeIntegrationTest {
 | **`@SpringBootTest`**<br>(載入所有真實 Beans) | **由下而上 (Bottom-Up) / 大霹靂 (Big-Bang) 整合** | 本測試使用了**真實**的 `PrimeService` 與 `PrimeController`。我們是先確保底層的質數判斷演算法正確後，再將其與上層的 Web 控制器整合起來測試。這符合自底向上整合真實模組的思維。 |
 | **`@WebMvcTest` + `@MockBean`**<br>(僅載入 Web 層並 Mock 服務層) | **由上而下 (Top-Down) 整合** | 如果我們只想單獨測試 `PrimeController` 的 URL 路由與 JSON 驗證，而不想調用真實的 `PrimeService`（例如底層演算法尚未開發），我們會使用 `@MockBean` 來 Mock 服務層。這正是由上而下測試：先測試高階 Web 模組，並用 **Stub/Mock (測試替身)** 來代替低階模組。 |
 | **`MockMvc`** | **Fake Object (偽物件 / 模擬環境)** | 真實運行環境需要啟動 Web 伺服器並監聽 Port。`MockMvc` 則是 Servlet 容器 of **Fake**，它在記憶體中模擬了整個 Web 請求與回應的生命週期，不佔用實體網路埠，兼顧了執行速度與整合真實度。 |
-| **`ObjectMapper`** | **介面整合驗證 (Interface Integration)** | 整合測試的核心在於「介面是否對接正確」。`ObjectMapper` 自動將前端傳來的 JSON 字串轉換為 Java 的 `PrimeRequest` 物件。如果前端與後端協定的欄位名稱不符（介面不相容），測試便會失敗，這正是整合測試要攔截的錯誤。 |
+## 7.8 現代真實環境整合測試：Testcontainers (Modern Integration Testing with Testcontainers)
 
-## 7.8 練習 (Exercises)
+在傳統的 Spring Boot 整合測試中，當測試需要與資料庫互動時，開發者常使用 H2 或 SQLite 等**記憶體資料庫 (In-Memory Database)**。然而，在現代雲原生與微服務架構中，這種做法已被視為一種危險的反模式。
+
+### 7.8.1 記憶體資料庫的「假綠燈幻覺」
+
+記憶體資料庫雖然啟動極快，但存在致命盲點：
+1. **SQL 方言與特有型態不相容**：H2 無法完全支援真實 PostgreSQL / MySQL 的進階功能（如 PostgreSQL 的 `JSONB` 欄位、全文檢索、Window Functions、自訂預存程序）。
+2. **交易隔離與並發鎖定機制差異**：H2 無法重現真實資料庫的並發鎖定、死結 (Deadlock) 與隔離等級（`READ COMMITTED`, `REPEATABLE READ`），導致「本機測試全綠，上線並發存取時資料庫死結崩潰」。
+
+### 7.8.2 Testcontainers 運作原理與架構
+
+為了消除環境差異帶來的幻覺，現代整合測試提倡**「環境一致性 (Environment Parity)」**——在測試中直接運行與生產環境版本完全相同的真實 Docker 容器！
+
+[**Testcontainers**](https://testcontainers.com/)（[官方文件](https://java.testcontainers.org/) ｜ [快速指南 Guides](https://testcontainers.com/guides/)）是目前 Java 整合測試的黃金標準：
+
+```mermaid
+graph TD
+    subgraph TestProcess["JVM 測試進程 (JUnit 5 + Spring Boot)"]
+        Test["整合測試案例<br>(@Testcontainers)"]
+        Props["動態連線注入<br>(@DynamicPropertySource)"]
+    end
+
+    subgraph DockerHost["Docker 容器環境 (Docker Daemon)"]
+        Ryuk["Ryuk 清理守護容器<br>(自動回收銷毀)"]
+        
+        subgraph RealContainers["拋棄式真實服務容器"]
+            Postgres["🐘 PostgreSQL 容器<br>(隨機 Port: 54321 -> 5432)"]
+            Redis["⚡ Redis / Kafka 容器<br>(隨機 Port: 63790 -> 6379)"]
+        end
+    end
+
+    Test -->|1. 發送啟動請求| Ryuk
+    Ryuk -->|2. 動態拉起| RealContainers
+    RealContainers -.->|3. 回傳動態 JDBC URL / Port| Props
+    Test ==>|4. 執行真實 SQL 查詢與並發交易驗證| Postgres
+    Test -.->|5. 測試結束自動終結清理| Ryuk
+```
+
+#### Testcontainers 的三大核心優勢：
+* **拋棄式容器 (Disposable Containers)**：測試開始時由守護程序（Ryuk）自動拉起 Docker 容器，測試完畢自動銷毀，不殘留任何髒資料。
+* **隨機動態 Port 映射**：容器自動綁定到宿主機隨機 Port，徹底避免 CI/CD 伺服器並發測試時的 Port 衝突。
+* **100% 真實度**：測試通過即保證在生產環境能正常執行原生 SQL 與交易。
+
+### 7.8.3 Spring Boot + Testcontainers 實戰範例
+
+```java
+package lab.sqa.integration;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@Testcontainers // 自動管理 Docker 容器生命週期
+public class UserRepositoryIntegrationTest {
+
+    // 1. 定義真實 PostgreSQL 16 官方容器
+    @Container
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
+            .withDatabaseName("sqa_test_db")
+            .withUsername("test_user")
+            .withPassword("test_password");
+
+    // 2. 將容器動態分配的 Port 與連線 URL 注入到 Spring Boot 資料來源
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    void testSaveAndQueryWithNativeJsonb() {
+        User user = new User("Alice", "alice@example.com", "{\"role\": \"ADMIN\"}");
+        userRepository.save(user);
+
+        User found = userRepository.findByEmail("alice@example.com").orElse(null);
+        assertNotNull(found);
+        assertEquals("Alice", found.getName());
+    }
+}
+```
+
+> 🛠️ **對應實習手冊**：詳細的 Testcontainers + Spring Boot + PostgreSQL 實戰演練，請參考 [**Lab 10：Testcontainers 真實容器化整合測試**](../Lab/u07_integration/testcontainers_spring.md)。
+
+---
+
+## 7.9 練習 (Exercises)
 
 - 以下何者正確？（選二）
 	
