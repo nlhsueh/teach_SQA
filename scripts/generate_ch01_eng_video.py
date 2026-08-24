@@ -9,11 +9,11 @@ import re
 
 # English Slide Voiceover Scripts
 SCRIPTS = {
-    1: "Hello everyone, and welcome to the course on Software Quality Assurance. Today, we will introduce Chapter 1: Introduction and Software Quality Concepts, to help you build a core understanding of software quality engineering.",
+    1: "Hello everyone, and... well... welcome to the course on Software Quality Assurance. Today, we'll introduce Chapter 1: Introduction and Software Quality Concepts, to help you... uh... build a core understanding of software quality engineering.",
     
-    2: "First, let's look at the chapter highlights. In the first section, we will explore the Software Crisis through major historical cases. In the second section, we will define software quality and discuss Garvin's five quality views. In the third section, we will study quality models like ISO 9126 and the modern ISO 25010. Finally, in the fourth section, we will clarify Quality Control, Quality Assurance, and the Cost of Quality.",
+    2: "First, let's look at the chapter highlights. In the first section, we'll explore the Software Crisis through some major historical cases. In the second section, we'll define software quality and discuss Garvin's five quality views. In the third section, we will study quality models... like ISO 9126 and the modern ISO 25010. And finally, in the fourth section, we'll clarify Quality Control, QA, and the Cost of Quality.",
     
-    3: "Now, let's enter Section 1.1: The Software Crisis. We all know the law of conservation of matter in physics, but in the software industry, engineers often joke about the law of conservation of bugs.",
+    3: "Now, let's enter Section 1.1: The Software Crisis. We all know the law of conservation of matter in physics... but... in the software industry, engineers often joke about... well... the law of conservation of bugs.",
     
     4: "What exactly is the Software Crisis? In the late 1960s, hardware computing power advanced rapidly, but software development techniques failed to keep up. As software grew in size and complexity, projects frequently suffered from severe delays, huge budget overruns, and poor quality. This is because software is invisible and intangible, making progress hard to measure without standardized engineering workflows.",
     
@@ -298,7 +298,7 @@ def get_laser_expression(page_num, duration, page):
     return x_expr, y_expr
 
 async def generate_audio(page_num, text, output_path):
-    communicate = edge_tts.Communicate(text, "en-US-AndrewNeural", rate="+3%")
+    communicate = edge_tts.Communicate(text, "en-US-BrianNeural", rate="-2%")
     await communicate.save(output_path)
 
 def get_audio_duration(audio_path):
