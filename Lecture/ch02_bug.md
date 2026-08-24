@@ -22,39 +22,21 @@
 
 ### 2.1.1 臭蟲的由來與因果鏈
 
-<center>
-<img src="../img/ch02/S1lpG3YA3.png" width="200">
-</center>
-
 1947 年 9 月 9 日下午 3 點 45 分，**Grace Murray Hopper** 在她的筆記本上記下了史上第一個電腦 bug ——在 Harvard Mark II 電腦裡找到的一隻飛蛾，她把飛蛾貼在日記本上，並寫道「*First actual case of bug being found*」。這個發現奠定了 Bug 這個詞在電腦世界的地位。Grace Murray Hopper 是 Harvard Mark I 上第一個專職程式設計師，創造了現代第一個編譯器 A-0 系統，以及第一個高級商用電腦程式語言「COBOL」，被譽為「COBOL 之母」，被稱為「不可思議的葛麗絲（Amazing Grace）」。
 
 ![](../img/ch02/rJVf7nYR3.png)
 
 👉 The first bug in Harvard Mark II
 
-事實上，口語上常用「Bug」，但一個簡單的詞很難表達錯誤發生的不同階段。在軟體工程標準（IEEE 610.12）中，有非常嚴密的因果鏈定義：
+口語上常用「Bug」統稱所有問題，但在軟體工程國際標準（IEEE 610.12）中，對錯誤的發生有著非常嚴密的四階段因果鏈：
 
-```mermaid
-graph LR
-    A["人犯錯<br>(Mistake / Error)"] --> B["程式碼缺陷<br>(Fault / Defect / Bug)"]
-    B --> C["執行時錯誤狀態<br>(Internal Error State)"]
-    C --> D["對外系統失效<br>(System Failure)"]
-```
+<img src="../img/ch02/gemini_nb/bug_causality_chain.jpg" width="650">
 
-#### 犯錯、缺陷、錯誤狀態與失效 (IEEE 610.12)
-
-1. **犯錯 (Mistake / Human Error)**：
-   * 人類工程師、分析師或架構師的心智失誤、誤解需求或打錯字。
-   * *例如*：工程師誤以為使用者年齡可以為負數，或打錯了運算符號。
-2. **缺陷 / 臭蟲 (Fault / Defect / Bug)**：
-   * 犯錯的結果具體體現在軟體產出物中（規格書、設計圖或原始程式碼）。
-   * *例如*：程式碼中寫了 `if (age > 0)` 而非 `if (age >= 0)`。
-3. **錯誤狀態 (Error)**：
-   * 包含 Fault 的程式碼被執行時，系統內部的資料或狀態產生了與預期不符的中間不一致。
-   * *例如*：記憶體中的計數變數變成了 `-1`。
-4. **失效 (Failure)**：
-   * 系統對外的行為偏離了規格或使用者期望（當機、畫面噴出 500、計算結果錯誤）。
-   * *例如*：ATM 吐出錯誤的金額，或飛機自動重飛失速。
+**圖形解說：IEEE 610.12 臭蟲四階段因果鏈**
+1.  **1. Human Mistake / Error (人類犯錯)**：分析師、架構師或工程師的心智失誤、誤解需求或打錯程式碼。
+2.  **2. Code Fault / Defect / Bug (程式碼缺陷)**：犯錯的結果具體體現在軟體產出物中（如程式碼寫錯運算子、邊界值少寫等號）。
+3.  **3. Internal Error State (內部錯誤狀態)**：含有 Fault 的程式碼被 CPU 執行時，記憶體資料或系統狀態出現了不一致（例如計數器變負數）。
+4.  **4. System Failure (系統對外失效)**：系統對外的可觀察行為偏離了預期規格（如拋出 500 Crash、ATM 吐錯金額、系統當機）。
 
 > 📌 **關鍵定理**：
 > * 系統中有 **Fault（缺陷）**，不一定會馬上導致 **Failure（失效）**（如果該行程式碼從未被執行，或錯誤狀態被剛好掩蓋）。
@@ -104,11 +86,14 @@ D) 該程式碼完全符合軟體品質的正確性定義
 - *規格二：* 設計一個除法器，使用者可以輸入被除數、除數。使用者不得輸入除數為 0。（*缺點：未說明輸入 0 時系統該如何處理*）
 - *規格三：* 設計一個除法器，使用者輸入除數若為 0，系統應清除結果欄位，並回傳 HTTP 400 及友善錯誤提示「除數不得為零」。（*優良的契約規格*）
 
-![](../img/ch02/HkT4m2KC3.png)
+<img src="../img/ch02/gemini_nb/spec_fault_failure_venn.jpg" width="650">
 
-👉 失效、缺陷與低品質的關係
+**圖形解說：規格 (Spec)、程式缺陷 (Fault) 與系統失效 (Failure) 之交集關係**
+*   **Latent Fault (潛伏缺陷)**：程式碼有 Bug（如記憶體洩漏或特定邊界條件溢位），但在一般情境下未觸發對外失效。
+*   **Specification Gap / Missing Spec Bug (規格遺漏缺陷)**：規格書未明確規範異常處理（如使用者輸入除數為 0 或負數年齡），導致系統直接崩潰。
+*   **Observable System Crash (可觀察系統失效)**：缺陷被觸發並跨越邊界，產生對外可觀察到的功能異常或當機。
 
-上圖說明：沒有失效不代表沒有缺陷；符合明訂規格也不代表高品質。專業軟體工程師必須具備「**為規格補全邊界例外**」的素養。
+沒有失效不代表沒有缺陷；符合明訂規格也不代表高品質。專業軟體工程師必須具備「**為規格補全邊界例外**」的防禦性素養。
 
 #### **隨堂測驗 (CCQ 2)**
 
@@ -171,17 +156,14 @@ D) 只要客戶願意加錢，所有未明訂的規格才需要被修復
 
 ### 2.2.2 科學除錯五步驟
 
-```
-[1. 穩定重現] ➔ 建立一個能 100% 重現 Bug 的最小失敗測試案例 (Failing Test)
-     ▼
-[2. 假設形成] ➔ 根據現象、日誌與 Call Stack 提出 1~2 個根本原因假設
-     ▼
-[3. 實驗驗證] ➔ 利用斷點 (Breakpoint) 或日誌追蹤，驗證或推翻假設
-     ▼
-[4. 根因修復] ➔ 修改核心架構或邏輯，而非只在最外層加 try-catch
-     ▼
-[5. 回歸驗證] ➔ 執行全套測試，確保失敗測試轉綠，且其他測試全部維持綠燈
-```
+<img src="../img/ch02/gemini_nb/scientific_debugging_steps.jpg" width="650">
+
+**圖形解說：科學除錯五步驟流程**
+1.  **1. Reproduce (穩定重現)**：建立一個能 100% 重現 Bug 的最小失敗測試案例 (Minimal Failing Test Case)。
+2.  **2. Hypothesize (假設形成)**：根據現象、日誌與 Call Stack 提出 1~2 個根本原因假設。
+3.  **3. Experiment (實驗驗證)**：設定斷點 (Breakpoint) 或檢視日誌追蹤，驗證或推翻假設。
+4.  **4. Fix (根因修復)**：修改核心架構或演算法邏輯，進行乾淨重構，而非只在表面加 try-catch 吞掉例外。
+5.  **5. Regression Test (回歸驗證)**：執行自動化測試套件，確保失敗測試轉綠，且既有功能維持 100% 綠燈無回歸。
 
 ---
 
@@ -254,14 +236,14 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ### 2.4.1 契約式設計的三大核心要素 (Bertrand Meyer)
 
-```
-        ┌── 前置條件 (Preconditions): 呼叫者必須滿足的條件 (若不滿足，方法拒絕執行)
-契約設計 ┼── 後置條件 (Postconditions): 方法執行完畢後保證達成的狀態
-        └── 類別不變量 (Class Invariants): 物件在任何公開方法執行前後必須永遠為真的法則
-```
+<img src="../img/ch02/gemini_nb/design_by_contract_elements.jpg" width="650">
+
+**圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心要素**
+1.  **1. Preconditions (前置條件 - 入口檢查關卡)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
+2.  **2. Postconditions (後置條件 - 出口保證防護)**：方法正常執行完畢後，向呼叫者承諾保證達成的狀態與回傳值正確性。
+3.  **3. Class Invariants (類別不變量 - 永久基石鎖定)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`）。
 
 * **狀態不變量 (Invariants) 的重要性**：
-  * *例如銀行帳戶*：`balance >= 0`、`totalDeposits == sum(transactions)`。
   * 任何操作若破壞了不變量，系統應立即自我熔斷，避免髒資料寫入資料庫。這也是後續**屬性基礎測試 (Property-Based Testing)** 的核心基石！
 
 ### 2.4.2 斷言 (Assertion) vs 例外處理 (Exception)
@@ -302,20 +284,18 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ### 2.5.2 缺陷生命週期與度量 (Defect Lifecycle)
 
-```mermaid
-graph LR
-    New[New 新增] --> Assigned[Assigned 已指派]
-    Assigned --> Open[Open 處理中]
-    Open --> Fixed[Fixed 已修復]
-    Fixed --> Verified[Verified QA 驗證]
-    Verified --> Closed[Closed 關閉]
-    Fixed -- 驗證失敗 --> Reopened[Reopened 重新開啟]
-    Reopened --> Assigned
-```
+<img src="../img/ch02/gemini_nb/defect_lifecycle_flow.jpg" width="650">
 
-* **嚴重度 (Severity)** vs **優先級 (Priority)**：
-  * **高嚴重度 + 低優先級**：罕見硬體配置下的系統當機（嚴重但極少發生）。
-  * **低嚴重度 + 高優先級**：公司首頁 Logo 拼字錯誤或發布會畫面破版（不影響功能，但極度影響商譽，必須立刻修復）。
+**圖形解說：缺陷追蹤生命週期 (Defect Lifecycle) 與嚴重度-優先級矩陣**
+*   **【上方】缺陷狀態流轉 (State Transition Lifecycle)**：
+    *   `[New Defect]` (新建) ➔ `[Assigned]` (已指派) ➔ `[In Progress / Open]` (處理中) ➔ `[Fixed]` (已修復) ➔ `[QA Verified]` (QA 驗證)。
+    *   若 QA 驗證通過 ➔ `[Closed]` (結案關閉)。
+    *   若 QA 驗證失敗 ➔ `[Reopened]` (重新開啟，打回 Assigned/Open 重新修復)。
+*   **【下方】嚴重度 (Severity) vs 優先級 (Priority) 矩陣**：
+    *   **高嚴重度 + 高優先級 (Critical Impact)**：系統 Crash、核心功能中斷、重大資安漏洞 ➔ **立即修復**。
+    *   **低嚴重度 + 高優先級 (Visibility / Prompt Fix)**：官網首頁 Logo 破版、標題拼字錯誤 ➔ **優先快速修復**。
+    *   **高嚴重度 + 低優先級 (Major Defect / Plan Fix)**：極罕見邊界環境下的例外、單一冷門用戶故障 ➔ **排程修復**。
+    *   **低嚴重度 + 低優先級 (Minor Issues)**：冷門頁面字型微小偏差 ➔ **日後優化**。
 
 ---
 
