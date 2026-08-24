@@ -1,5 +1,4 @@
-Ch09 測試文件
-===
+# Ch09 測試文件與現代化實踐
 
 > [!NOTE]
 > Tiger 把報告放在雄太的桌上，「老實說，我覺得寫這個文件沒有什麼用」他有點神氣的說，「還是寫程式比較實在」。
@@ -8,144 +7,113 @@ Ch09 測試文件
 >
 > 「那就重寫吧，讓它有用」。雄太接著說。
 
-> 不要輕忽文件的撰寫，他和寫程式一樣，需要清楚的邏輯。
+> **不要輕忽文件的撰寫，他和寫程式一樣，需要清楚的邏輯與架構。** 好的測試文件不是為了應付主管或客戶的官僚產物，而是**軟體品質工程的指北針與溝通契約**。
 
-## IEEE 829
+---
 
-IEEE 829 是IEEE 針對測試文件所提出的建議。它包含幾個主要的文件：測試計劃書、測試規格書與測試報告。測試計劃書描述整體的測試計畫、包含時程、人員、範圍、工具等安排。測試規格書包含測試設計規格（test design specification）、測試案例規格（test case specification）與測試程序（test procedure）。測試報告包含項目移轉報告（test transmittal report）、測試日誌報告（test log report）、測試事件報告（test incident report）、測試總結報告（test summary report）等。
+## 9.1 測試文件的基本概念與核心價值
 
-圖 [fig:IEEE829](#fig_IEEE829) 描述整體的流程。**測試計畫** 產出後，若干個**測試設計規格書}依據計劃書而產生，把細部的測試設計寫出來，接著每個測試設計可以展開若干個**測試案例規格書}，用以描述可以造成執行的測試資料。如果你的專案沒有很大的時候，測試設計與測試案例是可以合併成為一個規格書的。測試執行的過程中所產生的紀錄就成為**測試日誌報告}（test log）。
+在敏捷開發與現代軟體工程中，「測試文件」的形式已大幅演進，但其背後的四大核心目的始終不變：
 
-注意測試不可能一次就完成，即便您規劃的很仔細，還是有可能發生錯誤而終止，後續就需要重新準備環境、撰寫程式、安排人員等。這些過程則記錄在**測試事件報告}。最後，我們需要做一個總結報告，整體性的說明系統是否是否通過測試。
+```mermaid
+graph TD
+    Goal["測試文件的四大核心價值"]
+    Goal --> Align["1. 對齊規格認知 (Alignment)<br>確保開發、測試與 PO 對『完成 (DoD)』有一致理解"]
+    Goal --> Trace["2. 需求雙向可追溯性 (Traceability)<br>證明每一條商業需求皆有對應的測試覆蓋 (RTM)"]
+    Goal --> Repro["3. 缺陷精準重現 (Reproducibility)<br>提供標準化步驟，消除『在我的電腦上明明正常』"]
+    Goal --> Audit["4. 品質治理與審計 (Governance & Audit)<br>為金融、醫療、航空等高可靠系統提供合規證明"]
+```
 
-> Standard for Software and System Test Documentation, is an IEEE standard that specifies the form of a set of documents for use in eight defined stages of software testing and system testing, each stage potentially producing its own separate type of document.
+*   **傳統重型文件 vs. 現代活文件 (Living Documentation)**：
+    *   **傳統做法**：耗費數週撰寫上百頁 Word 測試計畫，寫完後系統需求早已變更，文件淪為「寫完即丟的死文件」。
+    *   **現代做法（Doc-as-Code）**：測試文件與原始碼放在同一個 Git Repo，採用 Markdown、Gherkin 語法或自動化報表（如 Allure / JUnit XML），每次 CI/CD 執行時自動產出最新活文件。
 
-一些其他的標準：
--  SQA – Software quality assurance IEEE 730
--  SCM – Software configuration management IEEE 828
--  STD – Software test documentation IEEE 829
--  SRS – Software requirements specification IEEE 830
--  VV – Software verification and validation IEEE 1012
--  SDD – Software design description IEEE 1016
--  SPM – Software project management IEEE 1058
--  SUD – Software user documentation IEEE 1063
+---
 
-#### fig_IEEE829
-![IEEE829](../img/ch09/r1QWVpvvT.png)
+## 9.2 經典標準：精簡版 IEEE 829 架構
 
+IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表性的測試文件標準。傳統 IEEE 829 定義了八大階段十餘種繁複報告，現代工程可將其**精簡提煉為三大核心支柱 (3 Core Pillars)**：
 
-### 測試計畫
-測試計劃書的目的在描述測試活動的範圍、方法、資源與時間的安排。計劃書並需明確指出受測項目、測試哪些特性或功能（feature）、執行哪些測試的活動、哪些人應該負責哪些工作以及相關的風險。
+<img src="../img/ch09/gemini_nb/ieee829_three_pillars.jpg" width="650">
 
--  計劃書編號;
--  簡介; 
--  測試項目;
--  測試的特性與功能;
--  不測試的特性與功能;
--  測試方法;
--  通過的準則;
--  終止與繼續的條件;
--  交付物;
--  測試工作;
--  需要的環境;
--  工作分配;
--  訓練計畫;
--  時程;
--  風險;
--  簽名。
+### 9.2.1 第一支柱：測試計畫 (Test Plan)
+測試計畫是高階戰略藍圖，釐清測試的**邊界、資源與驗收門檻**：
+1.  **測試範圍 (Scope)**：
+    *   **In-Scope（測試項目）**：本期 Sprint/Release 需驗證之功能模組與非功能指標（如 P95 延遲）。
+    *   **Out-of-Scope（不測試項目）**：第三方金流沙盒、尚未上線之後台模組等，明確劃定責任邊界。
+2.  **通過與失敗準則 (Pass/Fail Criteria)**：
+    *   明確定義 Quality Gate（例如：所有 P0/P1 測試案例 100% 通過、無 Critical/High 安全漏洞、變異測試殺死率 > 75%）。
+3.  **暫停與重啟條件 (Suspension & Resumption Criteria)**：
+    *   何時終止測試？（例如：核心登入服務當機阻塞流程，測試立即暫停並退回開發）。
+4.  **環境與資源配置**：硬體、Docker 容器叢集、測試帳號與人員分工。
 
-### 測試設計規格書
-測試計劃書的目的在仔細的描述測試的方法：
+### 9.2.2 第二支柱：測試規格 (Test Specifications)
+測試規格是戰術設計，包含**如何設計測資與操作步驟**：
+1.  **測試設計規格 (Test Design Specification)**：架構層次的測試策略（採用何種黑箱等價劃分、哪些模組套用屬性測試）。
+2.  **測試案例規格 (Test Case Specification)**：
+    *   **前置條件 (Preconditions)**：使用者需具備 VIP 權限且帳戶餘額為 100 元。
+    *   **輸入測資 (Test Inputs)**：具體邊界值與參數。
+    *   **執行步驟 (Execution Steps)**：操作路徑 1 ➔ 2 ➔ 3。
+    *   **預期輸出 (Expected Results)**：UI 顯示扣款成功提示，資料庫餘額更新為 50 元。
+3.  **測試程序 (Test Procedures)**：自動化腳本之執行指令或手動測試的操作清單。
 
--  測試設計規格書編號; 
--  預計測試的功能特色; 
--  測試方法說明; 
--  測試的編碼; 
--  測試通過與失敗的準則; 
+### 9.2.3 第三支柱：測試執行與報告 (Test Execution & Reporting)
+測試執行期與收官時的**客觀數據與缺陷追蹤**：
+1.  **測試日誌 (Test Log)**：記錄每次自動化測試運行的時間戳記、執行案例數與 Pass/Fail 統計。
+2.  **缺陷/事件報告 (Incident / Bug Report)**：
+    *   標題、嚴重度 (Severity: Critical/Major/Minor)、優先級 (Priority: P0/P1/P2)。
+    *   **最小可重現步驟 (Minimal Reproduction Steps)**。
+    *   實際結果 (Actual) vs. 預期結果 (Expected)、日誌與螢幕錄影。
+3.  **測試總結報告 (Test Summary Report)**：
+    *   向 Stakeholder 報告整體品質狀況、殘留風險分析與發布建議（Go / No-Go Decision）。
 
-### 測試案例規格書
-依據測試設計規格書所描述的測試案例進行細部的描述，包含：
+---
 
--  測試案例規格編號; 
--  測試項目; 
--  輸入規格; 
--  輸出規格; 
--  環境需求; 
--  特別程序的需求; 
--  測試案例之間的相依性。例如某個測試案例測試後才可以進行另一個案例。
+## 9.3 AI 時代的現代測試文件實踐 (AI-Assisted Living Documentation)
 
+生成式 AI 與 LLM 的成熟，徹底顛覆了測試文件的撰寫與維護成本。測試文件不再是負擔，而是能夠**被 AI 理解、自動生成、並直接驅動自動化執行的「活資產」**。
 
-## 測試程序規格書
-說明測試案例的執行的程序與步驟。
+<img src="../img/ch09/gemini_nb/ai_test_documentation_workflow.jpg" width="650">
 
--  測試程序規格編碼; 
--  目的; 
--  特別需求; 
--  步驟。
+### 9.3.1 規格即代碼 (Doc as Code) 與 BDD 活文件
+*   **Markdown + Git 協同審查**：
+    *   測試計畫以 Markdown 撰寫並放置於專案 `/docs/test/`，隨程式碼一起發布 Pull Request，透過 Code Review 機制共同審查測試完整性。
+*   **Gherkin 活文件 (Living Docs)**：
+    *   以 `Given-When-Then` 撰寫的 Feature 規格，既是業務人員看得懂的驗收規格書，又是 Cucumber-JVM 可直接執行的自動化測試代碼。
 
-### 測試記錄
-記錄測試過程中所發生的事件與處理方法，這些記錄是後續分析測試是否通過的重要依據。
+### 9.3.2 AI 輔助從 PRD / 需求自動生成測試矩陣 (Test Matrix)
+透過給定產品需求規格書 (PRD) 或 User Story，Prompting LLM 依據邊界值與等價類原則自動產出結構化測試案例：
 
--  測試記錄編碼; 
--  說明; 
--  活動與事件說明; 
+```markdown
+🤖 【AI Prompt 範例：從規格生成測試案例】
+請扮演資深 SQA 專家。依據以下購物車折價券功能規格，產出結構化測試案例矩陣：
+1. 包含 Happy Path 與 Negative Edge Cases（滿額折抵、過期券、併用規則）。
+2. 每筆案例需列出：前置條件、輸入參數、預期輸出與 ISO 25010 對應維度。
+3. 輸出為標準 Markdown 表格格式。
+```
 
-### 檢查表
+### 9.3.3 AI 智慧缺陷分析與自動化 RCA (Root Cause Analysis)
+*   **CI/CD 失敗自動提單**：當 GitHub Actions 中的自動化測試失敗時，AI Bot 自動讀取失敗的 Stack Trace 與容器日誌，自動分析可能出錯的代碼行，並在 GitHub Issue 中生成完整的 Bug 報告與初步修復建議。
+*   **測試涵蓋率與缺口分析 (Coverage Gap Analysis)**：AI 掃描 PR 變更的代碼邏輯與現有測試文件，主動提示：「發現此 PR 新增了退款失敗重試邏輯，但測試文件中缺乏網路超時情境的測試案例」。
 
-可以建立一個檢查表檢查各文件是否適合。
+---
 
--  人員工作時程與責任規劃
--  測試工作是否清楚定義、分配人力、規劃時程
--  測試工作的責任分配與時程規劃，是否能夠配合專案時程
--  必要的訓練是否在時程規劃內完成
--  測試環境的描述是否清楚、完整；
--  是否包含軟體、硬體、實驗室空間、資料庫建置
--  是否有足夠時間建置所規劃配置的環境
--  是否考慮所有測試成本
--  測試成本是否在測試計畫容許範圍內
--  測試計畫書是否確認、並分析所有可能發生風險
--  測試工具的使用是否適當？
--  所有測試需求與特性是否完整測試規劃？
--  測試程序與目標是否合理、可滿足軟體需求規範？
--  測試程序是否完整？符合標準？
--  測試方法、技術的描述是否清楚完整？
--  所有測試項目是否完整規劃在測試計畫書？
--  所有測試項目是否描述清楚？
--  測試項目的配置、時程是否適當？
--  所有測試項目是否有相對應的測試設計？
--  測試案例設計是否完整、正確？
--  測試案例是否有相對應的測試方法？適當的測程序？
--  暫停與重新起始測試的條件是否清楚描述？
--  pass/fail criteria的設定是否清楚，能夠滿足整體品質需求？
--  是否規劃整合測試方法？規劃是否清楚？
--  是否設計追蹤矩陣(Traceability matrix)？
--  測試報告需求是否有規範？
--  使用者是否提供足夠多的輸入，以執行接受測試？
+## 9.4 測試文件品質檢核清單 (Checklist)
 
+在簽核或定稿測試文件時，可透過以下檢核清單確保其專業度與實用性：
 
-## 範例
-以下幾頁為 IEEE 829 中的兩個範例，第一個是一個薪資系統的測試計劃書、測試記錄。第二個是一個數值正規化的例子，著重在測試設計與測試案例：
+- [ ] **範圍邊界清晰**：In-Scope 與 Out-of-Scope 是否明確定義，無模糊地帶？
+- [ ] **需求可追溯性 (Traceability)**：是否建立需求追溯矩陣（RTM），每個商業需求皆有對應案例？
+- [ ] **驗收準則量化 (SLA/KPI)**：Pass/Fail Criteria 是否具備客觀數據（如覆蓋率 > 80%、P95 < 200ms）？
+- [ ] **測試案例可重現**：前置條件、輸入參數與預期輸出是否具體明確，任何新進工程師皆能依照步驟重現？
+- [ ] **例外與負向情境涵蓋**：是否包含邊界值、無效輸入、網路中斷與權限越權等負向測試？
+- [ ] **維護性 (Doc as Code)**：文件是否納入版本控管，並能隨著系統迭代持續更新？
 
+---
 
-* [IEEE 829](https://drive.google.com/file/d/12-HCU3oj-9rMjNpxLgzQSQyZ5xFzZ5mo/view?usp=sharing)
-* [IEEE 829 example](https://drive.google.com/file/d/1puCjamWm7JsA8XI-wT0X6DdCXA6krxms/view?usp=sharing)
+## 9.5 練習與思考
 
-
-## 練習
-
--  以下何者正確：	 
-	-  IEEE 829 主要說明軟體測試相關的文件，1012 說明軟體驗證程序。
-	-  IEEE 829 說明軟體設計文件如何撰寫。
-	-  測試計劃書應該包含何時暫停測試的標準、何時重新啟動測試的標準。
-	-  當今測試應該以程式自動化的方式進行，測試文件是沒效率且不必要的。
--  測試計畫應包含以下哪些項目：	
-	-  測試範圍 
-	-  測試方法 
-	-  測試資源 
-	-  測試時程規劃 
-	-  測試案例 
-	-  測試報告
--  在 IEEE 829 中，測試設計 (test design) 與測試案例 (test case) 文件有和差別？
--  測試計畫與測試設計中都要說明「測試方法」，有和差異？
--  為何測試計畫要即早進行。
--  針對一個線上考試系統，依循 IEEE 829 的規範撰寫其測試相關文件。
+1.  **傳統 vs 現代**：為什麼說「以 Markdown 撰寫的 Gherkin BDD 規格」是現代「活文件 (Living Documentation)」的最佳典範？
+2.  **IEEE 829 精簡應用**：在敏捷雙週 Sprint 的步調下，如何將 IEEE 829 的三大支柱（計畫、規格、報告）融入日常的 Jira / GitHub 流程中？
+3.  **AI in QA 實戰**：給定一個「使用者註冊密碼強度檢驗」的簡單需求，嘗試撰寫 Prompt 讓 AI 生成包含等價類、邊界值與極端字元的完整測試案例表格。
+4.  **缺陷報告品質**：為什麼「在我的電腦上明明正常」不能當作關閉 Bug 的理由？一份高質感的缺陷事件報告（Incident Report）應該包含哪些必要欄位？
