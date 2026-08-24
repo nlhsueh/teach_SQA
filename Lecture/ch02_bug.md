@@ -24,10 +24,6 @@
 
 1947 年 9 月 9 日下午 3 點 45 分，**Grace Murray Hopper** 在她的筆記本上記下了史上第一個電腦 bug ——在 Harvard Mark II 電腦裡找到的一隻飛蛾，她把飛蛾貼在日記本上，並寫道「*First actual case of bug being found*」。這個發現奠定了 Bug 這個詞在電腦世界的地位。Grace Murray Hopper 是 Harvard Mark I 上第一個專職程式設計師，創造了現代第一個編譯器 A-0 系統，以及第一個高級商用電腦程式語言「COBOL」，被譽為「COBOL 之母」，被稱為「不可思議的葛麗絲（Amazing Grace）」。
 
-![](../img/ch02/rJVf7nYR3.png)
-
-👉 The first bug in Harvard Mark II
-
 口語上常用「Bug」統稱所有問題，但在軟體工程國際標準（IEEE 610.12）中，對錯誤的發生有著非常嚴密的四階段因果鏈：
 
 <img src="../img/ch02/gemini_nb/bug_causality_chain.jpg" width="650">
@@ -236,12 +232,12 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ### 2.4.1 契約式設計的三大核心要素 (Bertrand Meyer)
 
-<img src="../img/ch02/gemini_nb/design_by_contract_elements.jpg" width="650">
+<img src="../img/ch02/gemini_nb/design_by_contract_simplified.jpg" width="650">
 
-**圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心要素**
-1.  **1. Preconditions (前置條件 - 入口檢查關卡)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
-2.  **2. Postconditions (後置條件 - 出口保證防護)**：方法正常執行完畢後，向呼叫者承諾保證達成的狀態與回傳值正確性。
-3.  **3. Class Invariants (類別不變量 - 永久基石鎖定)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`）。
+**圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心法則**
+1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
+2.  **Postconditions (後置條件 - `ensures`)**：方法正常執行完畢後，向呼叫者保證達成的狀態與輸出結果。
+3.  **Class Invariants (類別不變量 - `maintains`)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`）。
 
 * **狀態不變量 (Invariants) 的重要性**：
   * 任何操作若破壞了不變量，系統應立即自我熔斷，避免髒資料寫入資料庫。這也是後續**屬性基礎測試 (Property-Based Testing)** 的核心基石！
@@ -282,20 +278,46 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ---
 
-### 2.5.2 缺陷生命週期與度量 (Defect Lifecycle)
+### 2.5.2 完整缺陷生命週期狀態機 (Defect Tracking Lifecycle)
 
-<img src="../img/ch02/gemini_nb/defect_lifecycle_flow.jpg" width="650">
+在專業軟體團隊中，缺陷的追蹤與管理具備嚴謹的狀態轉換流程：
 
-**圖形解說：缺陷追蹤生命週期 (Defect Lifecycle) 與嚴重度-優先級矩陣**
-*   **【上方】缺陷狀態流轉 (State Transition Lifecycle)**：
-    *   `[New Defect]` (新建) ➔ `[Assigned]` (已指派) ➔ `[In Progress / Open]` (處理中) ➔ `[Fixed]` (已修復) ➔ `[QA Verified]` (QA 驗證)。
-    *   若 QA 驗證通過 ➔ `[Closed]` (結案關閉)。
-    *   若 QA 驗證失敗 ➔ `[Reopened]` (重新開啟，打回 Assigned/Open 重新修復)。
-*   **【下方】嚴重度 (Severity) vs 優先級 (Priority) 矩陣**：
-    *   **高嚴重度 + 高優先級 (Critical Impact)**：系統 Crash、核心功能中斷、重大資安漏洞 ➔ **立即修復**。
-    *   **低嚴重度 + 高優先級 (Visibility / Prompt Fix)**：官網首頁 Logo 破版、標題拼字錯誤 ➔ **優先快速修復**。
-    *   **高嚴重度 + 低優先級 (Major Defect / Plan Fix)**：極罕見邊界環境下的例外、單一冷門用戶故障 ➔ **排程修復**。
-    *   **低嚴重度 + 低優先級 (Minor Issues)**：冷門頁面字型微小偏差 ➔ **日後優化**。
+<img src="../img/ch02/gemini_nb/defect_lifecycle_complete.jpg" width="650">
+
+**圖形解說：完整缺陷追蹤生命週期 (Bug Workflow)**
+*   **主流程狀態 (Main Flow)**：
+    1.  **New (新建)**：測試人員或使用者回報新缺陷，等待 Triage 分流審查。
+    2.  **Assigned (已指派)**：指派給負責工程師並排定修復時程。
+    3.  **Open / In Progress (處理中)**：工程師正在深入排查根因並撰寫修復代碼。
+    4.  **Fixed / Resolved (已修復)**：工程師提交 PR 並通過 CI，等待 QA 驗證。
+    5.  **QA Retest / Verified (QA 驗證)**：QA 依照驗收標準與回歸測試套件進行重測。
+    6.  **Closed (結案關閉)**：確認修復無誤且無回歸問題，正式關閉 Issue。
+*   **分支流程狀態 (Branch Flows)**：
+    *   **Rejected / Duplicate (拒絕 / 重複)**：非 Bug、環境設定錯誤或重複回報 ➔ 直接結案 (Closed)。
+    *   **Deferred (延期處理)**：非當前 Release 關鍵缺陷 ➔ 移入 Backlog 待未來版本處理。
+    *   **Reopened (重新開啟)**：QA 重測未通過 ➔ 打回 Assigned 狀態重新排查。
+
+---
+
+### 2.5.3 嚴重度 (Severity) vs 優先級 (Priority) 度量矩陣
+
+在缺陷管理系統（如 Jira / GitHub Issues）中，**嚴重度**（技術衝擊）與**優先級**（業務急迫性）是兩個正交的度量維度：
+
+<img src="../img/ch02/gemini_nb/defect_severity_vs_priority.jpg" width="650">
+
+**圖形解說：嚴重度 (Severity) vs 優先級 (Priority) 2x2 決策矩陣**
+1.  **1. 高嚴重度 + 高優先級 (Critical Impact - 立即修復)**：
+    *   *實例*：核心金流支付當機、全站 500 Crash、重大個資外洩漏洞。
+    *   *處理策略*：立刻發布緊急熱修復 (Hotfix)，阻斷發布流程。
+2.  **2. 低嚴重度 + 高優先級 (Visibility / Prompt Fix - 快速修復)**：
+    *   *實例*：公司官網首頁 Logo 拼錯（如 `Compnay`）、主畫面出現誤導性文案。
+    *   *處理策略*：雖不影響系統底層運作，但嚴重損害商譽與對外形象，需優先排定修復。
+3.  **3. 高嚴重度 + 低優先級 (Major Defect - 排程修復)**：
+    *   *實例*：僅在極罕見的舊版 Windows 95 環境下才會觸發的當機、單一極冷門用戶的特定查詢失敗。
+    *   *處理策略*：衝擊雖大但發生率極低，排入後續 Sprint 正常迭代修復即可。
+4.  **4. 低嚴重度 + 低優先級 (Minor Issues - 日後優化)**：
+    *   *實例*：內部管理後台冷門報表微小的像素對齊偏差。
+    *   *處理策略*：有空再修或待介面重構時一併處理。
 
 ---
 
