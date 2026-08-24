@@ -671,11 +671,115 @@ Lab: 錄製器 II。
 
 認證測試（Certification testing）是一種比較特殊的相容性測試，主要是由產品的發行產商來測試，由他們來發行他們的產品是用在哪些機器上。例如微軟的 SQL server、Oracle 的 12c 版本是用在哪些機器上與作業系統上，他們都會進行詳盡的測試並公布在官網上，作為軟體公司購買或升級的參考。
 
-## 8.9 安全性測試
-暫略
+## 8.9 安全性測試 (Security Testing)
 
-## 8.10 回復性測試
-暫略
+安全性測試（Security Testing）是驗證系統在面對惡意攻擊、未授權存取或意外濫用時，是否能確保資料與運算資源的**機密性、完整性與可用性**。在 ISO 25010 品質模型中，安全性涵蓋了：機密性 (Confidentiality)、完整性 (Integrity)、不可否認性 (Non-repudiation)、可歸責性 (Accountability)、真實性 (Authenticity) 與抗拒授權漏洞。
+
+### 8.9.1 核心觀念：從「功能思維」切換為「攻擊者思維」
+
+*   **功能測試**：驗證系統「做了該做的事」（Happy Path）。
+*   **安全測試**：驗證系統「無法被誘導去做不該做的事」（Negative Path & Exploit Protection）。安全測試必須預設使用者輸入可能包含惡意 Payload、網路封包可能遭竊聽篡改、且權限檢驗可能存在越權漏洞。
+*   **OWASP Top 10（開放式 Web 應用程式安全專案前十大漏洞）**：
+    1.  **A01: 失效的存取控制 (Broken Access Control)**：水平越權（A 用戶看 B 用戶資料）與垂直越權（一般用戶調用管理員 API）。
+    2.  **A02: 加密機制失效 (Cryptographic Failures)**：明文儲存密碼、使用弱雜湊演算法（如 MD5/SHA1）、未啟用 HTTPS/TLS。
+    3.  **A03: 注入攻擊 (Injection)**：SQL Injection、Command Injection、XSS（跨站腳本攻擊）。
+    4.  **A04: 不安全設計 (Insecure Design)**：缺乏威脅建模與防禦性架構。
+    5.  **A05: 安全設定缺陷 (Security Misconfiguration)**：開啟預設密碼、未關閉除錯模式 (Debug Mode)、暴露過多錯誤堆疊資訊。
+    6.  **A06: 易受攻擊與過時的組件 (Vulnerable and Outdated Components)**：使用含已知 CVE 漏洞的開源套件（如 Log4j 漏洞）。
+
+### 8.9.2 安全測試的四大核心作法 (Testing Approaches)
+
+```mermaid
+graph TD
+    subgraph SecurityDefense["現代 DevSecOps 安全測試全防線"]
+        SAST["白箱：SAST 靜態程式碼分析<br>(SonarQube / Semgrep)"]
+        SCA["相依性：SCA 軟體成分分析<br>(Dependency-Check / Snyk)"]
+        DAST["黑箱：DAST 動態滲透掃描<br>(OWASP ZAP / Burp Suite)"]
+        FUZZ["前沿：Fuzzing 模糊安全測試<br>(Jazzer / AFL)"]
+    end
+
+    Dev["開發與 Commit"] --> SAST
+    Build["Maven/Gradle 建構"] --> SCA
+    Deploy["Staging 測試環境"] --> DAST
+    Runtime["極限邊界防禦"] --> FUZZ
+```
+
+1.  **SAST (Static Application Security Testing，靜態應用安全測試)**：
+    *   在編譯期或靜態分析階段掃描原始碼，尋找硬編碼密碼 (Hardcoded Secrets)、不安全的 SQL 拼接或危險函式調用。
+2.  **DAST (Dynamic Application Security Testing，動態應用安全測試)**：
+    *   在系統執行時，模擬黑客從外部 HTTP 介面發送包含攻擊特徵的惡意請求（如 `' OR 1=1 --` 或 `<script>alert(1)</script>`），觀察系統是否被攻破。
+3.  **SCA (Software Composition Analysis，軟體成分分析)**：
+    *   掃描專案 `pom.xml` 中引入的第三方套件，比對 NVD (National Vulnerability Database) 漏洞庫，及早攔截含重大安全缺陷 (CVE) 的套件。
+4.  **Fuzzing (模糊安全測試)**：
+    *   自動生成大量非預期的突變 Byte 陣列或畸形字串餵給解析器，專門用來挖掘記憶體洩漏、未捕獲例外與系統崩潰漏洞（例如使用 Google Jazzer）。
+
+### 8.9.3 安全測試的標準執行程序 (Security Testing Procedure)
+
+```
+[階段 1: 威脅建模 (STRIDE)] ➔ [階段 2: 安全需求定義 (ASVS)] ➔ [階段 3: 自動化掃描與手動滲透] ➔ [階段 4: 漏洞評估 (CVSS) 與修補驗收]
+```
+
+1.  **步驟 1：威脅建模 (Threat Modeling)**：
+    *   在架構設計初期採用 **STRIDE 模型** 分析潛在威脅：
+        *   **S**poofing（身分假冒）、**T**ampering（資料篡改）、**R**epudiation（抵賴/否認）、**I**nformation Disclosure（資訊外洩）、**D**enial of Service（阻斷服務）、**E**levation of Privilege（權限提升）。
+2.  **步驟 2：定義安全驗證基準**：
+    *   依據 OWASP ASVS (Application Security Verification Standard) 定義密碼複雜度、Session 超時、防防重放 (Replay Attack) 等安全規格。
+3.  **步驟 3：執行多維度安全測試**：
+    *   在 CI/CD 流水線中整合 SAST 與 SCA 檢查，並對 Staging 環境發動 DAST 掃描與滲透測試 (Penetration Testing)。
+4.  **步驟 4：漏洞分級與品質門檻**：
+    *   依據 **CVSS (Common Vulnerability Scoring System)** 評分標準（0.0 ~ 10.0 分）。凡屬於 Critical (> 9.0) 或 High (> 7.0) 漏洞，CI 自動判定失敗，強制禁止發布。
+
+---
+
+## 8.10 回復性與彈性測試 (Recoverability & Resilience Testing)
+
+回復性測試（Recoverability Testing）檢驗系統在遭受硬體故障、網路中斷、資料庫當機或斷電等非預期災難時，**能否平穩容錯、保護資料一致性並在時限內自動回復正常運作**。
+
+### 8.10.1 核心觀念與四大關鍵度量指標
+
+```mermaid
+timeline
+    title 系統故障與回復時間軸 (MTBF / MTTR / RTO / RPO)
+    Normal : 系統正常運轉中 (MTBF 衡量此穩定期間)
+    Failure : 💥 突發故障中斷 (RPO 衡量此點前遺失之資料量)
+    Down : 系統中斷停擺 (RTO 衡量業務容忍之最長中斷時間)
+    Recovered : 系統自動修復完成 (MTTR 衡量實際修復耗時)
+```
+
+1.  **MTTR (Mean Time to Recovery，平均修復時間)**：
+    *   系統從發生故障到完全回復正常服務的平均時間（越短越好，現代目標為秒級自癒）。
+2.  **MTBF (Mean Time Between Failures，平均故障間隔時間)**：
+    *   兩次故障之間的平均正常運轉時間（越長越穩定）。
+3.  **RTO (Recovery Time Objective，復原時間目標)**：
+    *   業務能容忍的**最大停機時間**。例如 RTO = 5 分鐘，表示系統必須在 5 分鐘內完成切換並對外提供服務。
+4.  **RPO (Recovery Point Objective，復原點目標)**：
+    *   災難發生時，業務能容忍的**最大資料遺失量**。例如 RPO = 0 表示不允許遺失任何一筆已確認交易。
+
+### 8.10.2 回復性測試的實施作法
+
+1.  **資料庫交易回滾測試 (Transaction Rollback & WAL Integrity)**：
+    *   在執行跨表格轉帳交易的第 2 個 SQL 步驟時，強行切斷資料庫連線，驗證資料庫是否能依靠 WAL (Write-Ahead Logging) 與交易機制正確回滾，避免產生「A 帳戶扣款但 B 帳戶未入帳」的資料不一致。
+2.  **斷路器與服務降級測試 (Circuit Breaker & Fallback)**：
+    *   使用 **Resilience4j** 等斷路器框架，當下游支付服務響應超時或錯誤率超過 50% 時，自動熔斷並觸發降級邏輯（Fallback），保護主系統不被拖垮。
+3.  **故障轉移與主從切換測試 (Failover Testing)**：
+    *   直接殺死主資料庫 (Primary DB) 節點，驗證哨兵 (Sentinel) 或叢集管理程序能否在數秒內將從節點 (Replica) 提升為主節點，且客戶端能自動重新連線。
+4.  **混沌工程故障注入 (Chaos Engineering & Fault Injection)**：
+    *   在系統運行時主動注入混亂（例如隨機終止 Pod、注入 3000ms 網路延遲、模擬硬碟 100% 滿載），驗證微服務架構的自律修復能力。
+
+### 8.10.3 回復性測試的標準執行程序
+
+1.  **步驟 1：建立穩態假說 (Define Steady State Hypothesis)**：
+    *   定義系統正常時的指標（例如：API 吞吐量 = 500 RPS，P99 響應時間 < 200ms，錯誤率 < 0.1%）。
+2.  **步驟 2：注入真實故障 (Inject Faults)**：
+    *   模擬真實世界災難：網路分區 (Network Partition)、伺服器突發斷電、記憶體洩漏 (OOM)、第三方 API 癱瘓。
+3.  **步驟 3：驗證自癒機制與量測 MTTR (Observe & Measure)**：
+    *   觀察系統是否自動切換備援節點？斷路器是否開啟？記錄從故障發生至指標恢復正常所需的時間 (MTTR)。
+4.  **步驟 4：驗證資料完整性 (Audit Data Consistency)**：
+    *   比對故障期間發生的所有交易資料，確保沒有未完成的髒資料或雙重扣款現象。
+
+> 🛠️ **對應實習手冊**：詳細的 Jazzer 模糊測試與 Resilience4j 混沌故障注入實務，請參考 [**Lab 13：模糊測試與混沌工程故障注入**](../Lab/u08_chaos_fuzzing/chaos_and_fuzzing.md)。
+
+---
 
 ## 8.11 練習與討論
 
