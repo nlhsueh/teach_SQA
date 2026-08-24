@@ -115,6 +115,23 @@ IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表
 *   **CI/CD 失敗自動提單**：當 GitHub Actions 中的自動化測試失敗時，AI Bot 自動讀取失敗的 Stack Trace 與容器日誌，自動分析可能出錯的代碼行，並在 GitHub Issue 中生成完整的 Bug 報告與初步修復建議。
 *   **測試涵蓋率與缺口分析 (Coverage Gap Analysis)**：AI 掃描 PR 變更的代碼邏輯與現有測試文件，主動提示：「發現此 PR 新增了退款失敗重試邏輯，但測試文件中缺乏網路超時情境的測試案例」。
 
+### 9.3.4 AI 時代關於測試文件的「三大常見迷思」與核心真相 (Common Myths vs. Truths)
+
+許多團隊在導入 AI 輔助測試時，容易陷入「AI 萬能，無需文件」的誤區。**AI 能極大程度減少重複性撰寫的負擔，但測試文件的核心地位非但沒有消失，反而變得更加重要！**
+
+<img src="../img/ch09/gemini_nb/ai_test_doc_myths_truths.jpg" width="650">
+
+**圖形解說：AI 時代測試文件三大迷思 vs. 真相**
+*   **迷思一：AI 會自己寫程式碼，測試文件已經過時淘汰了？ (Myth: AI writes code, test docs are obsolete)**
+    *   ❌ **錯誤觀念**：認為 AI 既然能自動生成程式碼與測試，人類就不再需要撰寫需求規格與測試計畫。
+    *   ✅ **核心真相 (Docs provide the Truth Oracle for AI)**：AI 是加速器，而非真理的定義者。若沒有清晰的測試計畫與規格文件作為 **測試真值基準 (Test Oracle)**，AI 生成的測試只會盲目迎合有 Bug 的現有程式碼（自我合理化幻覺）。測試文件是引導 AI 與驗證其產出正確性的唯一羅盤。
+*   **迷思二：AI 生成的測試文件 100% 正確，不需要人工審查？ (Myth: AI docs are 100% infallible)**
+    *   ❌ **錯誤觀念**：盲目信任 LLM 產出的測試矩陣與案例，直接略過人工確認。
+    *   ✅ **核心真相 (Human-in-the-loop validation needed)**：AI 存在語意幻覺與業務邊界盲點。團隊必須落實「人機協同 (Human-in-the-Loop)」，由工程師審查 AI 產出的前置條件、關鍵斷言與極端邊界，確保其完全符合真實商業領域邏輯。
+*   **迷思三：敏捷與 CI/CD 只重交付程式碼，寫測試文件是浪費時間的官僚主義？ (Myth: Docs are agile bureaucracy)**
+    *   ❌ **錯誤觀念**：將所有形式的文件皆視為拖慢 Sprint 節奏的繁文縟節。
+    *   ✅ **核心真相 (Living docs in Git are executable contracts)**：敏捷反對的是「寫完即丟的死文件」，提倡的是「與程式碼同行的活文件 (Living Documentation)」。以 Markdown/Gherkin 納入 Git 版本控管的測試文件，本身就是**可自動執行的驗收契約 (Executable Contracts)**，是跨職能團隊溝通與維護的最強護城河。
+
 ---
 
 ## 9.4 測試文件品質檢核清單 (Checklist)
