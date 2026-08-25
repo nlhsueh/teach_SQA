@@ -420,25 +420,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option B is correct**: The Patriot system recorded time using a 24-bit floating-point value, introducing a small truncation error every hour. Running for 100 hours accumulated a 0.33-second delay, which at Mach 4.2 caused a ~600m target offset.
-  * **Option A is incorrect**: Communication between the radar and launcher was functional; the issue was target tracking calculation error.
-  * **Option C is incorrect**: The system did not crash; the internal clock simply drifted from real time.
-  * **Option D is incorrect**: It was not a target identification error, but a target trajectory calculation offset.
-
-<div class="ccq-answer">Correct Answer: B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 2)
 
 <div class="ccq-columns">
@@ -459,25 +440,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option B is correct**: Lockheed Martin output imperial units ($\text{lbf}\cdot\text{s}$) while JPL expected metric units ($\text{N}\cdot\text{s}$); this incompatible interface contract led to thrust miscalculation.
-  * **Option A is incorrect**: The issue was unit mismatch, not thread scheduling.
-  * **Option C is incorrect**: Modern software engineering relies heavily on well-defined modular components.
-  * **Option D is incorrect**: Orbital mechanics calculations are extremely sensitive to parameters; descending to 57 km caused it to burn up in the atmosphere.
-
-<div class="ccq-answer">Correct Answer: B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 3)
 
 <div class="ccq-columns">
@@ -493,25 +455,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option B is correct**: The pilot manually pushed down while the computer was executing a Go-Around climb. The computer trimmed the tail up to "correct" the pilot, leading to a stall. This highlights defects in status visibility and override logic.
-  * **Option A is incorrect**: No computer virus was involved.
-  * **Option C is incorrect**: Not a numerical divide-by-zero exception.
-  * **Option D is incorrect**: Altitude sensing was functional; the core issue was status visibility and control priority arbitration.
-
-<div class="ccq-answer">Correct Answer: B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -565,23 +508,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option D is correct**: The IEEE definition explicitly states that software includes not only code, but also procedures, documentation, and data.
-  * **Option A/B/C are incorrect**: They are all part of the software constituents defined by the IEEE.
-
-<div class="ccq-answer">Correct Answer: D</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## 1.2.2 David Garvin's Five Quality Views
 
 | Quality View | Core Meaning | Software Example |
@@ -622,24 +548,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option B is correct**: The product view focuses on the internal structure of the software (such as modularity, clean architecture, and maintainability). Although it meets manufacturing specifications, the internal architecture quality is poor.
-  * **Option A is incorrect**: Meeting specification processes satisfies the manufacturing view.
-  * **Option C/D are incorrect**: These are not part of Garvin's five standard quality classifications.
-
-<div class="ccq-answer">Correct Answer: B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## 1.2.3 Three Levels of Software Quality Definition
 
 1. **Conformance to Specifications** (*Crosby, 1979*):
@@ -666,23 +574,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option C is correct**: Pressman's definition emphasizes explicit requirements, development standards, and implicit professional characteristics (e.g. maintainability, reliability).
-  * **Option A/B/D are incorrect**: These are too narrow and overlook the implicit quality or process standards of professional software.
-
-<div class="ccq-answer">Correct Answer: C</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -758,25 +649,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option A is correct**: A network disconnect is an environmental exception. The system's ability to maintain operation and quickly recover data falls under Reliability sub-characteristics: Fault Tolerance and Recoverability.
-  * **Option B is incorrect**: Portability refers to the ease of moving software across platforms.
-  * **Option C is incorrect**: Usability focuses on user interaction experience.
-  * **Option D is incorrect**: Compliance refers to adhering to regulations or standards.
-
-<div class="ccq-answer">Correct Answer: A</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 8)
 
 <div class="ccq-columns">
@@ -797,23 +669,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option B is correct**: Stability evaluates the sensitivity of the system to negative impacts (side effects) when changes are made. Changes in the personnel module breaking the unrelated financial module show high coupling and poor Stability.
-  * **Option A/C/D are incorrect**: These are unrelated to evaluating side effects of changes on other modules.
-
-<div class="ccq-answer">Correct Answer: B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 9)
 
 <div class="ccq-columns">
@@ -829,23 +684,6 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option C is correct**: Portability defines the ease of transferring software from one environment to another.
-  * **Option A/B/D are incorrect**: These are not focused on environment transfer difficulty.
-
-<div class="ccq-answer">Correct Answer: C</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -953,23 +791,6 @@ CoQ ────┤
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **Explanation**:
-  * **Option B is correct**: Static analysis and testing check/appraise existing quality (Appraisal Cost); staff training and standard setting prevent defects beforehand (Prevention Cost). Both are part of Conformance Costs.
-  * **Option A/C/D are incorrect**: Failure costs refer to the cost incurred due to bugs already generated.
-
-<div class="ccq-answer">Correct Answer: B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 

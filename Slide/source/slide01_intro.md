@@ -420,25 +420,6 @@ style: |
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 B 正確**：愛國者系統採用 24-bit 浮點數記錄時間，每小時有微小的截斷誤差。連開 100 小時累積了 0.33 秒延遲，對 4.2 馬赫的飛彈造成約 600 公尺偏差。
-  * **選項 A 錯誤**：雷達與發射系統通訊正常，是追蹤計算偏差。
-  * **選項 C 錯誤**：系統未當機，而是內部時鐘與真實時間不同步。
-  * **選項 D 錯誤**：並非目標辨識錯誤，而是目標軌跡計算位置偏移。
-
-<div class="ccq-answer">正確答案：B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 2)
 
 <div class="ccq-columns">
@@ -459,25 +440,6 @@ style: |
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 B 正確**：洛克希德馬丁輸出英制單位（$\text{lbf}\cdot\text{s}$），JPL 輸入端預設公制單位（$\text{N}\cdot\text{s}$），介面契約不相容導致推力計算錯誤。
-  * **選項 A 錯誤**：問題出在數值單位不相容，非執行緒排程。
-  * **選項 C 錯誤**：現代軟體工程高度仰賴合約定義良好的模組化元件。
-  * **選項 D 錯誤**：天體力學軌道計算對參數極度敏感，57 公里高度直接進入大氣層摩擦燒毀。
-
-<div class="ccq-answer">正確答案：B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 3)
 
 <div class="ccq-columns">
@@ -493,25 +455,6 @@ style: |
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 B 正確**：駕駛員在不知電腦仍處於「重飛」自動控制狀態下手動下壓機首，電腦持續推升機尾配平「糾正」駕駛員，人機爭奪控制權導致失速墜毀。
-  * **選項 A 錯誤**：無電腦病毒因素。
-  * **選項 C 錯誤**：非數值除零例外。
-  * **選項 D 錯誤**：高度感測正常，核心問題為人機狀態可見度與控制權優先級邏輯缺陷。
-
-<div class="ccq-answer">正確答案：B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -565,23 +508,6 @@ style: |
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 D 正確**：IEEE 定義明確指出，軟體不只有程式碼，操作程序 (Procedures), 文件 (Documentation) 與資料 (Data) 都是軟體不可分割的組成部分。
-  * **選項 A/B/C 錯誤**：它們均屬於 IEEE 定義中的軟體組成部分。
-
-<div class="ccq-answer">正確答案：D</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## 1.2.2 David Garvin 的五大品質觀點
 
 | 品質觀點 | 核心意義 | 軟體領域範例 |
@@ -622,24 +548,6 @@ style: |
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 B 正確**：產品觀點著重於軟體內在結構特性（如模組化、架構整潔、可維護性）。雖然符合製造規格，但內在架構品質差。
-  * **選項 A 錯誤**：符合規格流程在製造觀點通常算合格。
-  * **選項 C/D 錯誤**：非 Garvin 的五大標準品質分類。
-
-<div class="ccq-answer">正確答案：B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## 1.2.3 軟體品質的三層次定義
 
 1. **符合規格需求** (*Crosby, 1979*)：
@@ -666,23 +574,6 @@ style: |
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 C 正確**：Pressman 定義強調了明訂需求、開發標準以及專業軟體隱含特性（如可維護性、可靠性等）三者並重。
-  * **選項 A/B/D 錯誤**：皆流於片面，忽略了專業軟體應具備的隱含品質或流程標準。
-
-<div class="ccq-answer">正確答案：C</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -758,25 +649,6 @@ style: |
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 A 正確**：網路斷線屬於環境異常，系統能在異常下維持運作並迅速恢復資料狀態，屬於可靠性中的容錯度 (Fault Tolerance) 與回復性 (Recoverability)。
-  * **選項 B 錯誤**：可移植性指跨平台搬移的能力。
-  * **選項 C 錯誤**：可用性著重於使用者操作體驗。
-  * **選項 D 錯誤**：合規性指符合法律或產業標準。
-
-<div class="ccq-answer">正確答案：A</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 8)
 
 <div class="ccq-columns">
@@ -797,23 +669,6 @@ style: |
 
 ---
 
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 B 正確**：穩定性 (Stability) 評估系統在受到變動時，對其他部分所造成負面衝擊（副作用）的敏感度。人事模組的變動意外導致無關財務模組出錯，顯示系統模組相依性過高、穩定性差。
-  * **選項 A/C/D 錯誤**：與修改後波及其他無關模組的副作用評估無關。
-
-<div class="ccq-answer">正確答案：B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
-  </div>
-</div>
-
----
-
 ## Concept Check Question (CCQ 9)
 
 <div class="ccq-columns">
@@ -829,23 +684,6 @@ style: |
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 C 正確**：可攜性/可移植性 (Portability) 定義為軟體從一個環境移轉到另一個環境的能力。
-  * **選項 A/B/D 錯誤**：皆非環境轉移難易程度的主軸。
-
-<div class="ccq-answer">正確答案：C</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 
@@ -949,23 +787,6 @@ style: |
   </div>
   <div class="ccq-logo">
     <img src="../../img/ch01/question_icon.svg" alt="Question" />
-  </div>
-</div>
-
----
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-* **解析**：
-  * **選項 B 正確**：靜態分析與測試屬於「評估/檢查現有品質」（Appraisal Cost）；人員教育培訓與標準制定屬於「事前預防缺陷發生」（Prevention Cost）。兩者皆屬「一致性成本」。
-  * **選項 A/C/D 錯誤**：失敗成本指 Bug 已經產生後帶來的除錯與修復代價。
-
-<div class="ccq-answer">正確答案：B</div>
-
-  </div>
-  <div class="ccq-logo">
-    <img src="../../img/ch01/answer_icon.svg" alt="Answer" />
   </div>
 </div>
 

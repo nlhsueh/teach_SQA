@@ -36,3 +36,8 @@
 # Ignore agent configurations and GitHub workflows
 .agents/
 .github/
+
+# Ignore scripts directory
+/scripts/
+__pycache__/
+*.py[cod]
