@@ -37,7 +37,9 @@
 .agents/
 .github/
 
-# Ignore scripts directory
+# Ignore scripts and video directories
 /scripts/
+/MP4/
+**/*.mp4
 __pycache__/
 *.py[cod]
