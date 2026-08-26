@@ -391,6 +391,14 @@ style: |
 ## 軟體危機帶給我們的省思
 
 * **「軟體和教堂非常相似——建成之後我們就開始祈禱。」** —— *Sam Redwine*
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/cathedral_software_comic.jpg" alt="Cathedral and Software Analogy" />
+</div>
 * 軟體問題不是單純的「寫完程式再找蟲」，而是涉及：
   * **需求與規格的清晰度與正確性**
   * **架構設計的健全性與強固性**

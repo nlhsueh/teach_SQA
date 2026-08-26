@@ -12,7 +12,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 軟體既能造福人類，亦能造成毀滅性災難。回顧歷史，軟體缺陷曾引發嚴重的空難、軍事傷亡與數億美元的太空浩劫。
 
-### Case 1：愛國者反導彈事件 (1991) —— 毫秒級的精度累積誤差
+### 1.1.1 Case 1：愛國者反導彈事件 (1991) —— 毫秒級的精度累積誤差
 
 在 1991 年 2 月波斯灣戰爭中，一枚伊拉克發射的飛毛腿飛彈擊中美軍沙烏地達蘭基地，造成 **28 名美軍死亡、100 多人受傷**。
 
@@ -23,7 +23,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 ---
 
-### Case 2：NASA 火星氣候軌道探測器 (1998) —— 單位的代價
+### 1.1.2 Case 2：NASA 火星氣候軌道探測器 (1998) —— 單位的代價
 
 1998 年 NASA 發射「火星氣候軌道探測器」（Mars Climate Orbiter，造價近 2 億美元），抵達火星後失聯焚毀。
 
@@ -38,7 +38,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 ---
 
-### Case 3：華航名古屋空難 (1994) —— 人機爭奪控制權
+### 1.1.3 Case 3：華航名古屋空難 (1994) —— 人機爭奪控制權
 
 1994 年 4 月 26 日，華航 CI140 班機（空中巴士 A300-622R）在名古屋機場降落時墜毀，**264 人罹難**。
 
@@ -52,7 +52,7 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 ---
 
-### Case 4：迪士尼《獅子王》遊戲 (1994) —— 缺乏相容性測試的公關浩劫
+### 1.1.4 Case 4：迪士尼《獅子王》遊戲 (1994) —— 缺乏相容性測試的公關浩劫
 
 1994 年聖誕節迪士尼推出《獅子王》PC 遊戲，伴隨 Compaq 等家用電腦熱銷，數以萬計家庭期待同樂。
 * **致命缺陷**：遊戲基於特定視訊驅動（WinG）開發，**未在市場主流多樣硬體環境上進行充分相容性測試**。
@@ -61,97 +61,16 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 ---
 
-### Case 5：AI 寫的程式碼 —— 為什麼會在 3 秒內讓公司破產？
+### 1.1.5 軟體危機的定義與成因
 
-在進入理論之前，讓我們先看一段由現代頂級 AI（GPT-4 / Claude 3.5）生成的「銀行電子錢包轉帳服務」：
+1968 年 NATO 會議首次提出「軟體危機（Software Crisis）」：硬體飛速發展，而軟體開發卻面臨預算超支、進度延期、品質低下、維護困難等問題。軟體危機的原因可以歸納為以下幾點：
 
-```java
-public class WalletService {
-    private double balance = 1000.0; // 帳戶初始餘額 $1000
+1. 軟體複雜性：隨著電腦硬體性能的提升，軟體的規模和複雜性不斷增加，超出了傳統軟體開發方法的處理能力。
+2. 軟體開發效率低下：軟體開發的進度和成本往往難以預測，開發團隊規模不斷擴大，開發效率卻沒有同步提升。
+3. 軟體品質低下：軟體錯誤率高，軟體品質難以保證，導致軟體系統不穩定，甚至引發嚴重的安全事故。
+4. 軟體維護困難：隨著軟體規模的擴大，軟體維護的難度不斷增加，軟體開發團隊難以適應軟體維護的需求。
 
-    // AI 生成的轉帳方法：具備基本檢查與扣款邏輯
-    public boolean transfer(double amount) {
-        if (amount <= 0) {
-            return false;
-        }
-        if (balance >= amount) {
-            // 模擬網路延遲或資料庫查詢
-            try { Thread.sleep(10); } catch (InterruptedException e) {}
-            
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-}
-```
-
-#### 🧪 現場破壞實驗 (Live Attack Experiment)
-這段程式碼看起來排版整齊、邏輯清晰，一般的單元測試 `assert transfer(100) == true` 也是綠燈通過。
-
-**但是，當我們用 50 個執行緒同時發送「轉帳 $100」的請求時：**
-
-```java
-// 50 個使用者同時並發轉帳 $100（總提款需求 $5000，但帳戶只有 $1000）
-ExecutorService executor = Executors.newFixedThreadPool(50);
-for (int i = 0; i < 50; i++) {
-    executor.submit(() -> walletService.transfer(100.0));
-}
-executor.shutdown();
-executor.awaitTermination(5, TimeUnit.SECONDS);
-
-System.out.println("最終餘額：" + walletService.getBalance());
-```
-
-**執行結果：**
-> ⚠️ **最終餘額：-3200.0**（帳戶原本只有 $1000，居然被提走了 $4200，嚴重超賣負債！）
-
-> 💥 **震撼反思**：
-> 1. **AI 不會主動為你考慮並發安全性與狀態不變量（Invariants）**：AI 只根據常見的程式片段生成了順序執行程式碼，缺乏對執行緒安全（Thread-safety）的原子性保護。
-> 2. **AI 產生的測試往往也是「自我印證的假綠燈」**：如果你叫 AI 幫這段程式碼寫測試，AI 只會寫單執行緒測試，測試 100% 覆蓋率通過，讓你帶著虛假的安全感將炸彈推上線。
-> 3. **2026 資工系工程師的真正使命**：
->    * 寫程式碼（Coding）已經不是稀缺技能；
->    * **「定義規格與不變量」、「設計破壞性測試」、「建立自動化品質防線」才是人類工程師不可替代的核心價值！**
-
----
-
-### 1.1.5 軟體危機的本質：從 1968 到 2026
-
-* 1968 年 NATO 會議首次提出「軟體危機（Software Crisis）」：硬體飛速發展，而軟體開發卻面臨**預算超支、進度延期、品質低下、維護困難**。
-* **2026 年新軟體危機（The Verification Bottleneck）**：
-  * AI 讓寫程式碼的速度提升了 10 倍，產出的程式碼量呈幾何級數暴增。
-  * 然而，人類驗證程式碼、審查規格與確保系統可靠性的能力並沒有自動提升 10 倍！
-  * **軟體危機沒有消失，它只是轉變為「可信賴度危機（Reliability Crisis）」**。
-
-### 📊 數據與實證：AI 讓程式產生的速度變快了，但品質有提升嗎？
-
-這是一個非常關鍵的工程思維問題。當開發團隊大量依賴 AI 程式碼編寫工具時，我們真的得到了高品質的軟體嗎？**答案可能恰恰相反。** 近年的多項權威實證研究與學術調查提供了驚人的數據支持：
-
-1. **程式碼維護性惡化：GitClear 縱向研究 (2020–2026)**
-   * GitClear 分析了 **1.5 億行程式碼** 的 Git Commit 數據，發現自 AI 輔助工具普及以來：
-     * **程式碼重複率 (Code Duplication)** 呈指數級上升。
-     * 衡量程式碼重構的關鍵指標 **「移動行數 (Moved Lines)」大幅下降**，表示工程師更少主動去重構、整理舊程式碼。
-     * **程式碼流失率 (Code Churn)** 顯著增高（剛寫好的程式碼在短時間內被刪除或重寫），這證明 AI 生成了大量看似可行、實則脆弱的程式碼，帶來了沈重的**長期維護性債務（Maintainability Debt）**。
-2. **52% 的高錯誤率與「虛假安全感」：Purdue University 實證研究**
-   * 普渡大學研究團隊評估了 ChatGPT 在回答 Stack Overflow 上的 517 個軟體工程問題時的表現：
-     * 結果顯示，**AI 的解答中有 52% 包含錯誤的程式碼或資訊**。
-     * 但更可怕的是，由於 AI 的語氣極度禮貌、條理清晰且「看似極度合理」，有高達 **39.3% 的使用者依然偏好並採信了 AI 的錯誤回答**。
-     * 這會使工程師產生錯誤的「安全感」，未經嚴謹驗證就直接將漏洞帶入系統中。
-3. **40% 的安全弱點隱患：紐約大學 (NYU) 等學術研究**
-   * 研究人員對 AI 生成的程式碼進行自動化安全掃描（基於 Common Weakness Enumeration, CWE 標準）：
-     * 結果發現，AI 在沒有特定安全提示的引導下，生成程式碼中 **有高達約 40% 包含已知的安全弱點（如：緩衝區溢位、SQL 注入、並發競爭危害）**。
-
-> 💡 **結論**：  
-> **在 2026 AI 時代，軟體開發的真正瓶頸（Bottleneck）已經從「程式碼寫不寫得出來 (Writing)」完全轉移到「程式碼到底正不正確 (Verification)」**。如果開發者缺乏品質保證知識，只盲信 AI 的「綠燈完成」，將會使軟體系統迅速崩潰。
-
-> 😂 **軟體和教堂非常相似——建成之後我們就開始祈禱。**
-> >> *Software and cathedrals are much the same – first we build them, then we pray.* (Sam Redwine)
-
-#### **隨堂測驗 (CCQ 1)**
+#### **概念核對問答 (CCQ 1)**
 
 **問題**
 
@@ -160,10 +79,14 @@ System.out.println("最終餘額：" + walletService.getBalance());
 A) 通訊網路中斷導致雷達無法傳送指令給飛彈發射架  
 B) 24-bit 時鐘暫存器的浮點捨入誤差在連續運行 100 小時後累加達 0.33 秒  
 C) 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機  
-D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈  
+D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
+
+[線上作答](https://nlhsueh.github.io/nickedupocket/#/student/test-patriot-ccq)
+
+![alt text](../img/ch01/test-patriot-ccq.png)
 
 <details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
 
 **正確答案：B**
 
@@ -174,9 +97,70 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 ---
 
-## 1.2 軟體的本質與品質維度（軟體四要素 ＆ Garvin 五大品質觀點）
+## 1.2 AI 能拯救軟體危機嗎？
 
-### 1.2.1 軟體的四大組成要素 (IEEE 610.12)
+近年來，隨著人工智慧（AI）技術的突飛猛進，AI 輔助開發工具（如 GitHub Copilot、ChatGPT）的普及，似乎為軟體工程界注入了一劑強心針。然而，數據顯示這並非萬靈丹，反而可能加劇了隱藏的危機。近年的多項研究與學術調查提供了驚人的數據支持：
+
+1. **程式碼維護性惡化：GitClear 縱向研究 (2020–2026)**
+   * GitClear 分析了 **1.5 億行程式碼** 的 Git Commit 數據，發現自 AI 輔助工具普及以來：
+     * **程式碼重複率 (Code Duplication)** 呈指數級上升。
+     * 衡量程式碼重構的關鍵指標 **「移動行數 (Moved Lines)」大幅下降**，表示工程師更少主動去重構、整理舊程式碼。
+     * **程式碼流失率 (Code Churn)** 顯著增高（剛寫好的程式碼在短時間內被刪除或重寫），這證明 AI 生成了大量看似可行、實則脆弱的程式碼，帶來了沈重的**長期維護性債務（Maintainability Debt）[5]**。
+2. **52% 的高錯誤率與「虛假安全感」：Purdue University 實證研究**
+   * 普渡大學研究團隊評估了 ChatGPT 在回答 Stack Overflow 上的 517 個軟體工程問題時的表現：
+     * 結果顯示，**AI 的解答中有 52% 包含錯誤的程式碼或資訊**。
+     * 但更可怕的是，由於 AI 的語氣極度禮貌、條理清晰且「看似極度合理」，有高達 **39.3% 的使用者依然偏好並採信了 AI 的錯誤回答**。
+     * 這會使工程師產生錯誤的「安全感」，未經嚴謹驗證就直接將漏洞帶入系統中 [6]。
+3. **40% 的安全弱點隱患：紐約大學 (NYU) 等學術研究**
+    * 研究人員對 AI 生成的程式碼進行自動化安全掃描（基於 Common Weakness Enumeration, CWE 標準）：結果發現，AI 在沒有特定安全提示的引導下，生成程式碼中 **有高達約 40% 包含已知的安全弱點（如：緩衝區溢位、SQL 注入、並發競爭危害）[7]**。
+
+### 1.2.1 AI 寫程式引發的品質事件
+
+**1. 幻覺套件供應鏈投毒（Slopsquatting / Package Hallucination）**
+
+* **事故機制**：LLM 在撰寫程式碼時，常會「一本正經地捏造」一個聽起來非常合理的套件名稱（例如 `crypto-validator` 或 `huggingface-cli`）。
+* **釀成災難**：黑客監控 AI 常出現的幻覺套件名稱後，搶先在 PyPI 或 npm 上註冊同名惡意套件。不知情的工程師直接執行 AI 給的 `pip install` 或 `npm install` 指令，導致後門程式與木馬直接植入企業開發環境與生產伺服器。研究顯示有惡意概念驗證套件在數月內被無辜開發者下載超過數萬次 [1]。
+
+**2. 亞馬遜（Amazon）電商系統大斷線與訂單蒸發**
+
+* **事故機制**：2026 年 3 月上旬，亞馬遜電商系統遭遇嚴重故障，內部文件一度指出工程師使用 AI 寫程式工具輔助生成變更程式碼，但未經完整審查與自動化防護驗證即推上生產環境。
+* **釀成災難**：導致送貨與結帳邏輯出錯，引發北美訂單一度崩跌 99%，在數小時內蒸發超過 630 萬筆訂單與大量營收 [2]。
+
+**3. Vibe Coding 帶來的漏洞大爆發（以 Lovable/No-code 平台為例）**
+
+* **事故機制**：非工程背景人員或初階開發者僅憑 Prompt 快速產出整套 Web 服務，缺乏程式碼審查（Code Review）與安全防護概念。
+* **釀成災難**：資安團隊針對 AI 自動生成的 1,600 多個上線應用進行掃描，發現高達 10% 以上存在嚴重的 SQL Injection、越權存取（Broken Access Control）或敏感資料外洩漏洞，用戶可輕易繞過驗證直接進入管理後台 [3]。
+
+**4. 敏感金鑰與憑證直接寫死（Hardcoded Secrets）外洩**
+
+* **事故機制**：AI 為了讓程式「立刻能跑」，經常在範例程式碼中示範把 API Key、資料庫密碼寫死在程式碼內。
+* **釀成災難**：開發者在沒有抽換成環境變數（Environment Variables）的情況下，直接將代碼推送到公開 GitHub Repository，導致雲端帳號（如 AWS、OpenAI）在一小時內被掃描機器人盜用並產生數萬美元的巨額帳單 [4]。
+
+---
+
+> 💡 **結論**：  
+> **在 2026 AI 時代，軟體開發的真正瓶頸（Bottleneck）已經從「程式碼寫不寫得出來 (Writing)」完全轉移到「程式碼到底正不正確 (Verification)」**。如果開發者缺乏品質保證知識，只盲信 AI 的「綠燈完成」，將會使軟體系統迅速崩潰。
+
+😂 **軟體和教堂非常相似——建成之後我們就開始祈禱。**
+
+<img src="../img/ch01/cathedral_software_comic.jpg" width="650">
+
+---
+
+> 📚 **參考資料出處 (References)**：
+> 1. **Lasso Security**: [AI Package Hallucinations](https://www.lasso.security/blog/ai-package-hallucinations) — 研究指出 AI 幻覺套件（如 `huggingface-cli`）可能引發 Slopsquatting 攻擊，惡意套件在數月內被無辜下載超過 3 萬次。
+> 2. **CRN**: [AWS Outage Was Not AI-Caused Via Kiro Coding Tool, Amazon Confirms](https://www.crn.com/news/cloud/2026/aws-outage-was-not-ai-caused-via-kiro-coding-tool-amazon-confirms) — 報導亞馬遜內部大推 AI 寫程式工具 Kiro 以及相關系統故障引發的代碼安全重整爭議與澄清。
+> 3. **Threat Landscape**: [Lovable.dev Data Breach: BOLA Vulnerability in Vibe Coding](https://threatlandscape.io/blog/lovable-dev-data-breach-bola-vulnerability-vibe-coding) — 詳細分析 AI 自動建置應用平台 Lovable 於 2026 年爆發的 BOLA (IDOR) 越權漏洞與產生的程式碼/金鑰暴露風險。
+> 4. **GitGuardian**: [State of Secrets Sprawl Report 2026](https://www.gitguardian.com/state-of-secrets-sprawl-report-2026) — 數據顯示 AI 輔助開發的金鑰與憑證洩漏率是人類開發者的兩倍（如 Claude Code 輔助提交的洩漏率達 3.2%）。
+> 5. **GitClear**: [Coding on Copilot: 2024 Developer Research](https://gitclear-public.s3.us-west-2.amazonaws.com/Coding-on-Copilot-2024-Developer-Research.pdf) — 針對 1.5 億行程式碼進行的縱向分析，指出 AI 輔助開發使程式碼重複率與流失率增加，並降低了主動重構的頻率。
+> 6. **Purdue University**: [Is Stack Overflow Obsolete? An Empirical Study of the Characteristics of ChatGPT Answers to Stack Overflow Questions](https://arxiv.org/abs/2308.02312) — 實證研究發現 ChatGPT 在回答軟體工程問題時，52% 的解答包含錯誤程式碼或資訊，且有 39% 的使用者採信了錯誤回答。
+> 7. **New York University (NYU)**: [Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions](https://arxiv.org/abs/2108.09293) — 學術安全掃描研究指出，在無安全提示引導下，AI 生成的程式碼中有約 40% 包含常見的安全弱點（CWE Top 25 漏洞）。
+
+---
+
+## 1.3 軟體的本質與品質維度（軟體四要素 ＆ Garvin 五大品質觀點）
+
+### 1.3.1 軟體的四大組成要素 (IEEE 610.12)
 
 軟體到底是什麼？僅僅是可執行的二進位檔案或原始程式碼嗎？根據 IEEE（Standard 610.12）的權威定義，軟體是一個完整的系統化工程產物：
 
@@ -193,7 +177,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 ---
 
-### 1.2.2 何謂品質？David Garvin 的五大品質觀點
+### 1.3.2 何謂品質？David Garvin 的五大品質觀點
 
 當我們探討「軟體品質」時，哈佛商學院教授 David Garvin 在《Managing Quality》中指出，品質並非單一維度，而是由多重視角交織而成的立體概念：
 
@@ -217,7 +201,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 > 👍 **程式必須是為了給人看而寫，命令機器執行只是附帶任務。** —— *Abelson & Sussman*  
 > 👍 **品質不是動作，是一種習慣。** —— *Aristotle*
 
-#### **隨堂測驗 (CCQ 2)**
+#### **概念核對問答 (CCQ 2)**
 
 **問題**
 
@@ -229,7 +213,7 @@ C) 法律合約觀點
 D) 超自然觀點 (Transcendental View)  
 
 <details>
-<summary>點擊查看【隨堂測驗】答案與解析</summary>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
 
 **正確答案：A**
 
@@ -240,9 +224,9 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-## 1.3 軟體品質工程核心概念：V&V、品質成本 (CoQ) 與測試左移
+## 1.4 軟體品質工程核心概念：V&V、品質成本 (CoQ) 與測試左移
 
-### 1.3.1 驗證與確認 (Verification vs. Validation, V&V)
+### 1.4.1 驗證與確認 (Verification vs. Validation, V&V)
 
 軟體測試與品質保證的靈魂大問：
 
@@ -254,7 +238,7 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-### 1.3.2 軟體品質成本 (Cost of Quality, CoQ) 與 1:10:100 定律
+### 1.4.2 軟體品質成本 (Cost of Quality, CoQ) 與 1:10:100 定律
 
 軟體品質並不是「越完美越好」，而是在成本與效益之間取得最佳平衡。在軟體品質管理中，品質成本 (Cost of Quality, CoQ) 分為**一致性成本**與**非一致性成本**：
 
@@ -275,11 +259,11 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-## 1.4 軟體工程流程與生命週期中的品質把關 (SDLC & CI/CD Quality Governance)
+## 1.5 軟體工程流程與生命週期中的品質把關 (SDLC & CI/CD Quality Governance)
 
 軟體工程的核心哲學在於：**「品質不是最後靠測試敲打出來的，而是在整個生命週期中逐步建造並防護出來的 (Quality is built-in, not tested-in)。」**
 
-### 1.4.1 傳統模型與 V 模型：對稱性與早期測試規劃
+### 1.5.1 傳統模型與 V 模型：對稱性與早期測試規劃
 
 在傳統線性模型（瀑布模型）中，測試常被延後至編程結束後才進行，落入 1:10:100 的高昂修復陷阱。為解決此問題，**V 模型 (V-Model)** 建立了開發階段與測試層級的嚴密對稱與平行規劃：
 
@@ -295,7 +279,7 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-### 1.4.2 現代敏捷與 DevOps CI/CD 連續品質門檻 (Continuous Quality Gates)
+### 1.5.2 現代敏捷與 DevOps CI/CD 連續品質門檻 (Continuous Quality Gates)
 
 在現代雲原生與微服務時代，軟體以每日甚至每小時的頻率持續交付。品質保證已全面升級為**自動化流水線上的「連續品質門檻 (Continuous Quality Gates)」**：
 
@@ -311,7 +295,7 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-## 1.5 現代軟體品質模型 (ISO 9126 → ISO 25010)
+## 1.6 現代軟體品質模型 (ISO 9126 → ISO 25010)
 
 每一個產業都有其獨特的品質模型。例如製造簡易塑膠椅的廠商不會將「可維修性」列為核心品質指標，椅子壞了直接丟棄換新即可；但汽車產業就必須將「可維護性 (Maintainability)」與「安全性 (Safety)」置於最高優先級。
 
@@ -325,7 +309,7 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-### 1.5.1 ISO 25010 八大產品品質特性 (Product Quality Characteristics)
+### 1.6.1 ISO 25010 八大產品品質特性 (Product Quality Characteristics)
 
 國際標準組織早期制定了 **ISO 9126**（定義 6 大特性）；現代 **ISO 25010 (SQuaRE, 軟體產品品質要求與評估標準)** 進一步擴展為 **8 大產品品質特性 (Product Quality)**：
 
@@ -385,7 +369,7 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-### 1.5.2 🗺️ ISO 25010 品質特性與 16 週實戰測試技術地圖
+### 1.6.2 🗺️ ISO 25010 品質特性與 16 週實戰測試技術地圖
 
 軟體測試絕非盲目敲打程式碼，本課程所教授的每一項測試與工程技術，都是在為品質模型的特定維度建立自動化守護防線：
 
@@ -402,7 +386,7 @@ D) 超自然觀點 (Transcendental View)
 
 ---
 
-## ✍️ 1.6 綜合練習與思維激盪
+## ✍️ 1.7 綜合練習與思維激盪
 
 1. **AI 時代的品質反思**：
    * 當生成式 AI 可以在幾秒鐘內產生包含完整 Javadoc 的程式碼時，為什麼軟體測試工程師的價值反而大幅提升？請從「Test Oracle 問題」與「自我印證偏誤」兩方面進行說明。

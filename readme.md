@@ -1,32 +1,35 @@
-# 軟體品質保證與可靠性工程 (SQA 2.0)
-### Software Quality Assurance & Reliability Engineering (2026 AI Era Edition)
+# 軟體測試與軟體品質保證
+### Software Testing & Software Quality Assurance (2026 AI Era Edition)
+ 
+## 課程目標：
 
-> 歡迎來到資工系大三 **《軟體品質保證與可靠性工程》** 課程庫！
-> 
-> 在 2026 AI 時代，**「寫出程式碼（Coding）」的門檻已被 LLM 大幅抹平，而「定義好軟體的標準（Quality Models）」與「驗證程式碼的強固性（Verification & Reliability）」成為資工系學生最核心的工程競爭力。**
-> 
-> 本課程以 **現代軟體品質模型 (ISO 25010 / Garvin)** 為指北針，結合 **屬性測試 (Property-Based Testing)**、**變異測試 (PIT)**、**容器化整合 (Testcontainers)**、**契約測試 (Pact)**、**混沌工程 (Chaos Engineering)** 與 **AI 測試代理 (Agentic QA)**，引導學生從傳統的「手動抓蟲」躍升為具備全局視野的「軟體品質與可靠性架構師」。
+1. **建立系統化的測試思維**：
+    * 擺脫「想到哪測到哪」的直覺式除錯，建立黑箱測試（等價類、邊界值）與白箱測試（邏輯覆蓋、圈複雜度）的系統化思維。
+    * 掌握將抽象的 ISO 25010 品質要求，轉化為具體可執行的測試策略與驗證指標。
+
+2. **掌握現代測試工程的技術**：
+    * **單元測試**：JUnit 5 現代架構與參數化/動態測試。
+    * **進階測試**：`jqwik` 屬性測試（告別手寫測資）、PITest 變異測試（殺死弱測試）。
+    * **整合測試**：Testcontainers 容器化測試、Pact 契約測試（微服務對接）。
+    * **端到端與效能**：Playwright E2E 測試、k6 負載測試。
+    * **安全與可靠**：模糊測試 (Fuzzing)、混沌工程 (Chaos Engineering)。
+    * **CI/CD 集成**：SonarQube 靜態分析、GitHub Actions 自動化流水線。
+
+3. **理解 AI 時代的軟體工程範式轉移**：
+    * 認識 AI 生成代碼（LLM/Copilot）的固有風險（幻覺、長時崩潰、精度誤差）。
+    * 學習如何使用「防禦性架構（Design by Contract）」與「契約測試」來管理 LLM 生成代碼的不可信風險。
+
+4. **培養實戰開發與交叉測試能力**：
+    * **專題成果發表與交叉測試**：各組於第 14 週完成專題系統並交付他組進行真實情境交叉測試；期末報告時，每位同學不僅展示自家系統與測試成效，亦報告對他組系統的測試發現與品質回饋。
+    * **AI 測試代理**：探索 AI 測試代理在生成測試案例、自動化測試、風險識別方面的應用與局限。
 
 ---
 
-## 🧭 核心教學理念與四大典範轉移
+## 🗺️ ISO 25010 軟體品質模型與實作技術對照
 
-```
-【傳統思維：1990~2010 年代】              【大破大立思維：2026 AI 時代】
-手動抓蟲、填寫紙本測試表格      ➡️    不變量思考 (Invariants) & 規格工程
-手敲大量重複的單點 assertEquals  ➡️    屬性測試 (Property-Based Testing, 自動萬組極端測資)
-純 Mock 虛擬環境單元測試        ➡️    Testcontainers 真實容器化整合測試 & 契約測試 (Pact)
-傳統 Selenium 易碎 UI 測試      ➡️    現代 Playwright E2E + 混沌工程 (Chaos Engineering)
-各自做普通 CRUD App 寫報告       ➡️    ⚔️ 紅藍軍軟體品質攻防擂台賽 (Red vs. Blue Arena)
-```
+> 每一種測試都在度量並守護品質模型的具體維度
 
----
-
-## 🗺️ ISO 25010 軟體品質模型與實戰技術對照地圖
-
-本課程強調「測試不是盲目寫 code，每一種測試都在度量並守護品質模型的具體維度」：
-
-| ISO 25010 品質特性 | 核心子特性 (Sub-characteristics) | 本課程對應之測試與工程技術 |
+| ISO 25010 品質特性 | 核心子特性 (Sub-characteristics) | 對應之測試與工程技術 |
 | :--- | :--- | :--- |
 | **功能適合性** (Functional Suitability) | 完備性、正確性、適切性 | 等價類分割 (EP)、邊界值分析 (BVA)、JUnit 5、BDD (Cucumber) |
 | **可靠性** (Reliability) | 成熟度、容錯度 (Fault Tolerance)、可回復性 | 斷言 (Assertions)、**屬性測試 (jqwik Property-Based Testing)**、混沌工程 (Chaos) |
@@ -39,54 +42,30 @@
 
 ---
 
-## 🗓️ 16 週精準教學大綱規劃
+## 🗓️ 18 週教學大綱規劃
 
-本課程每週 **3 小時**（**1 小時一般教室理論授課** + **2 小時電腦教室實習演練**），學中做、做中學：
+每週課程安排（大致）：**3 小時**（**1 小時一般教室理論授課** + **2 小時電腦教室實習演練**；第 17~18 週為**彈性自主學習與觀看影音單元**）：
 
-| 週次 | 核心模組 | 1 小時講授 (Lecture - 理論/前沿思維) | 2 小時實習 (Lab - 現代工具實戰) | 品質模型對應維度 / 產出 | 教材與實習手冊連結 |
-| :---: | :--- | :--- | :--- | :--- | :--- |
-| **01** | **第一階段：品質模型與 AI 信任危機** | **【開局震撼】**：為什麼 AI 生成的代碼會在第 101 小時崩潰？軟體危機、Garvin 五大品質觀點與軟體要素 | **AI 代碼破壞實驗**：給定一個 AI 生成的交易系統，找出隱藏的並發、精度與崩潰漏洞 | 認識品質的代價與重要性 | 📖 [Ch01 導論](Lecture/ch01_intro.md)<br>🛠️ [Lab 01 AI 破壞實驗](Lab/u02_debug/ai_code_break.md) |
-| **02** | 第一階段 | **【核心理論】現代軟體品質模型 (ISO 9126 $\rightarrow$ ISO 25010)**：8 大產品品質特性、使用品質與品質成本 (CoQ 1:10:100 定律) | **除錯實務與科學假設檢驗**：條件斷點、例外斷點與日誌追蹤分析 | **建立「好軟體」的評鑑指北針** | 📖 [Ch02 錯與除錯](Lecture/ch02_bug.md)<br>🛠️ [Lab 02 除錯實務](Lab/u02_debug/debug.md) |
-| **03** | 第一階段 | **防禦性架構與合約設計 (Design by Contract)**：前置/後置條件、狀態不變量 (Class Invariants) 與自我診斷防線 | 使用 Java Assertions、Google Guava Preconditions 與結構化日誌（SLF4J/MDC）建立自我防護 | **守護：可靠性 (容錯度)**<br>Lab 03：防禦防線建置 | 📖 [Ch03 測試原則](Lecture/ch03_testing.md)<br>🛠️ [Lab 03 斷言防線](Lab/u03_preventive/assertion.md) |
-| **04** | 第一階段 | **現代靜態分析與架構異味檢測**：從 AST 語法樹看程式碼異味 (Code Smells)、安全漏洞 (OWASP Top 10) 與架構腐化 | 打造 CI 靜態品質門檻：SonarQube / SpotBugs / PMD 規則設定與自訂檢測規則 | **守護：可維護性、安全性**<br>Lab 04：Code Smell 攔截 | 📖 [Ch04 檢視與靜態分析](Lecture/ch04_inspection.md)<br>🛠️ [Lab 04 靜態分析](Lab/u04_inspection/pmd.md) |
-| **05** | **第二階段：測試理論的極致與現代化** | **黑箱設計之魂**：等價分割、邊界分析、全成對測試 (Pairwise) 與正交表數學原理 | JUnit 5 現代架構：動態測試 (`@TestFactory`)、參數化測試 (`@ParameterizedTest`) 與自訂 DisplayName | **守護：功能適合性**<br>專題分組與賽制發布 | 📖 [Ch05 黑箱測試](Lecture/ch05_blackbox.md)<br>🛠️ [Lab 05 JUnit 5](Lab/u05_bbtest/junit.md) |
-| **06** | 第二階段 | **【典範轉移】屬性基礎測試 (Property-Based Testing)**：告別手寫測資，用數學屬性（Invariants）讓電腦自動生成萬組測資 | **`jqwik` / `Hypothesis` 實戰**：定義演算法不變量，體驗框架自動產生極端測資與縮小化 (Shrinking) | **守護：可靠性 (極限邊界)**<br>顛覆傳統測試思維 | 📖 [Ch05 屬性測試](Lecture/ch05_blackbox.md)<br>🛠️ [Lab 06 jqwik 屬性測試](Lab/u05_bbtest/jqwik_property_based.md) |
-| **07** | 第二階段 | **白箱測試與 MC/DC (Modified Condition/Decision Coverage)**：航空級高可靠度軟體的覆蓋率標準與圈複雜度推導 | JaCoCo 高級分析：分支與指令覆蓋率解讀、為未覆蓋路徑精準補彈 | **守護：功能適合性、結構完整**<br>Lab 07：高強度白箱實戰 | 📖 [Ch06 白箱測試](Lecture/ch06_whitebox.md)<br>🛠️ [Lab 07 白箱測試](Lab/u06_wbtesting/whitebox_test.md) |
-| **08** | **期中檢驗** | **【期中能力鑑定 (Midterm Exam)】**（涵蓋 ISO 25010 品質模型、規格推導、MC/DC 分析、屬性不變量與測試設計） | **【專題提案與藍軍品質架構審查 (Architecture & Spec Review)】**：各組發表系統規格、防禦藍圖與品質指標目標 | **期中考 & 藍軍防禦架構確認** | - |
-| **09** | **第三階段：微服務、真實環境與非功能測試** | **變異測試 (Mutation Testing) —— 測試品質的唯一真理**：誰來監督監督者？變異算子、殺死率與等價變異體難題 | **PIT (Pitest) 實戰**：注入故障變異體，計算 Mutation Score，揪出「高覆蓋率卻測不出 Bug」的假測試 | **守護：測試套件可維護性與有效性**<br>Lab 08：變異殺死挑戰 | 📖 [Ch06 變異測試](Lecture/ch06_whitebox.md)<br>🛠️ [Lab 08 變異測試](Lab/u06_mutation/mutation_test.md) |
-| **10** | 第三階段 | **隔離架構與 Test Double 原則**：何時用 Mock？何時不用 Mock？過度 Mock 的反模式與脆化測試 (Brittle Tests) | **Mockito 進階**：深入 `ArgumentCaptor`、Spy、嚴格 Stubbing (`Strictness.STRICT_STUBS`) 與架構解耦 | **守護：可測試性、模組化**<br>Lab 09：重構過度 Mock 代碼 | 📖 [Ch07 整合測試](Lecture/ch07_integration.md)<br>🛠️ [Lab 09 Mockito](Lab/u07_integration/mokito.md) |
-| **11** | 第三階段 | **真實環境整合測試 (Testcontainers) 與 API 測試**：拒絕 H2 內存庫幻覺，使用真實 Docker 容器測試資料庫與中介軟體 | **Testcontainers + Spring Boot Test**：一鍵拉起真實 PostgreSQL / Redis 容器進行毫秒級資料庫整合測試 | **守護：可移植性、環境一致性**<br>Lab 10：容器化整合實戰 | 📖 [Ch07 整合測試 (7.8 容器化)](Lecture/ch07_integration.md)<br>🛠️ [Lab 10 Testcontainers](Lab/u07_integration/testcontainers_spring.md) |
-| **12** | 第三階段 | **微服務契約測試 (Contract Testing with Pact) & 現代 E2E**：分散式系統中 API 契約防護；Playwright 現代化 Web 測試 | **Pact 實戰 + Playwright 自動化**：定義 Consumer-Driven Contracts；撰寫抗網路波動、具錄影回放的 Web 驗收測試 | **守護：相容性、易用性**<br>Lab 11：契約與 E2E 防衛 | 📖 [Ch08 系統測試 (契約與 E2E)](Lecture/ch08_system.md)<br>🛠️ [Lab 11 契約與 Playwright](Lab/u08_contract_e2e/pact_and_playwright.md) |
-| **13** | **第四階段：前沿品質工程、AI 與混沌實戰** | **高併發、效能與負載工程**：TPS、P99 延遲、資源洩漏、排隊理論與壓測模型設計 | **k6 / JMeter 現代壓測**：用程式碼定義負載情境（Load as Code），進行突波測試 (Spike) 與耐力測試 (Soak) | **守護：效能效率**<br>Lab 12：效能瓶頸診斷 | 📖 [Ch08 效能測試](Lecture/ch08_system.md)<br>🛠️ [Lab 12 k6 壓測](Lab/u08_performance/k6_load_testing.md) |
-| **14** | 第四階段 | **模糊測試 (Fuzzing) 與混沌工程 (Chaos Engineering)**：注入混亂，在生產環境崩潰前主動搞壞系統 | **Chaos-Mesh / Fault Injection 實作**：隨機注入網路延遲、殺死 Pod、模擬磁碟滿載，驗證系統容錯自癒力 | **守護：可靠性、安全性**<br>Lab 13：混沌破壞實驗 | 📖 [Ch08 混沌與安全測試](Lecture/ch08_system.md)<br>🛠️ [Lab 13 模糊與混沌測試](Lab/u08_chaos_fuzzing/chaos_and_fuzzing.md) |
-| **15** | 第四階段 | **【AI in SQA 前沿】Agentic Testing 與自律測試機器人**：Prompt Engineering for QA、AI 輔助探索性測試、自我修復測試套件 | 打造 GitHub Actions 自動化 CI/CD 全防線（包含 SonarQube + JaCoCo + PIT + AI 程式碼審查 Bot） | **守護：DevOps 流程品質**<br>藍軍系統封裝，紅軍備戰 | 📖 [AI in QA 專題](Lecture/UX_and_AI.md)<br>🛠️ [Lab 14 CI 品質防線](Lab/u10_devops/github_actions_quality_gate.md) |
-| **16** | **決戰與收官** | **【期末能力筆試 (Final Exam)】**（30% 觀念：ISO 25010 品質架構、微服務測試、混沌工程、AI 測試驗證準則） | **🔥【紅藍軍品質攻防大擂台 (Red vs Blue Chaos Arena)】**：現場 Live 攻防滲透、展示自癒防線與頒獎 | **專題公開發表與競賽** | 🏆 成果發表 |
-
----
-
-## ⚔️ 期末專題：【紅藍軍軟體品質攻防擂台 ＆ 種子缺陷挑戰賽】
-
-專題跳脫「交普通 CRUD 系統」的傳統模式，採用賽事化 **「紅藍攻防 + 種子缺陷 (Defect Seeding)」** 機制：
-
-```
-  【階段一：藍軍築防 (第 08～14 週)】             【階段二：紅藍交鋒 (第 15～16 週)】
-  打造符合 ISO 25010 高可靠微服務系統             各隊互換權限，扮演「紅軍攻擊者」
-  • 完整的規格定義 (OpenAPI / Invariants)        • 使用 AI 模糊測試 (Fuzzing) 注入極端測資
-  • Property-Based Testing + PIT > 75%         • 注入混沌故障 (Chaos/Concurrency/Memory)
-  • Testcontainers + Playwright E2E             • 尋找防守方未考慮的邊界漏洞與當機條件
-  • 秘密埋藏 3 個極隱蔽的【種子缺陷】給老師備查   • 撰寫「漏洞滲透報告」並提交 Issue
-  • 產出《ISO 25010 品質模型達成度度量報告》
-```
-
-### 🎯 攻防積分與結算機制
-* **藍軍（防守方）**：
-  * 基礎防線：屬性測試、PIT 變異殺死率 $\ge 70\%$、GitHub Actions 自動阻擋不合格 PR。
-  * 若紅軍發動萬筆模糊攻擊但藍軍系統**完全防禦且無崩潰** $\rightarrow$ 獲得【鋼鐵防禦大獎】。
-  * 藍軍故意埋的種子缺陷未被紅軍發現 $\rightarrow$ 獲得【高超設計分】。
-* **紅軍（進攻方）**：
-  * 🎯 抓到藍軍【故意埋的種子缺陷】 $\rightarrow$ 獲得「精準打擊分」。
-  * 💥 抓到藍軍【自己都不知道的真實未預期 Bug (Zero-Day)】 $\rightarrow$ 獲得「暴擊超額加分」！
-  * 提交嚴謹、具備可重現測試腳本的 Issue 報告。
+| 週次 | 1 小時講授 (Lecture)<img width="40%" height="0"> | 2 小時實習 (Lab)<img width="40%" height="0"> | 教材與實習手冊連結<img width="15%" height="0"> |
+| :---: | :--- | :--- | :--- |
+| **01** | **【開局震撼】**：為什麼 AI 生成的程式碼會在第 101 小時崩潰？軟體危機、Garvin 五大品質觀點與軟體要素 | **AI 程式碼破壞實驗**：給定一個 AI 生成的交易系統，找出隱藏的並發、精度與崩潰漏洞 | 📖 [Ch01 導論](Lecture/ch01_intro.md)<br>🛠️ [Lab 01 AI 破壞實驗](Lab/u02_debug/ai_code_break.md) |
+| **02** | **【核心理論】現代軟體品質模型 (ISO 9126 $\rightarrow$ ISO 25010)**：8 大產品品質特性、使用品質與品質成本 (CoQ 1:10:100 定律) | **除錯實務與科學假設檢驗**：條件斷點、例外斷點與日誌追蹤分析 | 📖 [Ch02 錯與除錯](Lecture/ch02_bug.md)<br>🛠️ [Lab 02 除錯實務](Lab/u02_debug/debug.md) |
+| **03** | **防禦性架構與合約設計 (Design by Contract)**：前置/後置條件、狀態不變量 (Class Invariants) 與自我診斷防線 | 使用 Java Assertions、Google Guava Preconditions 與結構化日誌（SLF4J/MDC）建立自我防護 | 📖 [Ch03 測試原則](Lecture/ch03_testing.md)<br>🛠️ [Lab 03 斷言防線](Lab/u03_preventive/assertion.md) |
+| **04** | **現代靜態分析與架構異味檢測**：從 AST 語法樹看程式碼異味 (Code Smells)、安全漏洞 (OWASP Top 10) 與架構腐化 | 打造 CI 靜態品質門檻：SonarQube / SpotBugs / PMD 規則設定與自訂檢測規則 | 📖 [Ch04 檢視與靜態分析](Lecture/ch04_inspection.md)<br>🛠️ [Lab 04 靜態分析](Lab/u04_inspection/pmd.md) |
+| **05** | **黑箱設計之魂**：等價分割、邊界分析、全成對測試 (Pairwise) 與正交表數學原理 | JUnit 5 現代架構：動態測試 (`@TestFactory`)、參數化測試 (`@ParameterizedTest`) 與自訂 DisplayName | 📖 [Ch05 黑箱測試](Lecture/ch05_blackbox.md)<br>🛠️ [Lab 05 JUnit 5](Lab/u05_bbtest/junit.md) |
+| **06** | **【典範轉移】屬性基礎測試 (Property-Based Testing)**：告別手寫測資，用數學屬性（Invariants）讓電腦自動生成萬組測資 | **`jqwik` / `Hypothesis` 實戰**：定義演算法不變量，體驗框架自動產生極端測資與縮小化 (Shrinking) | 📖 [Ch05 屬性測試](Lecture/ch05_blackbox.md)<br>🛠️ [Lab 06 jqwik 屬性測試](Lab/u05_bbtest/jqwik_property_based.md) |
+| **07** | **白箱測試與 MC/DC (Modified Condition/Decision Coverage)**：航空級高可靠度軟體的覆蓋率標準與圈複雜度推導 | JaCoCo 高級分析：分支與指令覆蓋率解讀、為未覆蓋路徑精準補彈 | 📖 [Ch06 白箱測試](Lecture/ch06_whitebox.md)<br>🛠️ [Lab 07 白箱測試](Lab/u06_wbtesting/whitebox_test.md) |
+| **08** | **【期中能力鑑定 (Midterm Exam)】**（涵蓋 ISO 25010 品質模型、規格推導、MC/DC 分析、屬性不變量與測試設計） | **【專題提案與品質架構審查 (Architecture & Spec Review)】**：各組發表專題規格、防護策略與品質指標目標 | - |
+| **09** | **變異測試 (Mutation Testing) —— 測試品質的唯一真理**：誰來監督監督者？變異算子、殺死率與等價變異體難題 | **PIT (Pitest) 實戰**：注入故障變異體，計算 Mutation Score，揪出「高覆蓋率卻測不出 Bug」的假測試 | 📖 [Ch06 變異測試](Lecture/ch06_whitebox.md)<br>🛠️ [Lab 08 變異測試](Lab/u06_mutation/mutation_test.md) |
+| **10** | **隔離架構與 Test Double 原則**：何時用 Mock？何時不用 Mock？過度 Mock 的反模式與脆化測試 (Brittle Tests) | **Mockito 進階**：深入 `ArgumentCaptor`、Spy、嚴格 Stubbing (`Strictness.STRICT_STUBS`) 與架構解耦 | 📖 [Ch07 整合測試](Lecture/ch07_integration.md)<br>🛠️ [Lab 09 Mockito](Lab/u07_integration/mokito.md) |
+| **11** | **真實環境整合測試 (Testcontainers) 與 API 測試**：拒絕 H2 內存庫幻覺，使用真實 Docker 容器測試資料庫與中介軟體 | **Testcontainers + Spring Boot Test**：一鍵拉起真實 PostgreSQL / Redis 容器進行毫秒級資料庫整合測試 | 📖 [Ch07 整合測試 (7.8 容器化)](Lecture/ch07_integration.md)<br>🛠️ [Lab 10 Testcontainers](Lab/u07_integration/testcontainers_spring.md) |
+| **12** | **微服務契約測試 (Contract Testing with Pact) & 現代 E2E**：分散式系統中 API 契約防護；Playwright 現代化 Web 測試 | **Pact 實戰 + Playwright 自動化**：定義 Consumer-Driven Contracts；撰寫抗網路波動、具錄影回放的 Web 驗收測試 | 📖 [Ch08 系統測試 (契約與 E2E)](Lecture/ch08_system.md)<br>🛠️ [Lab 11 契約與 Playwright](Lab/u08_contract_e2e/pact_and_playwright.md) |
+| **13** | **高併發、效能與負載工程**：TPS、P99 延遲、資源洩漏、排隊理論與壓測模型設計 | **k6 / JMeter 現代壓測**：用程式碼定義負載情境（Load as Code），進行突波測試 (Spike) 與耐力測試 (Soak) | 📖 [Ch08 效能測試](Lecture/ch08_system.md)<br>🛠️ [Lab 12 k6 壓測](Lab/u08_performance/k6_load_testing.md) |
+| **14** | **【專題系統完成與交付凍結 (Code Freeze)】**：各組完成系統開發與自測防線，並**正式交付給對應組別**進行交叉測試 | **Chaos-Mesh / Fault Injection 實作**：隨機注入網路延遲、殺死 Pod、模擬磁碟滿載，驗證系統容錯自癒力 | 📖 [Ch08 混沌與安全測試](Lecture/ch08_system.md)<br>🛠️ [Lab 13 模糊與混沌測試](Lab/u08_chaos_fuzzing/chaos_and_fuzzing.md) |
+| **15** | **【AI in SQA 前沿】Agentic Testing 與自律測試機器人**：Prompt Engineering for QA、AI 輔助探索性測試、自我修復測試套件 | 打造 GitHub Actions 自動化 CI/CD 全防線；**持續進行他組系統交叉測試**並撰寫《測試發現與品質改善報告》 | 📖 [AI in QA 專題](Lecture/UX_and_AI.md)<br>🛠️ [Lab 14 CI 品質防線](Lab/u10_devops/github_actions_quality_gate.md) |
+| **16** | **【期末能力筆試 (Final Exam)】**（30% 觀念：ISO 25010 品質架構、微服務測試、混沌工程、AI 測試驗證準則） | **【期末專題成果發表會】**：每位同學進行雙向成果報告：(1) **自家系統架構與自測成果**；(2) **測試他人系統的發現與品質改善建議** | 🏆 成果發表 |
+| **17** | **【自主學習 / 影音單元】現代測試文件標準與活文件工程 (Doc-as-Code)**：建議大方向：精簡版 IEEE 829/ISO 29119 架構、需求雙向追溯 (RTM) 與 Markdown/Gherkin 活文件實踐 | **影音自主演練**：自由探索現代化測試報表工具（如 Allure Report）或 Doc-as-Code 自動發布流程 | 🎞️ [影音單元自主學習] |
+| **18** | **【自主學習 / 影音單元】品質成熟度模型 (CMMI / TMMi) 與品質治理前沿**：建議大方向：軟體組織測試成熟度評鑑 (TMMi Level 1~5)、AI 程式碼審查 (AI Code Review) 與技術債度量治理 | **影音自主演練**：自由選擇感興趣的開源專案或系統架構進行組織級品質度量與成熟度評估探索 | 🎞️ [前沿專題影音] |
 
 ---
 
@@ -95,4 +74,4 @@
 * **平時實習作業與課堂 CCQ (Lab & Quizzes)**：**25%**（每週上機即時驗收，重視動手能力）
 * **期中能力鑑定筆試 (Midterm Exam)**：**25%**（第 08 週，著重於 ISO 品質模型、黑白箱設計推導、MC/DC 與屬性不變量）
 * **期末能力鑑定筆試 (Final Exam)**：**20%**（第 16 週，著重於微服務測試架構、Test Double、混沌工程、AI 測試驗證）
-* **期末紅藍攻防專題與發表 (Final Project & Arena)**：**30%**（含藍軍系統品質、PIT 變異殺死率、紅軍滲透報告與現場 Live Demo）
+* **期末專題成果發表與交叉測試 (Final Project & Cross-Testing)**：**30%**（含自家系統品質防線建置、交叉測試他人系統之缺陷與品質報告、期末雙向口頭成果發表）

@@ -391,6 +391,14 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 ## Reflections on the Software Crisis
 
 * **"Software and cathedrals are much the same — first we build them, then we pray."** —— *Sam Redwine*
+
+---
+
+<!-- _class: full-image-slide -->
+
+<div class="centered-image">
+  <img src="../../img/ch01/cathedral_software_comic.jpg" alt="Cathedral and Software Analogy" />
+</div>
 * Software quality is not just about "finding bugs after writing code"; it involves:
   * **Clarity and correctness of requirements and specifications**
   * **Robustness and health of architectural design**

@@ -100,6 +100,8 @@ D) 異常防護 (Exceptions)
   * AI 生成的程式碼通常語法優美、註解詳盡，容易給工程師帶來「這段代碼絕對沒錯」的錯覺。
   * 但 AI 代碼極常潛伏並發競爭條件 (Race Conditions) 或邊界例外，跑過幾次 Happy Path 綠燈絕不能保證其無錯！
 
+<img src="../img/ch03/presence_of_defects_comic.jpg" width="650">
+
 ---
 
 ### 原則 2：窮盡測試是不可能的 (Exhaustive testing is impossible)
@@ -161,6 +163,8 @@ D) 異常防護 (Exceptions)
 * 🤖 **AI 時代警示【自我印證的假綠燈】**：
   * 若讓 AI 為自己生成的程式碼寫單元測試，AI 會**依照自身錯誤的邏輯去設計測試**，導致測試與代碼「共同錯在同一個盲區」，產生極高強度的假安全感抗藥性！
 
+<img src="../img/ch03/pesticide_paradox_comic.jpg" width="650">
+
 ---
 
 ### 原則 6：測試取決於上下文 (Testing is context dependent)
@@ -218,8 +222,6 @@ D) 這是硬體浮點數運算器的製造缺陷
 *   **【右側】Validation (確認)**：
     *   *關鍵提問*：**「Are we building the right product?（我們是否建造了正確的軟體？）」**
     *   *目標*：確保軟體交付後真正切中使用者痛點、滿足業務目標與商業價值（產品導向）。
-
-
 
 ---
 
