@@ -1,12 +1,12 @@
-# 🧪 DemoSQA: 軟體品質保證與測試實務教學專案
+# 🧪 LabDemo: 軟體品質保證與測試實務教學專案
 
-歡迎使用 **DemoSQA** 課程專案！本專案採用 **All-in-One 一站式架構**，整合全學期軟體品質保證（SQA）與測試實務的範例代碼、單元測試、自動化測試架構與各單元實驗指引（Lab Manuals）。
+歡迎使用 **LabDemo** 課程專案！本專案採用 **All-in-One 一站式架構**，整合全學期軟體品質保證（SQA）與測試實務的範例代碼、單元測試、自動化測試架構與各單元實驗指引（Lab Manuals）。
 
 ---
 
 ## 🚀 快速上手 (Quick Start)
 
-1. **開啟專案**：在 IntelliJ IDEA 或 VS Code 中選擇 **`Open`**，直接選取本 `DemoSQA` 資料夾開啟。
+1. **開啟專案**：在 IntelliJ IDEA 或 VS Code 中選擇 **`Open`**，直接選取本 `LabDemo` 資料夾開啟。
 2. **Maven 同步**：IDE 會自動解析根目錄的 `pom.xml` 並下載相依套件（支援 Java 21、JUnit 5、Mockito 5、Cucumber 7、Selenium 4、Log4j 2、JaCoCo 與 PIT）。
 3. **瀏覽文件**：直接在 IDE 的左側導覽列展開 **[`docs/`](./docs/)** 資料夾，點選各單元 Markdown 即可閱讀實驗步驟並直接點擊跳轉至對應程式碼。
 
@@ -32,7 +32,7 @@
 ## 📁 專案目錄結構
 
 ```text
-DemoSQA/
+LabDemo/
 ├── pom.xml                               # 統一 Maven 依賴與插件配置
 ├── README.md                             # 專案總導覽與各單元索引
 ├── docs/                                 # 各單元詳細實驗手冊與說明文件

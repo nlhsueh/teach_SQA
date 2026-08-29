@@ -46,7 +46,7 @@ if (A == 2 || X > 1) {
 *   **缺陷**：若工程師將 `A > 1 && B == 0` 誤寫為 `A > 1 || B == 0`，上述測資 `(2,0,3)` 執行結果依然正確，無法找出 Bug。這證明了 **SC 100% 依然非常薄弱**。
 
 ### 1.2.2 IntelliJ Coverage 工具操作步驟
-1.  開啟 `Lab/DemoSQA` 專案。
+1.  開啟 `LabDemo` 專案。
 2.  在測試檔案上按右鍵，選擇 **Run 'xxxTest' with Coverage**。
 3.  在 IDE 右側的 Coverage 視窗中，可檢視 Class、Method、Line、Branch 的覆蓋率。
 4.  在程式碼編輯器左側的側邊欄中：

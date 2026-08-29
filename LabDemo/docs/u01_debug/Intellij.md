@@ -25,7 +25,7 @@ IntelliJ IDEA 是由 JetBrains 開發的 Java 整合開發環境，廣受全球�
   - **Java 8 (JDK 1.8)**：許多企業舊有系統仍在運作，但已不建議用於新專案。
   - **Java 11**：過渡時期的主流。
   - **Java 17**：目前被廣泛採用於現代框架（如 Spring Boot 3）的 LTS 版本。
-  - **Java 21**：最新且極力推薦的 LTS 版本，引入了虛擬執行緒（Virtual Threads）等強大特性。本學期的練習專案（如 `DemoSQA`）預設皆使用 **Java 21**。
+  - **Java 21**：最新且極力推薦的 LTS 版本，引入了虛擬執行緒（Virtual Threads）等強大特性。本學期的練習專案（如 `LabDemo`）預設皆使用 **Java 21**。
 * **避免使用非 LTS 版本**（如 Java 22, 23 等）：非 LTS 版本每 6 個月發布一次且很快停止支援，不適合做為教學與主要開發的環境。
 * **推薦發行版**：建議使用免費、開放原始碼且穩定的 OpenJDK 發行版，例如 **Eclipse Temurin (Adoptium)** 或 **Amazon Corretto**。
 
@@ -75,7 +75,7 @@ Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [POM
 | 目錄/檔案 | 用途說明 | 是否需要納入 Git 版本控制？ |
 | :--- | :--- | :--- |
 | **`.idea/`** | **IntelliJ 專案專屬設定資料夾**：存放此專案在該 IDE 中的配置（如編輯器視窗排版、執行/除錯設定 `runConfigurations`、Maven 同步快取、程式碼風格樣式等）。 | **大部分排除**：通常將個人排版設定排除，僅保留團隊共用的執行設定（如特定的 `runConfigurations` 檔）。 |
-| **`*.iml`** (如 `DemoSQA.iml`) | **IntelliJ 模組設定檔（Module File）**：以 XML 格式記錄該模組的結構、路徑及依賴關係。為 IntelliJ 的舊版或相容性設計。 | **排除**：因為 Maven 專案的依賴關係已經由 `pom.xml` 定義，IDE 會自動從 `pom.xml` 生成此檔案，無需納入 Git。 |
+| **`*.iml`** (如 `LabDemo.iml`) | **IntelliJ 模組設定檔（Module File）**：以 XML 格式記錄該模組的結構、路徑及依賴關係。為 IntelliJ 的舊版或相容性設計。 | **排除**：因為 Maven 專案的依賴關係已經由 `pom.xml` 定義，IDE 會自動從 `pom.xml` 生成此檔案，無需納入 Git。 |
 | **`src/`** | **原始碼目錄**：存放所有 Java 程式碼與資源檔案。<br>・`src/main/java`：主程式邏輯。<br>・`src/main/resources`：設定檔或資源。<br>・`src/test/java`：單元測試程式碼。 | **必須納入**：這是開發的核心程式碼。 |
 | **`target/`** | **編譯與建置輸出目錄**：Maven 執行 `compile` 或 `package` 後生成的檔案（包含編譯後的 `.class` 檔、包裝好的 `.jar` 檔、測試報告與 Jacoco 覆蓋率報告等）。 | **絕對排除**：此資料夾可以透過 `mvn clean` 隨時清除，並透過 `mvn compile` 重新生成，絕對不要提交至 Git。 |
 | **`pom.xml`** | **Maven 專案物件模型（Project Object Model）**：定義專案基本資訊、依賴套件、編譯外掛等（參考 [POM.md](POM.md)）。 | **必須納入**：這是定義專案建置與依賴的根本來源。 |
@@ -162,5 +162,5 @@ AI 會產生類似以下的區塊，您只需直接貼入 `pom.xml` 的 `<depend
    
 4. IntelliJ 會立刻啟動該模組的 Maven 解析，此時資料夾圖示會變為帶有藍色小方塊的模組圖示，即可正常在 `src/test/java` 執行單元測試。
 
-### 綜合練習專案：[DemoSQA](../DemoSQA)
-在 `Lab/DemoSQA` 中，我們已經配置好了一個包含單元測試（JUnit 5）、瀏覽器自動化測試（Selenium）、程式碼檢查工具（PMD）及測試覆蓋率報告工具（JaCoCo）的完整專案。您可以直接將其開起，作為本學期各實驗練習的程式碼基礎。
+### 綜合練習專案：[LabDemo](../../README.md)
+在 `LabDemo` 中，我們已經配置好了一個包含單元測試（JUnit 5）、瀏覽器自動化測試（Selenium）、程式碼檢查工具（PMD）及測試覆蓋率報告工具（JaCoCo）的完整專案。您可以直接將其開起，作為本學期各實驗練習的程式碼基礎。

@@ -222,7 +222,7 @@ Debugging tools are the stethoscope and scalpel of engineers. Modern IDEs (like 
 * **Exception Breakpoints**: Pause the system and pin the call stack immediately whenever a specific exception (e.g., `NullPointerException`) is thrown.
 * **Evaluate Expression**: Execute expressions on the fly to verify hypotheses when execution is paused.
 
-> 🛠️ **Lab Practice Guides**: Please refer to [`Lab/u02_debug/debug.md`](../Lab/u02_debug/debug.md) and [`Lab/u02_debug/Intellij.md`](../Lab/u02_debug/Intellij.md) for hands-on debugging practices.
+> 🛠️ **Lab Practice Guides**: Please refer to [`LabDemo/docs/u01_debug/debug.md`](../../LabDemo/docs/u01_debug/debug.md) and [`LabDemo/docs/u01_debug/Intellij.md`](../../LabDemo/docs/u01_debug/Intellij.md) for hands-on debugging practices.
 
 ---
 
@@ -250,9 +250,9 @@ Even under green lights, experienced drivers slow down and look both ways becaus
 | **Exception** | Handling "expected external runtime anomalies"                | Public API parameter validation, network outages, missing files, user input errors  | Always active; must be explicitly handled/caught |
 
 > 🛠️ **Lab Guides Links**:
-> * Assertions: [`Lab/u03_preventive/assertion.md`](../Lab/u03_preventive/assertion.md)
-> * Exceptions: [`Lab/u03_preventive/exception.md`](../Lab/u03_preventive/exception.md)
-> * Structured Logging: [`Lab/u03_preventive/logging.md`](../Lab/u03_preventive/logging.md)
+> * Assertions: [`LabDemo/docs/u02_preventive/assertion.md`](../../LabDemo/docs/u02_preventive/assertion.md)
+> * Exceptions: [`LabDemo/docs/u02_preventive/exception.md`](../../LabDemo/docs/u02_preventive/exception.md)
+> * Structured Logging: [`LabDemo/docs/u02_preventive/logging.md`](../../LabDemo/docs/u02_preventive/logging.md)
 
 ---
 

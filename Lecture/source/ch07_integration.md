@@ -743,7 +743,7 @@ public class UserRepositoryIntegrationTest {
 }
 ```
 
-> 🛠️ **對應實習手冊**：詳細的 Testcontainers + Spring Boot + PostgreSQL 實戰演練，請參考 [**Lab 10：Testcontainers 真實容器化整合測試**](../Lab/u07_integration/testcontainers_spring.md)。
+> 🛠️ **對應實習手冊**：詳細的 Testcontainers + Spring Boot + PostgreSQL 實戰演練，請參考 [**Lab 10：Testcontainers 真實容器化整合測試**](../../LabDemo/docs/u08_integration/testcontainers_spring.md)。
 
 ---
 

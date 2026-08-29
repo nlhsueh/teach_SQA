@@ -279,7 +279,7 @@ public class WebLoginE2ETest {
 }
 ```
 
-> 🛠️ **對應實習手冊**：詳細的 Pact 契約測試與 Playwright 現代化 Web E2E 測試實務，請參考 [**Lab 11：微服務契約測試 (Pact) ＆ 現代 Playwright E2E 自動化**](../Lab/u08_contract_e2e/pact_and_playwright.md)。
+> 🛠️ **對應實習手冊**：詳細的 Pact 契約測試與 Playwright 現代化 Web E2E 測試實務，請參考 [**Lab 11：微服務契約測試 (Pact) ＆ 現代 Playwright E2E 自動化**](../../LabDemo/docs/u09_cucumber_bdd/pact_and_playwright.md)。
 
 ## 8.4 可用性測試 (Usability Testing)
 
@@ -443,8 +443,8 @@ CPU 使用率與回應時間關聯分析
 *   **經典 GUI 流派：Apache JMeter**：具備豐富 GUI 介面、支援 HTTP 代理側錄 (Record & Replay)、適合複雜 Enterprise 協議。
 
 > 🛠️ **對應實習手冊**：
-> * 🚀 現代程式化壓測：[**Lab 12：k6 現代程式化壓測 (Load as Code) 與高併發效能工程**](../Lab/u08_performance/k6_load_testing.md)
-> * 🖥️ 經典 GUI 壓測：[**Lab 12 補充：Apache JMeter 壓力測試實務**](../Lab/u08_performance/jmeter.md)
+> * 🚀 現代程式化壓測：[**Lab 12：k6 現代程式化壓測 (Load as Code) 與高併發效能工程**](../../LabDemo/docs/u10_performance/k6_load_testing.md)
+> * 🖥️ 經典 GUI 壓測：[**Lab 12 補充：Apache JMeter 壓力測試實務**](../../LabDemo/docs/u10_performance/jmeter.md)
 
 ---
 
@@ -550,7 +550,7 @@ CPU 使用率與回應時間關聯分析
 4.  **步驟 4：驗證資料完整性 (Audit Data Consistency)**：
     *   比對故障期間發生的所有交易資料，確保沒有未完成的髒資料或雙重扣款現象。
 
-> 🛠️ **對應實習手冊**：詳細的 Jazzer 模糊測試與 Resilience4j 混沌故障注入實務，請參考 [**Lab 13：模糊測試與混沌工程故障注入**](../Lab/u08_chaos_fuzzing/chaos_and_fuzzing.md)。
+> 🛠️ **對應實習手冊**：詳細的 Jazzer 模糊測試與 Resilience4j 混沌故障注入實務，請參考 [**Lab 13：模糊測試與混沌工程故障注入**](../../LabDemo/docs/u10_chaos_fuzzing/chaos_and_fuzzing.md)。
 
 ---
 

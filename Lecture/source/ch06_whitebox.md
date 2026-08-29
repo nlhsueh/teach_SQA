@@ -10,7 +10,7 @@
 
 ## 🧑‍💻 6.1 Lab: 測試涵蓋度
 
-[涵蓋度 Lab](../Lab/u06_wbtesting/whitebox_test.md)
+[涵蓋度 Lab](../../LabDemo/docs/u06_wbtesting/whitebox_test.md)
 
 #### 6.1.1 概念核對問答 (CCQ 1)
 * **是非題**：JaCoCo 作為 Java 軟體測試覆蓋率工具，在測量覆蓋率時是透過修改 Java 原始碼檔 (.java) 並插入計數器變數來追蹤執行狀態的。
