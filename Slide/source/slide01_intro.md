@@ -420,9 +420,11 @@ style: |
 * **C.** 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機
 * **D.** 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
+[線上作答](https://nlhsueh.github.io/nickedupocket/#/student/test-patriot-ccq)
+
   </div>
   <div class="ccq-logo">
-    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/test-patriot-ccq.png" alt="QR Code" />
   </div>
 </div>
 

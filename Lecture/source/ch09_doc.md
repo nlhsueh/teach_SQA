@@ -15,7 +15,7 @@
 
 在敏捷開發與現代軟體工程中，「測試文件」的形式已大幅演進，但其背後的四大核心價值始終不變：
 
-<img src="../img/ch09/test_doc_core_values.jpg" width="650">
+<img src="../../img/ch09/test_doc_core_values.jpg" width="650">
 
 **圖形解說：測試文件的四大核心價值**
 1.  **1. 對齊規格認知 (Alignment)**：
@@ -37,7 +37,7 @@
 
 IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表性的測試文件標準。傳統 IEEE 829 定義了八大階段十餘種繁複報告，現代工程可將其**精簡提煉為三大核心支柱 (3 Core Pillars)**：
 
-<img src="../img/ch09/ieee829_three_pillars.jpg" width="650">
+<img src="../../img/ch09/ieee829_three_pillars.jpg" width="650">
 
 **圖形解說：IEEE 829 現代精簡三大支柱**
 *   **第一支柱：測試計畫 (Test Planning)**：確立宏觀戰略，釐清範疇邊界 (Scope)、時程進度 (Schedule)、團隊資源 (Resources) 與品質通過門檻 (Pass/Fail Criteria)。
@@ -83,7 +83,7 @@ IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表
 
 生成式 AI 與 LLM 的成熟，徹底顛覆了測試文件的撰寫與維護成本。測試文件不再是負擔，而是能夠**被 AI 理解、自動生成、並直接驅動自動化執行的「活資產」**。
 
-<img src="../img/ch09/ai_test_documentation_workflow.jpg" width="650">
+<img src="../../img/ch09/ai_test_documentation_workflow.jpg" width="650">
 
 **圖形解說：AI 輔助現代化測試文件五大階段工作流**
 *   **Stage 1：需求規格輸入 (User Story / PRD Input)**：產品經理提供原始 PRD 規格文件或使用者故事 (User Stories)。
@@ -119,7 +119,7 @@ IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表
 
 許多團隊在導入 AI 輔助測試時，容易陷入「AI 萬能，無需文件」的誤區。**AI 能極大程度減少重複性撰寫的負擔，但測試文件的核心地位非但沒有消失，反而變得更加重要！**
 
-<img src="../img/ch09/ai_test_doc_myths_truths.jpg" width="650">
+<img src="../../img/ch09/ai_test_doc_myths_truths.jpg" width="650">
 
 **圖形解說：AI 時代測試文件三大迷思 vs. 真相**
 *   **迷思一：AI 會自己寫程式碼，測試文件已經過時淘汰了？ (Myth: AI writes code, test docs are obsolete)**

@@ -16,7 +16,7 @@ Chapter 02: Bugs, Faults, and Debugging
 > 
 > (Adapted from Gerald M. Weinberg's *Quality Software Management: Volume 1 System Thinking*).
 
-<a href="https://g.co/gemini/share/fdd83982f1a8"><img src = "../img/ch02/SyPN4Bpcex.png" width=200></a>
+<a href="https://g.co/gemini/share/fdd83982f1a8"><img src = "../../img/ch02/SyPN4Bpcex.png" width=200></a>
 
 ---
 
@@ -28,7 +28,7 @@ At 3:45 PM on September 9, 1947, **Grace Murray Hopper** recorded the first actu
 
 Colloquially, "Bug" is used to refer to all software issues, but in international software engineering standards (IEEE 610.12), there is a strict four-stage causality chain for errors:
 
-<img src="../img/ch02/bug_causality_chain.jpg" width="650">
+<img src="../../img/ch02/bug_causality_chain.jpg" width="650">
 
 **Diagram Explanation: IEEE 610.12 Four-Stage Bug Causality Chain**
 1.  **1. Human Mistake / Error**: A mental slip, misunderstanding of requirements, or typo by an analyst, architect, or developer.
@@ -84,7 +84,7 @@ Consider these three specifications:
 - *Spec 2:* Design a divider where the user inputs a dividend and divisor. The user must not input a divisor of 0. (*Defect: Unclear how the system should handle it if 0 is input*)
 - *Spec 3:* Design a divider. If the user inputs a divisor of 0, the system should clear the result field and return HTTP 400 with a user-friendly error message "Divisor cannot be zero." (*An excellent contract spec*)
 
-<img src="../img/ch02/spec_fault_failure_venn.jpg" width="650">
+<img src="../../img/ch02/spec_fault_failure_venn.jpg" width="650">
 
 **Diagram Explanation: Intersection of Specifications (Spec), Code Faults, and System Failures**
 *   **Latent Fault**: A bug in the code (e.g., a memory leak or a specific boundary condition overflow) that has not triggered an external failure under general scenarios.
@@ -152,7 +152,7 @@ Debugging is not "changing code randomly to try one's luck (Shotgun Debugging),"
 
 ### 2.2.1 Five Steps of Scientific Debugging
 
-<img src="../img/ch02/scientific_debugging_steps.jpg" width="650">
+<img src="../../img/ch02/scientific_debugging_steps.jpg" width="650">
 
 **Diagram Explanation: Five Steps of the Scientific Debugging Flow**
 1.  **1. Reproduce**: Establish a Minimal Failing Test Case that reproduces the bug 100% of the time.
@@ -232,7 +232,7 @@ Even under green lights, experienced drivers slow down and look both ways becaus
 
 ### 2.4.1 Three Core Elements of Design by Contract (Bertrand Meyer)
 
-<img src="../img/ch02/design_by_contract_simplified.jpg" width="650">
+<img src="../../img/ch02/design_by_contract_simplified.jpg" width="650">
 
 **Diagram Explanation: Bertrand Meyer's Design by Contract (DbC) Three Core Laws**
 1.  **Preconditions (`requires`)**: Conditions that the caller must satisfy. If they are not met, the callee has the right to refuse execution.
@@ -260,7 +260,7 @@ Even under green lights, experienced drivers slow down and look both ways becaus
 
 ### 📖 2.5.1 Metaphor: The Building Light
 
-<a href="https://g.co/gemini/share/c381192abfd4"><img src = "../img/ch02/rJuA7H6qxl.png" width=200></a>
+<a href="https://g.co/gemini/share/c381192abfd4"><img src = "../../img/ch02/rJuA7H6qxl.png" width=200></a>
 
 "The light in the 26th-floor conference room is on. It should be turned off." The bug report noted: "Please resolve in 5 minutes, just press the switch."
 
@@ -282,7 +282,7 @@ I protested, saying the bulb was definitely off. QA said: "**The bug I reported 
 
 In professional software teams, defect tracking and management follow a rigorous state transition flow:
 
-<img src="../img/ch02/defect_lifecycle_complete.jpg" width="650">
+<img src="../../img/ch02/defect_lifecycle_complete.jpg" width="650">
 
 **Diagram Explanation: Complete Defect Tracking Lifecycle (Bug Workflow)**
 *   **Main Flow States**:
@@ -303,7 +303,7 @@ In professional software teams, defect tracking and management follow a rigorous
 
 In issue tracking systems (like Jira / GitHub Issues), **Severity** (technical impact) and **Priority** (business urgency) are two orthogonal dimensions:
 
-<img src="../img/ch02/defect_severity_vs_priority.jpg" width="650">
+<img src="../../img/ch02/defect_severity_vs_priority.jpg" width="650">
 
 **Diagram Explanation: Severity vs. Priority 2x2 Decision Matrix**
 1.  **1. High Severity + High Priority (Critical Impact - Fix Immediately)**:

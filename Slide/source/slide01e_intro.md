@@ -420,9 +420,11 @@ Instructor: Prof. Nien-Lin Hsueh (with Gemini AI)
 * **C.** A memory leak in the code caused the operating system to crash.
 * **D.** The radar algorithm misidentified a US fighter jet as an enemy Scud missile.
 
+[Online Answer](https://nlhsueh.github.io/nickedupocket/#/student/test-patriot-ccq)
+
   </div>
   <div class="ccq-logo">
-    <img src="../../img/ch01/question_icon.svg" alt="Question" />
+    <img src="../../img/ch01/test-patriot-ccq.png" alt="QR Code" />
   </div>
 </div>
 

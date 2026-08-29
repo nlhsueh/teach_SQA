@@ -1,12 +1,12 @@
 # Ch07 整合測試
 
-![image](../img/ch07/SyRubyB4p.png)
+![image](../../img/ch07/SyRubyB4p.png)
 
 
 ## 7.1 整合測試與 V 開發模型
 
 #### fig-v-model
-![image](../img/ch07/BknjbJHVT.png)
+![image](../../img/ch07/BknjbJHVT.png)
 
 
 ### 7.1.1 測試層級
@@ -57,7 +57,7 @@ Spring Boot 框架具有以下特點，非常適合用來展示多模組整合�
 由下而上表示我們從比較小的元件模組測試起，針對這些小模組寫一些測試驅動程式（test driver），丟一些參數或訊息給這些模組，檢驗其回傳或反應是否正確。
 
 #### fig-bottom-up
-<img src=../img/ch07/HyQJGyS4T.png width=500>
+<img src=../../img/ch07/HyQJGyS4T.png width=500>
 
 
 下方的 JUnit 測試碼就是一個 test driver，用來測試 isPrime() 這個程式是否正確。
@@ -136,7 +136,7 @@ int[] getPrimeNumber(int x) {
 - 用 G 取代 `g`, 測試 A, B, C, D E, F, G 整合起來是否正常
 
 #### fig-top-down
-![image](../img/ch07/Sye8GJrVT.png)
+![image](../../img/ch07/Sye8GJrVT.png)
 
 #### ex-print-prime
 > [!NOTE]
@@ -490,7 +490,7 @@ Mokito 的好處為：
 >
 > #### fig-grade-displayer
 >
-> ![image](../img/ch07/H1h-71BNp.png)
+> ![image](../../img/ch07/H1h-71BNp.png)
 >
 
 ## 7.7 Lab: Spring Boot 整合測試實務
@@ -679,7 +679,7 @@ public class PrimeIntegrationTest {
 
 [**Testcontainers**](https://testcontainers.com/)（[官方文件](https://java.testcontainers.org/) ｜ [快速指南 Guides](https://testcontainers.com/guides/)）是目前 Java 整合測試的黃金標準：
 
-<img src="../img/ch07/testcontainers_architecture_flow.jpg" width="650">
+<img src="../../img/ch07/testcontainers_architecture_flow.jpg" width="650">
 
 **圖形解說：Testcontainers 架構與容器生命週期流轉 (Architecture Flow)**
 * **1. 測試進程發起啟動 (Startup Request)**：JUnit 5 測試類別標註 `@Testcontainers` 與 `@Container`，測試啟動時向 Docker Daemon 發送環境構建請求。

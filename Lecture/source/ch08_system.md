@@ -42,7 +42,7 @@
 在進行系統流程測試時，我們需要根據基本流與替代流的組合，來設計涵蓋不同情境的測試路徑（Scenarios）。
 
 #### fig-use-case-testing
-![image](../img/ch08/B1y5_kSV6.png)
+![image](../../img/ch08/B1y5_kSV6.png)
 
 以基本流（BF）與替代流（AF₁, AF₂, ...）為例，我們可以規劃以下測試案例來確保流程的完整性：
 
@@ -55,7 +55,7 @@
 
 ## 8.2 行為驅動開發與 Cucumber 測試
 
-![image](../img/ch08/HJkRVZhH6.png)
+![image](../../img/ch08/HJkRVZhH6.png)
 
 [Cucumber](https://cucumber.io/) 是一種行為驅動開發（Behavior Driven Development，簡稱BDD）工具，用於支援軟體測試和自動化測試。以下是 Cucumber 工具在軟體測試上的概念和好處：
 
@@ -309,7 +309,7 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 對於一個介面設計（例如按鈕位置、色彩）採用 A/B 兩種版本進行線上分流，觀察點擊率與轉換率以決定最佳設計。
 
 #### fig-ab-test
-<img src=../img/ch08/Hk6D9yr4T.png width=450>
+<img src=../../img/ch08/Hk6D9yr4T.png width=450>
 
 ---
 
@@ -377,12 +377,12 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 
 #### fig-virtual-user 
 
-![image](../img/ch08/HJEFskS4T.png)
+![image](../../img/ch08/HJEFskS4T.png)
 使用虛擬使用者進行壓力測試
 
 #### fig-load-generator
 
-![image](../img/ch08/BkJb3JSET.png)
+![image](../../img/ch08/BkJb3JSET.png)
 多台的負載產生器進行分散式加壓
 
 ---
@@ -412,7 +412,7 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 
 分析效能測試數據時，重點在於找出**系統瓶頸 (Bottlenecks)** 與**效能拐點**：
 
-<img src="../img/ch08/performance_testing_three_golden_metrics.jpg" width="650">
+<img src="../../img/ch08/performance_testing_three_golden_metrics.jpg" width="650">
 
 **圖形解說：效能測試三大黃金指標與飽和點分析**
 * **1. 回應時間延遲分位數 (Response Latency Percentiles)**：揚棄平均數陷阱，聚焦於 P95（95% 請求之最大延遲）與 P99 長尾延遲，真實反映極端負載下的使用者真實感受。
@@ -426,12 +426,12 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 
 #### fig-response-time-graph
 
-![image](../img/ch08/rkdcnyBET.png)
+![image](../../img/ch08/rkdcnyBET.png)
 回應時間曲線與飽和點示意
 
 #### fig-cpu-utilization
 
-![image](../img/ch08/BJpnnkBVa.png)
+![image](../../img/ch08/BJpnnkBVa.png)
 CPU 使用率與回應時間關聯分析
 
 ---
@@ -480,7 +480,7 @@ CPU 使用率與回應時間關聯分析
 
 ### 8.7.2 安全測試的四大核心作法 (Testing Approaches)
 
-<img src="../img/ch08/security_testing_pipeline.jpg" width="650">
+<img src="../../img/ch08/security_testing_pipeline.jpg" width="650">
 
 1.  **SAST (Static Application Security Testing，靜態應用安全測試)**：
     *   在編譯期或靜態分析階段掃描原始碼，尋找硬編碼密碼 (Hardcoded Secrets)、不安全的 SQL 拼接或危險函式調用。
@@ -511,7 +511,7 @@ CPU 使用率與回應時間關聯分析
 
 ### 8.8.1 核心觀念與四大關鍵度量指標
 
-<img src="../img/ch08/system_resilience_timeline_metrics.jpg" width="650">
+<img src="../../img/ch08/system_resilience_timeline_metrics.jpg" width="650">
 
 **圖形解說：系統故障與高可用回復時間軸 (Resilience & Availability Timeline)**
 * **MTBF (平均故障間隔時間)**：衡量系統在正常運轉期間 (Normal Operation) 的持續穩定度，數值愈長愈可靠。

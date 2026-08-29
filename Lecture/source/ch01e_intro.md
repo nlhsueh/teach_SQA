@@ -27,7 +27,7 @@ During the Gulf War in February 1991, an Iraqi Scud missile hit a US barracks in
 
 In 1998, NASA launched the "Mars Climate Orbiter" (costing nearly $200 million), which lost contact and burned up upon arriving at Mars.
 
-<img src="../img/ch01/mars_climate_orbiter_unit_mismatch.jpg" width="650">
+<img src="../../img/ch01/mars_climate_orbiter_unit_mismatch.jpg" width="650">
 
 **Diagram Explanation: Spacecraft Crash Caused by Broken Cross-Module Interface Contract**
 *   **[Left] Contractor Software (Lockheed Martin)**: Ground control software output thruster impulse data in **Imperial units (pound-force seconds, lbf·s)**.
@@ -42,7 +42,7 @@ In 1998, NASA launched the "Mars Climate Orbiter" (costing nearly $200 million),
 
 On April 26, 1994, China Airlines Flight CI140 (Airbus A300-622R) crashed while landing at Nagoya Airport, killing **264 people**.
 
-<img src="../img/ch01/nagoya_air_crash_hmi_conflict.jpg" width="650">
+<img src="../../img/ch01/nagoya_air_crash_hmi_conflict.jpg" width="650">
 
 **Diagram Explanation: Human-Machine Interface Conflict (HMI Mode Confusion) and Lack of Control Arbitration**
 *   **[Left] Pilot Manual Operation (Manual Push)**: After the co-pilot accidentally triggered the "Go-Around (TOGA)" mode, the pilots tried to manually push the control column forward (Down Elevators) to force the nose down for landing.
@@ -182,7 +182,7 @@ What exactly is software? Is it merely executable binaries or source code? Accor
 > **Software**:
 > Computer **programs**, **procedures**, and possibly associated **documentation** and **data** pertaining to the operation of a computer system.
 
-<img src="../img/ch01/software_four_elements.jpg" width="650">
+<img src="../../img/ch01/software_four_elements.jpg" width="650">
 
 **Diagram Explanation: Four Core Elements of Software (IEEE 610.12)**
 1.  **Programs (Code)**: Includes source code, compilation outputs (Bytecode/Binary), and execution scripts, which implement business logic and algorithms.
@@ -196,7 +196,7 @@ What exactly is software? Is it merely executable binaries or source code? Accor
 
 When discussing "software quality," Harvard Business School professor David Garvin pointed out in *Managing Quality* that quality is not a single dimension, but a multi-dimensional concept woven from different perspectives:
 
-<img src="../img/ch01/garvin_quality_views.jpg" width="650">
+<img src="../../img/ch01/garvin_quality_views.jpg" width="650">
 
 **Diagram Explanation: David Garvin's Five Quality Views**
 1.  **1. Transcendental View**: Cannot be precisely quantified, but is recognized immediately through experience as refined, elegant, and intuitive (e.g., smooth UI/UX with micro-interactions).
@@ -257,7 +257,7 @@ The ultimate question of software testing and quality assurance:
 
 Software quality is not "the more perfect, the better," but a balance between costs and benefits. In software quality management, the Cost of Quality (CoQ) is divided into **Conformance Costs** and **Non-Conformance Costs**:
 
-<img src="../img/ch01/cost_of_quality_coq.jpg" width="650">
+<img src="../../img/ch01/cost_of_quality_coq.jpg" width="650">
 
 **Diagram Explanation: Cost of Quality (CoQ) Framework and the 1:10:100 Rule of Defect Multiplier**
 *   **Conformance Costs (Active Investment in Quality)**:
@@ -282,7 +282,7 @@ The core philosophy of software engineering is: **"Quality is built-in, not test
 
 In the traditional linear model (Waterfall), testing was often delayed until coding was finished, falling into the expensive 1:10:100 trap. To address this, the **V-Model** establishes strict symmetry and parallel planning between development stages and testing levels:
 
-<img src="../img/ch01/v_model_quality_symmetry.jpg" width="650">
+<img src="../../img/ch01/v_model_quality_symmetry.jpg" width="650">
 
 **Diagram Explanation: Symmetry of Development and Testing Levels in the V-Model**
 *   **Left: Development Phases (Verification)** ➔ **Right: Testing Levels (Validation)** are symmetrically mapped:
@@ -298,7 +298,7 @@ In the traditional linear model (Waterfall), testing was often delayed until cod
 
 In modern cloud-native and microservice eras, software is delivered daily or even hourly. Quality assurance has evolved into automated **Continuous Quality Gates** in the CI/CD pipeline:
 
-<img src="../img/ch01/devops_cicd_quality_gates.jpg" width="650">
+<img src="../../img/ch01/devops_cicd_quality_gates.jpg" width="650">
 
 **Diagram Explanation: 6 Continuous Quality Gates in Modern DevOps CI/CD Pipeline**
 1.  **1. Code Commit Gate**: Local Git pre-commit hooks automatically execute code formatting and quick static syntax checks.
@@ -314,7 +314,7 @@ In modern cloud-native and microservice eras, software is delivered daily or eve
 
 Every industry has its unique quality model. For instance, a manufacturer of cheap plastic chairs will not prioritize "repairability" as a core quality metric; chairs are replaced rather than repaired. However, the automotive industry must place "safety" and "maintainability" at the absolute top.
 
-<img src="../img/ch01/product_quality_models_comparison.jpg" width="650">
+<img src="../../img/ch01/product_quality_models_comparison.jpg" width="650">
 
 **Diagram Explanation: Comparison of Quality Models Across Industries**
 1.  **Automobile**: Prioritizes **Safety**, **Maintainability**, and **Repairability**.
@@ -328,7 +328,7 @@ Every industry has its unique quality model. For instance, a manufacturer of che
 
 The International Organization for Standardization originally established **ISO 9126** (defining 6 characteristics). The modern **ISO 25010 (SQuaRE standard)** expands this into **8 Product Quality Characteristics**:
 
-<img src="../img/ch01/iso25010_eight_characteristics.jpg" width="650">
+<img src="../../img/ch01/iso25010_eight_characteristics.jpg" width="650">
 
 **Diagram Explanation: ISO 25010 Eight Product Quality Characteristics (Core Dimensions)**
 
