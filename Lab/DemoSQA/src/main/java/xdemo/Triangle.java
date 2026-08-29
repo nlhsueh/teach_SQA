@@ -1,39 +1,36 @@
-
 package xdemo;
 
-import java.util.Scanner;
+/**
+ * LAB: use assert / exception to achieve preventive programming; make the program robust
+ * - This program has significant bugs
+ */
 
 public class Triangle {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        System.out.println(Triangle.checkTriangle(10, 23, 11));
+        System.out.println(Triangle.checkTriangle(1, 1, 1));
+        System.out.println(Triangle.checkTriangle(2, 2, 3));
+        System.out.println(Triangle.checkTriangle(3, 2, 2));
+        System.out.println(Triangle.checkTriangle(0, -1, -2));
+        System.exit(0);
+    }
 
-        // 輸入三角形三邊長
-        System.out.print("請輸入第一邊長: ");
-        double a = scanner.nextDouble();
-        System.out.print("請輸入第二邊長: ");
-        double b = scanner.nextDouble();
-        System.out.print("請輸入第三邊長: ");
-        double c = scanner.nextDouble();
-
-        // 判斷是否為有效三角形
-        if ((a + b > c) && (a + c > b)) {
-            if (a == b && b == c) {
-                System.out.println("這是正三角形。");
-            } else if (a == b || b == c || a == c) {
-                System.out.println("這是等腰三角形。");
-            } else {
-                // 判斷是否為直角三角形
-                double max = Math.max(a, Math.max(b, c));
-                if (Math.abs((max * max) - (a * a + b * b + c * c - max * max)) < 0.0001) {
-                    System.out.println("這是直角三角形。");
-                } else {
-                    System.out.println("這是一般三角形。");
-                }
-            }
-        } else {
-            System.out.println("這不是一個有效的三角形。");
+    public static String checkTriangle(int a, int b, int c) {
+        if (a <= 0 || b <= 0 || c <= 0) {
+            System.out.println("長度不可以是負的");
         }
-        scanner.close();
+        if (a + b > c && b + c > a && c + a > b) {
+            if (a == b)
+                if (b == c) {
+                    return "正三角形";
+                } else
+                    return "等腰三角形";
+            else if (b == c) {
+                return "等腰三角形";
+            }
+            return "三角形";
+        }
+        return "非三角形";
     }
 }

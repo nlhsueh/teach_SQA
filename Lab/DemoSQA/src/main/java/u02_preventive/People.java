@@ -1,8 +1,4 @@
-package xdemo;
-
-/**
- * LAB: use assert / exception to achieve preventive programming; make the program robust
- */
+package u02_preventive;
 
 public class People {
     private String name;
@@ -17,29 +13,30 @@ public class People {
         this.height = height;
         this.weight = weight;
         setBirthdayYear(birthdayYear); // 使用 setter 方法來驗證生日年
+        assert height > 0 : "Height must be greater than 0.";
+        assert weight > 0 : "Weight must be greater than 0.";
     }
 
     // 計算 BMI (體重 / 身高的平方)
     public double bmi() {
-
-        // ? 應該要先確定一下 bmi 有沒有算錯
-        return weight / (height * height);
+        double bmiValue = weight / (height * height);
+        assert bmiValue >= 10 && bmiValue <= 50 : "BMI value must be between 10 and 50."; // 假設的合理範圍
+        return bmiValue;
     }
 
     // 設定生日年，並透過 assert 確保生日年的合理性 (例如：應在1900-今年之間)
     public void setBirthdayYear(int birthdayYear) {
         int currentYear = java.time.Year.now().getValue();
-
-        // ? 透過 assert 確保生日年的合理性 (例如：應在1900-今年之間)
+        assert birthdayYear >= 1900 && birthdayYear <= currentYear : "Birthday year must be between 1900 and the current year.";
         this.birthdayYear = birthdayYear;
     }
 
+    // 設定父親
     public void setFather(People father) {
         this.father = father;
-
-        // ? 應該確定一下父親的 birthdayYear 應該小於自己的
     }
 
+    // 獲取父親
     public People getFather() {
         return father;
     }
@@ -52,15 +49,15 @@ public class People {
 
     public static void main(String[] args) {
         // 測試 People 類別
-        People person = new People("John", 1.75, 70, 1990);
-        System.out.println(person);
+        People john = new People("John", 1.75, 70, 1990);
+        System.out.println(john);
 
         // 測試父親屬性
-        People father = new People("Mark", 1.80, 85, 1965);
-        person.setFather(father);
-        System.out.println("Father: " + person.getFather());
+        People mark = new People("Mark", 180, 85, 1965);
+        john.setFather(mark);
+        System.out.println("Father: " + john.getFather());
 
-        person.setBirthdayYear(1985);  // 應該不會有問題
-        person.setBirthdayYear(1800);  // 這行會觸發 assert 錯誤，因為1800超出合理範圍
+        john.setBirthdayYear(1985);  // 應該不會有問題
+        mark.setBirthdayYear(1800);  // 這行會觸發 assert 錯誤，因為1800超出合理範圍
     }
 }

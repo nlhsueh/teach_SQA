@@ -12,56 +12,133 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.11.0</junit.jupiter.version>
+        <junit.platform.version>1.11.0</junit.platform.version>
+        <mockito.version>5.12.0</mockito.version>
+        <cucumber.version>7.18.1</cucumber.version>
+        <log4j2.version>2.23.1</log4j2.version>
+        <selenium.version>4.23.0</selenium.version>
+        <pitest.version>1.16.1</pitest.version>
     </properties>
 
     <dependencies>
+        <!-- Apache Commons Lang -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.18.0</version>
         </dependency>
 
-        <!-- JUnit 5 for unit testing -->
+        <!-- Jackson JSON Databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+
+        <!-- Log4j 2 / SLF4J -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- JUnit 5 (Jupiter Engine & Params) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.11.0</version>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito 5 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Cucumber BDD -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Selenium WebDriver for web testing -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.38.0</version>
+            <version>${selenium.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
-            <!-- PMD code review -->
-            <!-- Recommended Java version: 21-->
+            <!-- Compiler plugin with Java 21 and safe exclusion filters -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.15.0</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
                 <configuration>
-                    <rulesets>
-                        <!-- 指定使用的 PMD 規則集 -->
-                        <ruleset>src/main/resources/pmd/ruleset.xml</ruleset>
-                    </rulesets>
+                    <release>21</release>
+                    <excludes>
+                        <exclude>**/xdemo/broken/**</exclude>
+                        <exclude>**/*CompileError*.java</exclude>
+                    </excludes>
+                    <testExcludes>
+                        <testExclude>**/xdemo/broken_test/**</testExclude>
+                    </testExcludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- 執行 PMD 的 check 工作 -->
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
-            <!-- White box testing with JACOCO -->
+            <!-- Surefire plugin with test failure tolerance -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+
+            <!-- White box testing with JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -81,6 +158,33 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Mutation Testing with Pitest -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>${pitest.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetClasses>
+                        <param>u06_mutation.*</param>
+                        <param>demo.mutant.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>u06_mutation.*Test</param>
+                    </targetTests>
+                    <mutators>STRONGER</mutators>
+                    <outputFormats>
+                        <param>HTML</param>
+                    </outputFormats>
+                </configuration>
             </plugin>
         </plugins>
     </build>

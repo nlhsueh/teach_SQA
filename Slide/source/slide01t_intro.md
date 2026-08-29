@@ -408,6 +408,27 @@ footer: '軟體品質與測試 | 第 1 章：導論'
 
 ---
 
+## 雙人課堂討論 (Pair Discussion)
+
+<div class="discussion-columns">
+  <div class="discussion-text">
+
+**主題：真實世界的軟體失敗案例與省思**
+
+* **任務**：與鄰近同學組成雙人組，分享一件曾遇過、聽過或搜尋到的真實軟體事故（如 2024 CrowdStrike 藍屏、熱門搶票/遊戲當機、交易系統虧損等）。
+* **討論重點**：
+  1. **影響**：造成了什麼異常與具體損失？
+  2. **原因**：為什麼會有這個錯誤？（邏輯缺陷、並行競爭、捨入誤差、流程缺失？）
+  3. **防範**：SQA 與測試流程中該如何避免？
+
+  </div>
+  <div class="discussion-logo">
+    <img src="../../img/ch01/discussion_icon.svg" alt="Discussion" />
+  </div>
+</div>
+
+---
+
 <!-- _class: lead -->
 <!-- header: '1.2 AI 能拯救軟體危機嗎？' -->
 
