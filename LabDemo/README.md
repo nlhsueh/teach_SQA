@@ -6,9 +6,114 @@
 
 ## 🚀 快速上手 (Quick Start)
 
-1. **開啟專案**：在 IntelliJ IDEA 或 VS Code 中選擇 **`Open`**，直接選取本 `LabDemo` 資料夾開啟。
-2. **Maven 同步**：IDE 會自動解析根目錄的 `pom.xml` 並下載相依套件（支援 Java 21、JUnit 5、Mockito 5、Cucumber 7、Selenium 4、Log4j 2、JaCoCo 與 PIT）。
+> [!WARNING]
+> ⚠️ **重要：開啟專案時請只選擇 `LabDemo` 子資料夾**
+> 學生 Clone 此儲存庫時，會連同 `Lecture` 講義等其他目錄一併下載。
+> **在開啟 IntelliJ IDEA (或 VS Code) 時，請務必點選「只開啟 `LabDemo`」這個子資料夾**，而**不要**開啟最外層的 `gTeachSQA` 資料夾。這樣 IDE 才能正確識別 Maven 的 `pom.xml` 並自動匯入為專案。
+
+1. **開啟專案**：開啟 IntelliJ IDEA，選擇 **`Open`**，導航至 `gTeachSQA/` 目錄並選擇 **`LabDemo`** 資料夾開啟。
+2. **Maven 同步**：IDE 會自動解析該目錄下的 `pom.xml` 並下載相依套件（支援 Java 21、JUnit 5、Mockito 5、Cucumber 7、Selenium 4、Log4j 2、JaCoCo 與 PIT）。
 3. **瀏覽文件**：直接在 IDE 的左側導覽列展開 **[`docs/`](./docs/)** 資料夾，點選各單元 Markdown 即可閱讀實驗步驟並直接點擊跳轉至對應程式碼。
+
+
+### ⚙️ 本地編譯輸出路徑設定 (選用)
+本專案的 `pom.xml` 已進行參數化配置，**一般情況下學生下載後直接執行編譯（如 IntelliJ 同步或 `mvn compile`）即可運作，不需要進行任何額外設定**。
+
+然而，如果您將本專案放在 **Google Drive**、**OneDrive** 或 **iCloud Drive** 等雲端同步資料夾中進行開發，編譯時產生的海量暫存檔可能會導致雲端硬碟同步卡死並耗費大量資源。若要避開雲端同步：
+1. 在您個人電腦的 `~/.m2/settings.xml`（若檔案不存在，請直接手動建立）中新增以下設定：
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+     <profiles>
+       <profile>
+         <id>exclude-cloud-sync</id>
+         <activation>
+           <activeByDefault>true</activeByDefault>
+         </activation>
+         <properties>
+           <!-- 將編譯輸出路徑移至 Google Drive 之外 (macOS/Linux 使用 /tmp) -->
+           <maven.build.dir>/tmp/maven-builds/${project.artifactId}</maven.build.dir>
+           
+           <!-- 若為 Windows 電腦，可以改用以下路徑：
+           <maven.build.dir>C:/temp/maven-builds/${project.artifactId}</maven.build.dir>
+           -->
+         </properties>
+       </profile>
+     </profiles>
+   </settings>
+   ```
+2. 設定完成後重新開啟 IDE 或重新載入 Maven，編譯時的 `target` 輸出便會自動導向本機的暫存路徑，完美解決雲端硬碟同步卡頓問題！
+
+---
+
+## 🤖 使用 Antigravity IDE 開發（推薦）
+
+**Antigravity IDE** 是一款內建 AI Agent 的新一代整合開發環境（基於 VS Code 核心）。如果您想體驗 AI 協同開發，可依循以下安裝與執行步驟：
+
+### 1. 本機環境準備 (JDK 21 & Maven 3.x 安裝指南)
+本專案要求使用 **Java 21** 與 **Maven 3.x**。如果您的電腦尚未安裝，請參考以下安裝方式：
+
+#### 🔹 macOS 系統 (推薦使用 Homebrew 安裝)
+開啟終端機並執行以下指令：
+```bash
+# 安裝 JDK 21
+brew install openjdk@21
+
+# 將 JDK 21 設定至環境變數 (以 zsh 為例)
+echo 'export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"' >> ~/.zshrc
+echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@21"' >> ~/.zshrc
+source ~/.zshrc
+
+# 安裝 Maven
+brew install maven
+```
+
+#### 🔹 Windows 系統 (推薦使用 Winget 快速安裝)
+以系統管理員身分開啟 PowerShell，並執行以下指令：
+```powershell
+# 安裝 Eclipse Temurin JDK 21
+winget install Eclipse.Temurin.JDK.21
+
+# 安裝 Apache Maven
+winget install Apache.Maven
+```
+*(安裝完成後，請重啟終端機或 IDE，確保 `JAVA_HOME` 與 Maven 的 `bin` 目錄已自動或手動加入到系統「環境變數」中。)*
+
+#### 🔹 手動下載安裝包 (所有作業系統)
+- **JDK 21**：請至 [Adoptium Temurin 21 官網](https://adoptium.net/temurin/releases/?version=21) 下載對應作業系統的安裝檔 (如 `.msi` 或 `.pkg`) 並雙擊安裝。
+- **Maven**：請至 [Apache Maven 官方下載頁面](https://maven.apache.org/download.cgi) 下載 Binary zip 壓縮檔，將其解壓縮至本機資料夾，並手動將該資料夾內 `bin/` 的路徑新增至系統環境變數的 `Path` 中。
+
+安裝完成後，可在終端機執行下述指令確認安裝成功：
+```bash
+java -version  # 應顯示 21.x.x
+mvn -v         # 應顯示 Apache Maven 3.x.x
+```
+
+### 2. 下載與安裝
+1. 至 [Antigravity 官網](https://antigravity.google) 下載並安裝適合您作業系統的 **Antigravity IDE**。
+2. 啟動 Antigravity IDE。
+
+### 3. 安裝 Java 相關外掛 (Extensions)
+由於 Antigravity IDE 預設是輕量級編輯器，需要安裝語言擴充以獲得完整的 Java/Maven 支援：
+1. 點擊 IDE 左側的 **Extensions** 圖示（四個方塊積木），或按下快速鍵 `Cmd+Shift+X` (macOS) / `Ctrl+Shift+X` (Windows)。
+2. 在搜尋欄輸入 **`Extension Pack for Java`**（微軟 Microsoft 發行）並點擊 **Install**。
+*(這會自動為您安裝 Java 語言支援、Java 除錯器、Maven 專案管理與單元測試執行器等多合一工具。)*
+
+### 4. 開啟專案
+1. 在 Antigravity IDE 中點擊 **`Open Folder`**（或由選單選擇 `File -> Open Folder`）。
+2. 導航至 Clone 下來的目錄，**務必只選擇 `LabDemo` 資料夾開啟**（請勿開啟外層的 `gTeachSQA` 根目錄）。
+3. 開啟後，Java 插件會自動偵測 `pom.xml` 並下載依賴（首次下載可能需要數分鐘）。
+
+### 5. 執行與除錯 (Run & Debug)
+*   **執行單元測試**：打開任何一個測試檔案（例如 `src/test/java/u04_utest/CalculatorTest.java`），在測試類別或測試方法上方，會出現小型的 **`Run` | `Debug`** 字樣，直接點擊即可單獨執行或設定斷點進行除錯。
+*   **終端機執行**：按下 `Ctrl + ~`（或從選單開啟 Terminal），可直接在下方輸入 Maven 指令（如 `mvn clean test`）。
+
+### 6. 使用內建 AI Agent 協同開發 (免裝外掛，已內建)
+*   **AI 側邊欄聊天 (Chat)**：按下 `Cmd + L` (macOS) / `Ctrl + L` (Windows) 開啟聊天視窗，可直接向 AI 發問或要求解釋代碼。
+*   **Agent 模式 (Agent Mode)**：在聊天視窗中將模式切換至 **`Agent`**。您可以直接命令它：「*請幫我寫出 Unit 04 的單元測試並執行到通過*」，AI Agent 會自動讀寫專案檔案、自己開終端機跑測試，直到幫您排除所有 bug。
+*   **行內 AI 修改 (Inline Command)**：選取任一段程式碼，按下 `Cmd + I` (macOS) / `Ctrl + I` (Windows)，可以直接在該行輸入指令修改代碼（如：「*請幫我加上 Preconditions 斷言防護*」）。
 
 ---
 

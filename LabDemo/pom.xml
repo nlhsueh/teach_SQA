@@ -19,6 +19,7 @@
         <log4j2.version>2.23.1</log4j2.version>
         <selenium.version>4.23.0</selenium.version>
         <pitest.version>1.16.1</pitest.version>
+        <maven.build.dir>${project.basedir}/target</maven.build.dir>
     </properties>
 
     <dependencies>
@@ -110,6 +111,7 @@
     </dependencies>
 
     <build>
+        <directory>${maven.build.dir}</directory>
         <plugins>
             <!-- Compiler plugin with Java 21 and safe exclusion filters -->
             <plugin>
