@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Logger01 {
-    private static final Logger logger = LogManager.getLogger(demo.log4j.Logger01.class);
+    private static final Logger logger = LogManager.getLogger(Logger01.class);
 
     public void process() {
         logger.debug("OProcessor: 嘗試開始處理訂單..."); // (C) DEBUG 訊息

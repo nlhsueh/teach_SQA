@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class MyService {
 
     // 取得 Logger 實例
-    private static final Logger logger = LogManager.getLogger(demo.log4j.MyService.class);
+    private static final Logger logger = LogManager.getLogger(MyService.class);
 
     public void runLogic() {
         logger.trace("這是 Trace 等級的日誌"); // 級別太低，可能被忽略

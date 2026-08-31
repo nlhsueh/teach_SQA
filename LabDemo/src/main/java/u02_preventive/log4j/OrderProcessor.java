@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 // 只需要主流程日誌的處理器 (INFO level in log4j2.xml)
 class OrderProcessor {
-    private static final Logger logger = LogManager.getLogger(demo.log4j.OrderProcessor.class);
+    private static final Logger logger = LogManager.getLogger(OrderProcessor.class);
 
     public void process() {
         logger.debug("OProcessor: 嘗試開始處理訂單..."); // (C) DEBUG 訊息

@@ -9,6 +9,7 @@
 
 # Ignore Maven target directories in any sub-directory
 **/target/ 
+**/tmp
 **/.mvn/   
 
 # Ignore IDE directories and project files
