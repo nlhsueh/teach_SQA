@@ -8,6 +8,31 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 
 ---
 
+## 📌 本章目錄與重點導讀 (Table of Contents & Highlights)
+
+軟體工程的核心使命，是為人類社會打造可靠、安全且合用的數位基礎設施。本章作為 SQA 課程的總覽與基石，將從歷史浩劫出發，穿透 AI 時代的工程迷思，建立起現代軟體品質的立體思維模型：
+
+```
+Ch01 知識架構全景：
+【歷史與現況】1.1 軟體危機四大歷史慘劇 ➔ 1.2 AI 時代的新軟體危機與品質事件
+【品質的本質】1.3 軟體四要素 (IEEE) ＆ Garvin 五大品質觀點
+【工程與經濟】1.4 驗證與確認 (V&V) ＆ 品質成本 (CoQ 1:10:100 定律)
+【流程與門檻】1.5 SDLC 生命週期、V 模型 ＆ DevOps 6 大連續品質門檻
+【國際標準規約】1.6 ISO 25010 八大品質模型 ＆ 16 週實戰測試技術地圖
+```
+
+| 章節單元 | 核心學習重點 (Key Takeaways) |
+| :--- | :--- |
+| **[1.1 軟體危機的歷史與 AI 時代的輪迴](#11-軟體危機的歷史與-ai-時代的輪迴)** | 透過**愛國者飛彈、火星探測器、華航名古屋空難、迪士尼獅子王**四大歷史慘劇，理解精度誤差、介面契約、人機互動與相容性測試的重要性，剖析 1968 NATO 軟體危機的本質。 |
+| **[1.2 AI 能拯救軟體危機嗎？](#12-ai-能拯救軟體危機嗎)** | 揭露 AI 輔助開發的「虛假安全感」與技術債；剖析**幻覺套件投毒 (Slopsquatting)、亞馬遜大斷線、Vibe Coding 漏洞與金鑰外洩**等真實事故，確立「從寫代碼轉向驗證代碼」的思維轉型。 |
+| **[1.3 軟體的本質與品質維度](#13-軟體的本質與品質維度軟體四要素--garvin-五大品質觀點)** | 掌握 IEEE 610.12 **軟體四大組成要素**（程式、程序、文件、資料）；深入解析 David Garvin **五大品質觀點**（超自然、使用者、製造、產品、價值觀點）。 |
+| **[1.4 軟體品質工程核心概念](#14-軟體品質工程核心概念vv品質成本-coq-與測試左移)** | 辨析 **Verification（是否有正確建造軟體）vs. Validation（建造的是否是正確軟體）**；理解品質成本架構 (CoQ) 與 **1:10:100 缺陷修復倍增定律**，奠定「測試左移 (Shift-Left)」的經濟學基礎。 |
+| **[1.5 生命週期中的品質把關](#15-軟體工程流程與生命週期中的品質把關-sdlc--cicd-quality-governance)** | 探索 **V 模型** 的測試與開發對稱性，解析現代 DevOps CI/CD 流水線中的 **6 大連續品質門檻 (Quality Gates)**（Pre-commit ➔ SAST ➔ Unit ➔ Integration ➔ E2E ➔ Observability）。 |
+| **[1.6 現代軟體品質模型 ISO 25010](#16-現代軟體品質模型-iso-9126--iso-25010)** | 掌握國際標準 **ISO 25010 八大產品品質特性**（功能適合性、可靠性、效能效率、易用性、安全性、可維護性、可移植性、相容性），並對接全學期 16 週測試技術地圖。 |
+| **[1.7 綜合練習與思維激盪](#-17-綜合練習與思維激盪)** | 結合理論與實務，引導進行 AI 時代品質反思、ISO 25010 案例分析與數值精度累計實作。 |
+
+---
+
 ## 1.1 軟體危機的歷史與 AI 時代的輪迴
 
 軟體既能造福人類，亦能造成毀滅性災難。回顧歷史，軟體缺陷曾引發嚴重的空難、軍事傷亡與數億美元的太空浩劫。
@@ -70,7 +95,8 @@ Chapter 01: The Software Crisis, Quality Models, and AI-Era Reliability Engineer
 3. 軟體品質低下：軟體錯誤率高，軟體品質難以保證，導致軟體系統不穩定，甚至引發嚴重的安全事故。
 4. 軟體維護困難：隨著軟體規模的擴大，軟體維護的難度不斷增加，軟體開發團隊難以適應軟體維護的需求。
 
-#### **概念核對問答 (CCQ 1)**
+<!-- id: test-patriot-ccq -->
+#### 🙋 **概念核對問答 (CCQ 1)**
 
 **問題**
 
@@ -81,9 +107,7 @@ B) 24-bit 時鐘暫存器的浮點捨入誤差在連續運行 100 小時後累�
 C) 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機  
 D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
-[線上作答](https://nlhsueh.github.io/nickedupocket/#/student/test-patriot-ccq)
-
-![alt text](../../img/ch01/test-patriot-ccq.png)
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/test-patriot-ccq)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -95,15 +119,16 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 </details>
 
----
+<!-- id: sqa-ch01-pair1 -->
+#### 🙋 **雙人課堂討論（Pair Discussion）—— 真實世界的軟體失敗案例**
 
-> 💡👥 **雙人課堂討論（Pair Discussion）—— 真實世界的軟體失敗案例**：
->
 > * **討論任務**：請與鄰近同學組成雙人小組，分享一件你曾遇過、聽過，或透過網路搜尋找到的真實軟體失敗/事故案例（例如：2024 年 CrowdStrike 全球藍屏事件、Knight Capital 交易系統 45 分鐘虧損 4.6 億美元、熱門售票系統或遊戲上線當機等）。
 > * **引導思考與討論**：
 >   1. **事件情境與影響**：該系統發生了什麼異常？對使用者、企業營運或整體社會帶來了哪些具體的衝擊與損失？
 >   2. **根本原因（Root Cause）**：為什麼會發生這個錯誤？（是需求誤解、邏輯缺陷、數值捨入誤差、並行競爭、缺乏程式碼審查，還是部署流程漏洞？）
 >   3. **預防策略（Prevention）**：若站在軟體品質保證（SQA）與軟體測試的角度，團隊應採取哪些防護機制或工程實踐（例如：單元測試、自動化回歸測試、靜態分析、金絲雀發布、容錯設計等）來避免類似問題發生？
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-pair1)
 
 ---
 
@@ -155,6 +180,31 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 <img src="../../img/ch01/cathedral_software_comic.jpg" width="650">
 
+<!-- id: sqa-ch01-ccq1 -->
+#### 🙋 **概念核對問答 (CCQ 2)**
+
+**問題**
+
+在評估生成式 AI（如 GitHub Copilot、ChatGPT）對軟體專案品質的影響時，軟體工程度量研究（如 GitClear）常使用 **「程式碼流失率（Code Churn）」** 作為關鍵指標。關於 Code Churn 的定義及其在 AI 時代所反映的品質現象，下列敘述何者最為精準？
+
+A) 指專案從一個程式語言遷移至另一個語言時，因語法不相容而遺失的程式碼行數比例  
+B) 指新寫入並 Commit 的程式碼在極短時間內（如兩週內）就被刪除、修改或替換的比例；高 Code Churn 反映出 AI 生成程式碼看似快速但本質脆弱、未經深思熟慮與充分驗證  
+C) 指編譯器與建置工具在優化打包過程中，自動剔除未引用死代碼（Dead Code）的效率  
+D) 指自動化測試案例因系統版本迭代而自然失效無法執行的比率
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq1)
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **Code Churn（程式碼流失率 / 變動率）**：衡量剛提交 (Commit) 的程式碼在短時間內（通常為 2 週內）就被後續 Commit 刪除或重寫的行數比例。
+  * **AI 時代的警訊**：AI 輔助寫程式讓工程師能輕易「一鍵採納」大段代碼，但這些代碼往往缺乏對邊界條件、架構約束與業務邏輯的深思熟慮。一旦進入測試或整合便漏洞百出，導致工程師必須頻繁推翻重寫。這種「產出快、丟棄也快」的高流失現象，正是 AI 生成代碼帶來**長期維護性技術債（Maintainability Debt）**與**系統脆弱性**的具體體現。
+
+</details>
+
 ---
 
 > 📚 **參考資料出處 (References)**：
@@ -188,7 +238,6 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 ---
 
 ### 1.3.2 何謂品質？David Garvin 的五大品質觀點
-
 當我們探討「軟體品質」時，哈佛商學院教授 David Garvin 在《Managing Quality》中指出，品質並非單一維度，而是由多重視角交織而成的立體概念：
 
 <img src="../../img/ch01/garvin_quality_views.jpg" width="650">
@@ -211,7 +260,17 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 > 👍 **程式必須是為了給人看而寫，命令機器執行只是附帶任務。** —— *Abelson & Sussman*  
 > 👍 **品質不是動作，是一種習慣。** —— *Aristotle*
 
-#### **概念核對問答 (CCQ 2)**
+<!-- id: sqa-ch01-wordcloud1 -->
+#### 🙋 **文字雲互動：品質觀點**
+
+**互動提問**
+
+你覺得哪一個觀點是最重要的品質指標？請寫下來。
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-wordcloud1)
+
+<!-- id: sqa-ch01-ccq2 -->
+#### 🙋 **概念核對問答 (CCQ 3)**
 
 **問題**
 
@@ -219,8 +278,10 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 A) 產品觀點 (Product View)  
 B) 製造觀點 (Manufacturing View)  
-C) 法律合約觀點  
-D) 超自然觀點 (Transcendental View)  
+C) 法律合約觀點 (Legal Contract View) 
+D) 超自然觀點 (Transcendental View)
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -267,6 +328,31 @@ D) 超自然觀點 (Transcendental View)
     *   若洩漏至**產品發布後 (Production Phase)**，修復代價與災難損失將高達 **$100 ～ $1000+**！
 *   **測試左移 (Shift-Left Testing)**：將品質活動儘早移至生命週期前端，是降低軟體總擁有成本的最有效手段。
 
+<!-- id: sqa-ch01-ccq3 -->
+#### 🙋 **概念核對問答 (CCQ 4)**
+
+**問題**
+
+某軟體團隊為醫院開發一套急診掛號分流系統。開發團隊嚴格按照原先簽訂的「系統需求規格書」完成所有功能實作，且單元測試與程式碼審查（Code Review）皆 100% 通過、完全無錯誤（Bug）。但實際上線在急診室臨床試用時，醫護人員發現分流操作流程完全不符合急救現場的真實節奏與急迫需求，導致無法在實務中使用。根據軟體工程定義，此系統在下列哪一項做得很好，但在哪一項嚴重失敗？
+
+A) Verification（驗證）做得很好，但 Validation（確認）嚴重失敗  
+B) Validation（確認）做得很好，但 Verification（驗證）嚴重失敗  
+C) Verification 與 Validation 兩者皆成功，純屬醫護人員操作習慣問題  
+D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使用就代表底層邏輯有語法錯誤
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq3)
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：A**
+
+* **解析**：
+  * **Verification（驗證，*Are we building the product right?*）**：檢核軟體產出是否符合上一階段設定的規格、設計與技術要求。該系統完全依照規格書開發並通過單元測試與審查，因此 Verification 成功。
+  * **Validation（確認，*Are we building the right product?*）**：確認軟體是否真正解決使用者的問題、滿足實際業務場景的需求。由於系統無法滿足急診現場的真實作業節奏與臨床需求，因此 Validation 失敗。
+
+</details>
+
 ---
 
 ## 1.5 軟體工程流程與生命週期中的品質把關 (SDLC & CI/CD Quality Governance)
@@ -302,6 +388,44 @@ D) 超自然觀點 (Transcendental View)
 4.  **4. Integration Tests 容器整合門檻**：Testcontainers 一鍵拉起真實 Docker 容器（PostgreSQL / Redis），驗證真實資料庫存取與 API 契約。
 5.  **5. E2E & Security Scan 驗收門檻**：Playwright 自動化模擬真實使用者操作流程，搭配 OWASP ZAP 進行動態滲透掃描。
 6.  **6. Production & Observability 部署自癒門檻**：透過金絲雀 (Canary) 或藍綠部署平滑發布，並由可觀測性 (Observability) 系統即時監控 P99 延遲與異常告警。
+
+<!-- id: sqa-ch01-ordering1 -->
+#### 🙋 **排序互動：V 模型（V-Model）開發與測試生命週期活動排序**
+
+**問題**
+
+在傳統 V 模型（V-Model）中，軟體的「左側開發階段（規格制定與分解）」與「右側測試層級（組裝與驗證）」具有嚴密的對稱與依賴關係。請將下列 8 項軟體工程活動，依照**「實際執行生命週期順序（從最初需求分析到最終驗收）」**由先至後排列出正確順序：
+
+1. 需求分析與規格定義 (Requirements Analysis)
+2. 系統架構設計 (System Architecture Design)
+3. 元件/模組詳細設計 (Component Design)
+4. 程式碼編寫與實作 (Coding)
+5. 單元測試執行 (Unit Testing)
+6. 整合測試執行 (Integration Testing)
+7. 系統測試執行 (System Testing)
+8. 驗收測試執行 (Acceptance Testing)
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ordering1)
+
+<details>
+<summary>點擊查看【排序互動】答案與解析</summary>
+
+**正確順序**：
+`1 ➔ 2 ➔ 3 ➔ 4 ➔ 5 ➔ 6 ➔ 7 ➔ 8`
+
+* **解析**：
+  * **V 模型左側（開發階段 - 由高階至低階逐步分解與規格制定）**：
+    1. **需求分析**：與利害關係人確立需求，並同步定義驗收測試準則。
+    2. **系統架構設計**：設計子系統架構，並同步制定系統測試計畫。
+    3. **元件設計**：規劃模組詳細介面，並同步設計整合測試案例。
+    4. **程式碼編寫**：實作具體程式碼。
+  * **V 模型右側（測試階段 - 由低階至高階逐步整合組裝與驗證）**：
+    5. **單元測試**：由開發者驗證最小程式單元（函式/類別）。
+    6. **整合測試**：驗證跨模組介面與資料通訊。
+    7. **系統測試**：驗證整體系統在真實環境下的端到端功能與非功能特性。
+    8. **驗收測試**：由客戶或終端使用者確認系統是否真正滿足業務需求。
+
+</details>
 
 ---
 
