@@ -4,7 +4,7 @@
 > 1. 告別 H2 In-Memory 內存資料庫的「假象相容（幻覺綠燈）」。
 > 2. 學習在 JUnit 5 測試中透過 **Testcontainers** 一鍵自動拉起真實的 **Docker PostgreSQL / Redis 容器**。
 > 3. 驗證資料庫交易隔離性、原生 SQL 語法與索引約束，達到真正的環境一致性（Portability & Environment Parity）。
-> 4. 📖 **理論對照**：對應講義 [**Ch07 整合測試 (7.8 現代真實環境整合測試：Testcontainers)**](../../Lecture/source/ch07_integration.md)。
+> 4. 📖 **理論對照**：對應講義 [**Ch07 整合測試 (7.8 現代真實環境整合測試：Testcontainers)**](../../Lecture/source/ch07t_integration.md)。
 
 ---
 
