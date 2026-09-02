@@ -95,7 +95,6 @@ Ch01 知識架構全景：
 3. 軟體品質低下：軟體錯誤率高，軟體品質難以保證，導致軟體系統不穩定，甚至引發嚴重的安全事故。
 4. 軟體維護困難：隨著軟體規模的擴大，軟體維護的難度不斷增加，軟體開發團隊難以適應軟體維護的需求。
 
-<!-- id: test-patriot-ccq -->
 #### 🙋 **概念核對問答 (CCQ 1)**
 
 **問題**
@@ -107,7 +106,6 @@ B) 24-bit 時鐘暫存器的浮點捨入誤差在連續運行 100 小時後累�
 C) 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機  
 D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/test-patriot-ccq)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -180,7 +178,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 <img src="../../img/ch01/cathedral_software_comic.jpg" width="650">
 
-<!-- id: sqa-ch01-ccq1 -->
+
 #### 🙋 **概念核對問答 (CCQ 2)**
 
 **問題**
@@ -192,7 +190,6 @@ B) 指新寫入並 Commit 的程式碼在極短時間內（如兩週內）就被
 C) 指編譯器與建置工具在優化打包過程中，自動剔除未引用死代碼（Dead Code）的效率  
 D) 指自動化測試案例因系統版本迭代而自然失效無法執行的比率
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -269,7 +266,7 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 
 [課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-wordcloud1)
 
-<!-- id: sqa-ch01-ccq2 -->
+
 #### 🙋 **概念核對問答 (CCQ 3)**
 
 **問題**
@@ -281,7 +278,6 @@ B) 製造觀點 (Manufacturing View)
 C) 法律合約觀點 (Legal Contract View) 
 D) 超自然觀點 (Transcendental View)
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -328,7 +324,7 @@ D) 超自然觀點 (Transcendental View)
     *   若洩漏至**產品發布後 (Production Phase)**，修復代價與災難損失將高達 **$100 ～ $1000+**！
 *   **測試左移 (Shift-Left Testing)**：將品質活動儘早移至生命週期前端，是降低軟體總擁有成本的最有效手段。
 
-<!-- id: sqa-ch01-ccq3 -->
+
 #### 🙋 **概念核對問答 (CCQ 4)**
 
 **問題**
@@ -340,7 +336,7 @@ B) Validation（確認）做得很好，但 Verification（驗證）嚴重失敗
 C) Verification 與 Validation 兩者皆成功，純屬醫護人員操作習慣問題  
 D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使用就代表底層邏輯有語法錯誤
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq3)
+
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
