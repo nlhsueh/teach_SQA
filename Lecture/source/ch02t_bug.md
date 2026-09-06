@@ -67,6 +67,9 @@ Ch02 知識架構全景：
 <!-- id: sqa-ch02-ccq1 -->
 #### 🙋 **概念核對問答 (CCQ 1)**
 
+
+
+
 **問題**
 
 工程師在撰寫銀行轉帳演算法時，誤將手續費計算公式的減號寫成加號，並將程式碼編譯部署到伺服器。但在當天的日常營運中，所有客戶轉帳金額均未達到觸發扣除手續費的門檻，因此沒有任何客戶發現轉帳異常。依據 IEEE 軟體工程定義，此時系統處於何種狀態？
@@ -75,8 +78,6 @@ A) 系統已發生失效 (Failure)
 B) 程式碼中存在缺陷 (Fault/Defect)，但尚未表現為系統失效 (Failure)  
 C) 工程師並未犯錯 (Mistake)，因為系統正常運作  
 D) 該程式碼完全符合軟體品質的正確性定義
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -91,6 +92,8 @@ D) 該程式碼完全符合軟體品質的正確性定義
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq1)
 
 ### 2.1.2 規格導致的缺陷
 
@@ -123,6 +126,9 @@ D) 該程式碼完全符合軟體品質的正確性定義
 <!-- id: sqa-ch02-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)**
 
+
+
+
 **問題**
 
 某專案經理向客戶抱怨：「使用者輸入了負數的年齡導致伺服器當機，這是使用者的操作錯誤，不是我們程式的 Bug，因為規格書上根本沒寫年齡可以是負數！」從現代軟體工程與 SQA 的角度，下列評述何者最為正確？
@@ -131,8 +137,6 @@ A) 專案經理說得完全正確，未在規格書載明的輸入情況，開�
 B) 這是典型的「規格遺漏」與「缺乏防禦性設計」，專業軟體應主動對非法輸入進行驗證並優雅回傳錯誤，而非直接 Crash  
 C) 只要資料庫欄位設為 Integer，任何數字輸入都不應該算是 Bug  
 D) 只要客戶願意加錢，所有未明訂的規格才需要被修復
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -145,6 +149,8 @@ D) 只要客戶願意加錢，所有未明訂的規格才需要被修復
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq2)
 
 ### 2.1.3 常見編碼錯誤分類
 
@@ -302,6 +308,9 @@ Uncle Bob 在書中訪談了多位軟體工程界的傳奇大師，每位大師�
 <!-- id: sqa-ch02-ccq3 -->
 #### 🙋 **概念核對問答 (CCQ 3)**
 
+
+
+
 **問題**
 
 資深工程師在進行 Code Review 時，發現後輩工程師寫了一段 150 行的付款結帳方法 `checkout()`，裡面充斥著 5 層 if-else 巢狀判斷，並且作者在旁邊寫了 40 行詳細的註解解釋每一層判斷的用途。根據 Clean Code 與軟體品質設計原則，下列哪一項重構建議最為恰當？
@@ -310,8 +319,6 @@ A) 只要註解寫得夠詳細且測試有過，150 行與 5 層巢狀是完全�
 B) 應利用「提早回傳 (Guard Clauses)」減少巢狀層級，並運用「萃取方法 (Extract Method)」將驗證、計算折扣、扣款等子邏輯拆分成具備自我解釋能力的小函式，進而刪除冗餘的解釋性註解  
 C) 應將註解全部翻譯成英文以提升國際化品質，其餘邏輯保持不變  
 D) 應把所有 150 行程式碼壓縮成一行 Lambda 表達式以減少行數
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq3)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -327,6 +334,8 @@ D) 應把所有 150 行程式碼壓縮成一行 Lambda 表達式以減少行數
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq3)
 
 ### 2.2.6 重大迷思辨析：Clean Code 等於沒有 Bug 嗎？
 
@@ -352,6 +361,9 @@ D) 應把所有 150 行程式碼壓縮成一行 Lambda 表達式以減少行數
 <!-- id: sqa-ch02-ccq4 -->
 #### 🙋 **概念核對問答 (CCQ 4)**
 
+
+
+
 **問題**
 
 某新進工程師向研發主管報告：「這段金融交易模組的程式碼經過徹底重構，完全符合 Clean Code 原則——變數命名精準、每個函式不超過 10 行、無任何深層巢狀、且完全消除了重複代碼。因此我可以 100% 保證這段模組上線後絕對不會有任何 Bug！」從軟體品質保證 (SQA) 與軟體工程的角度，下列評述何者最為精準？
@@ -360,8 +372,6 @@ A) 該工程師的說法完全正確，因為 Clean Code 的核心定義就是�
 B) 該工程師混淆了「內部品質」與「外部品質」；Clean Code 雖然極大化了程式碼的可讀性與可維護性，但無法保證業務規則理解正確或算式毫無漏洞，仍需仰賴自動化測試與規格驗證來確保無 Bug  
 C) 只要函式行數在 10 行以內，現代 IDE 與編譯器就會自動進行形式化邏輯證明，確保無邏輯錯誤  
 D) Clean Code 主要是針對前端 UI 介面的規範，後端核心交易模組的重構並不會帶來實質品質效益
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq4)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -377,6 +387,8 @@ D) Clean Code 主要是針對前端 UI 介面的規範，後端核心交易模�
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq4)
 
 ## 2.3 除錯思維與方法 (Debugging)
 
@@ -434,6 +446,9 @@ D) Clean Code 主要是針對前端 UI 介面的規範，後端核心交易模�
 <!-- id: sqa-ch02-ccq5 -->
 #### 🙋 **概念核對問答 (CCQ 5)**
 
+
+
+
 **問題**
 
 當生產環境拋出 `ConcurrentModificationException` 時，工程師直接將整段程式碼貼給 AI，AI 建議在出錯的迴圈外層直接包裹一個空的 `try-catch` 區塊將例外吞掉。關於這種做法，下列評價何者最為精準？
@@ -442,8 +457,6 @@ A) 這是絕佳的快速修復方案，因為系統再也不會拋出例外中�
 B) 這是危險的「治標不治本（Swallowing Exception）」，雖然表象不報錯，但底層多執行緒並發衝突與資料不一致依然存在，日後會引發更嚴重的資料損壞  
 C) 只要 AI 給出的程式碼能通過編譯，就代表已經通過軟體品質驗證  
 D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理會此例外
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq5)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -456,6 +469,8 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-ccq5)
 
 ## 2.4 除錯工具實務 (Debuggers)
 

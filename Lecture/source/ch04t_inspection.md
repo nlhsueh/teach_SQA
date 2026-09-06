@@ -83,14 +83,15 @@ Ch04 知識架構全景：
 <!-- id: sqa-ch04-ccq1 -->
 #### 🙋 **概念核對問答 (CCQ 1)**
 
+
+
+
 **問題**
 
 【是非題】靜態測試（如軟體檢視、規格檢視）可以在程式碼實際執行之前，檢查需求、設計、程式碼甚至測試資料中的異常，以早期發現錯誤、降低整體的軟體品質成本。
 
 A) 正確 (True)
 B) 錯誤 (False)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -103,6 +104,8 @@ B) 錯誤 (False)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq1)
 
 ## 4.2 檢視方法
 
@@ -230,6 +233,9 @@ IEEE-1028（審查與稽核標準）定義五種審查：Management review (管�
 <!-- id: sqa-ch04-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)**
 
+
+
+
 **問題**
 
 在 Fagan 提出的軟體檢視（Inspection）標準流程中，下列哪一個階段的主要目的是由作者向檢視小組說明背景資料與規則，而非進行實際的程式碼除錯？
@@ -238,8 +244,6 @@ A) 準備 (Preparation)
 B) 概述 (Overview)
 C) 檢視會議 (Inspection Meeting)
 D) 重做 (Rework)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -255,6 +259,8 @@ D) 重做 (Rework)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq2)
 
 ## 4.3 規格檢視
 
@@ -340,6 +346,9 @@ D) 重做 (Rework)
 <!-- id: sqa-ch04-ccq3 -->
 #### 🙋 **概念核對問答 (CCQ 3)**
 
+
+
+
 **問題**
 
 為了在需求與系統規格階段做到「雙向追溯 (Bidirectional Traceability)」，規格書應該確保具備下列何種關係特性？
@@ -348,8 +357,6 @@ A) 每個使用者需求均可對應到特定的系統規格，且每個系統�
 B) 規格書的字數與最終程式碼行數必須成固定正比關係
 C) 每一行程式碼都必須直接對應到 UML 類別圖的所有屬性
 D) 規格書必須僅由開發人員撰寫，完全不允許顧客檢閱以防模糊焦點
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq3)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -365,6 +372,8 @@ D) 規格書必須僅由開發人員撰寫，完全不允許顧客檢閱以防�
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq3)
 
 ## 4.4 設計檢視
 
@@ -396,14 +405,15 @@ D) 規格書必須僅由開發人員撰寫，完全不允許顧客檢閱以防�
 <!-- id: sqa-ch04-ccq4 -->
 #### 🙋 **概念核對問答 (CCQ 4)**
 
+
+
+
 **問題**
 
 【是非題】設計檢視（Design Review）最理想的執行時機，是在系統所有模組的單元測試與整合測試皆通過之後，以確保實際產出的系統與設計文件相符。
 
 A) 正確 (True)
 B) 錯誤 (False)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq4)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -454,6 +464,8 @@ B) 錯誤 (False)
    - 例外處理與系統復原機制（Exception handling, Initialization & Reset）。
    - 資源管理與安全防護（Memory management & Security）。
    - 國際化與內建測試/輔助機制（Internationalization, Built-in help & Test facilities）。
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq4)
 
 ### 4.4.3 設計模型檢核
 
@@ -622,14 +634,15 @@ float oOooo, ooOoo, oooOo
 <!-- id: sqa-ch04-ccq5 -->
 #### 🙋 **概念核對問答 (CCQ 5)**
 
+
+
+
 **問題**
 
 【是非題】在程式碼檢視中，若發現系統直接將詳細的例外錯誤堆疊資訊（如 `e.printStackTrace()`）輸出至前端頁面或公開日誌，這屬於 OWASP Top 10 中的「A05:2021-安全設定錯誤 (Security Misconfiguration)」漏洞範疇。
 
 A) 正確 (True)
 B) 錯誤 (False)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq5)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -642,6 +655,8 @@ B) 錯誤 (False)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq5)
 
 ### 4.5.4 🧑‍💻PMD 工具使用
 
@@ -670,6 +685,9 @@ B) 錯誤 (False)
 <!-- id: sqa-ch04-ccq6 -->
 #### 🙋 **概念核對問答 (CCQ 6)**
 
+
+
+
 **問題**
 
 組織在推行軟體檢視與審查時，常會使用度量指標來評估其效率。下列關於「檢視速率 (Review Rate)」與「檢視品質」的敘述，何者最為正確？
@@ -678,8 +696,6 @@ A) 檢視速率愈快（如每小時檢視 2000 行），代表檢視品質愈�
 B) 檢視速率過快通常會導致缺陷遺漏率（Defect Leakage）增高，因此應維持在建議的合理速率內
 C) 為了大幅提升開發速度，檢視會議應儘可能限制在 5 分鐘內結束
 D) 度量指標在軟體工程中的主要目的是用於懲罰寫出最多缺陷的工程師
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq6)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -696,6 +712,7 @@ D) 度量指標在軟體工程中的主要目的是用於懲罰寫出最多缺�
 
 ---
 
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch04-ccq6)
 
 ## 4.7 練習
 

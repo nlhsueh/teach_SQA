@@ -75,6 +75,9 @@ Ch03 知識架構全景：
 <!-- id: sqa-ch03-ccq1 -->
 #### 🙋 **概念核對問答 (CCQ 1)**
 
+
+
+
 **問題**
 
 在契約式設計 (Design by Contract) 中，由「呼叫者 (Caller)」負責滿足、若不滿足則被呼叫方法將拒絕執行，這在契約三要素中屬於？
@@ -83,8 +86,6 @@ A) 前置條件 (Preconditions)
 B) 後置條件 (Postconditions)  
 C) 類別不變量 (Class Invariants)  
 D) 異常防護 (Exceptions)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -97,6 +98,8 @@ D) 異常防護 (Exceptions)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq1)
 
 ## 3.2 ISTQB 軟體測試 7 大經典原則 (The 7 Testing Principles)
 
@@ -218,6 +221,9 @@ D) 異常防護 (Exceptions)
 <!-- id: sqa-ch03-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)**
 
+
+
+
 **問題**
 
 某工程師使用 AI 秒速生成了一套複雜的利息計算演算法，並隨即讓同一個 AI 幫忙生成單元測試。測試跑出 100% 覆蓋率全綠燈通過，但在實際上線後卻被金融主管機關判定年息計算公式違反法規。依據 ISTQB 軟體測試 7 大原則，這最主要反映了何種問題？
@@ -226,8 +232,6 @@ A) 測試工程師未安裝最新的 JDK 執行環境
 B) AI 測試陷入「殺蟲劑悖論（自我印證盲區）」與「原則 7：無錯謬誤（代碼無語法錯誤但偏離法規與真實業務需求）」  
 C) 只要測試覆蓋率達到 100%，系統必然在法律上具備合規性  
 D) 這是硬體浮點數運算器的製造缺陷
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -240,6 +244,8 @@ D) 這是硬體浮點數運算器的製造缺陷
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq2)
 
 ## 3.3 測試的多維度分類體系
 
@@ -345,6 +351,9 @@ double div(double x, double y) {
 <!-- id: sqa-ch03-ccq3 -->
 #### 🙋 **概念核對問答 (CCQ 3)**
 
+
+
+
 **問題**
 
 在標準 V 開發模型中，依據「高階架構設計文件 (ADD)」所定義的模組介面與通訊協定，所對應執行的測試層級為何？
@@ -353,8 +362,6 @@ A) 單元測試 (Unit Testing)
 B) 整合測試 (Integration Testing)  
 C) 驗收測試 (Acceptance Testing)  
 D) 靜態程式碼檢視 (Code Review)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq3)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -367,6 +374,8 @@ D) 靜態程式碼檢視 (Code Review)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq3)
 
 ## 3.5 測試案例設計：規格、程式與驗證行為
 
@@ -520,6 +529,7 @@ D) 靜態程式碼檢視 (Code Review)
 <!-- id: sqa-ch03-short1 -->
 ##### 💡 SQA 2.0 應對 Test Oracle 難題的三大前沿技術：
 
+
 1. **變質測試 (Metamorphic Testing)**：
    * 利用領域對稱性質：例如 sin(x) = cos(90° - x) = -sin(-x)。
    * 對 AI 影像辨識系統：將一張貓的照片旋轉 10 度或調整亮度 5%，辨識結果**依然必須是貓（不變量關係）**！
@@ -528,9 +538,9 @@ D) 靜態程式碼檢視 (Code Review)
 3. **LLM-as-a-Judge 與防護欄 (Guardrails)**：
    * 使用經過專門微調的評估模型，針對輸出進行忠實度（Faithfulness）、安全性與不變量檢驗。
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-short1)
-
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-short1)
 
 ## ✍️ 3.7 綜合練習
 

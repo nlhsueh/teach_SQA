@@ -29,6 +29,8 @@
     3. 產生 QR Code 圖片至 `img/chXX/`（供投影片使用）。
     4. 自動將 `<!-- id: ... -->` 與 `[課堂互動]` 連結回寫講義（講義不放 QR Code），投影片則同時嵌入 `[課堂互動]` 連結與 QR Code 圖片。
   * **階段 3 (題目修改重同步)**：若後續修改題目文字或選項，保留原本的 `<!-- id: ... -->` 註解，再次依使用者指令執行 `sync_iActivity.py` 即可冪等更新。
+  * **特別章節 Chapter Xnn 反向同步 (Reverse Sync)**：
+    * 若課堂互動題目直接出在 `nickedupocket/public/courses/<Course>.md` 中的 `Chapter Xnn`（如 `Chapter X01`, `Chapter X02`），執行同步腳本時會**自動反向寫入**至課程講義檔（如 `Lecture/chx01.md`, `Lecture/chx02.md` 或 `Lecture/source/chx01.md`），自動補齊 `<!-- id: ... -->`、`#### 🙋` 標題、選項、答案解析摺疊、`[課堂互動]` 連結，並**直接嵌入手機 QR Code 圖片**（同時在 `img/chXnn/` 下生成手機 QR Code PNG）。
   * **階段 4 (編譯 PDF)**：同步完成後再編譯 Lecture PDF 或 Slide PDF。
 
 ### 3. PDF 生成工具與指令

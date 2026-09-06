@@ -67,7 +67,7 @@ public class BreakpointDemo {
 
 ### 🚌 Lab02: GCD
 * 請用 while 和遞迴的方式寫一個最大公因數的程式
-* [參考程式](../../src/main/java/xdemo/GCD.java) （此程式有錯）
+* [參考程式](../../src/main/java/u01_debug/GCD.java) （此程式有錯）
 
 ### 🚌 Lab03: LowestCommonAncestor
 * 寫一個 binary tree (TreeNode)

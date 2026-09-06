@@ -59,6 +59,7 @@ public class Base64Properties {
 ---
 
 ### 模式 2：排序不變量 (Sorting Invariants)
+
 > **法則**：
 > 1. 排序後的長度必須等於原始陣列長度。
 > 2. 排序後的相鄰元素必須滿足 $arr[i] \le arr[i+1]$。

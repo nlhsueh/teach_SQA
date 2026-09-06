@@ -51,9 +51,10 @@ https://github.com/nlhsueh/sw-testing24/blob/main/lab/u05_utest/intro_junit.md)
 <!-- id: sqa-ch05-ccq1 -->
 #### 🙋 概念核對問答 (CCQ 1)
 
-* **是非題**：在 JUnit 中，`assertSame(a, b)` 斷言的作用與 `assertEquals(a, b)` 完全相同，都是在驗證兩個物件的內容值是否相等（即比對 `a.equals(b)`）。
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq1)
+
+
+* **是非題**：在 JUnit 中，`assertSame(a, b)` 斷言的作用與 `assertEquals(a, b)` 完全相同，都是在驗證兩個物件的內容值是否相等（即比對 `a.equals(b)`）。
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -66,6 +67,8 @@ https://github.com/nlhsueh/sw-testing24/blob/main/lab/u05_utest/intro_junit.md)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq1)
 
 ## 5.2 邊界測試
 
@@ -247,13 +250,14 @@ FIG: 三角形程式：非獨立型一般邊界測試
 <!-- id: sqa-ch05-ccq2 -->
 #### 🙋 概念核對問答 (CCQ 2)
 
+
+
+
 * **單選題**：假設某個受測方法接受 3 個彼此獨立的輸入參數。若採用「獨立型強固邊界測試 (Independent Robust BVA)」，其設計出的測試案例數量應為多少？
   A) 13  
   B) 19  
   C) 125  
   D) 343
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -267,6 +271,8 @@ FIG: 三角形程式：非獨立型一般邊界測試
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq2)
 
 ## 5.3 等價分割測試
 
@@ -435,13 +441,14 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 <!-- id: sqa-ch05-ccq3 -->
 #### 🙋 概念核對問答 (CCQ 3)
 
+
+
+
 * **單選題**：在等價分割測試 (Equivalence Partitioning) 中，「弱 (Weak)」與「強 (Strong)」分類法的主要區別是什麼？
   A) 「弱」只涵蓋有效等價類，而「強」同時涵蓋有效與無效等價類  
   B) 「弱」基於單一錯誤假設（每個測試案例只測試一個區間的代表值），而「強」則基於多重錯誤假設（測試參數間代表值的笛卡爾積組合）  
   C) 「弱」不需要程式碼規格書，而「強」必須完全依照 SRS  
   D) 「弱」的測試案例數量一定比「強」多
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq3)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -454,6 +461,8 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq3)
 
 ## 5.4 全成對組合測試
 
@@ -576,13 +585,14 @@ All pair testing 工具的開發：
 <!-- id: sqa-ch05-ccq4 -->
 #### 🙋 概念核對問答 (CCQ 4)
 
+
+
+
 * **單選題**：全成對測試 (Pairwise / All-Pairs Testing) 能夠大幅縮減測試案例數量，其在工程上的核心理論依據是什麼？
   A) 軟體系統中的缺陷通常需要至少三個以上的參數交互作用才會觸發  
   B) 絕大多數的軟體缺陷都是由「單一變數」或「任意兩個變數之間的交互作用 (2-way Interaction)」所引起的  
   C) 配對測試是白箱測試的一種，可以直接涵蓋所有的程式碼分支路徑  
   D) 成對測試可以保證 100% 涵蓋多變數系統的所有笛卡爾積組合
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq4)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -595,6 +605,8 @@ All pair testing 工具的開發：
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq4)
 
 ## 5.5 測試案例的優化
 
@@ -630,13 +642,14 @@ Failure Mode and Effects Analysis, FMEA
 <!-- id: sqa-ch05-ccq5 -->
 #### 🙋 概念核對問答 (CCQ 5)
 
+
+
+
 * **單選題**：關於「正交表測試 (Orthogonal Array Testing)」與一般「成對測試 (Pairwise Testing)」的比較，下列敘述何者正確？
   A) 正交表測試是隨機產生的，而 Pairwise 必須透過數學嚴格推導  
   B) 兩者都關注參數間的配對，但正交表更強調各因子組合的「均勻平衡性（正交性）」，而 Pairwise 僅要求任意兩因子的組合至少出現一次，因此 Pairwise 的案例數量通常更少且更有彈性  
   C) 只要變數的個數相同，正交表與 Pairwise 產生的測試案例清單必定完全一致  
   D) 正交表測試只能處理二分值（True/False）的變數組合
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq5)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -649,6 +662,8 @@ Failure Mode and Effects Analysis, FMEA
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq5)
 
 ## 5.6 決策表測試
 
@@ -734,13 +749,14 @@ FIG: 應用決策表測試法於 nextDay()
 <!-- id: sqa-ch05-ccq6 -->
 #### 🙋 概念核對問答 (CCQ 6)
 
+
+
+
 * **單選題**：在軟體測試實務中，下列哪一種受測情境最適合優先採用「決策表測試 (Decision Table Testing)」來設計案例？
   A) 系統輸入參數彼此完全獨立，且有連續性數值邊界  
   B) 輸入參數之間存在複雜的商務邏輯與制約關係，不同的條件組合會觸發不同的系統動作或輸出結果  
   C) 系統的輸出僅與目前輸入值有關，與輸入條件的組合邏輯無涉  
   D) 系統的運作強烈依賴時間序列與物件歷史狀態的轉移
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq6)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -753,6 +769,8 @@ FIG: 應用決策表測試法於 nextDay()
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq6)
 
 ## 5.7 狀態測試
 
@@ -865,13 +883,14 @@ See [DemoJUnit](https://github.com/nlhsueh/sw-testing24/tree/main/Intellij/DemoJ
 <!-- id: sqa-ch05-ccq7 -->
 #### 🙋 概念核對問答 (CCQ 7)
 
+
+
+
 * **單選題**：在狀態測試 (State Testing) 中，關於「狀態覆蓋 (State Coverage)」與「轉移覆蓋 (Transition Coverage)」的強度關係，下列敘述何者正確？
   A) 達到狀態覆蓋必定代表同時達到了轉移覆蓋  
   B) 轉移覆蓋的強度大於狀態覆蓋；若測試案例達到了轉移覆蓋（驗證了所有可能的轉移路徑），則必定已涵蓋了所有狀態（達到狀態覆蓋）  
   C) 兩者互相獨立，沒有任何包含或強弱關係  
   D) 狀態測試不需要考慮無效轉移（即在某狀態下輸入非法事件的反應）
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq7)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -884,6 +903,8 @@ See [DemoJUnit](https://github.com/nlhsueh/sw-testing24/tree/main/Intellij/DemoJ
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq7)
 
 ## 5.8 屬性基礎測試 (Property-Based Testing)
 
@@ -939,12 +960,13 @@ public class AdditionProperties {
 <!-- id: sqa-ch05-ccq8 -->
 #### 🙋 概念核對問答 (CCQ 8)
 
+
+
+
 在屬性基礎測試 (Property-Based Testing) 中，我們不需要手動為每一組測試寫出確切的預期輸出數值，而是定義程式執行時必須永遠維持的「屬性或不變量」，並交由測試框架隨機生成大量測資來尋找反例。
 
 A) 正確 (True)
 B) 錯誤 (False)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq8)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -957,6 +979,8 @@ B) 錯誤 (False)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch05-ccq8)
 
 ## ✨ Check
   

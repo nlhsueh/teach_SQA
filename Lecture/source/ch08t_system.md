@@ -218,14 +218,15 @@ public class BMICalculatorStepDefs {
 <!-- id: sqa-ch08-ccq1 -->
 ### 🙋 **8.2.4 概念核對問答 (CCQ 1)**
 
+
+
+
 **問題**
 
 在 Cucumber (Gherkin 語法) 中，若要使用同一套測試步驟來測試多組不同的輸入值與預期輸出值，應該使用 `Scenario` (情境) 搭配 `Background` (背景) 來撰寫。
 
 A) 是 (True)
 B) 否 (False)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch08-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -243,6 +244,8 @@ B) 否 (False)
 
 Record and replay tool
 * [Rapi recorder](https://github.com/RapiTest/rapi)
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch08-ccq1)
 
 ## 8.3 微服務契約測試與現代 E2E 測試
 

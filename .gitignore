@@ -8,7 +8,8 @@
 **/*.zip
 
 # Ignore Maven target directories in any sub-directory
-**/target/ 
+**/target
+**/target/
 **/tmp
 **/.mvn/   
 
@@ -44,3 +45,6 @@
 **/*.mp4
 __pycache__/
 *.py[cod]
+
+# Ignore flattened temporary build directories from IDE/Maven
+.._*

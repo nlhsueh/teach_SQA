@@ -136,13 +136,18 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire plugin with test failure tolerance -->
+            <!-- Surefire plugin with test failure tolerance and exclusions -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
+                    <excludes>
+                        <!-- 預設排除需本機瀏覽器與 Web 伺服器的 E2E / Web 整合測試，避免日常單元測試失敗 -->
+                        <exclude>**/u08_cucumber/**</exclude>
+                        <exclude>**/u09_web/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 

@@ -98,6 +98,9 @@ Ch01 知識架構全景：
 <!-- id: sqa-ch01-ccq1 -->
 #### 🙋 **概念核對問答 (CCQ 1)**
 
+
+
+
 **問題**
 
 愛國者反導彈系統（1991）在達蘭基地攔截失效的根本軟體原因為何？
@@ -106,8 +109,6 @@ A) 通訊網路中斷導致雷達無法傳送指令給飛彈發射架
 B) 24-bit 時鐘暫存器的浮點捨入誤差在連續運行 100 小時後累加達 0.33 秒  
 C) 程式碼發生記憶體洩漏（Memory Leak）導致作業系統當機  
 D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -119,8 +120,13 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 </details>
 
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq1)
+
 <!-- id: sqa-ch01-pair1 -->
 #### 🙋 **雙人課堂討論（Pair Discussion）—— 真實世界的軟體失敗案例**
+
+
+
 
 > * **討論任務**：請與鄰近同學組成雙人小組，分享一件你曾遇過、聽過，或透過網路搜尋找到的真實軟體失敗/事故案例（例如：2024 年 CrowdStrike 全球藍屏事件、Knight Capital 交易系統 45 分鐘虧損 4.6 億美元、熱門售票系統或遊戲上線當機等）。
 > * **引導思考與討論**：
@@ -128,9 +134,9 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 >   2. **根本原因（Root Cause）**：為什麼會發生這個錯誤？（是需求誤解、邏輯缺陷、數值捨入誤差、並行競爭、缺乏程式碼審查，還是部署流程漏洞？）
 >   3. **預防策略（Prevention）**：若站在軟體品質保證（SQA）與軟體測試的角度，團隊應採取哪些防護機制或工程實踐（例如：單元測試、自動化回歸測試、靜態分析、金絲雀發布、容錯設計等）來避免類似問題發生？
 
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-pair1)
-
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-pair1)
 
 ## 1.2 AI 能拯救軟體危機嗎？
 
@@ -184,6 +190,9 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 <!-- id: sqa-ch01-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)**
 
+
+
+
 **問題**
 
 在評估生成式 AI（如 GitHub Copilot、ChatGPT）對軟體專案品質的影響時，軟體工程度量研究（如 GitClear）常使用 **「程式碼流失率（Code Churn）」** 作為關鍵指標。關於 Code Churn 的定義及其在 AI 時代所反映的品質現象，下列敘述何者最為精準？
@@ -192,8 +201,6 @@ A) 指專案從一個程式語言遷移至另一個語言時，因語法不相�
 B) 指新寫入並 Commit 的程式碼在極短時間內（如兩週內）就被刪除、修改或替換的比例；高 Code Churn 反映出 AI 生成程式碼看似快速但本質脆弱、未經深思熟慮與充分驗證  
 C) 指編譯器與建置工具在優化打包過程中，自動剔除未引用死代碼（Dead Code）的效率  
 D) 指自動化測試案例因系統版本迭代而自然失效無法執行的比率
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -218,6 +225,8 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 > 7. **New York University (NYU)**: [Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions](https://arxiv.org/abs/2108.09293) — 學術安全掃描研究指出，在無安全提示引導下，AI 生成的程式碼中有約 40% 包含常見的安全弱點（CWE Top 25 漏洞）。
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq2)
 
 ## 1.3 軟體的本質與品質維度（軟體四要素 ＆ Garvin 五大品質觀點）
 
@@ -264,6 +273,9 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 <!-- id: sqa-ch01-wordcloud1 -->
 #### 🙋 **文字雲互動：品質觀點**
 
+
+
+
 **互動提問**
 
 你覺得哪一個觀點是最重要的品質指標？請寫下來。
@@ -273,6 +285,9 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 <!-- id: sqa-ch01-ccq3 -->
 #### 🙋 **概念核對問答 (CCQ 3)**
 
+
+
+
 **問題**
 
 某專案團隊開發的電商 App 完全符合合約規格書上的每一條需求（製造觀點合格），但因為底層架構高度耦合且完全沒有寫單元測試，半年後客戶想新增一個促銷功能時，工程團隊發現必須重寫整個系統。這代表該軟體在 Garvin 的哪一個品質觀點上嚴重不及格？
@@ -281,8 +296,6 @@ A) 產品觀點 (Product View)
 B) 製造觀點 (Manufacturing View)  
 C) 法律合約觀點 (Legal Contract View) 
 D) 超自然觀點 (Transcendental View)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq3)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -295,6 +308,8 @@ D) 超自然觀點 (Transcendental View)
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq3)
 
 ## 1.4 軟體品質工程核心概念：V&V、品質成本 (CoQ) 與測試左移
 
@@ -333,6 +348,9 @@ D) 超自然觀點 (Transcendental View)
 <!-- id: sqa-ch01-ccq4 -->
 #### 🙋 **概念核對問答 (CCQ 4)**
 
+
+
+
 **問題**
 
 某軟體團隊為醫院開發一套急診掛號分流系統。開發團隊嚴格按照原先簽訂的「系統需求規格書」完成所有功能實作，且單元測試與程式碼審查（Code Review）皆 100% 通過、完全無錯誤（Bug）。但實際上線在急診室臨床試用時，醫護人員發現分流操作流程完全不符合急救現場的真實節奏與急迫需求，導致無法在實務中使用。根據軟體工程定義，此系統在下列哪一項做得很好，但在哪一項嚴重失敗？
@@ -341,8 +359,6 @@ A) Verification（驗證）做得很好，但 Validation（確認）嚴重失敗
 B) Validation（確認）做得很好，但 Verification（驗證）嚴重失敗  
 C) Verification 與 Validation 兩者皆成功，純屬醫護人員操作習慣問題  
 D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使用就代表底層邏輯有語法錯誤
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq4)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -356,6 +372,8 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ccq4)
 
 ## 1.5 軟體工程流程與生命週期中的品質把關 (SDLC & CI/CD Quality Governance)
 
@@ -394,6 +412,9 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 <!-- id: sqa-ch01-ordering1 -->
 #### 🙋 **排序互動：V 模型（V-Model）開發與測試生命週期活動排序**
 
+
+
+
 **問題**
 
 在傳統 V 模型（V-Model）中，軟體的「左側開發階段（規格制定與分解）」與「右側測試層級（組裝與驗證）」具有嚴密的對稱與依賴關係。請將下列 8 項軟體工程活動，依照**「實際執行生命週期順序（從最初需求分析到最終驗收）」**由先至後排列出正確順序：
@@ -406,8 +427,6 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 6. 整合測試執行 (Integration Testing)
 7. 系統測試執行 (System Testing)
 8. 驗收測試執行 (Acceptance Testing)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ordering1)
 
 <details>
 <summary>點擊查看【排序互動】答案與解析</summary>
@@ -430,6 +449,8 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 </details>
 
 ---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch01-ordering1)
 
 ## 1.6 現代軟體品質模型 (ISO 9126 → ISO 25010)
 

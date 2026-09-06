@@ -41,12 +41,13 @@ Ch06 知識架構全景：
 <!-- id: sqa-ch06-ccq1 -->
 #### 🙋 6.1.1 概念核對問答 (CCQ 1)
 
+
+
+
 * **是非題**：JaCoCo 作為 Java 軟體測試覆蓋率工具，在測量覆蓋率時是透過修改 Java 原始碼檔 (.java) 並插入計數器變數來追蹤執行狀態的。
 
 A) 正確 (True)
 B) 錯誤 (False)
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq1)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -56,6 +57,8 @@ B) 錯誤 (False)
   * **錯誤**：JaCoCo 並不修改原始碼，而是利用 Java Agent 技術，在 JVM 載入類別檔案時，動態對編譯後的位元組碼（Bytecode, .class 檔案）進行插樁（On-the-fly Instrumentation）。這使得測試與開發程式碼解耦，無需改動原始碼即可測量覆蓋率。
 
 </details>
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq1)
 
 ## 6.2 測試涵蓋度 (Testing Coverage)
 
@@ -147,14 +150,15 @@ A,B,X若為(3,0,3)和(3,1,1)能使得 (A>1) AND (B=0)和(A=2) OR (X>1)這兩個�
 <!-- id: sqa-ch06-ccq2 -->
 #### 🙋 6.2.4.1 概念核對問答 (CCQ 2)
 
+
+
+
 * **單選題**：在包含短路求值 (Short-circuit evaluation) 的條件句 `if (A && B)` 中，若我們設計的測試案例集達到了 100% 分支涵蓋度 (Branch Coverage)，是否必定能達成 100% 條件涵蓋度 (Condition Coverage)？
 
 A) 必定可以，因為分支涵蓋度強度高於條件涵蓋度
 B) 不一定，因為短路求值可能使得第二個條件 B 在某些測試案例中完全沒有被執行到，導致其 True 或 False 狀態未被覆蓋
 C) 必定不可以，因為兩者沒有任何邏輯涵蓋關係
 D) 取決於編譯器優化，與短路求值無關
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq2)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -222,7 +226,7 @@ D) 取決於編譯器優化，與短路求值無關
 | 12 | 11 | *T*  |  F  | *F*  |  T  |  T  |
 | 12 |  2 | *T*  |  F  | *T*  |  F  |  F  |
 
-
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq2)
 
 ### 6.2.5 多重條件組合涵蓋度 (Multiple Condition Coverage)
 
@@ -306,14 +310,15 @@ MC/DC 的核心理念是：**確保每個條件（Condition）都能獨立地影
 <!-- id: sqa-ch06-ccq3 -->
 #### 🙋 6.2.7.1 概念核對問答 (CCQ 3)
 
+
+
+
 * **單選題**：考慮一個包含 n 個彼此獨立之布林條件的複雜判斷式（例如 `A && B && C`，n = 3）。若要滿足 MC/DC 覆蓋率，最少與最多分別需要設計幾個測試案例？
 
 A) 最少 n + 1 個，最多 2n 個
 B) 最少 n + 1 個，最多 2ⁿ 個
 C) 最少 2ⁿ 個，最多 2ⁿ 個
 D) 最少 2n 個，最多 2ⁿ 個
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq3)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -323,6 +328,8 @@ D) 最少 2n 個，最多 2ⁿ 個
   * **正確**：MC/DC 透過尋找「獨立影響對 (Independence Pairs)」來大幅精簡測試案例。對於 n 個布林條件，滿足 MC/DC 所需的測試案例數為線性的 n + 1 到 2n 個（通常情況下為 n + 1 個，這也是相較於多重條件組合覆蓋 2ⁿ 的最大優勢）。
 
 </details>
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq3)
 
 ### 6.2.8 百分百涵蓋度的迷思
 
@@ -463,14 +470,15 @@ Path6: 1-2-3-4-5-6-7-8-2-…
 <!-- id: sqa-ch06-ccq4 -->
 #### 🙋 6.3.1 概念核對問答 (CCQ 4)
 
+
+
+
 * **單選題**：關於圈複雜度 (Cyclomatic Complexity, CC) 的計算與基本路徑測試，下列敘述何者錯誤？
 
 A) 圈複雜度定義了該方法之控制流程圖中，線性獨立路徑（Linearly Independent Paths）數量的上限
 B) 若一個方法完全不包含任何決策/判斷敘述（如 `if`、`while`），則其圈複雜度為 0
 C) 圈複雜度可以透過公式 V(G) = P + 1 計算，其中 P 是判定節點（Predicate Nodes）的數量
 D) 基本路徑測試設計出的測試案例集可以保證 100% 的分支涵蓋度與 100% 的敘述涵蓋度
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq4)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -480,6 +488,8 @@ D) 基本路徑測試設計出的測試案例集可以保證 100% 的分支涵�
   * **錯誤**：若一個方法只有順序性敘述，完全不包含任何判斷控制結構，其控制流程圖中只有一條唯一的路徑。因此其圈複雜度為 1，而非 0（公式為 V(G) = E - N + 2，對單一節點或線性順序節點計算結果為 1；或利用 P + 1 計算，判定節點 P = 0 時 V(G) = 1）。
 
 </details>
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq4)
 
 ## 6.4 變異測試 (Mutation Testing)
 變異測試是一個很有趣的方法，它並不是真的測試程式碼或系統規格，而是測試「測試資料。當我們的測試資料太少或是不夠尖銳時，它是無法找出程式的錯誤的。
@@ -587,14 +597,15 @@ p₁, p₂, p₃ 這三個變異都是等價變異，任何資料都無法將之
 <!-- id: sqa-ch06-ccq5 -->
 #### 🙋 6.4.4.1 概念核對問答 (CCQ 5)
 
+
+
+
 * **單選題**：關於變異測試中的「等價變異體 (Equivalent Mutants)」，下列敘述何者正確？
 
 A) 等價變異體是指與原程式結構與語意完全相同，因此兩者的抽象語法樹 (AST) 沒有任何差異
 B) 等價變異體在所有可能的測試輸入下，其輸出行為都與原程式完全相同，因此無法被任何測試案例殺死 (Kill)
 C) 等價變異體是由於編譯器優化產生的，只要在測試時關閉編譯器優化即可順利殺死
 D) 在計算變異分數 (Mutation Score) 時，等價變異體應計入被殺死變異體 (Killed Mutants) 的數量中
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq5)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -676,6 +687,8 @@ D) 在計算變異分數 (Mutation Score) 時，等價變異體應計入被殺�
 
 在實務上，變異測試需要搭配工具才能使用，因為一個程式所產生出的變異體需要很多，這需要自動化的產生，而比對變異體的執行結果與原程式是否相異也需要透過系統自動檢查，才能發揮此方法的效益。
 
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq5)
+
 ### 6.4.5 Lab: 變異測試
 
 * [nlh lab](https://github.com/nlhsueh/sw-testing24/blob/main/lab/u06_mutation/mutation_test.md)
@@ -745,14 +758,15 @@ D) 在計算變異分數 (Mutation Score) 時，等價變異體應計入被殺�
 <!-- id: sqa-ch06-ccq6 -->
 #### 🙋 6.5.5 概念核對問答 (CCQ 6)
 
+
+
+
 * **單選題**：利用 LLM 輔助生成白箱測試單元測試（如使用 JUnit 生成測試套件）以提高覆蓋率時，下列何者通常是 AI 最難以自動驗證、最需要軟體工程師介入進行人工審查（做為 Oracle）的核心部分？
 
 A) 設計正確的控制流輸入值以觸發特定的分支與邊界條件
 B) 撰寫正確的 Mockito 語法來模擬外部依賴的行為
 C) 判斷測試中的斷言 (Assertions) 是否真正符合業務真實邏輯，而非單純「鎖定與合理化」現有程式碼的可能錯誤行為
 D) 將單元測試程式碼格式化為符合規範的 JUnit 語法結構
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq6)
 
 <details>
 <summary>點擊查看【概念核對問答】答案與解析</summary>
@@ -762,6 +776,8 @@ D) 將單元測試程式碼格式化為符合規範的 JUnit 語法結構
   * **正確**：AI 擅長分析程式碼結構並生成測資以觸發特定路徑，或者寫出正確的 Mock 語法。然而，如果程式碼本身已經寫錯了（例如邏輯寫反了），AI 在生成測試時，只會根據錯的程式碼生成斷言以使其通過（即將錯誤視為正確）。這被稱為「合理化現有行為 (Reasoning about existing behavior)」，如果沒有工程師作為 Oracle 來確認業務邏輯的正確性，測試將失去尋找 Bug 的功能。
 
 </details>
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch06-ccq6)
 
 ## 6.6 練習 (Exercises)
 
