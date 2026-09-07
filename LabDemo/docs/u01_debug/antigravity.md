@@ -297,3 +297,125 @@ public class App {
    > 「請針對 `BubbleSort.java` 撰寫包含等價劃分與邊界值測試的 JUnit 5 測試案例，放在 `src/test/java/` 對應路徑中，並直接下指令確認測試全部通過。」
 3. **優化與重構程式碼**：
    > 「請分析當前開啟的類別是否有潛在的 Code Smells，並依照 Clean Code 原則進行重構，保留所有原有功能的正確性。」
+
+---
+
+## 課堂互動與概念檢核
+
+<!-- id: sqa-u01-antigravity-ccq1 -->
+#### 🙋 **概念核對問答 (CCQ 1)：Agentic AI 與傳統 Copilot 的核心本質區別**
+
+
+
+**問題**
+
+傳統的程式碼輔助工具（如早期 GitHub Copilot）與 Google Antigravity 的「Agentic 代理人協作模式」相比，後者最關鍵的架構突破為何？
+
+A) 代理人模式能將程式碼直接轉換為機器碼以提升 CPU 執行效率  
+B) 具備環境感測能力（全局索引專案、讀取編譯與測試日誌）與自主工具調用能力（檔案精準讀寫、執行終端機指令、形成自動修復閉環）  
+C) 代理人模式完全不需要人類工程師參與或下達 Prompt，就會自主開發完成系統並發布上線  
+D) 代理人模式只能在雲端伺服器運作，無法在本機 IDE 編輯器中執行  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：傳統 Copilot 多停留在「被動程式碼補全」或「聊天室問答」，開發者仍須手動複製貼上與編譯排查；而 Agentic AI 具備感知工作區狀態（讀取 `pom.xml`、終端機報錯）、自主操作工具（檔案修改、執行 `mvn test`）的能力，能形成「修改 ➔ 測試 ➔ 偵錯 ➔ 再驗證」的主動自主閉環。
+  * **選項 A 錯誤**：編譯為機器碼是 JVM / JIT 編譯器的職責，非 AI 模型的功能。
+  * **選項 C 錯誤**：AI 代理人仍需人類工程師提供需求目標，且重大操作需人類審查核准（Human-in-the-Loop）。
+  * **選項 D 錯誤**：Antigravity IDE 為整合於本機桌面的原生開發環境。
+
+</details>
+
+---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-antigravity-ccq1)
+
+<!-- id: sqa-u01-antigravity-ccq2 -->
+#### 🙋 **概念核對問答 (CCQ 2)：三大 AI 互動模式之情境選用**
+
+
+
+**問題**
+
+工程師正在檢視 `GCD.java`，發現其中一個輔助函式邏輯巢狀太深。他只想針對「選取的這 10 行程式碼」進行原地重構與加入 JavaDoc 說明，不想改動或干擾工作區的其他任何檔案。請問下列哪一種互動模式最迅速且最合適？
+
+A) 啟動 Planning Mode 生成全局架構實作計畫書  
+B) 使用 Inline Command 行內指引模式（按下 <kbd>Cmd</kbd> + <kbd>I</kbd> / <kbd>Ctrl</kbd> + <kbd>I</kbd>）  
+C) 呼叫 Browser Subagent 開啟無頭瀏覽器  
+D) 切換至全域終端機執行 `agy` 命令列背景排程  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：**Inline Command（<kbd>Cmd</kbd> + <kbd>I</kbd>）** 專門用於「局部程式碼修改與重構」，它直接針對游標選取的區域進行原地優化、解說或修正，輕量迅速且完全不影響檔案外的其他邏輯。
+  * **選項 A 錯誤**：Planning Mode 適合跨檔案、多步驟或具有架構影響的複合型任務，局部修改使用它會顯得過於繁瑣。
+  * **選項 C/D 錯誤**：Browser Subagent 用於 Web E2E 介面測試驗收，非編輯器內重構工具。
+
+</details>
+
+---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-antigravity-ccq2)
+
+<!-- id: sqa-u01-antigravity-ccq3 -->
+#### 🙋 **概念核對問答 (CCQ 3)：安全沙盒與指令執行審查**
+
+
+
+**問題**
+
+在 Antigravity 預設的「標準沙盒隔離模式（Standard Sandbox Mode）」下，當 Agent 為了修復 Bug 而嘗試在終端機執行可能影響系統環境或高風險的指令時，系統會如何處理？
+
+A) 為了追求最高自主效率，IDE 會一律自動靜默執行，不通知使用者  
+B) 系統會直接強制關閉 IDE 並鎖死作業系統  
+C) 指令會被安全攔截並彈出審查提示，清楚呈現即將執行的完整指令，必須由開發者手動點擊核准（Approve）後方可執行  
+D) 沙盒模式下嚴禁執行任何終端機指令，即使是 `git status` 或 `mvn compile` 等唯讀指令也會被永久阻斷  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：C**
+
+* **解析**：
+  * **選項 C 正確**：Antigravity 設計了嚴格的人機協同安全防護（Human-in-the-Loop）。在沙盒防護下，可能危害系統或逃逸沙盒的指令均須經過開發者透明審查與顯式授權，確保 Agent 的自主操作完全在人類的掌控邊界之內。
+  * **選項 A 錯誤**：靜默執行重大風險指令會帶來極大的安全隱患。
+  * **選項 B/D 錯誤**：無此極端行為；一般讀取與安全指令可依設定自動放行或受控執行。
+
+</details>
+
+---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-antigravity-ccq3)
+
+<!-- id: sqa-u01-antigravity-ccq4 -->
+#### 🙋 **概念核對問答 (CCQ 4)：Java 專案開啟根目錄與 Classpath 解析**
+
+
+
+**問題**
+
+在 Antigravity / VS Code 開發 Java Maven 專案時，指引特別強調「必須直接開啟包含 `pom.xml` 的專案資料夾（如 `LabDemo/`），而不要開啟最外層的父目錄（如 `gTeachSQA/`）」。其背後最關鍵的技術原因為何？
+
+A) 開啟外層目錄會超過作業系統的檔案路徑長度限制  
+B) Java Language Server 必須以開啟的資料夾根目錄為基準定位 `pom.xml`，才能正確解析相依套件庫並建立編譯 Classpath；若開外層目錄會導致語法提示失效甚至執行時報出 `ClassNotFoundException`  
+C) Maven 專案規格強制規定一個資料夾內只能有一個檔案，外層有多個子目錄會破壞規範  
+D) 外層目錄通常包含 Git 版本控制，IDE 禁止載入含有 `.git` 的資料夾  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：VS Code 與 Antigravity 的 Java Language Server 依賴根目錄的 `pom.xml` 來辨識專案結構與建立 Classpath。若開啟外層目錄，IDE 會將內部子資料夾視為普通資料夾而非 Java 專案，無法正確下載並掛載依賴庫，導致主程式無法執行並報出 `ClassNotFoundException`。
+  * **選項 A/C/D 錯誤**：皆非技術事實。
+
+</details>
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-antigravity-ccq4)

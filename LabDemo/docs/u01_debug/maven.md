@@ -237,3 +237,123 @@ verify               <--- 綁定 --- jacoco-maven-plugin:report
 1. **自動化回歸測試**：每一次開發者提交程式碼，CI 伺服器（如 GitHub Actions、GitLab CI）只需執行 `mvn test`，即可確保修改沒有破壞既有功能。
 2. **客觀量化品質指標**：透過 `jacoco-maven-plugin` 與 `pitest-maven`，團隊可以精確掌握「陳述句覆蓋率（Statement Coverage）」、「分支覆蓋率（Branch Coverage）」與「變異擊殺率（Mutation Score）」。
 3. **品質門檻中斷（Build Breaker）**：可設定規則「若測試失敗或覆蓋率低於 80%，Maven 構建失敗禁止合併」，防患於未然。
+
+---
+
+## 課堂互動與概念檢核
+
+<!-- id: sqa-u01-maven-ccq1 -->
+#### 🙋 **概念核對問答 (CCQ 1)：Maven 生命週期執行順序**
+
+
+
+**問題**
+
+工程師在終端機輸入 `mvn package` 指令試圖將專案打包成 JAR 檔。依據 Maven 預設的建置生命週期（Default Lifecycle），下列敘述何者正確？
+
+A) Maven 會直接將程式碼打包成 JAR，不會編譯也不會執行單元測試  
+B) Maven 會依序執行 `compile` ➔ `test-compile` ➔ `test`，只有在所有單元測試皆通過（綠燈）的情況下，才會進入 `package` 打包產出 JAR  
+C) `package` 階段會在 `test` 階段之前執行，以確保打包失敗時不會浪費時間跑測試  
+D) 只有手動執行 `mvn test` 才會跑測試，`mvn package` 預設完全跳過測試  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：Maven 的生命週期具有相依遞進特性，呼叫特定階段時，Maven 會自動依序執行其前面所有的階段。因此執行 `mvn package` 一定會先執行主程式編譯（`compile`）、測試編譯（`test-compile`）與單元測試（`test`）；若有任何測試失敗，Maven 會立即中斷構建（Build Failure），阻止產生包含缺陷的 JAR 檔。
+  * **選項 A/C/D 錯誤**：皆違背 Maven 生命週期的前置順序與品質把關機制。
+
+</details>
+
+---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-maven-ccq1)
+
+<!-- id: sqa-u01-maven-ccq2 -->
+#### 🙋 **概念核對問答 (CCQ 2)：依賴範圍（Scope）與發行環境安全**
+
+
+
+**問題**
+
+在 `pom.xml` 中引入單元測試框架（如 JUnit 5）或模擬物件庫（如 Mockito）時，若工程師漏寫了 `<scope>test</scope>`，導致其採用預設的 `<scope>compile</scope>`。從軟體品質與維運安全的角度來看，這會造成何種不良影響？
+
+A) 專案完全無法編譯，Maven 會回傳語法錯誤  
+B) 測試程式碼無法引用 JUnit 的 `@Test` 註解  
+C) 測試用程式庫會被打包進正式生產環境（Production）的發行 JAR 檔中，徒增成品體積並擴大潛在資安攻擊面  
+D) CI 伺服器在執行 `mvn test` 時會找不到測試類別  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：C**
+
+* **解析**：
+  * **選項 C 正確**：`compile` 是 Maven 的預設範圍，意味著主程式編譯、測試與最終打包發行皆包含此套件。測試專用的程式庫（如 JUnit、Mockito、AssertJ）僅供研發階段檢驗品質使用，若誤打包進生產環境，除了膨脹部署包大小，還可能因測試工具內部開放的反射或偵錯通道引入非預期的安全漏洞。
+  * **選項 A/B/D 錯誤**：`compile` 範圍在編譯與測試時皆能正常運作，因此功能上不會報錯，但違反了最小權限與乾淨依賴原則。
+
+</details>
+
+---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-maven-ccq2)
+
+<!-- id: sqa-u01-maven-ccq3 -->
+#### 🙋 **概念核對問答 (CCQ 3)：跳過測試指令的品質風險**
+
+
+
+**問題**
+
+在緊急部署修復時，某工程師在 CI/CD 管道中使用 `mvn package -DskipTests` 來加速構建與發布。關於此行為在軟體品質保證 (SQA) 中的評述，何者最為精準？
+
+A) 這是業界推薦的最佳實務，因為生產環境只需要可執行檔，不需要測試程式碼  
+B) `-DskipTests` 會編譯測試程式但跳過執行，這代表人為繞過了自動化回歸測試防線，可能將未察覺的回歸缺陷（Regression Bug）直接推上線  
+C) `-DskipTests` 會自動將測試報告全部標記為 100% 通過，並產出完美的 JaCoCo 覆蓋率報告  
+D) `-DskipTests` 會強制刪除所有測試原始碼以節省雲端伺服器磁碟空間  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：B**
+
+* **解析**：
+  * **選項 B 正確**：`-DskipTests` 雖然能節省測試執行時間，但它直接關閉了最關鍵的「自動化驗證防護網」。在 SQA 體系中，未經測試通過的發行物具有極高風險，除非經過嚴格授權且有替代性驗證，否則在正式 CI/CD 流程中嚴禁預設跳過測試。
+  * **選項 A 錯誤**：此舉屬高風險捷徑，非推薦實務。
+  * **選項 C/D 錯誤**：跳過測試不會產出執行報告，亦不會刪除程式碼。
+
+</details>
+
+---
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-maven-ccq3)
+
+<!-- id: sqa-u01-maven-ccq4 -->
+#### 🙋 **概念核對問答 (CCQ 4)：JaCoCo 覆蓋率外掛與品質守門員（Build Breaker）**
+
+
+
+**問題**
+
+團隊希望落實品質把關機制：「若單元測試的程式碼涵蓋率（Code Coverage）未達到 80%，Maven 構建必須直接中斷失敗（Build Failure），並拒絕程式碼合併到 `main` 分支」。請問這項覆蓋率門檻檢核應該綁定在 Maven 生命週期的哪一個階段最合適？
+
+A) `clean`（清除階段）  
+B) `compile`（主程式編譯階段）  
+C) `verify`（驗證階段，於 `test` 之後執行）  
+D) `deploy`（遠端倉庫部署階段）  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：C**
+
+* **解析**：
+  * **選項 C 正確**：程式碼涵蓋率必須等單元測試（`test`）全數執行完畢、收集到執行探針數據後才能計算與判定。Maven 的 `verify` 階段專門用於執行整合測試與品質檢查，透過 `jacoco-maven-plugin` 的 `check` goal 綁定至 `verify`，一旦未達標便觸發 Build Breaker 中斷流程。
+  * **選項 A/B 錯誤**：此時單元測試根本尚未執行，無法獲得覆蓋率數據。
+  * **選項 D 錯誤**：`deploy` 是最後發布階段，此時才檢查為時已晚。
+
+</details>
+
+[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-u01-maven-ccq4)
