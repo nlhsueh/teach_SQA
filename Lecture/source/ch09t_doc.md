@@ -44,7 +44,7 @@ Ch09 知識架構全景：
 1.  **1. 對齊規格認知 (Alignment)**：
     *   消除產品經理 (PO)、開發工程師與測試工程師之間的認知落差，確保所有人對「完成定義 (Definition of Done, DoD)」有精確且一致的標準。
 2.  **2. 需求雙向可追溯性 (Traceability)**：
-    *   建立需求追溯矩陣 (RTM)，將 User Story ➔ 實作程式碼 (Code) ➔ 測試案例 (Test Case) 緊密串聯，證明每一項商業需求皆經過嚴格檢驗，無遺漏亦無冗餘代碼。
+    *   建立需求追溯矩陣 (RTM)，將 User Story ➔ 實作程式碼 (Code) ➔ 測試案例 (Test Case) 緊密串聯，證明每一項商業需求皆經過嚴格檢驗，無遺漏亦無冗餘程式碼。
 3.  **3. 缺陷精準重現 (Reproducibility)**：
     *   提供客觀、科學且可重複執行的驗證步驟，徹底終結「在我的電腦上明明正常」的推諉現象，加速除錯與修復週期。
 4.  **4. 品質治理與審計合規 (Governance & Audit)**：
@@ -112,16 +112,16 @@ IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表
 *   **Stage 1：需求規格輸入 (User Story / PRD Input)**：產品經理提供原始 PRD 規格文件或使用者故事 (User Stories)。
 *   **Stage 2：AI 核心分析引擎 (AI Brain / LLM Engine)**：大型語言模型依據等價劃分、邊界值分析與防禦性不變量 (Invariants) 進行語意分析與測試路徑展開。
 *   **Stage 3：自動產出活文件 (Automated Living Documentation)**：
-    *   生成可直接執行的 **Gherkin BDD Feature Files**（規格即代碼）。
+    *   生成可直接執行的 **Gherkin BDD Feature Files**（規格即程式碼）。
     *   生成涵蓋 Happy Path 與極端邊界的結構化 **測試案例矩陣 (Structured Test Matrix)**。
-*   **Stage 4：CI/CD 全自動化流水線執行 (CI/CD Pipeline Execution)**：代碼 Commit 後自動觸發 JUnit 5、Playwright 與 Testcontainers 執行，即時產出綠燈驗證報表。
+*   **Stage 4：CI/CD 全自動化流水線執行 (CI/CD Pipeline Execution)**：程式碼 Commit 後自動觸發 JUnit 5、Playwright 與 Testcontainers 執行，即時產出綠燈驗證報表。
 *   **Stage 5：智慧缺陷與總結報告 (Smart AI Incident & Summary Report)**：若執行失敗，AI 自動萃取錯誤堆疊與容器日誌，直接產出含**根本原因分析 (RCA)** 與修復建議的缺陷報告。
 
-### 9.3.1 規格即代碼 (Doc as Code) 與 BDD 活文件
+### 9.3.1 規格即程式碼 (Doc as Code) 與 BDD 活文件
 *   **Markdown + Git 協同審查**：
     *   測試計畫以 Markdown 撰寫並放置於專案 `/docs/test/`，隨程式碼一起發布 Pull Request，透過 Code Review 機制共同審查測試完整性。
 *   **Gherkin 活文件 (Living Docs)**：
-    *   以 `Given-When-Then` 撰寫的 Feature 規格，既是業務人員看得懂的驗收規格書，又是 Cucumber-JVM 可直接執行的自動化測試代碼。
+    *   以 `Given-When-Then` 撰寫的 Feature 規格，既是業務人員看得懂的驗收規格書，又是 Cucumber-JVM 可直接執行的自動化測試程式碼。
 
 ### 9.3.2 AI 輔助從 PRD / 需求自動生成測試矩陣 (Test Matrix)
 透過給定產品需求規格書 (PRD) 或 User Story，Prompting LLM 依據邊界值與等價類原則自動產出結構化測試案例：
@@ -135,8 +135,8 @@ IEEE 829（現納入 ISO/IEC/IEEE 29119-3）是軟體工程歷史上最具代表
 ```
 
 ### 9.3.3 AI 智慧缺陷分析與自動化 RCA (Root Cause Analysis)
-*   **CI/CD 失敗自動提單**：當 GitHub Actions 中的自動化測試失敗時，AI Bot 自動讀取失敗的 Stack Trace 與容器日誌，自動分析可能出錯的代碼行，並在 GitHub Issue 中生成完整的 Bug 報告與初步修復建議。
-*   **測試涵蓋率與缺口分析 (Coverage Gap Analysis)**：AI 掃描 PR 變更的代碼邏輯與現有測試文件，主動提示：「發現此 PR 新增了退款失敗重試邏輯，但測試文件中缺乏網路超時情境的測試案例」。
+*   **CI/CD 失敗自動提單**：當 GitHub Actions 中的自動化測試失敗時，AI Bot 自動讀取失敗的 Stack Trace 與容器日誌，自動分析可能出錯的程式碼行，並在 GitHub Issue 中生成完整的 Bug 報告與初步修復建議。
+*   **測試涵蓋率與缺口分析 (Coverage Gap Analysis)**：AI 掃描 PR 變更的程式碼邏輯與現有測試文件，主動提示：「發現此 PR 新增了退款失敗重試邏輯，但測試文件中缺乏網路超時情境的測試案例」。
 
 ### 9.3.4 AI 時代關於測試文件的「三大常見迷思」與核心真相 (Common Myths vs. Truths)
 

@@ -12,5 +12,5 @@
 ## 🔗 相關資源與延伸連結
 
 * **Unit 01 除錯指引**：[docs/u01_debug/debug.md](../u01_debug/debug.md)
-* **Maven POM 結構介紹**：[docs/u01_debug/POM.md](../u01_debug/POM.md)
+* **Maven POM 結構介紹**：[docs/u01_debug/maven.md](../u01_debug/maven.md)
 * **AI 輔助除錯實作**：[docs/u01_debug/ai_code_break.md](../u01_debug/ai_code_break.md)

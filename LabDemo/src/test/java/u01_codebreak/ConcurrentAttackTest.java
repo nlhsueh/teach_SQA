@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * 實習 01：AI 代碼破壞實驗測試腳本
+ * 實習 01：AI 程式碼破壞實驗測試腳本
  */
 public class ConcurrentAttackTest {
 

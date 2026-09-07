@@ -55,7 +55,7 @@ flowchart LR
 | **`compile`** | 編譯專案的主原始碼 (`src/main/java`) | 產出主類別檔案至 `target/classes` |
 | **`test-compile`** | 編譯測試原始碼 (`src/test/java`) | 產出測試類別檔案至 `target/test-classes` |
 | **`test`** | **執行單元測試**（如 JUnit 5） | 自動執行所有單元測試，若有測試失敗則終止構建 |
-| **`package`** | 將編譯後的代碼打包成可發行格式（如 JAR、WAR） | 產出 `target/LabDemo-1.0-SNAPSHOT.jar` |
+| **`package`** | 將編譯後的程式碼打包成可發行格式（如 JAR、WAR） | 產出 `target/LabDemo-1.0-SNAPSHOT.jar` |
 | **`verify`** | **驗證與品質檢查**（執行整合測試、靜態分析） | 產出 JaCoCo 覆蓋率報告、變異測試、檢查品質門檻 |
 | **`install`** | 將打包好的檔案安裝到本機倉庫 (`~/.m2/repository`) | 供本機電腦上的其他 Maven 專案直接引用 |
 | **`deploy`** | 將最終成品部署發布至團隊遠端倉庫（如 Nexus / Artifactory） | 供團隊成員或生產環境下載 |
@@ -111,7 +111,7 @@ verify               <--- 綁定 --- jacoco-maven-plugin:report
 ### 3.1 專案座標 (GAV)
 每個 Maven 專案在世界上都有唯一的「座標（Coordinate）」，由三元素組成：
 
-```
+```xml
 <groupId>org.example</groupId>       <!-- 組織/組織反向域名 -->
 <artifactId>LabDemo</artifactId>     <!-- 專案唯一識別名稱 -->
 <version>1.0-SNAPSHOT</version>      <!-- 版本號（SNAPSHOT 代表開發中快照） -->

@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 實習 01：AI 代碼破壞實驗示範程式 (包含 main 方法可直接執行)
+ * 實習 01：AI 程式碼破壞實驗示範程式 (包含 main 方法可直接執行)
  */
 public class ConcurrentAttackDemo {
 

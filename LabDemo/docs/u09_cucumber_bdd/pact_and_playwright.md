@@ -53,7 +53,7 @@ public class UserConsumerContractTest {
 
 ### 1. 為什麼選擇 Playwright 而非 Selenium？
 * **零 Flaky 測試**：Playwright 內建「智慧自動等待（Auto-waiting）」，在點擊元素前自動等待元素可見、啟用且動畫停止，不再需要手寫 `Thread.sleep` 或脆弱的顯式等待！
-* **多瀏覽器原生支援**：一行代碼切換 Chromium (Chrome/Edge)、Firefox 與 WebKit (Safari)。
+* **多瀏覽器原生支援**：一行程式碼切換 Chromium (Chrome/Edge)、Firefox 與 WebKit (Safari)。
 * **測試軌跡與錄影 (Trace Viewer)**：出錯時可查看毫秒級的 DOM 快照、網路請求瀑布圖與螢幕截圖。
 
 ### 2. Maven 依賴 (`pom.xml`)

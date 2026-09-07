@@ -1,13 +1,13 @@
 # Google Antigravity IDE 介紹與 Java Maven 開發實務指南
 
-本指南介紹 Google 所推出的 AI 原生整合開發環境 —— **Antigravity IDE**，涵蓋其誕生背景與核心特色、跨平台（macOS / Windows）安裝步驟、Java 21 與 Maven 專案環境設定、如何在此 IDE 中進行程式碼除錯與測試，以及常見的疑難排解。
+介紹 Google 所推出的 AI 原生整合開發環境 —— **Antigravity IDE**，涵蓋其誕生背景與核心特色、跨平台（macOS / Windows）安裝步驟、Java 21 與 Maven 專案環境設定，以及常見的疑難排解與 AI 提問技巧。
 
 ---
 
-## 1. 什麼是 Google Antigravity？來龍去脈與核心架構
+## 1. 什麼是 Google Antigravity？
 
 ### 1.1 誕生背景：從「AI 輔助寫 code」進化至「Agentic 代理人協作」
-近年程式碼輔助工具（如 GitHub Copilot）大多停留在「被動代碼補全」或「側邊欄問答」的模式，開發者仍需頻繁手動複製貼上、在終端機輸入編譯與測試指令、手動排查 StackTrace 錯誤。
+近年程式碼輔助工具（如 GitHub Copilot）大多停留在「被動程式碼補全」或「側邊欄問答」的模式，開發者仍需頻繁手動複製貼上、在終端機輸入編譯與測試指令、手動排查 StackTrace 錯誤。
 
 **Google Antigravity** 是由 Google DeepMind 與 Core Engineering 團隊聯手打造的 **AI-First 原生軟體開發平台**。它的設計理念並非單純在編輯器中塞入聊天機器人，而是將 **Agentic AI（代理人 AI）** 深度整合至整個軟體開發生命週期中：
 * **具備環境感測能力**：AI 不只閱讀當前檔案，能全局索引工作區程式碼、解析 `pom.xml` 依賴結構、即時讀取終端機輸出與編譯報錯。
@@ -25,7 +25,7 @@ Antigravity 平台提供多種運作型態：
 | 交互模式　　　　　　　　　　　　　　　　　　 | 啟動方式　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| 特色與適用情境　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
 | :---------------------------------------------| :----------------------------------------------------------------------------| :----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **被動預測 (Passive)<br>Antigravity Tab**　　| <kbd>Tab</kbd> / <kbd>→</kbd>　　　　　　　　　　　　　　　　　　　　　　　 | **次意圖即時預測補全**：不只補全目前行，能一次生成跨行修改、預測下一個游標跳轉位置（Tab to Jump），或在新增類別時自動引入 Import（Tab to Import）。　　　　　　 |
-| **指引行內 (Instructive)<br>Inline Command** | <kbd>Cmd</kbd> + <kbd>I</kbd> (Mac)<br><kbd>Ctrl</kbd> + <kbd>I</kbd> (Win) | **區域化代碼重構與生成**：框選程式碼區塊後呼叫，可針對選取範圍進行原地優化、解說、加註解或修正邏輯，不干擾其他程式碼。　　　　　　　　　　　　　　　　　　　　　|
+| **指引行內 (Instructive)<br>Inline Command** | <kbd>Cmd</kbd> + <kbd>I</kbd> (Mac)<br><kbd>Ctrl</kbd> + <kbd>I</kbd> (Win) | **區域化程式碼重構與生成**：框選程式碼區塊後呼叫，可針對選取範圍進行原地優化、解說、加註解或修正邏輯，不干擾其他程式碼。　　　　　　　　　　　　　　　　　　　　　|
 | **代理人協作 (Collaborative)<br>Agent Mode** | 側邊欄對話面板　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| **全自動配對編程夥伴**：處理複合型任務。例如「請幫我寫出 `GCD` 的單元測試並用 `mvn test` 驗證，若有錯誤請自動修好」，Agent 會自主規畫、寫檔、下指令執行並回報。 |
 
 ---
@@ -60,7 +60,7 @@ Antigravity 平台提供多種運作型態：
    * 它會先進入規劃模式，產出一份技術規格書 —— **實作計畫（`implementation_plan.md`）**，列出即將修改的檔案、函式、架構決策與驗證清單。
    * 系統會提供 **`Proceed`** 按鈕，唯有在您審閱並核准後，Agent 才會開始動手修改程式碼。
 2. **工具調用與執行權限（Tool Execution & Permissions）**：
-   * **檔案讀寫**：精準進行單區塊或多區塊代碼修補，自動維護程式碼註解與格式。
+   * **檔案讀寫**：精準進行單區塊或多區塊程式碼修補，自動維護程式碼註解與格式。
    * **終端機指令（Terminal Tools）**：能主動執行 `mvn compile`、`mvn test`、`git status` 等指令，並即時由終端機輸出判斷成功與否，若有報錯則自動自我修復。
    * **瀏覽器子代理（Browser Subagent）**：具備直接開啟無頭瀏覽器（Headless Chrome）進行 UI 互動、擷取螢幕截圖與 E2E 測試驗收的能力。
 3. **子代理與背景任務（Subagents & Background Tasks）**：
@@ -111,7 +111,7 @@ Antigravity 允許團隊將「軟體品質規範」直接寫入專案中，讓 A
 | **Rules (行為準則)** | `AGENTS.md`<br>`GEMINI.md`<br>`.agents/rules/*.md` | **為 Agent 建立絕對紅線與原則**：<br>例如規定「所有回覆一律使用台灣繁體中文」、「嚴格使用 JUnit 5 撰寫單元測試」、「未經同意不可自行執行 Commit」等，Agent 在每一次對話都會優先嚴格遵守。 |
 | **Skills (流程技能)** | `.agents/skills/<name>/SKILL.md`<br>`~/.gemini/config/skills/` | **教導 Agent 專屬的操作手冊 (Runbooks)**：<br>例如教 Agent 如何跑特定 Maven 外掛、如何排查 Cucumber 報錯。Skills 採用**漸進式揭露（Progressive Disclosure）**，平常不佔用 context 記憶體，需要時才動態啟動。 |
 | **MCP Servers** | `mcp_config.json` | **外部工具整合（Model Context Protocol）**：<br>讓 Agent 連線外部系統（例如本機資料庫、GitHub API、公司內部專屬 API 服務）。 |
-| **Hooks** | `hooks.json` | **生命週期鉤子**：<br>在 Agent 執行工具前後自動觸發（例如修改代碼後自動觸發格式化工具）。 |
+| **Hooks** | `hooks.json` | **生命週期鉤子**：<br>在 Agent 執行工具前後自動觸發（例如修改程式碼後自動觸發格式化工具）。 |
 
 ---
 
@@ -244,53 +244,10 @@ public class App {
 * 首次開啟 `LabDemo` 後，右下角狀態列會顯示 `Opening Java Projects...` 與 `Importing Maven projects...`。
 * 請稍候 5~10 秒，待背景索引與下載依賴套件完成後，左側側邊欄的 **JAVA PROJECTS** 與 **MAVEN** 面板便會正確列出所有模組與依賴庫。
 
----
-
-## 5. 在 Antigravity 中執行與除錯 (Run & Debug)
-
-### 5.1 執行主程式（例如 BubbleSort 或 GCD）
-開啟包含 `main` 方法的 Java 類別（例如 [BubbleSort.java](file:///Users/nlh/Library/CloudStorage/GoogleDrive-nlhsueh@gmail.com/我的雲端硬碟/gTEACH/gTeachSQA/LabDemo/src/main/java/u01_debug/BubbleSort.java)）：
-1. **CodeLens 按鈕**：在 `public static void main` 的上方會自動出現淡灰色的文字：
-   ```text
-   Run | Debug
-   ```
-2. 直接點擊 **`Run`** 即可在下方終端機執行並查看輸出。
 
 ---
 
-### 5.2 中斷點除錯（Debugging）
-
-1. **下中斷點**：在程式碼行號左側邊欄按一下滑鼠左鍵，會出現一個**紅色圓點**（🔴）。
-2. **啟動除錯**：
-   * 點擊 `main` 上方的 **`Debug`** 文字，或
-   * 按鍵盤快捷鍵 **`F5`**（macOS 筆電若未鎖定功能鍵請按 **`fn + F5`**）。
-3. **除錯工具列操作**：
-   程式停在中斷點高亮行時，畫面頂端會浮現除錯工具列：
-
-   | 按鈕 | 功能 | 快捷鍵 (Mac / Win) | 說明 |
-   | :---: | :--- | :---: | :--- |
-   | ⏸️ / ▶️ | **Continue** | `F5` | 繼續執行至下一個中斷點或程式結束 |
-   | ⤵️ | **Step Over** | `F10` | 單步執行（跳過該行呼叫的函式，留在當前層級） |
-   | ⬇️ | **Step Into** | `F11` | 單步進入（跟隨執行流程進入函式內部） |
-   | ⬆️ | **Step Out** | `Shift + F11` | 單步跳出（執行完目前函式並返回呼叫點） |
-   | 🔄 | **Restart** | `Cmd + Shift + F5` / `Ctrl + Shift + F5` | 重新啟動除錯階段 |
-   | ⏹️ | **Stop** | `Shift + F5` | 終止除錯 |
-
-4. **監控與檢查**：
-   * **Variables 面板**：在左側側邊欄可展開即時查看各變數數值。
-   * **Hover 預覽**：滑鼠懸停在變數上方會浮現當前記憶體值。
-   * **Watch 面板**：可點擊 `+` 新增自訂運算式（例如 `data[0] > data[1]`）。
-
----
-
-### 5.3 執行單元測試（JUnit 5）
-開啟測試類別（例如 `src/test/java/u04_utest/CalculatorTest.java`）：
-* 每個測試方法 `@Test` 左側邊欄會出現綠色的播放按鈕 ▶️。
-* 點擊即可單獨執行該測試案例，或點擊類別名稱旁的 ▶️ 執行整組單元測試。
-
----
-
-## 6. 常見問題與疑難排除 (FAQ & Troubleshooting)
+## 5. 常見問題與疑難排除 (FAQ & Troubleshooting)
 
 ### Q1: 啟動除錯時報錯 `ClassNotFoundException: u01_debug.GCD` 或 `BubbleSort`？
 * **問題原因**：IDE 尚未編譯出對應的 `.class` 檔，或其類別路徑（Classpath）設定未抓到 `target/classes`。
@@ -330,7 +287,7 @@ public class App {
 
 ---
 
-## 7. Antigravity AI 助理實用咒語與技巧（Prompts 範例）
+## 6. Antigravity AI 助理實用咒語與技巧（Prompts 範例）
 
 在右側對話面板直接向 Antigravity Agent 下達指令：
 
@@ -338,5 +295,5 @@ public class App {
    > 「我在執行 `u01_debug/GCD.java` 時出現錯誤，請幫我檢查程式邏輯並使用終端機執行驗證。」
 2. **撰寫單元測試**：
    > 「請針對 `BubbleSort.java` 撰寫包含等價劃分與邊界值測試的 JUnit 5 測試案例，放在 `src/test/java/` 對應路徑中，並直接下指令確認測試全部通過。」
-3. **優化與重構代碼**：
+3. **優化與重構程式碼**：
    > 「請分析當前開啟的類別是否有潛在的 Code Smells，並依照 Clean Code 原則進行重構，保留所有原有功能的正確性。」

@@ -24,7 +24,7 @@ Ch01 知識架構全景：
 | 章節單元 | 核心學習重點 (Key Takeaways) |
 | :--- | :--- |
 | **[1.1 軟體危機的歷史與 AI 時代的輪迴](#11-軟體危機的歷史與-ai-時代的輪迴)** | 透過**愛國者飛彈、火星探測器、華航名古屋空難、迪士尼獅子王**四大歷史慘劇，理解精度誤差、介面契約、人機互動與相容性測試的重要性，剖析 1968 NATO 軟體危機的本質。 |
-| **[1.2 AI 能拯救軟體危機嗎？](#12-ai-能拯救軟體危機嗎)** | 揭露 AI 輔助開發的「虛假安全感」與技術債；剖析**幻覺套件投毒 (Slopsquatting)、亞馬遜大斷線、Vibe Coding 漏洞與金鑰外洩**等真實事故，確立「從寫代碼轉向驗證代碼」的思維轉型。 |
+| **[1.2 AI 能拯救軟體危機嗎？](#12-ai-能拯救軟體危機嗎)** | 揭露 AI 輔助開發的「虛假安全感」與技術債；剖析**幻覺套件投毒 (Slopsquatting)、亞馬遜大斷線、Vibe Coding 漏洞與金鑰外洩**等真實事故，確立「從寫程式碼轉向驗證程式碼」的思維轉型。 |
 | **[1.3 軟體的本質與品質維度](#13-軟體的本質與品質維度軟體四要素--garvin-五大品質觀點)** | 掌握 IEEE 610.12 **軟體四大組成要素**（程式、程序、文件、資料）；深入解析 David Garvin **五大品質觀點**（超自然、使用者、製造、產品、價值觀點）。 |
 | **[1.4 軟體品質工程核心概念](#14-軟體品質工程核心概念vv品質成本-coq-與測試左移)** | 辨析 **Verification（是否有正確建造軟體）vs. Validation（建造的是否是正確軟體）**；理解品質成本架構 (CoQ) 與 **1:10:100 缺陷修復倍增定律**，奠定「測試左移 (Shift-Left)」的經濟學基礎。 |
 | **[1.5 生命週期中的品質把關](#15-軟體工程流程與生命週期中的品質把關-sdlc--cicd-quality-governance)** | 探索 **V 模型** 的測試與開發對稱性，解析現代 DevOps CI/CD 流水線中的 **6 大連續品質門檻 (Quality Gates)**（Pre-commit ➔ SAST ➔ Unit ➔ Integration ➔ E2E ➔ Observability）。 |
@@ -175,7 +175,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 **4. 敏感金鑰與憑證直接寫死（Hardcoded Secrets）外洩**
 
 * **事故機制**：AI 為了讓程式「立刻能跑」，經常在範例程式碼中示範把 API Key、資料庫密碼寫死在程式碼內。
-* **釀成災難**：開發者在沒有抽換成環境變數（Environment Variables）的情況下，直接將代碼推送到公開 GitHub Repository，導致雲端帳號（如 AWS、OpenAI）在一小時內被掃描機器人盜用並產生數萬美元的巨額帳單 [4]。
+* **釀成災難**：開發者在沒有抽換成環境變數（Environment Variables）的情況下，直接將程式碼推送到公開 GitHub Repository，導致雲端帳號（如 AWS、OpenAI）在一小時內被掃描機器人盜用並產生數萬美元的巨額帳單 [4]。
 
 ---
 
@@ -199,7 +199,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 A) 指專案從一個程式語言遷移至另一個語言時，因語法不相容而遺失的程式碼行數比例  
 B) 指新寫入並 Commit 的程式碼在極短時間內（如兩週內）就被刪除、修改或替換的比例；高 Code Churn 反映出 AI 生成程式碼看似快速但本質脆弱、未經深思熟慮與充分驗證  
-C) 指編譯器與建置工具在優化打包過程中，自動剔除未引用死代碼（Dead Code）的效率  
+C) 指編譯器與建置工具在優化打包過程中，自動剔除未引用死碼（Dead Code）的效率  
 D) 指自動化測試案例因系統版本迭代而自然失效無法執行的比率
 
 <details>
@@ -209,7 +209,7 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 
 * **解析**：
   * **Code Churn（程式碼流失率 / 變動率）**：衡量剛提交 (Commit) 的程式碼在短時間內（通常為 2 週內）就被後續 Commit 刪除或重寫的行數比例。
-  * **AI 時代的警訊**：AI 輔助寫程式讓工程師能輕易「一鍵採納」大段代碼，但這些代碼往往缺乏對邊界條件、架構約束與業務邏輯的深思熟慮。一旦進入測試或整合便漏洞百出，導致工程師必須頻繁推翻重寫。這種「產出快、丟棄也快」的高流失現象，正是 AI 生成代碼帶來**長期維護性技術債（Maintainability Debt）**與**系統脆弱性**的具體體現。
+  * **AI 時代的警訊**：AI 輔助寫程式讓工程師能輕易「一鍵採納」大段程式碼，但這些程式碼往往缺乏對邊界條件、架構約束與業務邏輯的深思熟慮。一旦進入測試或整合便漏洞百出，導致工程師必須頻繁推翻重寫。這種「產出快、丟棄也快」的高流失現象，正是 AI 生成程式碼帶來**長期維護性技術債（Maintainability Debt）**與**系統脆弱性**的具體體現。
 
 </details>
 
@@ -217,7 +217,7 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 
 > 📚 **參考資料出處 (References)**：
 > 1. **Lasso Security**: [AI Package Hallucinations](https://www.lasso.security/blog/ai-package-hallucinations) — 研究指出 AI 幻覺套件（如 `huggingface-cli`）可能引發 Slopsquatting 攻擊，惡意套件在數月內被無辜下載超過 3 萬次。
-> 2. **CRN**: [AWS Outage Was Not AI-Caused Via Kiro Coding Tool, Amazon Confirms](https://www.crn.com/news/cloud/2026/aws-outage-was-not-ai-caused-via-kiro-coding-tool-amazon-confirms) — 報導亞馬遜內部大推 AI 寫程式工具 Kiro 以及相關系統故障引發的代碼安全重整爭議與澄清。
+> 2. **CRN**: [AWS Outage Was Not AI-Caused Via Kiro Coding Tool, Amazon Confirms](https://www.crn.com/news/cloud/2026/aws-outage-was-not-ai-caused-via-kiro-coding-tool-amazon-confirms) — 報導亞馬遜內部大推 AI 寫程式工具 Kiro 以及相關系統故障引發的程式碼安全重整爭議與澄清。
 > 3. **Threat Landscape**: [Lovable.dev Data Breach: BOLA Vulnerability in Vibe Coding](https://threatlandscape.io/blog/lovable-dev-data-breach-bola-vulnerability-vibe-coding) — 詳細分析 AI 自動建置應用平台 Lovable 於 2026 年爆發的 BOLA (IDOR) 越權漏洞與產生的程式碼/金鑰暴露風險。
 > 4. **GitGuardian**: [State of Secrets Sprawl Report 2026](https://www.gitguardian.com/state-of-secrets-sprawl-report-2026) — 數據顯示 AI 輔助開發的金鑰與憑證洩漏率是人類開發者的兩倍（如 Claude Code 輔助提交的洩漏率達 3.2%）。
 > 5. **GitClear**: [Coding on Copilot: 2024 Developer Research](https://gitclear-public.s3.us-west-2.amazonaws.com/Coding-on-Copilot-2024-Developer-Research.pdf) — 針對 1.5 億行程式碼進行的縱向分析，指出 AI 輔助開發使程式碼重複率與流失率增加，並降低了主動重構的頻率。
@@ -333,8 +333,8 @@ D) 超自然觀點 (Transcendental View)
 
 **圖形解說：品質成本架構 (CoQ) 與 1:10:100 缺陷倍增定律**
 *   **一致性成本 (Conformance Costs - 主動投資品質)**：
-    *   **預防成本 (Prevention)**：架構審查、合約設計 (Design by Contract)、工程培訓與靜態代碼規範。
-    *   **評估成本 (Appraisal)**：單元測試 (Unit Tests)、靜態程式碼分析 (SonarQube) 與同行代碼審查 (Code Review)。
+    *   **預防成本 (Prevention)**：架構審查、合約設計 (Design by Contract)、工程培訓與靜態程式碼規範。
+    *   **評估成本 (Appraisal)**：單元測試 (Unit Tests)、靜態程式碼分析 (SonarQube) 與同行程式碼審查 (Code Review)。
 *   **非一致性成本 (Non-Conformance Costs - 忽視品質的慘痛代價)**：
     *   **內部失敗成本 (Internal Failure)**：上線前發現 Bug 導致的除錯 (Debugging)、重構與重測返工成本。
     *   **外部失敗成本 (External Failure)**：生產環境崩潰 (Outage)、客戶求償、緊急熱修復 (Hotfix) 與商譽破產。
@@ -402,7 +402,7 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 <img src="../../img/ch01/devops_cicd_quality_gates.jpg" width="650">
 
 **圖形解說：現代 DevOps CI/CD 流水線中的 6 大連續品質門檻**
-1.  **1. Code Commit 門檻**：本地 Git Pre-commit Hook 自動執行代碼格式化與快速靜態語法檢查。
+1.  **1. Code Commit 門檻**：本地 Git Pre-commit Hook 自動執行程式碼格式化與快速靜態語法檢查。
 2.  **2. SAST 靜態程式碼品質門檻**：SonarQube / SpotBugs 掃描程式碼異味 (Code Smells)、技術債與 OWASP 安全弱點。
 3.  **3. Unit Tests & 覆蓋率門檻**：JUnit 5 執行毫秒級單元測試，並由 JaCoCo 驗證行覆蓋率與分支覆蓋率門檻（如 > 80%）。
 4.  **4. Integration Tests 容器整合門檻**：Testcontainers 一鍵拉起真實 Docker 容器（PostgreSQL / Redis），驗證真實資料庫存取與 API 契約。

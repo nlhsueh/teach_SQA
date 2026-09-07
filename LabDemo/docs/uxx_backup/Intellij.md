@@ -120,7 +120,7 @@ mvn -v         # 應顯示 Apache Maven 3.x.x
    - 至 `Settings` -> `Editor` -> `File Encodings`，將 `Global Encoding`、`Project Encoding` 與 `Properties Files` 全都調整為 `UTF-8`，避免中文註解或文字資料在編譯時產生亂碼或報錯。
 
 ### 2.4 Maven 整合與依賴管理
-Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [POM.md](../u01_debug/POM.md)）。
+Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [maven.md](../u01_debug/maven.md)）。
 * **自動識別與匯入**：當您在 IntelliJ 中開啟包含 `pom.xml` 的資料夾時，IDE 會自動偵測並將其視為 Maven 專案載入，並在背景下載所需的 Jar 包。
 * **Maven 工具視窗**：視窗右側有一個 `Maven` 標籤，展開後可以看到專案的 **Lifecycle**（生命週期，如 `clean`, `compile`, `test`, `package`）與 **Plugins**。按兩下即可執行對應的指令。
 * **重新載入 Maven（Reload）**：如果您手動修改了 `pom.xml` 中的依賴設定，專案右上角會出現一個藍色的小 Maven 圖示（或按 `Ctrl + Shift + O` / `Cmd + Shift + I`），點擊後 IDE 就會立刻重新同步並下載最新套件。
@@ -166,8 +166,8 @@ Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [POM
      - 指令：`mvn pitest:mutationCoverage`
      - 報告輸出：運算完成後，請用瀏覽器開啟 `target/pit-reports/index.html` 檢視變異涵蓋率矩陣。
 
-4. **PMD 代碼靜態分析**
-   * **對應單元**：Unit 03 代碼檢視與靜態分析
+4. **PMD 程式碼靜態分析**
+   * **對應單元**：Unit 03 程式碼檢視與靜態分析
    * **特性**：無需執行程式碼，直接根據 `src/main/resources/pmd/ruleset.xml` 規則掃描原始碼中的 Code Smells、未使用變數、潛在 Null 指針與架構瑕疵。
    * **執行方式**：
      - 指令：`mvn pmd:check`（若違反規則將在終端機警示並報錯）
@@ -216,7 +216,7 @@ Maven 是專案管理與依賴建置的核心工具（詳細介紹可參閱 [POM
 | **`*.iml`** (如 `LabDemo.iml`) | **IntelliJ 模組設定檔（Module File）**：以 XML 格式記錄該模組的結構、路徑及依賴關係。為 IntelliJ 的舊版或相容性設計。 | **排除**：因為 Maven 專案的依賴關係已經由 `pom.xml` 定義，IDE 會自動從 `pom.xml` 生成此檔案，無需納入 Git。 |
 | **`src/`** | **原始碼目錄**：存放所有 Java 程式碼與資源檔案。<br>・`src/main/java`：主程式邏輯。<br>・`src/main/resources`：設定檔或資源。<br>・`src/test/java`：單元測試程式碼。 | **必須納入**：這是開發的核心程式碼。 |
 | **`target/`** | **編譯與建置輸出目錄**：Maven 執行 `compile` 或 `package` 後生成的檔案（包含編譯後的 `.class` 檔、包裝好的 `.jar` 檔、測試報告與 Jacoco 覆蓋率報告等）。 | **絕對排除**：此資料夾可以透過 `mvn clean` 隨時清除，並透過 `mvn compile` 重新生成，絕對不要提交至 Git。 |
-| **`pom.xml`** | **Maven 專案物件模型（Project Object Model）**：定義專案基本資訊、依賴套件、編譯外掛等（參考 [POM.md](../u01_debug/POM.md)）。 | **必須納入**：這是定義專案建置與依賴的根本來源。 |
+| **`pom.xml`** | **Maven 專案物件模型（Project Object Model）**：定義專案基本資訊、依賴套件、編譯外掛等（參考 [maven.md](../u01_debug/maven.md)）。 | **必須納入**：這是定義專案建置與依賴的根本來源。 |
 | **`.gitignore`** | **Git 排除清單**：定義哪些檔案與資料夾不需要被 Git 追蹤（例如 `.idea/`、`target/`、`*.iml` 及各種作業系統暫存檔）。 | **必須納入**：確保團隊成員在協作時不會提交垃圾檔案。 |
 
 > **💡 提示：為什麼我的專案一直出現奇怪的編譯錯誤？**  
@@ -301,9 +301,9 @@ AI 會產生類似以下的區塊，您只需直接貼入 `pom.xml` 的 `<depend
 * **終端機執行**：按下 `Ctrl + ~`（或從選單開啟 Terminal），可直接在下方輸入 Maven 指令（如 `mvn clean test`）。
 
 ### 4.5 使用內建 AI Agent 協同開發 (免裝外掛，已內建)
-* **AI 側邊欄聊天 (Chat)**：按下 `Cmd + L` (macOS) / `Ctrl + L` (Windows) 開啟聊天視窗，可直接向 AI 發問或要求解釋代碼。
+* **AI 側邊欄聊天 (Chat)**：按下 `Cmd + L` (macOS) / `Ctrl + L` (Windows) 開啟聊天視窗，可直接向 AI 發問或要求解釋程式碼。
 * **Agent 模式 (Agent Mode)**：在聊天視窗中將模式切換至 **`Agent`**。您可以直接命令它：「*請幫我寫出 Unit 04 的單元測試並執行到通過*」，AI Agent 會自動讀寫專案檔案、自己開終端機跑測試，直到幫您排除所有 bug。
-* **行內 AI 修改 (Inline Command)**：選取任一段程式碼，按下 `Cmd + I` (macOS) / `Ctrl + I` (Windows)，可以直接在該行輸入指令修改代碼（如：「*請幫我加上 Preconditions 斷言防護*」）。
+* **行內 AI 修改 (Inline Command)**：選取任一段程式碼，按下 `Cmd + I` (macOS) / `Ctrl + I` (Windows)，可以直接在該行輸入指令修改程式碼（如：「*請幫我加上 Preconditions 斷言防護*」）。
 
 ---
 
@@ -375,7 +375,7 @@ D) 直接刪除原類別，重新撰寫一個新類別並手動修改報錯的�
 
 
 * **[IntelliJ IDEA 與專案設定指南 (Intellij.md)](./Intellij.md)**
-  * **核心特色**：智慧代碼補全、AST 語法樹重構、內建 JVM/Git/Maven 整合、視覺化除錯器。
+  * **核心特色**：智慧程式碼補全、AST 語法樹重構、內建 JVM/Git/Maven 整合、視覺化除錯器。
   * **環境安裝指引**：JDK 21 (Temurin / Homebrew) 與 Maven 3.x 安裝與環境變數設定。
   * **IDE 設定與版本對齊**：Project SDK、Language Level 與 Compiler Bytecode Version 對齊。
   * **雲端硬碟防雷指南**：針對 Google Drive / OneDrive / iCloud 雲端同步卡頓問題的配置。

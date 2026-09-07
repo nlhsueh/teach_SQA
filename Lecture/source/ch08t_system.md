@@ -328,7 +328,7 @@ public class WebLoginE2ETest {
 Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視與可用性評估的權威標準：
 
 1. **系統狀態可見性 (Visibility of system status)**：系統應隨時透過適當的回饋讓使用者了解目前進行的狀態（例如上傳進度條）。
-2. **系統與真實世界相符 (Match between system and the real world)**：使用使用者的語言、詞彙與熟悉概念，而非內部技術代碼。
+2. **系統與真實世界相符 (Match between system and the real world)**：使用使用者的語言、詞彙與熟悉概念，而非內部技術代號或系統術語。
 3. **使用者控制與自由 (User control and freedom)**：提供明確的「緊急出口」（例如 Undo / Redo、取消操作）。
 4. **一致性與標準 (Consistency and standards)**：遵循通用設計規範，相同的詞彙與按鈕在不同頁面應具備相同意義。
 5. **預防錯誤 (Error prevention)**：比起提供好的錯誤訊息，更好的設計是在使用者犯錯前加以預防（例如刪除前跳出二次確認對話框）。
@@ -440,7 +440,7 @@ Jakob Nielsen 提出的啟發式檢驗準則，至今仍是 UI/UX 專家檢視�
 
 ### 8.6.5 測試執行階段：自動化加壓與品質門檻 (Thresholds)
 
-在測試執行期，現代架構提倡 **Load as Code（負載即代碼）**，將壓測腳本直接納入 Git 版本控管與 CI/CD 流程：
+在測試執行期，現代架構提倡 **Load as Code（負載即程式碼）**，將壓測腳本直接納入 Git 版本控管與 CI/CD 流程：
 *   **測試環境隔離**：在與生產環境配置等比例的 Staging 環境執行，並啟用伺服器監控（CPU、Memory、JVM GC、DB Connection Pool）。
 *   **品質門檻 (Thresholds)**：在腳本中宣告硬性 SLA 門檻（例如：`P95 < 250ms` 且 `錯誤率 < 0.1%`），若超出門檻則自動讓 CI 亮紅燈。
 

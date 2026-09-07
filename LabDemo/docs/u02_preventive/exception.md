@@ -68,7 +68,7 @@ public void checkAge(int age) throws IllegalArgumentException {
 你可以在一個 `try` 區塊後使用多個 `catch` 區塊來處理不同類型的例外：
 ```java
 try {
-    // 可能會拋出多種例外的代碼
+    // 可能會拋出多種例外的程式碼
 } catch (NullPointerException e) {
     System.out.println("NullPointerException 被捕捉到");
 } catch (ArrayIndexOutOfBoundsException e) {

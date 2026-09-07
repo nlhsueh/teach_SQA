@@ -1,7 +1,7 @@
 # 實習 12：k6 現代程式化壓測 (Load as Code) 與高併發效能工程
 
 > 🎯 **實習目標**：
-> 1. 告別傳統 JMeter 笨重的 GUI XML 設定檔，掌握現代雲原生標準——**以代碼定義負載 (Load as Code with k6)**。
+> 1. 告別傳統 JMeter 笨重的 GUI XML 設定檔，掌握現代雲原生標準——**以程式碼定義負載 (Load as Code with k6)**。
 > 2. 設計高併發負載情境（**負載測試 Load、突波測試 Spike、耐力測試 Soak**）。
 > 3. 分析高併發下的 **P95 / P99 延遲**、吞吐量 (RPS)、錯誤率與 HTTP 500 熔斷現象。
 
@@ -9,7 +9,7 @@
 
 ## 1. 為什麼選擇 k6 作為現代壓測工具？
 
-* **以 JavaScript/TypeScript 撰寫測試腳本**：完全版本控管 (Git)，像寫業務代碼一樣寫壓測。
+* **以 JavaScript/TypeScript 撰寫測試腳本**：完全版本控管 (Git)，像寫業務程式碼一樣寫壓測。
 * **Go 語言底層引擎**：單台筆電即可輕鬆產生 10,000+ 虛擬使用者 (VUs) 的超高並發流量，CPU 與記憶體佔用極低。
 * **CI/CD 自動化品質門檻 (Thresholds)**：可直接設定「若 P99 延遲 > 200ms 則自動讓 GitHub Actions CI 失敗」。
 

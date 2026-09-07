@@ -10,9 +10,9 @@
 
 ## 📚 實驗單元導覽 (Lab Units Index)
 
-| 單元 | 主題 | 實驗手冊 (Lab Manual) | 主要範例與測試代碼 |
+| 單元 | 主題 | 實驗手冊 (Lab Manual) | 主要範例與測試程式碼 |
 | :--- | :--- | :--- | :--- |
-| **Unit 01** | **除錯與診斷實務** | [除錯指引](./docs/u01_debug/debug.md) · [Antigravity IDE](./docs/u01_debug/antigravity.md) · [Maven POM](./docs/u01_debug/POM.md) · [AI 除錯](./docs/u01_debug/ai_code_break.md) | `src/main/java/u01_debug/`<br>`src/main/java/xdemo/` |
+| **Unit 01** | **除錯與診斷實務** | [除錯指引](./docs/u01_debug/debug.md) · [Antigravity IDE](./docs/u01_debug/antigravity.md) · [Maven 設定](./docs/u01_debug/maven.md) · [AI 除錯](./docs/u01_debug/ai_code_break.md) | `src/main/java/u01_debug/`<br>`src/main/java/xdemo/` |
 | **Unit 02** | **防禦性設計與日誌** | [日誌記錄](./docs/u02_preventive/logging.md) · [例外處理](./docs/u02_preventive/exception.md) · [斷言防護](./docs/u02_preventive/assertion.md) | `src/main/java/u02_preventive/`<br>`src/main/resources/log4j2.xml` |
 | **Unit 03** | **程式碼檢視與靜態分析** | [PMD 靜態分析與規則](./docs/u03_inspection/pmd.md) | `src/main/resources/pmd/ruleset.xml`<br>`src/main/java/u03_inspection/` |
 | **Unit 04** | **單元測試與黑箱測試** | [JUnit 5 核心實務](./docs/u04_utest/junit.md) · [屬性測試](./docs/u04_utest/jqwik_property_based.md) · [度量分析](./docs/u04_utest/metrics.md) | `src/test/java/u04_utest/`<br>`src/main/java/u04_utest/` |
@@ -35,7 +35,7 @@ LabDemo/
 ├── docs/                                 # 各單元詳細實驗手冊與說明文件
 │   ├── u01_debug/                        # 中斷點除錯、IDE、POM
 │   ├── u02_preventive/                   # 日誌、例外、斷言
-│   ├── u03_inspection/                   # 代碼檢視、PMD
+│   ├── u03_inspection/                   # 程式碼檢視、PMD
 │   ├── u04_utest/                        # 單元測試、參數化、屬性測試
 │   ├── u06_wbtesting/                    # 白箱覆蓋率、JaCoCo
 │   ├── u07_mutation/                     # 變異測試、PIT
@@ -83,7 +83,7 @@ mvn test -Dtest="u07_mockito.**"
 
 | 工具 / 測試類型 | 對應單元 | 執行指令 | 前置條件與特性說明 |
 | :--- | :--- | :--- | :--- |
-| **PMD 代碼檢視** | **Unit 03** | `mvn pmd:check` | 靜態代碼規則檢查，分析是否有 Code Smells 與潛在缺陷。 |
+| **PMD 程式碼檢視** | **Unit 03** | `mvn pmd:check` | 靜態程式碼規則檢查，分析是否有 Code Smells 與潛在缺陷。 |
 | **PIT 變異測試** | **Unit 06** | `mvn pitest:mutationCoverage` | 自動植入突變體驗證測試強健度，計算量較大，結果報告產於 `target/pit-reports/`。 |
 | **Cucumber BDD** | **Unit 08** | `mvn test -Dtest="RunCucumberTest"` | 依 Gherkin 規格（`.feature`）執行行為驅動驗收測試。 |
 | **Selenium Web 測試** | **Unit 08/09** | `mvn test -Dtest="u09_web.**"` | ⚠️ **需前置環境**：電腦需安裝 Chrome 瀏覽器，並啟動待測的本機 Web 伺服器（Port 5500），否則會因連線中斷報錯。 |

@@ -2,7 +2,7 @@ package u01_codebreak;
 
 /**
  * 模擬由 AI（如 GPT-4 / Claude）秒速生成的電子錢包提款與轉帳服務。
- * 表面上邏輯完備、代碼簡潔，但在多執行緒與浮點數精度情境下隱藏嚴重缺陷。
+ * 表面上邏輯完備、程式碼簡潔，但在多執行緒與浮點數精度情境下隱藏嚴重缺陷。
  */
 public class WalletService {
     private double balance;
