@@ -12,7 +12,7 @@
 假設某開發團隊使用 AI（GPT-4 / Claude）秒速生成了一套電商系統的「電子錢包提款與轉帳服務 (`WalletService.java`)」：
 
 ```java
-package lab.sqa;
+package u01_codebreak;
 
 public class WalletService {
     private double balance;
@@ -76,7 +76,7 @@ void testWithdrawHappyPath() {
 請撰寫並執行破壞性測試腳本 [`ConcurrentAttackTest.java`](#)：
 
 ```java
-package lab.sqa;
+package u01_codebreak;
 
 import org.junit.jupiter.api.Test;
 import java.util.concurrent.*;

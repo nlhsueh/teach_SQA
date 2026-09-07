@@ -479,7 +479,7 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 * **例外斷點 (Exception Breakpoints)**：只要系統拋出特定 Exception（如 `NullPointerException`）立刻自動中斷並定格 Call Stack。
 * **變數求值 (Evaluate Expression)**：在程式暫停時即時執行運算式驗證假設。
 
-> 🛠️ **實習演練手冊**：請參閱 [`LabDemo/docs/u01_debug/debug.md`](../../LabDemo/docs/u01_debug/debug.md) 與 [`LabDemo/docs/u01_debug/Intellij.md`](../../LabDemo/docs/u01_debug/Intellij.md) 進行除錯實務操作。
+> 🛠️ **實習演練手冊**：請參閱 [`LabDemo/docs/u01_debug/debug.md`](../../LabDemo/docs/u01_debug/debug.md) 與 [`LabDemo/docs/uxx/Intellij.md`](../../LabDemo/docs/uxx/Intellij.md) 進行除錯實務操作。
 
 ---
 

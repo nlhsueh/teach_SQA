@@ -4,7 +4,7 @@
 
 > 🛠️ **環境安裝、IDE（IntelliJ / Antigravity）設定與快速上手指引**：  
 > 關於本機環境安裝（JDK 21 & Maven）、IntelliJ IDEA 與 Antigravity IDE 開啟專案步驟、雲端硬碟防卡頓設定等，請參閱實習手冊：  
-> 👉 **[`docs/u01_debug/Intellij.md`](./docs/u01_debug/Intellij.md)**
+> 👉 **[`docs/uxx/Intellij.md`](./docs/uxx/Intellij.md)**
 
 ---
 
@@ -12,7 +12,7 @@
 
 | 單元 | 主題 | 實驗手冊 (Lab Manual) | 主要範例與測試代碼 |
 | :--- | :--- | :--- | :--- |
-| **Unit 01** | **除錯與 IDE 實務** | [除錯指引](./docs/u01_debug/debug.md) · [IntelliJ 設定](./docs/u01_debug/Intellij.md) · [Maven POM](./docs/u01_debug/POM.md) · [AI 除錯](./docs/u01_debug/ai_code_break.md) | `src/main/java/u01_debug/`<br>`src/main/java/xdemo/` |
+| **Unit 01** | **除錯與診斷實務** | [除錯指引](./docs/u01_debug/debug.md) · [Antigravity IDE](./docs/u01_debug/antigravity.md) · [Maven POM](./docs/u01_debug/POM.md) · [AI 除錯](./docs/u01_debug/ai_code_break.md) | `src/main/java/u01_debug/`<br>`src/main/java/xdemo/` |
 | **Unit 02** | **防禦性設計與日誌** | [日誌記錄](./docs/u02_preventive/logging.md) · [例外處理](./docs/u02_preventive/exception.md) · [斷言防護](./docs/u02_preventive/assertion.md) | `src/main/java/u02_preventive/`<br>`src/main/resources/log4j2.xml` |
 | **Unit 03** | **程式碼檢視與靜態分析** | [PMD 靜態分析與規則](./docs/u03_inspection/pmd.md) | `src/main/resources/pmd/ruleset.xml`<br>`src/main/java/u03_inspection/` |
 | **Unit 04** | **單元測試與黑箱測試** | [JUnit 5 核心實務](./docs/u04_utest/junit.md) · [屬性測試](./docs/u04_utest/jqwik_property_based.md) · [度量分析](./docs/u04_utest/metrics.md) | `src/test/java/u04_utest/`<br>`src/main/java/u04_utest/` |
@@ -22,6 +22,7 @@
 | **Unit 08** | **行為驅動開發 (BDD) 與 Web 測試** | [BDD 導論](./docs/u09_cucumber_bdd/intro_BDD.md) · [Cucumber 實務](./docs/u09_cucumber_bdd/bmi_cucumber.md) · [Selenium 測試](./docs/u09_cucumber_bdd/bmi_selenium.md) · [契約與 E2E 測試](./docs/u09_cucumber_bdd/pact_and_playwright.md) | `src/test/resources/features/`<br>`src/test/java/u08_cucumber/`<br>`src/test/java/u09_web/` |
 | **Unit 09** | **負載與混沌測試** | [K6 負載測試](./docs/u10_performance/k6_load_testing.md) · [JMeter 壓力測試](./docs/u10_performance/jmeter.md) · [混沌工程與模糊測試](./docs/u10_chaos_fuzzing/chaos_and_fuzzing.md) | `docs/u10_performance/` |
 | **Unit 10** | **DevOps 與品質門檻** | [Git 流程](./docs/u11_devops/using_git.md) · [GitHub Actions 品質門檻](./docs/u11_devops/github_actions_quality_gate.md) | `docs/u11_devops/` |
+| **Unit XX** | **開發環境與 IDE 指南** | [IntelliJ IDEA 與專案設定指南](./docs/uxx/Intellij.md) | 全專案開發環境設定 |
 
 ---
 
@@ -87,4 +88,4 @@ mvn test -Dtest="u07_mockito.**"
 | **Cucumber BDD** | **Unit 08** | `mvn test -Dtest="RunCucumberTest"` | 依 Gherkin 規格（`.feature`）執行行為驅動驗收測試。 |
 | **Selenium Web 測試** | **Unit 08/09** | `mvn test -Dtest="u09_web.**"` | ⚠️ **需前置環境**：電腦需安裝 Chrome 瀏覽器，並啟動待測的本機 Web 伺服器（Port 5500），否則會因連線中斷報錯。 |
 
-> 📖 更詳盡的測試類型解析與排錯指引，請參閱：👉 [特別測試說明與執行指南 (docs/u01_debug/Intellij.md)](./docs/u01_debug/Intellij.md#25-專案各類測試說明與特別測試執行指南)。
+> 📖 更詳盡的測試類型解析與排錯指引，請參閱：👉 [特別測試說明與執行指南 (docs/uxx/Intellij.md)](./docs/uxx/Intellij.md#25-專案各類測試說明與特別測試執行指南)。
