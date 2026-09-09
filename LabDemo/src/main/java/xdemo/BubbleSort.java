@@ -1,59 +1,12 @@
 package xdemo;
 
-import java.util.Random;
-
-/**
- * LAB: use assert / exception to achieve preventive programming; make the program robust
- */
-
 public class BubbleSort {
 
     public static void main(String[] args) {
-        // Generate an array of random integers
-        int[] data = generateRandomArray(10, 100);
+        int[] data = new int[] { 5, 4, 3, 2, 1 };
 
-        System.out.println("\nBefore Sort");
-        printArray(data);
-
-        // Sort the array using bubble sort
         bubbleSort(data);
-
-        data = generateRandomArray(10, 100);
-
-        // ? 排序後要不要檢查一下？
-
-        System.out.println("\nAfter Sort");
-        printArray(data);
-    }
-
-    /**
-     * Generates an array with random integers.
-     *
-     * @param size the size of the array to generate
-     * @param bound the upper bound for the random integers
-     * @return an array of random integers
-     */
-    public static int[] generateRandomArray(int size, int bound) {
-        int[] data = new int[size];
-        Random random = new Random();
-
-        for (int i = 0; i < size; i++) {
-            data[i] = random.nextInt(bound);
-        }
-
-        return data;
-    }
-
-    /**
-     * Prints the contents of an array.
-     *
-     * @param data the array to print
-     */
-    public static void printArray(int[] data) {
-        for (int x : data) {
-            System.out.printf("%4d", x);
-        }
-        System.out.println();
+        System.out.println("Done");
     }
 
     /**
@@ -69,11 +22,11 @@ public class BubbleSort {
             return;
         }
 
-        for (int path = 0; path < length - 1; path++) {
+        for (int pass = 1; pass < length; pass++) {
             boolean swapped = false;
 
             // Perform a single pass of the bubble sort
-            for (int i = 0; i < length - path - 1; i++) {
+            for (int i = 0; i < length - pass - 1; i++) {
                 if (data[i] > data[i + 1]) {
                     // Swap elements
                     int temp = data[i];

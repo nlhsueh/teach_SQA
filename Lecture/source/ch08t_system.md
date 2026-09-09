@@ -17,7 +17,7 @@
 ```
 Ch08 知識架構全景：
 【流程驗收】8.1 使用案例測試 (Use Case Flows) ＆ 8.2 行為驅動開發 (BDD with Cucumber)
-【微服務E2E】8.3 契約測試 (Pact) ＆ 現代端到端測試 (Playwright)
+【微服務E2E與AI模擬】8.3 契約測試 (Pact)、Playwright ＆ AI 代理人畫面模擬
 【體驗度量】8.4 可用性測試 (Usability: Nielsen 10 原則 ＆ A/B 測試)
 【極限負載】8.5 效能與負載工程 (Performance: 負載模型、P99 延遲 ＆ k6 壓測)
 【環境適配】8.6 相容性測試 (Compatibility Testing)
@@ -29,7 +29,7 @@ Ch08 知識架構全景：
 | :--- | :--- |
 | **[8.1 使用案例與流程測試](#81-使用案例與流程測試)** | 掌握站在使用者角度的流程設計；拆解**基本流 (Basic Flow)** 與**替代流 (Alternative Flows)** 組合出完整測試情境。 |
 | **[8.2 行為驅動開發 (BDD) 與 Cucumber](#82-行為驅動開發與-cucumber-測試)** | 掌握 BDD 活文件哲學；使用 **Gherkin 語法（Given-When-Then、Scenario Outline）** 撰寫業務規格並自動映射 Java Step Definitions。 |
-| **[8.3 微服務契約與 Playwright E2E](#83-微服務契約測試與現代-e2e-測試)** | 突破微服務整合地獄：掌握 **Pact 消費者驅動契約測試 (CDC)**；運用 **Playwright** 實現現代自動化端到端瀏覽器測試。 |
+| **[8.3 微服務契約、Playwright 與 AI 畫面模擬](#83-微服務契約測試現代-e2e-與-ai-畫面模擬)** | 突破微服務整合地獄：掌握 **Pact 契約測試**、**Playwright** 現代化 Web E2E，以及 **AI 代理人 (Browser Subagent)**、無頭瀏覽器與多端 (Spectron/Electron) 畫面模擬技術。 |
 | **[8.4 可用性測試 (Usability Testing)](#84-可用性測試-usability-testing)** | 掌握 **Jakob Nielsen 十大可用性啟發原則**、走道測試 (Hallway Testing) 與 **A/B 測試** 假說驗證。 |
 | **[8.5 效能測試與負載工程](#85-效能測試與負載工程-performance--load-testing)** | 釐清負載 (Load)、壓力 (Stress)、突波 (Spike)、浸泡 (Soak) 測試；建立工作負載模型，分析 **P95/P99 響應時間與系統飽和點**；實戰 **k6** 自動化壓測門檻。 |
 | **[8.6 相容性測試](#86-相容性測試)** | 驗證軟體在跨作業系統、跨瀏覽器、跨螢幕解析度下的行為一致性。 |
@@ -247,7 +247,7 @@ Record and replay tool
 
 [課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch08-ccq1)
 
-## 8.3 微服務契約測試與現代 E2E 測試
+## 8.3 微服務契約測試、現代 E2E 與 AI 畫面模擬
 
 在完成模組與資料庫層級的整合測試（詳見 [第 7 章 整合測試](ch07_integration.md)）之後，當系統架構走向微服務 (Microservices) 或前後端分離時，系統測試的焦點從「單一系統的行為」提升為「服務與服務之間的合約相容性」以及「端到端 (End-to-End, E2E) 的完整使用者旅程驗證」。
 
@@ -316,6 +316,82 @@ public class WebLoginE2ETest {
 ```
 
 > 🛠️ **對應實習手冊**：詳細的 Pact 契約測試與 Playwright 現代化 Web E2E 測試實務，請參考 [**Lab 11：微服務契約測試 (Pact) ＆ 現代 Playwright E2E 自動化**](../../LabDemo/docs/u09_cucumber_bdd/pact_and_playwright.md)。
+
+### 8.3.4 AI 代理人畫面模擬、無頭瀏覽器與多端自動化 (AI Browser-Subagent & Headless Automation)
+
+隨著生成式 AI 與大語言模型 (LLM/VLM) 進入軟體工程實務，畫面端到端測試不再局限於工程師手動硬編碼定位器 (CSS/XPath) 的傳統腳本。新一代自動化技術透過 **無頭環境 (Headless)**、**桌面端跨行程控制 (Spectron / Electron)** 以及 **AI 瀏覽器子代理人 (Browser-Subagent)**，將「畫面操作模擬」提升至具備自主視覺感知與自適應除錯的高度。
+
+#### 1. 無頭網頁技術 (Headless Web Automation)
+*   **技術本質**：無頭瀏覽器（如 Headless Chromium、Headless WebKit）是指在**沒有作業系統圖形視窗介面 (No GUI Display)** 下運行的真實瀏覽器核心。
+*   **底層運作機制**：
+    *   在無螢幕的伺服器或 CI/CD 容器中，瀏覽器排版與 JavaScript 引擎（如 Blink 與 V8）照常執行完整 DOM 解析、CSS 樣式計算、版面配置 (Layout) 與重繪 (Repaint)。
+    *   **記憶體畫布光柵化 (In-Memory Rasterization)**：畫面像素被渲染至虛擬記憶體緩衝區 (Framebuffer)，而非實體螢幕顯示卡。
+    *   **CDP (Chrome DevTools Protocol)**：測試程式透過 WebSocket 直接向瀏覽器核心發送底層指令（如網路攔截、DOM 樹查詢、模擬指標點擊、以及截取 60fps 視訊訊號流）。
+*   **優勢**：極大幅度降低記憶體與 GPU 開銷，測試執行速度提升數倍，並支援在無 GUI 的 Linux 雲端環境中自動生成像素級截圖與執行錄影。
+
+#### 2. 桌面應用程式畫面模擬：Spectron 與 Electron
+現代許多大型客戶端軟體（包含 Slack、VS Code 以及各類 AI 開發環境 IDE）皆採用 **Electron** 架構（以 Node.js 處理系統行程，以 Chromium 渲染前端介面）。對於這類混合桌面程式，傳統 Web 測試工具無法直接穿透驗證原生桌面選單與視窗行為：
+*   **Spectron**：由 Electron 官方打造的端到端自動化測試框架。它將 **ChromeDriver** 與 **WebDriverIO** 結合，同時接管 Electron 的**主行程 (Main Process)** 與**渲染行程 (Renderer Process)**：
+    *   不僅能模擬視窗內部的 HTML/CSS 點擊與表單操作；
+    *   更能檢驗跨行程通訊 (IPC - Inter-Process Communication)、系統檔案對話框 (File Dialogs) 以及原生系統選單 (Native Menus)。
+*   **現代演進 (Playwright for Electron)**：由於 Spectron 目前已停止長期維護，現代桌面 E2E 測試普遍轉移至 **Playwright Electron API** (`_electron.launch()`)，延續相同的跨主行程與頁面注入能力，並帶來更強大的非同步自動等待與 Trace 錄影機制。
+
+#### 3. AI 測試代理人畫面模擬機制：以 Google Antigravity Browser-Subagent 為例
+在如 Google Antigravity 等現代 AI 協作開發系統中，AI 不再只是「產生測試程式碼」，而是能作為一個獨立的 **Browser Subagent（瀏覽器操作代理人）** 自主啟動瀏覽器、觀察頁面、模擬互動並驗證結果：
+
+```
+傳統腳本驅動 (Playwright / Selenium):
+[測試程式碼] ──(硬編碼 XPath/CSS)──> [定位 DOM 節點] ──(點擊/輸入)──> 斷言失敗時報錯
+
+AI 原生代理人操作 (Antigravity Browser Subagent):
+[測試目標提示詞] ──> [多模態 VLM 觀察畫面 + DOM 樹] ──> [意圖推理與動作規劃]
+                                  ▲                               │
+                                  │                               ▼
+                                  └── 畫面狀態變化回饋 ◄─── [執行無頭點擊/導航]
+```
+
+*   **多模態視覺與 DOM 雙軌感知 (Multimodal Dual-Loop Perception)**：
+    *   AI 代理人不僅讀取 Accessibility Tree 與 DOM 結構，還會即時截取渲染畫面傳送給多模態視覺模型 (VLM)。
+    *   **擺脫脆弱定位器 (Brittle Locators)**：不再因為前端工程師修改了 class 名稱（如 Tailwind 的隨機雜湊 class）或調整了 div 階層而產生測試偽陰性 (Flaky Tests)。AI 能以「人類視覺意圖」辨識「購物車圖示」或「藍色的下一步按鈕」。
+*   **自主探索測試 (Autonomous Exploratory Testing)**：
+    *   開發者只需給予高階目標（例如：「*以管理員身份登入，並嘗試在沒有填寫品名時建立商品，驗證表單防呆提示是否跳出*」）。
+    *   Browser Subagent 自行規劃動作序列：開啟首頁 -> 尋找登入連結 -> 填寫帳密 -> 點擊送出 -> 前往商品後台 -> 觸發送出 -> 讀取錯誤 Toast 訊息並截圖。
+*   **自動化會話錄影與測試工件 (Session Artifacts)**：
+    *   AI 在執行無頭模擬時，會自動在背景將整個操作過程編碼輸出為 WebP 動態影片或 MP4，連同 DOM 歷程快照與網絡請求記錄作為工件 (Artifacts) 存檔。當測試未通過時，測試人員可直接回放影片檢視 AI 與系統互動的每一步驟。
+
+#### 4. 畫面模擬技術演進對比矩陣
+
+| 演進階段 | 代表工具 | 操作驅動依據 | 定位強健度 (Robustness) | 維護成本 | 適用情境 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **第一代：錄製回放 (Record & Replay)** | Selenium IDE, Rapi Recorder | 錄製時捕捉的絕對座標或靜態 DOM 路徑 | 🔴 極脆弱（版面微調即全數崩潰） | 🔴 高（需頻繁重新錄製） | 簡易功能驗證、非工程背景人員快速原型驗證 |
+| **第二代：腳本驅動與無頭化 (Script & Headless)** | Playwright, Puppeteer, Spectron | 工程師撰寫的 CSS Selector、XPath、Role Locators | 🟡 中（具備自動等待，但仍受 UI 重構影響） | 🟡 中（需隨 UI 調整持續重構定位器） | 持續整合 (CI/CD)、高覆蓋率迴歸測試、跨瀏覽器相容性 |
+| **第三代：AI 代理人多模態模擬 (Agentic Simulation)** | Antigravity Browser Subagent, Agentic E2E | 視覺語意辨識 (VLM)、動態目標推理、自適應 DOM 解析 | 🟢 極高（具備自我修復與意圖容錯能力） | 🟢 低（自然語言提示詞驅動、自動產出錄影工件） | 探索性測試、複雜業務旅程驗證、新功能驗收測試 |
+
+---
+
+#### 🙋 **8.3.5 概念核對問答 (CCQ 2)：AI 畫面模擬與無頭瀏覽器技術本質**
+
+在現代 E2E 系統測試架構中，關於無頭瀏覽器 (Headless Browser)、桌面端自動化框架 (Spectron) 與 AI 瀏覽器代理人 (Browser Subagent) 的技術原理，下列敘述何者**最正確**？
+
+A. 無頭瀏覽器因為沒有圖形介面 (No GUI)，因此在執行測試時不會載入 CSS 與排版引擎 (Layout Engine)，僅執行純粹的 JavaScript 邏輯運算以加快速度  
+B. Spectron 框架主要用於純 Web 應用的效能壓測，無法直接跨入 Electron 的主行程 (Main Process) 控制桌面原生對話框  
+C. Google Antigravity 的 Browser Subagent 結合了視覺語言模型 (VLM) 與 DOM 語意感知，能以人類視覺意圖辨識畫面元素，大幅改善傳統自動化測試因前端 class 或 DOM 結構調整所造成的脆弱定位器 (Brittle Locators) 斷裂問題  
+D. AI 瀏覽器代理人執行測試時必須在實體顯示器上有頭 (Headed) 視窗中逐幀顯示，無法整合至 Linux CI/CD 容器中輸出 WebP 測試錄影工件  
+
+<details>
+<summary>👉 點擊展開查看答案與詳細解析</summary>
+
+**正確答案**：**C**
+
+**詳細解析**：
+*   **A 選項錯誤**：無頭瀏覽器（如 Headless Chromium）依然會完整執行 DOM 解析、CSS 樣式運算、Layout 排版與記憶體畫布光柵化 (Rasterization)，才能支援精確的元素重疊檢驗與像素級截圖，並非「不載入 CSS」。
+*   **B 選項錯誤**：Spectron 是專門為 Electron 桌面應用設計的測試框架，其核心特點正是能夠透過 ChromeDriver 同時管理 Electron 的主行程 (Main Process) 與渲染行程 (Renderer Process)，控制原生選單與系統對話框。
+*   **C 選項正確**：傳統 E2E 測試最大的維護噩夢在於前端程式碼重構（如 Tailwind CSS 類別更動）導致 XPath/CSS 定位器失效；AI 代理人透過多模態視覺與語意推斷，具備自我修復 (Self-healing) 與視覺辨識能力，有效攻克此痛點。
+*   **D 選項錯誤**：AI 瀏覽器代理人可完美在無頭 (Headless) 模式下運行，利用記憶體緩衝區光柵化即時擷取畫面送交多模態模型，並自動在背景將整個操作過程編碼存檔為 WebP 視訊軌與 DOM 工件。
+
+</details>
+
+---
 
 ## 8.4 可用性測試 (Usability Testing)
 

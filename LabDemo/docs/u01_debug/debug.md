@@ -64,9 +64,9 @@ public class BreakpointDemo {
 ### 🚌 實作練習
 
 * **Lab01: Bubble Sort**：利用 [BubbleSort](../../src/main/java/xdemo/BubbleSort.java) 操作 Breakpoint，使用 Watch 觀察索引變化，並透過 Conditional Breakpoint 觀察特定迴圈次數。
-* **Lab02: GCD (最大公因數)**：使用 while 與遞迴排查 [GCD.java](../../src/main/java/u01_debug/GCD.java) 中的邏輯錯誤。
+* **Lab02: GCD (最大公因數)**：使用 Breakpoint 與 Watch 觀察 [GCD.java](../../src/main/java/xdemo/GCD.java) 在不同數值輸入下的變數變化，排查特定邊界情境下的計算缺陷。
 * **Lab03: Lowest Common Ancestor (最低共同祖先)**：利用除錯器追蹤二元樹節點遍歷與堆疊 [LowestCommonAncestor.java](../../src/main/java/xdemo/LowestCommonAncestor.java)。
-* **Lab04: Sin 泰勒展開式**：排查浮點數計算與階乘溢位問題 [Sin.java](../../src/main/java/xdemo/Sin.java)。
+* **Lab04: Sin 泰勒展開式**：理解電腦如何利用泰勒多項式逼近超越函數，並排查 [Sin.java](../../src/main/java/xdemo/Sin.java) 中累加首項重複與迴圈終止條件反轉的邏輯缺陷。
 
 ---
 

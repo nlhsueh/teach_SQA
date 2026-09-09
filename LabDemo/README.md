@@ -2,10 +2,6 @@
 
 本專案為 **gTeach SQA（軟體品質保證與測試實務）** 課程實習示範專案，涵蓋 Java 現代測試技術、防禦性設計、靜態分析、覆蓋率度量、變異測試、BDD/Web 自動化與 DevOps 品質門檻。
 
-> 🛠️ **環境安裝、IDE（IntelliJ / Antigravity）設定與快速上手指引**：  
-> 關於本機環境安裝（JDK 21 & Maven）、IntelliJ IDEA 與 Antigravity IDE 開啟專案步驟、雲端硬碟防卡頓設定等，請參閱實習手冊：  
-> 👉 **[`docs/uxx/Intellij.md`](./docs/uxx/Intellij.md)**
-
 ---
 
 ## 📚 實驗單元導覽 (Lab Units Index)

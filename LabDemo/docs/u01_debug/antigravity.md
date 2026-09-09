@@ -24,8 +24,8 @@ Antigravity 平台提供多種運作型態：
 
 | 交互模式　　　　　　　　　　　　　　　　　　 | 啟動方式　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| 特色與適用情境　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
 | :---------------------------------------------| :----------------------------------------------------------------------------| :----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **被動預測 (Passive)<br>Antigravity Tab**　　| <kbd>Tab</kbd> / <kbd>→</kbd>　　　　　　　　　　　　　　　　　　　　　　　 | **次意圖即時預測補全**：不只補全目前行，能一次生成跨行修改、預測下一個游標跳轉位置（Tab to Jump），或在新增類別時自動引入 Import（Tab to Import）。　　　　　　 |
-| **指引行內 (Instructive)<br>Inline Command** | <kbd>Cmd</kbd> + <kbd>I</kbd> (Mac)<br><kbd>Ctrl</kbd> + <kbd>I</kbd> (Win) | **區域化程式碼重構與生成**：框選程式碼區塊後呼叫，可針對選取範圍進行原地優化、解說、加註解或修正邏輯，不干擾其他程式碼。　　　　　　　　　　　　　　　　　　　　　|
+| **被動預測 (Passive)<br>Antigravity Tab**　　| `Tab` / `→`　　　　　　　　　　　　　　　　　　　　　　　 | **次意圖即時預測補全**：不只補全目前行，能一次生成跨行修改、預測下一個游標跳轉位置（Tab to Jump），或在新增類別時自動引入 Import（Tab to Import）。　　　　　　 |
+| **指引行內 (Instructive)<br>Inline Command** | `Cmd + I` (Mac)<br>`Ctrl + I` (Win) | **區域化程式碼重構與生成**：框選程式碼區塊後呼叫，可針對選取範圍進行原地優化、解說、加註解或修正邏輯，不干擾其他程式碼。　　　　　　　　　　　　　　　　　　　　　|
 | **代理人協作 (Collaborative)<br>Agent Mode** | 側邊欄對話面板　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| **全自動配對編程夥伴**：處理複合型任務。例如「請幫我寫出 `GCD` 的單元測試並用 `mvn test` 驗證，若有錯誤請自動修好」，Agent 會自主規畫、寫檔、下指令執行並回報。 |
 
 ---
@@ -199,7 +199,7 @@ Antigravity IDE 能夠直接連線 VS Code 擴充套件市集：
 若您想建立一個全新的 Java 專案，Antigravity IDE 提供了極其便捷的可視化精靈：
 
 #### 1. 透過指令面板建立 Maven 專案
-1. 按下快捷鍵 <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>（Windows 為 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>）叫出命令面板。
+1. 按下快捷鍵 `Cmd + Shift + P`（Windows 為 `Ctrl + Shift + P`）叫出命令面板。
 2. 輸入並選取：**`Java: Create Java Project...`**。
 3. 在專案類型中選擇 **`Maven`** -> **`maven-archetype-quickstart`**（或是選擇 `No build tools` 建立輕量專案）。
 4. 選擇原型版本（預設即可），接著在下方終端機依提示確認：
@@ -257,7 +257,7 @@ public class App {
      mvn clean compile
      ```
   2. 檢查 `target/classes/u01_debug/` 下是否存在對應的 `.class` 檔。
-  3. 按 <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>（Windows 為 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>）叫出指令面板，輸入並執行：
+  3. 按 `Cmd + Shift + P`（Windows 為 `Ctrl + Shift + P`）叫出指令面板，輸入並執行：
      ```text
      Java: Clean Java Language Server Workspace -> Restart and delete
      ```
@@ -343,7 +343,7 @@ D) 代理人模式只能在雲端伺服器運作，無法在本機 IDE 編輯器
 工程師正在檢視 `GCD.java`，發現其中一個輔助函式邏輯巢狀太深。他只想針對「選取的這 10 行程式碼」進行原地重構與加入 JavaDoc 說明，不想改動或干擾工作區的其他任何檔案。請問下列哪一種互動模式最迅速且最合適？
 
 A) 啟動 Planning Mode 生成全局架構實作計畫書  
-B) 使用 Inline Command 行內指引模式（按下 <kbd>Cmd</kbd> + <kbd>I</kbd> / <kbd>Ctrl</kbd> + <kbd>I</kbd>）  
+B) 使用 Inline Command 行內指引模式（按下 `Cmd + I` / `Ctrl + I`）  
 C) 呼叫 Browser Subagent 開啟無頭瀏覽器  
 D) 切換至全域終端機執行 `agy` 命令列背景排程  
 
@@ -353,7 +353,7 @@ D) 切換至全域終端機執行 `agy` 命令列背景排程
 **正確答案：B**
 
 * **解析**：
-  * **選項 B 正確**：**Inline Command（<kbd>Cmd</kbd> + <kbd>I</kbd>）** 專門用於「局部程式碼修改與重構」，它直接針對游標選取的區域進行原地優化、解說或修正，輕量迅速且完全不影響檔案外的其他邏輯。
+  * **選項 B 正確**：**Inline Command（`Cmd + I` / `Ctrl + I`）** 專門用於「局部程式碼修改與重構」，它直接針對游標選取的區域進行原地優化、解說或修正，輕量迅速且完全不影響檔案外的其他邏輯。
   * **選項 A 錯誤**：Planning Mode 適合跨檔案、多步驟或具有架構影響的複合型任務，局部修改使用它會顯得過於繁瑣。
   * **選項 C/D 錯誤**：Browser Subagent 用於 Web E2E 介面測試驗收，非編輯器內重構工具。
 
