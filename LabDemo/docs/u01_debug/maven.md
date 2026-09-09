@@ -247,6 +247,7 @@ verify               <--- 綁定 --- jacoco-maven-plugin:report
 
 
 
+
 **問題**
 
 工程師在終端機輸入 `mvn package` 指令試圖將專案打包成 JAR 檔。依據 Maven 預設的建置生命週期（Default Lifecycle），下列敘述何者正確？
@@ -273,6 +274,7 @@ D) 只有手動執行 `mvn test` 才會跑測試，`mvn package` 預設完全跳
 
 <!-- id: sqa-u01-maven-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)：依賴範圍（Scope）與發行環境安全**
+
 
 
 
@@ -305,6 +307,7 @@ D) CI 伺服器在執行 `mvn test` 時會找不到測試類別
 
 
 
+
 **問題**
 
 在緊急部署修復時，某工程師在 CI/CD 管道中使用 `mvn package -DskipTests` 來加速構建與發布。關於此行為在軟體品質保證 (SQA) 中的評述，何者最為精準？
@@ -332,6 +335,7 @@ D) `-DskipTests` 會強制刪除所有測試原始碼以節省雲端伺服器磁
 
 <!-- id: sqa-u01-maven-ccq4 -->
 #### 🙋 **概念核對問答 (CCQ 4)：JaCoCo 覆蓋率外掛與品質守門員（Build Breaker）**
+
 
 
 

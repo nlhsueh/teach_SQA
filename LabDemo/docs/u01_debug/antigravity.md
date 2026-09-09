@@ -307,6 +307,7 @@ public class App {
 
 
 
+
 **問題**
 
 傳統的程式碼輔助工具（如早期 GitHub Copilot）與 Google Antigravity 的「Agentic 代理人協作模式」相比，後者最關鍵的架構突破為何？
@@ -335,6 +336,7 @@ D) 代理人模式只能在雲端伺服器運作，無法在本機 IDE 編輯器
 
 <!-- id: sqa-u01-antigravity-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)：三大 AI 互動模式之情境選用**
+
 
 
 
@@ -368,6 +370,7 @@ D) 切換至全域終端機執行 `agy` 命令列背景排程
 
 
 
+
 **問題**
 
 在 Antigravity 預設的「標準沙盒隔離模式（Standard Sandbox Mode）」下，當 Agent 為了修復 Bug 而嘗試在終端機執行可能影響系統環境或高風險的指令時，系統會如何處理？
@@ -395,6 +398,7 @@ D) 沙盒模式下嚴禁執行任何終端機指令，即使是 `git status` 或
 
 <!-- id: sqa-u01-antigravity-ccq4 -->
 #### 🙋 **概念核對問答 (CCQ 4)：Java 專案開啟根目錄與 Classpath 解析**
+
 
 
 

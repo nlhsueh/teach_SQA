@@ -3,6 +3,7 @@
 <!-- id: sqa-x01-survey -->
 #### 🙋 **SQA 學習起點與軟體開發背景問卷 (5題問卷)**
 
+
 **第 1 題：請問你目前的就讀年級為何？**
 
 A) 大一 / 大二  
@@ -51,14 +52,15 @@ D) 缺乏有效的測試流程與自動化工具
 E) 觀念不足，覺得測試很浪費時間，開發才是王道  
 F) 主管的監督與品質要求的不足
 
+---
+
 [課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-x01-survey)
 
 <img src="../../img/chX01/sqa-x01-survey.png" width="120">
 
----
-
 <!-- id: sqa-x01-ai-survey -->
 #### 🙋 **AI Coding 與除錯調查：使用習慣、體驗感受與信任度 (6題問卷)**
+
 
 **第 1 題：在日常程式開發、專案或課堂作業中，你使用生成式 AI（如 ChatGPT, Claude, GitHub Copilot, Cursor 等）輔助撰寫程式碼（AI Coding）的頻率為何？**
 

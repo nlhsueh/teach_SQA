@@ -54,6 +54,7 @@ https://github.com/nlhsueh/sw-testing24/blob/main/lab/u05_utest/intro_junit.md)
 
 
 
+
 * **是非題**：在 JUnit 中，`assertSame(a, b)` 斷言的作用與 `assertEquals(a, b)` 完全相同，都是在驗證兩個物件的內容值是否相等（即比對 `a.equals(b)`）。
 
 <details>
@@ -253,6 +254,7 @@ FIG: 三角形程式：非獨立型一般邊界測試
 
 
 
+
 * **單選題**：假設某個受測方法接受 3 個彼此獨立的輸入參數。若採用「獨立型強固邊界測試 (Independent Robust BVA)」，其設計出的測試案例數量應為多少？
   A) 13  
   B) 19  
@@ -444,6 +446,7 @@ FIG: Binary Search 的等價分割測試（*k*: key; *a*: array; *f*: found; *c*
 
 
 
+
 * **單選題**：在等價分割測試 (Equivalence Partitioning) 中，「弱 (Weak)」與「強 (Strong)」分類法的主要區別是什麼？
   A) 「弱」只涵蓋有效等價類，而「強」同時涵蓋有效與無效等價類  
   B) 「弱」基於單一錯誤假設（每個測試案例只測試一個區間的代表值），而「強」則基於多重錯誤假設（測試參數間代表值的笛卡爾積組合）  
@@ -588,6 +591,7 @@ All pair testing 工具的開發：
 
 
 
+
 * **單選題**：全成對測試 (Pairwise / All-Pairs Testing) 能夠大幅縮減測試案例數量，其在工程上的核心理論依據是什麼？
   A) 軟體系統中的缺陷通常需要至少三個以上的參數交互作用才會觸發  
   B) 絕大多數的軟體缺陷都是由「單一變數」或「任意兩個變數之間的交互作用 (2-way Interaction)」所引起的  
@@ -641,6 +645,7 @@ Failure Mode and Effects Analysis, FMEA
 
 <!-- id: sqa-ch05-ccq5 -->
 #### 🙋 概念核對問答 (CCQ 5)
+
 
 
 
@@ -748,6 +753,7 @@ FIG: 應用決策表測試法於 nextDay()
 
 <!-- id: sqa-ch05-ccq6 -->
 #### 🙋 概念核對問答 (CCQ 6)
+
 
 
 
@@ -886,6 +892,7 @@ See [DemoJUnit](https://github.com/nlhsueh/sw-testing24/tree/main/Intellij/DemoJ
 
 
 
+
 * **單選題**：在狀態測試 (State Testing) 中，關於「狀態覆蓋 (State Coverage)」與「轉移覆蓋 (Transition Coverage)」的強度關係，下列敘述何者正確？
   A) 達到狀態覆蓋必定代表同時達到了轉移覆蓋  
   B) 轉移覆蓋的強度大於狀態覆蓋；若測試案例達到了轉移覆蓋（驗證了所有可能的轉移路徑），則必定已涵蓋了所有狀態（達到狀態覆蓋）  
@@ -959,6 +966,7 @@ public class AdditionProperties {
 
 <!-- id: sqa-ch05-ccq8 -->
 #### 🙋 概念核對問答 (CCQ 8)
+
 
 
 
