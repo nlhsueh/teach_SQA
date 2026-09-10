@@ -187,14 +187,19 @@ style: |
     max-width: 480px;
     border-radius: 6px;
   }
+  div.split55 {
+    align-items: flex-start;
+  }
   div.split55 > div.left {
     flex: 50%;
   }
   div.split55 > div.right {
     flex: 50%;
-    text-align: center;
+    text-align: left;
   }
   div.split55 > div.right img {
+    display: block;
+    margin: 0 auto;
     width: 100%;
     max-width: 400px;
     border-radius: 6px;
@@ -297,7 +302,7 @@ footer: 'Ch01 軟體品質導論'
 * **1.3 軟體的本質與品質維度**：IEEE 軟體四要素（程式、程序、文件、資料）＆ David Garvin 五大品質觀點。
 * **1.4 軟體品質工程核心概念**：V&V 驗證與確認、品質成本 (CoQ) ＆ 1:10:100 定律與測試左移。
 * **1.5 軟體生命週期中的品質把關**：V 模型對稱性 ＆ 現代 DevOps CI/CD 6 大連續品質門檻。
-* **1.6 現代軟體品質模型 (ISO 25010)**：ISO 25010 八大產品品質特性剖析 ＆ 10 題情境連環戰。
+* **1.6 現代軟體品質模型 (ISO 25010 / 25023)**：八大產品品質特性、量化指標 (Metrics) ＆ 10 題情境連環戰。
 * **1.7 綜合練習與思維激盪**：課堂思維問題與數值精度累計實作。
 
 ---
@@ -898,6 +903,57 @@ footer: 'Ch01 軟體品質導論'
   * **適應性 (Adaptability)**、**易安裝性**、**易置換性 (Docker 容器一致性)**。
 * **8. 相容性 (Compatibility)**：
   * **共存性 (Co-existence)**、**互通性 (Interoperability, API 協定契約)**。
+
+---
+
+## 1.6.2 ISO 25023 品質特性量化指標 (1/2)
+
+> 「如果無法度量它，就無法改善它。」—— Tom DeMarco
+
+* **1. 功能適合性 (Functional Suitability)**：
+  * **需求覆蓋率** ($= 100\%$)、**驗收測試通過率** ($\ge 99.5\%$)、Critical Bug 數 ($= 0$)。
+* **2. 可靠性 (Reliability)**：
+  * **可用度 SLA** (如 99.99% 四個九)、**MTTR** (平均修復時間 $< 15$ 分鐘)、**MTBF**。
+* **3. 效能效率 (Performance Efficiency)**：
+  * **時間延遲** (API P99 $< 200\text{ms}$)、**吞吐量** (TPS/QPS)、**尖峰 CPU** ($< 70\%$)。
+* **4. 易用性 (Usability)**：
+  * **任務完成率** ($\ge 90\%$)、**SUS 評分** ($\ge 68$ 分)、**無障礙 WCAG 2.1 AA**。
+
+---
+
+## 1.6.2 ISO 25023 品質特性量化指標 (2/2)
+
+* **5. 安全性 (Security)**：
+  * **CVE 重大漏洞數** ($= 0$)、**傳輸靜態加密率** ($100\%$ TLS 1.3/AES)、**修補天數**。
+* **6. 可維護性 (Maintainability)**：
+  * **圈複雜度 (CC)** ($\le 10$)、**程式碼涵蓋率** ($\ge 80\%$)、**重複程式碼率** ($< 3\%$)。
+* **7. 可移植性 (Portability)**：
+  * **自動化部署成功率** ($\ge 99\%$)、**容器冷啟動時間** ($< 5\text{s}$)、**移植工時比**。
+* **8. 相容性 (Compatibility)**：
+  * **跨瀏覽器相容率** ($100\%$)、**API 契約測試通過率** ($100\%$)、**資源衝突次數** ($= 0$)。
+
+---
+
+## 1.6.2 現代 SQA 量化落地的「三大工程支柱」
+
+<div class="split55">
+<div class="left">
+
+1. **靜態程式碼門檻 (Static Quality Gate)**：
+   * **SonarQube / PMD**：阻擋高圈複雜度、重複程式碼與安全漏洞。
+2. **動態效能門檻 (Performance Gate)**：
+   * **JMeter / k6**：驗證 P99 延遲與並發負載容量，防止效能退化。
+
+</div>
+<div class="right">
+
+3. **運行時可觀測性 (Runtime Observability)**：
+   * **Prometheus / Grafana / Datadog**：即時監控可用度 (99.99%)、錯誤率與 MTTR。
+* 💡 **核心心法**：
+  * 抽象的 ISO 特性 ➔ 具體的數值指標 (SLI/SLA) ➔ 工具自動把關。
+
+</div>
+</div>
 
 ---
 

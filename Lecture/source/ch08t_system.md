@@ -222,6 +222,7 @@ public class BMICalculatorStepDefs {
 
 
 
+
 **問題**
 
 在 Cucumber (Gherkin 語法) 中，若要使用同一套測試步驟來測試多組不同的輸入值與預期輸出值，應該使用 `Scenario` (情境) 搭配 `Background` (背景) 來撰寫。
@@ -372,6 +373,7 @@ AI 原生代理人操作 (Antigravity Browser Subagent):
 
 <!-- id: sqa-ch08-ccq1 -->
 #### 🙋 **8.3.5 概念核對問答 (CCQ 2)：AI 畫面模擬與無頭瀏覽器技術本質**
+
 
 
 在現代 E2E 系統測試架構中，關於無頭瀏覽器 (Headless Browser)、桌面端自動化框架 (Spectron) 與 AI 瀏覽器代理人 (Browser Subagent) 的技術原理，下列敘述何者**最正確**？

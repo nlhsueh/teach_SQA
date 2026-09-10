@@ -28,7 +28,7 @@ Ch01 知識架構全景：
 | **[1.3 軟體的本質與品質維度](#13-軟體的本質與品質維度軟體四要素--garvin-五大品質觀點)** | 掌握 IEEE 610.12 **軟體四大組成要素**（程式、程序、文件、資料）；深入解析 David Garvin **五大品質觀點**（超自然、使用者、製造、產品、價值觀點）。 |
 | **[1.4 軟體品質工程核心概念](#14-軟體品質工程核心概念vv品質成本-coq-與測試左移)** | 辨析 **Verification（是否有正確建造軟體）vs. Validation（建造的是否是正確軟體）**；理解品質成本架構 (CoQ) 與 **1:10:100 缺陷修復倍增定律**，奠定「測試左移 (Shift-Left)」的經濟學基礎。 |
 | **[1.5 生命週期中的品質把關](#15-軟體工程流程與生命週期中的品質把關-sdlc--cicd-quality-governance)** | 探索 **V 模型** 的測試與開發對稱性，解析現代 DevOps CI/CD 流水線中的 **6 大連續品質門檻 (Quality Gates)**（Pre-commit ➔ SAST ➔ Unit ➔ Integration ➔ E2E ➔ Observability）。 |
-| **[1.6 現代軟體品質模型 ISO 25010](#16-現代軟體品質模型-iso-9126--iso-25010)** | 掌握國際標準 **ISO 25010 八大產品品質特性**（功能適合性、可靠性、效能效率、易用性、安全性、可維護性、可移植性、相容性），並透過 10 題情境連環戰實戰辨析。 |
+| **[1.6 現代軟體品質模型 ISO 25010](#16-現代軟體品質模型-iso-9126--iso-25010)** | 掌握國際標準 **ISO 25010 八大產品品質特性**，探索 **ISO 25023 量化指標 (Metrics) 與工程落地**，並透過 10 題情境連環戰實戰辨析。 |
 | **[1.7 綜合練習與思維激盪](#-17-綜合練習與思維激盪)** | 結合理論與實務，引導進行 AI 時代品質反思、ISO 25010 案例分析與數值精度累計實作。 |
 
 ---
@@ -102,6 +102,7 @@ Ch01 知識架構全景：
 
 
 
+
 **問題**
 
 愛國者反導彈系統（1991）在達蘭基地攔截失效的根本軟體原因為何？
@@ -115,6 +116,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 <!-- id: sqa-ch01-pair1 -->
 #### 🙋 **雙人課堂討論（Pair Discussion）—— 真實世界的軟體失敗案例**
+
 
 
 
@@ -181,6 +183,7 @@ D) 雷達演算法誤將美軍戰機辨識為敵方飛毛腿飛彈
 
 <!-- id: sqa-ch01-ccq2 -->
 #### 🙋 **概念核對問答 (CCQ 2)**
+
 
 
 
@@ -293,6 +296,7 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 
 
 
+
 **互動提問**
 
 你覺得哪一個觀點是最重要的品質指標？請寫下來。
@@ -301,6 +305,7 @@ D) 指自動化測試案例因系統版本迭代而自然失效無法執行的�
 
 <!-- id: sqa-ch01-ccq3 -->
 #### 🙋 **概念核對問答 (CCQ 3)**
+
 
 
 
@@ -356,6 +361,7 @@ D) 超自然觀點 (Transcendental View)
 <!-- id: sqa-ch01-ccq4 -->
 #### 🙋 **概念核對問答 (CCQ 4)**
 
+
 **問題**
 
 某軟體團隊為醫院開發一套急診掛號分流系統。開發團隊嚴格按照原先簽訂的「系統需求規格書」完成所有功能實作，且單元測試與程式碼審查（Code Review）皆 100% 通過、完全無錯誤（Bug）。但實際上線在急診室臨床試用時，醫護人員發現分流操作流程完全不符合急救現場的真實節奏與急迫需求，導致無法在實務中使用。根據軟體工程定義，此系統在下列哪一項做得很好，但在哪一項嚴重失敗？
@@ -405,6 +411,7 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 
 <!-- id: sqa-ch01-ordering1 -->
 #### 🙋 **排序互動：V 模型（V-Model）開發與測試生命週期活動排序**
+
 
 
 
@@ -501,8 +508,41 @@ D) Verification 與 Validation 兩者皆失敗，因為使用者無法順利使�
 
 ---
 
+### 1.6.2 ISO 25023：品質特性的量化指標與工程實務 (Quantitative Quality Metrics)
+
+> 「如果你無法度量它，你就無法改善它。」（If you cannot measure it, you cannot improve it. —— 物理學家 凱爾文勳爵 / 軟體工程大師 Tom DeMarco）
+
+ISO 25010 為軟體品質建立了完整且結構化的「**概念維度**」（8 大特性、31 個子特性）。然而在工程實踐中，單純要求「系統要有高可靠性」、「程式碼要容易維護」是無法驗證的空泛口號。
+
+為了使品質要求可被精確評估與自動化把關，ISO/IEC 25000（SQuaRE）系列進一步制定了 **ISO/IEC 25023 (Measurement of system and software product quality)**，為 ISO 25010 的各項品質特性定義了具體的**量化測量函數與計算公式 (Measurement Functions)**。在現代 SQA 與 DevOps 體系中，這些量化指標轉化為系統的 **SLA / SLO（服務水準協議與目標）**、**CI/CD 自動化測試門檻** 與 **SonarQube Quality Gates（品質閘門）**。
+
+#### ISO 25010 八大特性量化指標全覽表
+
+| 品質特性 | 核心子特性 | 核心量化指標 (Metrics / KPIs) | 工業標準 / 建議門檻 | 常見工程量測工具 |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. 功能適合性**<br>(Functional Suitability) | 完備性<br>正確性<br>適切性 | • **需求覆蓋率**：$\frac{\text{已實作驗證需求數}}{\text{總規格需求數}} \times 100\%$<br>• **驗收測試通過率**：$\frac{\text{通過案例數}}{\text{總測試案例數}} \times 100\%$<br>• **功能缺陷密度 (Defect Density)**：每 KLOC 或每功能點的功能 Bug 數 | • 需求覆蓋率 $= 100\%$<br>• 驗收通過率 $\ge 99.5\%$<br>• 上線前 Critical Bug $= 0$ | Jira, TestRail, JUnit, Allure |
+| **2. 可靠性**<br>(Reliability) | 可用性<br>容錯度<br>成熟度<br>可回復性 | • **系統可用度 (Availability)**：$\frac{\text{總運作時間 - 故障停機時間}}{\text{總運作時間}} \times 100\%$<br>• **平均故障間隔時間 (MTBF)**：正常運行的平均時數<br>• **平均修復時間 (MTTR)**：從故障到恢復運行的平均時間<br>• **容錯回復率**：異常注入時成功降級/自癒的比例 | • 可用度達 99.9% (三條九) 或 99.99% (四條九)<br>• MTTR $< 15$ 分鐘<br>• 異常輸入當機率 $= 0$ | Chaos Mesh, Datadog, Sentry, Prometheus |
+| **3. 效能效率**<br>(Performance Efficiency) | 時間特性<br>資源利用<br>容量 | • **回應時間 (Latency)**：平均延遲、P95 / P99 延遲<br>• **吞吐量 (Throughput)**：每秒交易/請求數 (TPS / QPS)<br>• **資源利用率**：尖峰 CPU / 記憶體 / 網路 I/O 佔用率<br>• **最大並發量**：滿足延遲 SLA 下的最大同時連線數 | • API P99 回應時間 $< 200\text{ms}$<br>• 尖峰 CPU $< 70\%$、記憶體無洩漏<br>• 支援預期尖峰 $1.5 \times$ 並發量 | JMeter, k6, Locust, Grafana |
+| **4. 易用性**<br>(Usability) | 易學性<br>可操作性<br>錯誤保護<br>可存取性 | • **任務完成率 (Task Completion Rate)**：首次順利完成核心操作比率<br>• **任務完成耗時 (Time-on-Task)**：新手與熟練者平均花費時間<br>• **SUS 易用性評分 (System Usability Scale)**：0~100 分標準問卷<br>• **無障礙合規度**：符合 WCAG 2.1 AA 規範檢查 | • 核心任務完成率 $\ge 90\%$<br>• SUS 分數 $\ge 68 \sim 70$ 分<br>• 破壞性操作 $100\%$ 具備二次確認與復原機制 | Google Lighthouse, Hotjar, UserTesting, Axe |
+| **5. 安全性**<br>(Security) | 機密性<br>完整性<br>真實性<br>抗抵賴性 | • **已知弱點數 (CVE Count)**：重大/高危漏洞數量<br>• **CVSS 弱點嚴重程度分級**：相依套件與原始程式碼安全評分<br>• **敏感資料加密合規率**：靜態儲存與傳輸加密比例<br>• **安全弱點修復天數 (Security MTTR)**：發現到修補上線時間 | • Critical / High 漏洞數 $= 0$<br>• 100% 採用 TLS 1.3 / AES-256 加密<br>• 高危漏洞在 24 小時內修補完畢 | OWASP ZAP, Snyk, SonarQube, Trivy |
+| **6. 可維護性**<br>(Maintainability) | 模組化<br>可分析性<br>可修改性<br>可測試性 | • **圈複雜度 (Cyclomatic Complexity, CC)**：單一函式獨立路徑數<br>• **程式碼涵蓋率 (Code Coverage)**：單元測試行/分支涵蓋率<br>• **重複程式碼比例 (Duplication %)**：重複出現的行數百分比<br>• **可維護性指數 (Maintainability Index, MI)**：綜合架構評分 (0~100) | • 單一函式 $CC \le 10$<br>• 行涵蓋率 $\ge 80\%$、分支涵蓋率 $\ge 70\%$<br>• 重複程式碼率 $< 3\%$<br>• MI 指數 $\ge 65 \sim 85$ 分 | SonarQube, JaCoCo, PMD, ESLint |
+| **7. 可移植性**<br>(Portability) | 適應性<br>易安裝性<br>易置換性 | • **自動化部署成功率**：無人值守 CI/CD Pipeline 部署通過率<br>• **環境啟動時間 (Boot Time)**：容器映像檔建置與冷啟動秒數<br>• **平台移植工作量比率 (Porting Effort)**：移植新平台工時 / 原開發工時 | • 自動化部署成功率 $\ge 99\%$<br>• 容器冷啟動時間 $< 5$ 秒<br>• 移植工作量比率 $\le 10\%$ | Docker, Kubernetes, Testcontainers, Terraform |
+| **8. 相容性**<br>(Compatibility) | 共存性<br>互通性 | • **跨平台/瀏覽器相容測試通過率**：目標支援矩陣測試通過率<br>• **API 契約合規率 (Contract Compliance)**：OpenAPI 規格相符比例<br>• **資源共存衝突率**：因通訊埠/共用記憶體搶佔引發的異常次數 | • 目標矩陣（主流瀏覽器/OS）相容率 $= 100\%$<br>• API 契約測試通過率 $= 100\%$<br>• 資源衝突失敗數 $= 0$ | Playwright, Selenium Grid, Pact, Postman |
+
+#### 現代 SQA 量化落地的「三大工程支柱」
+
+1. **靜態程式碼檢測 (Static Quality Gates)**：
+   * 在開發者提交程式碼時，由 CI 流程觸發 **SonarQube / PMD**，自動卡關**圈複雜度、重複程式碼、單元測試涵蓋率與安全弱點**，未達標則嚴格禁止合併 (Merge)。
+2. **動態負載與效能測試 (Dynamic Performance Gates)**：
+   * 在發布至預發（Staging）環境時，透過 **JMeter / k6** 執行壓測，確保 API 回應時間（P95/P99）與吞吐量符合 SLA 指標，防止效能退化 (Performance Regression)。
+3. **運行時可靠性與監控 (Runtime Observability & SLI/SLO)**：
+   * 系統上線後，利用 **Prometheus / Grafana / Datadog** 監控系統可用度（如 99.99%）、平均修復時間 (MTTR) 與系統錯誤率，達到品質問題的主動告警與自癒。
+
+---
+
 <!-- id: sqa-ch01-game -->
 #### 🙋 **課堂挑戰遊戲：ISO 25010 八大產品品質特性情境連連看 (10 題連環戰)**
+
 
 
 > 🎮 **遊戲規則**：  
