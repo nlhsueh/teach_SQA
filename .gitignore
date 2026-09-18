@@ -38,6 +38,8 @@
 # Ignore agent configurations and GitHub workflows
 .agents/
 .github/
+AGENTS.md
+agents.md
 
 # Ignore scripts and video directories
 /scripts/
