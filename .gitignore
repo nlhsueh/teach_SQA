@@ -48,5 +48,8 @@ agents.md
 __pycache__/
 *.py[cod]
 
+# Ignore generated slide HTML
+Slide/html/
+
 # Ignore flattened temporary build directories from IDE/Maven
 .._*

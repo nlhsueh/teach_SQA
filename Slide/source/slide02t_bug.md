@@ -80,25 +80,28 @@ style: |
   table {
     margin: 15px auto;
     border-collapse: collapse;
-    font-size: 18px;
+    font-size: 21px;
     width: 100%;
   }
   th {
     border-bottom: 2px solid #0b3c5d;
-    padding: 8px 14px;
+    padding: 10px 14px;
     text-align: left;
     background-color: #eaf2f8;
   }
   td {
-    padding: 8px 14px;
+    padding: 10px 14px;
     border-bottom: 1px solid #e0e0e0;
   }
   pre {
     margin-top: 8px;
     margin-bottom: 8px;
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 22px;
+    line-height: 1.45;
     border-radius: 6px;
+  }
+  pre code {
+    font-size: 22px;
   }
   code {
     font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
@@ -1259,7 +1262,7 @@ public class BankAccount {
 
 ---
 
-## 2.7 綜合練習 (1/2)
+## 2.7 綜合練習 (1/4)：思考與邏輯推理
 
 * **練習 1：Bug / Fault / Failure 辨析**：
   * 舉出一個你自身開發經驗中的 Mistake, Fault, Error State 與 Failure 實例，並繪製因果關聯圖。
@@ -1269,7 +1272,7 @@ public class BankAccount {
 
 ---
 
-## 2.7 綜合練習 (2/2)：MaxHeap 實作除錯
+## 2.7 綜合練習 (2/4)：MaxHeap 實作除錯
 
 * 檢視下方 `insert()` 邏輯，找出 3 個潛在 Bug（包含索引邊界與不變量維持），並加上適當的 `assert`：
   ```java
@@ -1290,6 +1293,41 @@ public class BankAccount {
 
 ---
 
+## 🙋 2.7 綜合練習 (3/4)：核心概念填空挑戰
+
+請根據本章核心理論，填入最適當的軟體工程專業名詞：
+
+1. **錯的因果鏈**：
+   工程師心智思維中的人為失誤稱為 **[ ① ______ ]**，反映在程式碼中成為靜態的 **[ ② ______ ]**；當該行程式碼被執行，會引發記憶體內部的 **[ ③ ______ ]**，最終造成外部可見的行為偏離，稱為 **[ ④ ______ ]**。
+2. **契約式設計 (DbC)**：
+   呼叫端必須負責滿足的是 **[ ⑤ ______ ]**；方法保證在執行完畢後達成的狀態是 **[ ⑥ ______ ]**；類別在任何公開方法執行前後皆必須恆成立的條件是 **[ ⑦ ______ ]**。
+3. **缺陷管理二維度**：
+   衡量缺陷對系統架構破壞深淺程度的是 **[ ⑧ ______ ]**；決定開發團隊排程修復順序的是 **[ ⑨ ______ ]**。
+
+---
+
+<!-- id: sqa-ch02-game -->
+## 🙋 2.7 綜合練習 (4/4)：除錯偵探所 (Game 挑戰)
+
+<div class="ccq-columns">
+  <div class="ccq-text">
+
+**遊戲任務：為七大真實軟體工程案件做出最精準的法律判決！**
+
+* 🔍 **判決選項池**：
+  * `A. Mistake` ｜ `B. Fault` ｜ `C. Error State` ｜ `D. Failure`
+  * `E. Precondition Violation` ｜ `F. Invariant Violation`
+  * `G. High Severity, Low Priority`
+* 📱 **線上搶答**：共 7 道實戰判例，每題限時 20 秒，請掃描 QR Code 進入遊戲！
+
+  </div>
+  <div class="ccq-logo">
+    <a href="https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-game"><img src="../../img/ch02/sqa-ch02-game.png" alt="QR Code" /></a>
+    <br><a href="https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch02-game">[課堂互動]</a>
+  </div>
+</div>
+---
+
 <!-- _class: lead -->
 <!-- header: '附錄：課堂互動參考解答' -->
 
@@ -1299,7 +1337,7 @@ public class BankAccount {
 
 ---
 
-## 課堂互動參考解答 (1/2)
+## 課堂互動參考解答 (1/3)
 
 * **CCQ 1（銀行轉帳公式與未觸發失效）**：
   * **正確答案：B**
@@ -1313,7 +1351,7 @@ public class BankAccount {
 
 ---
 
-## 課堂互動參考解答 (2/2)
+## 課堂互動參考解答 (2/3)
 
 * **CCQ 4（Clean Code 是否等於無 Bug）**：
   * **正確答案：B**
@@ -1321,3 +1359,20 @@ public class BankAccount {
 * **CCQ 5（空 try-catch 吞掉並發例外）**：
   * **正確答案：B**
   * 吞掉例外 (Swallowing Exceptions) 是嚴重的反模式。表面雖不報錯，但底層多執行緒並發衝突與資料不一致依然存在，日後會引發不可逆的資料損壞。
+
+---
+
+## 課堂互動參考解答 (3/3)：2.7 填空與 Game 挑戰
+
+* **2.7 填空挑戰參考答案**：
+  * ① `Mistake`（人為失誤）、② `Fault / Defect`（靜態缺陷）、③ `Error State`（內部錯誤狀態）、④ `Failure`（系統失效）
+  * ⑤ `前置條件 (Preconditions)`、⑥ `後置條件 (Postconditions)`、⑦ `類別不變量 (Class Invariants)`
+  * ⑧ `嚴重度 (Severity)`、⑨ `優先級 (Priority)`
+* **2.7 除錯偵探所 Game 判例參考答案**：
+  * **案件 1：A (Mistake)** —— 工程師思維偏差導致的手滑失誤。
+  * **案件 2：B (Fault)** —— 潛伏於靜態程式碼中但尚未被激發的缺陷。
+  * **案件 3：C (Error State)** —— 內部狀態已不一致（Dangling Pointer）但未對外暴露。
+  * **案件 4：D (Failure)** —— 系統對外行為偏離規格、造成服務中斷。
+  * **案件 5：E (Precondition Violation)** —— 呼叫端未履行傳入合法正數之義務。
+  * **案件 6：F (Invariant Violation)** —— 破壞了 MaxHeap 父節點必大於等於子節點的性質。
+  * **案件 7：G (High Severity, Low Priority)** —— 技術後果嚴重（死機），但無實際業務受眾。

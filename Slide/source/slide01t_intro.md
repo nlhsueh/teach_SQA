@@ -80,18 +80,28 @@ style: |
   table {
     margin: 15px auto;
     border-collapse: collapse;
-    font-size: 18px;
+    font-size: 21px;
     width: 100%;
   }
   th {
     border-bottom: 2px solid #0b3c5d;
-    padding: 8px 14px;
+    padding: 10px 14px;
     text-align: left;
     background-color: #eaf2f8;
   }
   td {
-    padding: 8px 14px;
+    padding: 10px 14px;
     border-bottom: 1px solid #e0e0e0;
+  }
+  pre {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 22px;
+    line-height: 1.45;
+    border-radius: 6px;
+  }
+  pre code {
+    font-size: 22px;
   }
   section:has(div.ccq-columns),
   section:has(div.discussion-columns),

@@ -533,6 +533,8 @@ D) 靜態程式碼檢視 (Code Review)
   * 大語言模型生成的文章或摘要，輸出具隨機性 (Temperature > 0) 與語意多樣性。
 
 <!-- id: sqa-ch03-short1 -->
+#### 🙋 **課堂互動：SQA 2.0 應對 Test Oracle 難題 (Short 簡答)**
+
 ##### 💡 SQA 2.0 應對 Test Oracle 難題的三大前沿技術：
 
 
