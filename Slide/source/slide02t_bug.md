@@ -1262,37 +1262,6 @@ public class BankAccount {
 
 ---
 
-## 2.7 綜合練習 (1/4)：思考與邏輯推理
-
-* **練習 1：Bug / Fault / Failure 辨析**：
-  * 舉出一個你自身開發經驗中的 Mistake, Fault, Error State 與 Failure 實例，並繪製因果關聯圖。
-* **練習 2：命題邏輯推理除錯**：
-  * 某系統已知：若（記憶體不足 $\lor$ 網路超時），則（交易會回滾 $\land$ 記錄日誌）。
-  * 若今天生產環境發現「**交易成功未回滾**」，請運用逆否命題邏輯，推導出此時記憶體與網路的狀態為何？
-
----
-
-## 2.7 綜合練習 (2/4)：MaxHeap 實作除錯
-
-* 檢視下方 `insert()` 邏輯，找出 3 個潛在 Bug（包含索引邊界與不變量維持），並加上適當的 `assert`：
-  ```java
-  public void insert(int value) {
-      if (size >= capacity) {
-          throw new IllegalStateException("Heap is full.");
-      }
-      heap[size] = value;
-      int currentIndex = size;
-      size++;
-
-      while (currentIndex > 0 && heap[currentIndex] > heap[getParentIndex(currentIndex)]) {
-          swap(currentIndex, getParentIndex(currentIndex));
-          currentIndex = getParentIndex(currentIndex);
-      }
-  }
-  ```
-
----
-
 ## 🙋 2.7 綜合練習 (3/4)：核心概念填空挑戰
 
 請根據本章核心理論，填入最適當的軟體工程專業名詞：
