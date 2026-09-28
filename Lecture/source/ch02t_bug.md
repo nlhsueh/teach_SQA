@@ -28,8 +28,8 @@ Ch02 知識架構全景：
 【源頭預防】2.2 整潔程式碼 (Clean Code) ＆ 防錯實務（Uncle Bob、心法與 Code Smells）
 【科學排查】2.3 科學除錯五步驟 ＆ AI 時代除錯 SOP
 【實務利刃】2.4 IDE 除錯工具（斷點、變數求值）
-【契約防禦】2.5 契約式設計 (DbC) ＆ 斷言 (Assertions) vs 例外處理
-【團隊治理】2.6 缺陷追蹤狀態機 (BTS) ＆ 嚴重度 vs 優先級決策矩陣
+【契約防禦】2.5 契約式設計 (Design by Contract, DbC) ＆ 斷言 (Assertions) vs 例外處理
+【團隊治理】2.6 缺陷生命週期 (BTS)、GitHub 版本與議題管理 ＆ 嚴重度 vs 優先級
 ```
 
 | 章節單元 | 核心學習重點 (Key Takeaways) |
@@ -38,8 +38,8 @@ Ch02 知識架構全景：
 | **[2.2 整潔程式碼 (Clean Code)](#22-整潔程式碼-clean-code)** | 認識 Uncle Bob 與大師定義；掌握**有意義命名、小巧函式、衛語句 (Guard Clauses) 與無副作用設計**；辨析「Clean Code ≠ Bug-Free Code」重大迷思。 |
 | **[2.3 除錯思維與方法 (Debugging)](#23-除錯思維與方法-debugging)** | 建立**科學除錯五步驟**（Reproduce ➔ Hypothesize ➔ Experiment ➔ Fix ➔ Regression Test）；精熟命題邏輯推演與 **AI 時代人機協同除錯黃金 SOP**。 |
 | **[2.4 除錯工具實務 (Debuggers)](#24-除錯工具實務-debuggers)** | 掌握現代 IDE 核心功能：條件斷點 (Conditional Breakpoints)、例外斷點與即時表達式求值 (Evaluate Expression)。 |
-| **[2.5 防禦性編程與契約式設計 (DbC)](#25-防禦性編程與契約式設計-design-by-contract)** | 掌握 Bertrand Meyer 契約式設計三大法則（**前置條件 `requires`、後置條件 `ensures`、類別不變量 `maintains`**）；精準區分**斷言 (Assertion) 與例外 (Exception)**。 |
-| **[2.6 缺陷管理與議題追蹤 (BTS)](#26-缺陷管理與議題追蹤-defect-management--bts)** | 透過溫伯格寓言反思技術債；精熟 **缺陷生命週期狀態機**（New ➔ Assigned ➔ In Progress ➔ Fixed ➔ Retest ➔ Closed）；運用 **Severity vs. Priority 2x2 決策矩陣** 排定修復優先級。 |
+| **[2.5 防禦性編程與契約式設計 (Design by Contract, DbC)](#25-防禦性編程與契約式設計-design-by-contract-dbc)** | 掌握 Bertrand Meyer 契約式設計三大法則（**前置條件 `requires`、後置條件 `ensures`、類別不變量 `maintains`**）；精準區分**斷言 (Assertion) 與例外 (Exception)**。 |
+| **[2.6 缺陷管理與議題追蹤 (BTS)](#26-缺陷管理與議題追蹤-defect-management--bts)** | 透過溫伯格寓言反思技術債；精熟 **缺陷生命週期狀態機** 與理論實證、工具生態；掌握 **GitHub 現代版本與議題協同 (Issues, PR, CI/CD)**；運用 **Severity vs. Priority 2x2 決策矩陣** 排定修復優先級。 |
 | **[2.7 綜合練習](#-27-綜合練習)** | 實戰演練：Bug/Fault 因果辨析、邏輯推理排查與 MaxHeap 邊界除錯及 Invariant 斷言。 |
 
 ---
@@ -109,7 +109,7 @@ D) 該程式碼完全符合軟體品質的正確性定義
 - 輸入 `88888888 * 88888888` 發生整數溢位顯示負數
 - 輸入 `1 / 0` 產生未攔截的 Crash
 
-> 📌 **「我前方沒有規格，錯誤在我身後形成。」**
+> 📌 「**我前方沒有規格，錯誤在我身後形成。**」
 
 考慮以下三個規格：
 - *規格一：* 設計一個除法器，使用者可以輸入被除數、除數，呈現出小數點後兩位結果。
@@ -187,7 +187,7 @@ D) 只要客戶願意加錢，所有未明訂的規格才需要被修復
 
 「**Clean Code（整潔程式碼 / 清晰程式碼）**」概念的集大成者是軟體工程界的泰斗 **Robert C. Martin**（業界尊稱為 **Uncle Bob / 鮑伯叔叔**，亦為 2001 年敏捷宣言《Agile Manifesto》的共同發起人之一）。
 
-他在 **2008 年**出版了享譽全球的經典著作 **《Clean Code: A Handbook of Agile Software Craftsmanship》**（中文常譯為《無瑕的程式碼》或《整潔的程式碼》），系統性地奠定了現代專業軟體工程師撰寫高品質程式碼的心態、原則與實務規範。
+他在 **2008 年**出版了享譽全球的經典著作 《**Clean Code: A Handbook of Agile Software Craftsmanship**》（中文常譯為《無瑕的程式碼》或《整潔的程式碼》），系統性地奠定了現代專業軟體工程師撰寫高品質程式碼的心態、原則與實務規範。
 
 <img src="https://m.media-amazon.com/images/I/51E2055ZGUL._SL1000_.jpg" width="180">
 
@@ -288,7 +288,7 @@ Uncle Bob 在書中訪談了多位軟體工程界的傳奇大師，每位大師�
   * **不要用註解來粉飾糟糕的程式碼**；把時間花在重構程式碼，讓程式碼自己說話。
   * **壞註解**：喃喃自語、廢話註解（例如 `i++; // i 加 1`）、已被廢棄的程式碼（Zombie / Commented-out Code，版本控制系統如 Git 會記錄歷史，應直接刪除）。
 * **好註解的時機**：
-  * 解釋**「為什麼（Why）」**這麼做（特殊業務限制、特殊演算法選型原因），而非重複解釋「做了什麼（What）」。
+  * 解釋「**為什麼（Why）**」這麼做（特殊業務限制、特殊演算法選型原因），而非重複解釋「做了什麼（What）」。
   * 法律條款、版權宣告、公開 API 的 Javadoc 規格、警示後果（例如 `// 警告：此操作耗時長達數分鐘`）。
 
 #### 4. 嚴謹的錯誤處理與防禦 (Error Handling)
@@ -345,7 +345,7 @@ D) 應把所有 150 行程式碼壓縮成一行 Lambda 表達式以減少行數
 
 ### 2.2.6 重大迷思辨析：Clean Code 等於沒有 Bug 嗎？
 
-> ⚠️ **「Clean Code ≠ Bug-Free Code（整潔的程式碼不等於沒有缺陷的程式碼）」**
+> ⚠️ 「**Clean Code ≠ Bug-Free Code（整潔的程式碼不等於沒有缺陷的程式碼）**」
 
 許多初學者甚至資深工程師常有一種誤解：「只要我的程式碼命名完美、結構優雅、符合所有 Clean Code 原則，程式就絕對不會出錯。」這是混淆了軟體品質的兩個不同層次：
 
@@ -433,6 +433,38 @@ D) Clean Code 主要是針對前端 UI 介面的規範，後端核心交易模�
   * 若 p₁ ∧ p₂ ⇒ Crash（同時在 Win10 環境且安裝卡巴防毒才會崩潰）。
   * 則其逆否命題為：¬Crash ⇒ ¬p₁ ∨ ¬p₂（如果系統沒有崩潰，代表至少有一項條件不成立）。
 
+<!-- id: sqa-ch02-ccq-logic -->
+#### 🙋 **概念核對問答 (CCQ - 邏輯推演除錯)**
+
+**問題**
+
+某後端微服務的崩潰與監控規則為：「若發生記憶體流失 ($p$) 或 資料庫連線池耗盡 ($q$)，則系統必會觸發警報 ($r$) 且 寫入崩潰日誌 ($s$)」。符號化表示為：
+$$(p \lor q) \implies (r \land s)$$
+
+今日維運團隊觀察到：「**系統目前正常運作中，未觸發監控警報 ($\neg r$)**」。工程師欲推論當前系統的底層狀態，下列哪一個推論在形式邏輯（逆否命題與笛摩根定律）上是**唯一必然為真**的正確推論？
+
+A) 系統此時既沒有發生記憶體流失，也沒有發生資料庫連線池耗盡 ($\neg p \land \neg q$)  
+B) 系統可能正在發生記憶體流失，但因連線池未耗盡，所以尚未觸發警報  
+C) 只要確認沒有寫入崩潰日誌，就能推斷伺服器必定發生了資料庫連線池耗盡  
+D) 只要重新啟動資料庫以確保連線池正常 ($\neg q$)，系統日後就絕對不可能再觸發警報  
+
+<details>
+<summary>點擊查看【概念核對問答】答案與解析</summary>
+
+**正確答案：A**
+
+* **嚴密邏輯解析**：
+  * **原命題**：$(p \lor q) \implies (r \land s)$。
+  * **觀察事實**：已知未觸發警報 ($\neg r$)。因為後項 $(r \land s)$ 為交集（AND 連結），若 $r$ 為假，則 $(r \land s)$ 必為假，即 $\neg (r \land s)$ 為真。
+  * **逆否命題等價性**：$(A \implies B) \iff (\neg B \implies \neg A)$。因此 $\neg (r \land s) \implies \neg (p \lor q)$ 必然為真。
+  * **笛摩根定律 (De Morgan's Laws)**：$\neg (p \lor q) \iff (\neg p \land \neg q)$。
+  * **結論**：當前系統「既沒有記憶體流失，也沒有連線池耗盡」($\neg p \land \neg q$)，因此**選項 A** 必然為真！
+  * **選項 B 錯誤**：若存在記憶體流失 ($p$ 為真)，則依規則必會引爆警報 ($r$)，與已知事實 $\neg r$ 矛盾。
+  * **選項 C 錯誤**：混淆了充分條件與必要條件。
+  * **選項 D 錯誤**：犯了「否定前項謬誤 (Inverse Error)」。即便連線池正常 ($\neg q$)，若未來發生記憶體流失 ($p$)，依然會引發警報。
+
+</details>
+
 ---
 
 ### 2.3.4 🤖 AI 時代的輔助除錯 (AI-Assisted Debugging)
@@ -440,16 +472,16 @@ D) Clean Code 主要是針對前端 UI 介面的規範，後端核心交易模�
 在 2026 年，大三學生幾乎天天都在使用 LLM（ChatGPT, Claude, Copilot）來幫忙找 Bug。然而，**AI 輔助除錯存在巨大的陷阱與正確的使用 SOP**：
 
 #### ⚠️ AI 除錯的兩大常見陷阱
-1. **「膠帶式修復 (Band-aid / Patch Fix)」**：
+1. 「**膠帶式修復 (Band-aid / Patch Fix)**」：
    * 當你把 `NullPointerException` 的錯誤訊息貼給 AI，AI 往往會給出 `if (obj != null) { ... }` 這種表面修復。
    * **問題**：這只是掩蓋了錯誤，`obj` 為 null 的根本原因（如上游初始化失敗、資料庫查詢為空）完全沒有被解決，錯誤只是被延遲推遲到更難查的地方！
-2. **自我印證偏誤與回歸破壞**：
+2. 自我印證偏誤與回歸破壞：
    * AI 修改這一段程式碼時，可能破壞了系統其他地方隱含的不變量（Invariants），引入隱蔽的 **回歸缺陷 (Regression Defect)**。
 
 #### 🛡️ 人機協同除錯的黃金 SOP (AI Debugging Protocol)
 1. **提供充分上下文 (Context)**：不要只貼單行報錯，必須提供完整的 **Stack Trace、相關方法程式碼、輸入資料與預期業務規則**。
 2. **要求根因解釋而非直接給程式碼**：Prompt：「*請分析引發此 Exception 的 3 個可能根本原因，並指出此修復是否會破壞任何前置條件。*」
-3. **先寫測試再修復 (Test-First Bug Fix)**：利用 AI 生成一個**「專門重現該 Bug 的失敗單元測試」**，修復後測試轉綠，並跑完整體 CI 測試確認無回歸。
+3. **先寫測試再修復 (Test-First Bug Fix)**：利用 AI 生成一個「**專門重現該 Bug 的失敗單元測試**」，修復後測試轉綠，並跑完整體 CI 測試確認無回歸。
 
 <!-- id: sqa-ch02-ccq5 -->
 #### 🙋 **概念核對問答 (CCQ 5)**
@@ -493,21 +525,23 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ---
 
-## 2.5 防禦性編程與契約式設計 (Design by Contract)
+## 2.5 防禦性編程與契約式設計 (Design by Contract, DbC)
 
 開車遇到綠燈時，多數老司機依然會減速並左右張望，因為無法保證其他人不會闖紅燈。寫程式亦是如此。**防禦性編程 (Defensive Programming)** 是一種主動預防錯誤擴散的工程態度。
 
-### 2.5.1 契約式設計的三大核心要素 (Bertrand Meyer)
+### 2.5.1 契約式設計 (Design by Contract, DbC) 的三大核心要素 (Bertrand Meyer)
+
+**契約式設計（英文全名 Design by Contract，簡稱 DbC）** 由物件導向權威、Eiffel 語言之父 **Bertrand Meyer** 於 1986 年提出。其根本哲學是：模組與方法之間的協作，就像商業世界中的「**法律契約 (Legal Contract)**」，雙方權利與義務對等。
 
 <img src="../../img/ch02/design_by_contract_simplified.jpg" width="650">
 
-**圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心法則**
-1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
-2.  **Postconditions (後置條件 - `ensures`)**：方法正常執行完畢後，向呼叫者保證達成的狀態與輸出結果。
-3.  **Class Invariants (類別不變量 - `maintains`)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`）。
+**圖形解說：Bertrand Meyer 契約式設計 (Design by Contract, DbC) 三大核心法則**
+1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，責任在呼叫端，被呼叫的方法有權直接拒絕執行。
+2.  **Postconditions (後置條件 - `ensures`)**：方法正常執行完畢後，向呼叫者保證達成的狀態與輸出結果；若未達成，責任在方法內部實作。
+3.  **Class Invariants (類別不變量 - `maintains`)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`、`accountNo != null`）。
 
 * **狀態不變量 (Invariants) 的重要性**：
-  * 任何操作若破壞了不變量，系統應立即自我熔斷，避免髒資料寫入資料庫。這也是後續**屬性基礎測試 (Property-Based Testing)** 的核心基石！
+  * 契約界定清楚了「**誰該負責防禦什麼**」，杜絕無休止的冗餘檢查與責任踢皮球。任何操作若破壞了不變量，系統應立即自我熔斷，避免髒資料寫入資料庫。這也是後續**屬性基礎測試 (Property-Based Testing)** 的核心基石！
 
 ### 2.5.2 斷言 (Assertion) vs 例外處理 (Exception)
 
@@ -549,6 +583,15 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 在專業軟體團隊中，缺陷的追蹤與管理具備嚴謹的狀態轉換流程：
 
+<img src="../../img/ch02/comic_defect_lifecycle.jpg" width="650">
+
+**圖形解說：缺陷處理流程漫畫（從使用者提報到圓滿結案）**
+*   **1. Report (New)**：使用者在生產環境遭遇嚴重錯誤（如付款崩潰 500），透過缺陷追蹤系統 (BTS) 建立新工單，狀態為 `New`。
+*   **2. Triage (Assigned)**：QA 主管或產品負責人進行分流審查、評估嚴重度與優先級，並指派給合適的開發工程師，狀態轉為 `Assigned`。
+*   **3. Fix (In Progress)**：工程師重現問題、定位根因、撰寫修復程式碼與單元測試，提交 Pull Request，狀態轉為 `Fixed`。
+*   **4. Verify (QA Retest)**：QA 工程師在測試環境重測驗證修復結果，並執行完整迴歸測試確認無副作用，狀態轉為 `Verified`。
+*   **5. Release (Closed)**：更新正式部署上線，使用者體驗恢復正常，工單正式圓滿標記為 `Closed`。
+
 <img src="../../img/ch02/defect_lifecycle_complete.jpg" width="650">
 
 **圖形解說：完整缺陷追蹤生命週期 (Bug Workflow)**
@@ -557,16 +600,108 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
     2.  **Assigned (已指派)**：指派給負責工程師並排定修復時程。
     3.  **Open / In Progress (處理中)**：工程師正在深入排查根因並撰寫修復程式碼。
     4.  **Fixed / Resolved (已修復)**：工程師提交 PR 並通過 CI，等待 QA 驗證。
-    5.  **QA Retest / Verified (QA 驗證)**：QA 依照驗收標準與回歸測試套件進行重測。
-    6.  **Closed (結案關閉)**：確認修復無誤且無回歸問題，正式關閉 Issue。
+    5.  **QA Retest / Verified (QA 驗證)**：QA 依照驗收標準與迴歸測試套件進行重測。
+    6.  **Closed (結案關閉)**：確認修復無誤且無迴歸問題，正式關閉 Issue。
 *   **分支流程狀態 (Branch Flows)**：
     *   **Rejected / Duplicate (拒絕 / 重複)**：非 Bug、環境設定錯誤或重複回報 ➔ 直接結案 (Closed)。
     *   **Deferred (延期處理)**：非當前 Release 關鍵缺陷 ➔ 移入 Backlog 待未來版本處理。
     *   **Reopened (重新開啟)**：QA 重測未通過 ➔ 打回 Assigned 狀態重新排查。
 
+#### 📐 理論基礎與國際標準 (Theoretical Foundations & Standards)
+1. **有限狀態機模型 (Finite State Machine, FSM)**：
+   * 缺陷生命週期本質上是一組定義嚴謹的有限狀態機，具有嚴格的狀態集合、轉移动作與**權責守門人（Gatekeepers）**。
+   * **職權分離原則**：開發工程師只能將狀態推進至 `Fixed / Resolved`，**嚴禁開發者自行將缺陷標示為 `Closed`**！結案權限必須保留給提報者或獨立的 QA 驗證人員，避免「球員兼裁判」。
+2. **國際標準規範**：
+   * **ISO/IEC/IEEE 29119-3**：軟體測試標準中的「測試事件報告 (Incident Reporting)」規範，明定缺陷工單的必備屬性（環境版本、重現步驟、嚴重度、預期與實際結果、附件日誌）。
+   * **IEEE 1044**：軟體異常分類標準 (Standard Classification for Software Anomalies)，涵蓋缺陷從識別 (Recognition)、調查 (Investigation)、行動 (Action) 到處置 (Disposition) 的生命週期與度量。
+3. **IBM 正交缺陷分類法 (ODC, Orthogonal Defect Classification)**：
+   * 由 IBM 院士 Ram Chillarege 提出，將缺陷依語意根因正交劃分（如 Function, Assignment, Interface, Checking, Timing/Serialization），並依發現時機（Inspection, Unit Test, System Test）追溯缺陷逃逸原因，是量化評估測試完整性的大師級理論。
+
+#### 📊 實證研究與行業報告 (Empirical Studies & Industry Reports)
+1. **Boehm / NIST 指數級修復成本定律**：
+   * 軟體工程大師 Barry Boehm 與美國國家標準技術研究所 (NIST) 實證指出：缺陷越晚被發現，其修復成本呈**指數級非線性暴增**：
+     * 需求分析階段發現：**1x** 成本基準。
+     * 架構設計階段發現：**5x**。
+     * 編碼實作階段發現：**10x**。
+     * 整合與系統測試階段發現：**30x**。
+     * 上線營運 (Production) 階段發現：**100x ~ 200x+**（包含停機損失、緊急 Hotfix、商譽受損與法規罰款）。
+2. **微軟研究院 (Microsoft Research) 缺陷實證報告**：
+   * **80/20 崩潰法則**：微軟在分析龐大的 Windows 與 Office 遙測資料時證實，**約 20% 的頭部缺陷引發了全系統高達 80% 的崩潰 (Crashes)**。集中資源修復高頻發生的核心缺陷，能以最高 ROI 改善系統穩定度。
+   * **重現性與修復時長 (MTTR)**：實證表明，工單中若包含精確「重現步驟 (Steps to Reproduce)」與堆疊日誌，工程師的平均修復時長 (Mean Time to Repair, MTTR) **縮短 50% 以上**；資訊模糊的 Bug 往往耗費團隊大量時間於無效往返溝通。
+3. **Google SRE / 技術債度量**：
+   * 長期處於 `Deferred` 狀態的缺陷存在「缺陷半衰期」與「代碼腐化 (Code Rot)」。長期擱置的 Bug 會與周邊新增程式碼產生隱性依賴，未來修復難度呈倍數放大。
+
+#### 🛠️ 現有缺陷追蹤工具生態：開源 vs 商業對比
+
+| 工具名稱 | 類別與授權 | 核心特色與架構優勢 | 適用團隊情境 |
+| :--- | :--- | :--- | :--- |
+| **Bugzilla** | 開源 (MPL) | Mozilla 打造，歷史悠久，擁有最嚴謹的狀態機權限模型與審計歷史 | 大型開源專案、學術研究、嚴苛標準組織 |
+| **Redmine** | 開源 (GPL) | 基於 Ruby on Rails，高度可自訂，整合甘特圖、專案 Wiki 與 SCM | 偏好自行架設伺服器、注重專案時程之團隊 |
+| **MantisBT** | 開源 (GPL) | 基於 PHP，極致輕量、安裝門檻低、介面直觀 | 中小型團隊快速導入 |
+| **Atlassian Jira** | 商業 (SaaS / DC) | 軟體企業事實標準，強大自訂 Workflow 引擎、敏捷 Scrum/Kanban 板、豐富外掛生態 | 中大型企業、複雜跨部門協同之敏捷團隊 |
+| **Linear** | 商業 (SaaS) | 新一代極速開發者工具，主打純鍵盤操作快捷鍵、極簡流暢 UI 與即時同步 | 現代軟體新創、敏捷工程導向高效率團隊 |
+| **GitHub Issues** | 商業/雲端 (原生整合)| 與 Git 原始碼庫、Pull Request、GitHub Actions CI/CD 原生深度整合 | 開發者中心、開源社群與雲原生團隊 |
+
 ---
 
-### 2.6.3 嚴重度 (Severity) vs 優先級 (Priority) 度量矩陣
+### 2.6.3 現代以 GitHub 為核心的版本與議題管理 (GitHub Issues, PR & Branching)
+
+在現代軟體工程中，缺陷追蹤系統 (BTS) 不再是孤立的工單軟體，而是與**版本控制系統 (Git)** 及 **持續整合 (CI/CD)** 深度融為一體的協同工作流。以 **GitHub** 為代表的平台已成為現代工程團隊的標配實務。
+
+#### 1. GitHub Issues：結構化回報與分流看板
+* **Issue Templates (Markdown / YAML 表單)**：
+  * 在專案中透過 `.github/ISSUE_TEMPLATE/` 設定回報範本，強制提報者填寫：
+    * 執行環境（OS、瀏覽器、軟體版本）。
+    * 重現步驟（Steps to Reproduce，以編號逐步陳述）。
+    * 預期行為 (Expected) 與 實際行為 (Actual)。
+    * 錯誤截圖、影片與完整的 Console / Stack Trace 日誌。
+* **標籤分類系統 (Labels)**：
+  * 類型標籤：`bug`、`documentation`、`enhancement`。
+  * 嚴重度/優先級：`priority:critical`、`priority:low`。
+  * 流程狀態：`needs-triage`、`in-progress`、`blocked`。
+* **Projects 與 Milestones**：
+  * 透過 GitHub Projects 建立看板（To Do ➔ In Progress ➔ In Review ➔ Done），限制進行中工作 (WIP)，並將缺陷與特定發布版本里程碑 (Milestones) 關聯。
+
+#### 2. 分支策略與主幹保護機制 (Branching Strategy & Branch Protection)
+* **修復分支命名規範 (Branch Naming)**：
+  * **嚴禁工程師直接向 `main` / `master` 主幹分支推送程式碼**。
+  * 針對特定缺陷建立獨立修復分支，例如：
+    ```bash
+    git checkout -b fix/issue-102-login-npe
+    ```
+* **主幹保護規則 (Branch Protection Rules)**：
+  * 在 GitHub Repo Settings 中設定保護規則，強制要求：
+    1. **Require a pull request before merging**：所有程式碼變更必須透過 Pull Request。
+    2. **Require approvals**：必須獲得至少 1~2 位團隊成員審查核准 (Approve)。
+    3. **Require status checks to pass before merging**：所有 CI 自動化測試與檢查必須呈現綠燈。
+
+#### 3. 拉取請求 (Pull Request / PR) 與程式碼審查 (Code Review)
+* PR 是現代軟體團隊守護品質的第一道防線：
+  * **差異檢視 (Diff Review)**：審查者逐行確認修改範圍，避免「順手修改無關程式碼」引入意外風險。
+  * **行內評論與建議 (Inline Comments & Suggestions)**：審查者可直接針對特定程式碼行提供優化建議，提報者可一鍵 Accept 採納。
+  * **先寫測試再修復 (Test-First Bug Fix)**：高品質的修復 PR 必須包含**一個專門重現該 Bug 的失敗單元測試**，在修復前為紅燈，修復後轉為綠燈，永遠防範該缺陷回歸。
+
+#### 4. 關鍵字自動連動關閉與雙向追溯 (Auto-Closing Keywords & Traceability)
+* **自動結案關鍵字**：在 PR 說明或 Commit 訊息中加入特殊語法：
+  ```markdown
+  Fixes #102: 修正提款金額為負數時導致帳戶透支的邊界缺陷
+  ```
+  * 支援關鍵字包括：`close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved`。
+* **雙向可追溯性 (Bi-directional Traceability)**：
+  * 當該 PR 審查完畢並 Merge 進入主幹分支時，**GitHub 會自動將 Issue #102 標記為 Closed**！
+  * 日後排查問題時，可由 Issue 追溯到 PR，再由 PR 追溯到具體 Commit 與測試，達成完美的 SQA 審計追蹤能力。
+
+#### 5. CI/CD 自動化狀態檢查守門員 (Automated CI Status Checks)
+* 每次發起 PR 或推送新 Commit，GitHub Actions 即刻啟動自動化 Pipeline：
+  * **靜態分析與 Linter**：確保程式碼排版與規範一致，無語法隱患。
+  * **自動建置與自動化測試 (Build & Automated Tests)**：執行單元測試、整合測試，確保零回歸。
+  * **程式碼涵蓋率檢驗 (Code Coverage)**：驗證測試涵蓋率未因修復而降低。
+  * **安全掃描 (Security Scanning)**：透過 CodeQL 或 SonarCloud 掃描阻斷安全漏洞。
+  * 只要有任何一項檢查為紅燈，GitHub 自動**鎖死 Merge 按鈕**，防止有缺陷的程式碼污染主幹。
+
+---
+
+### 2.6.4 嚴重度 (Severity) vs 優先級 (Priority) 度量矩陣
 
 在缺陷管理系統（如 Jira / GitHub Issues）中，**嚴重度**（技術衝擊）與**優先級**（業務急迫性）是兩個正交的度量維度：
 
@@ -645,16 +780,19 @@ public class MaxHeap {
 
 ---
 
-#### ✍️ **4. 核心概念填空挑戰**
+<!-- id: sqa-ch02-fill1 -->
+#### 🙋 **4. 核心概念填空挑戰 (一)：缺陷因果與契約防禦**
 
-請根據本章核心理論，在括號內填入最適當的軟體工程專業名詞：
+請根據本章核心理論，從下方詞彙庫選出最適當的軟體工程專業名詞填入：
 
-1. **錯的因果鏈**：工程師心智思維中的人為失誤稱為 **[ ① ______ ]**，反映在程式碼中成為靜態的 **[ ② ______ ]**；當該行程式碼被執行，會引發記憶體內部的 **[ ③ ______ ]**，最終造成外部可見的行為偏離，稱為 **[ ④ ______ ]**。
-2. **契約式設計 (DbC)**：呼叫端必須負責滿足的是 **[ ⑤ ______ ]**；方法保證在執行完畢後達成的狀態是 **[ ⑥ ______ ]**；類別在任何公開方法執行前後皆必須恆成立的條件是 **[ ⑦ ______ ]**。
-3. **缺陷管理二維度**：衡量缺陷對系統架構破壞深淺程度的是 **[ ⑧ ______ ]**；決定開發團隊排程修復順序的是 **[ ⑨ ______ ]**。
+* 🔍 **備選詞彙庫 (Word Bank，含干擾項)**：
+  `Mistake` ｜ `Fault / Defect` ｜ `Error State` ｜ `Failure` ｜ `前置條件 (Preconditions)` ｜ `後置條件 (Postconditions)` ｜ `類別不變量 (Class Invariants)` ｜ `語法錯誤 (Syntax Error)` ｜ `例外處理 (Exception Handling)`
+
+1. **錯的因果鏈** (2.1 臭蟲因果理論)：工程師心智思維中的人為失誤稱為 **[ ① ______ ]**，反映在程式碼中成為靜態的 **[ ② ______ ]**；當該行程式碼被執行，會引發記憶體內部的 **[ ③ ______ ]**，最終造成外部可見的行為偏離，稱為 **[ ④ ______ ]**。
+2. **契約式設計** (2.5 契約防禦 DbC)：呼叫端必須負責滿足的是 **[ ⑤ ______ ]**；方法保證在執行完畢後達成的狀態是 **[ ⑥ ______ ]**；類別在任何公開方法執行前後皆必須恆成立的條件是 **[ ⑦ ______ ]**。
 
 <details>
-<summary>點擊查看【核心概念填空挑戰】答案與解析</summary>
+<summary>點擊查看【核心概念填空挑戰 (一)】答案與解析</summary>
 
 * ① **Mistake**（人為失誤）
 * ② **Fault / Defect**（程式碼缺陷）
@@ -663,38 +801,64 @@ public class MaxHeap {
 * ⑤ **前置條件 (Preconditions)**
 * ⑥ **後置條件 (Postconditions)**
 * ⑦ **類別不變量 (Class Invariants)**
-* ⑧ **嚴重度 (Severity)**
-* ⑨ **優先級 (Priority)**
+
+</details>
+
+---
+
+<!-- id: sqa-ch02-fill2 -->
+#### 🙋 **5. 核心概念填空挑戰 (二)：缺陷治理與除錯實務**
+
+請根據本章核心理論，從下方詞彙庫選出最適當的軟體工程專業名詞填入：
+
+* 🔍 **備選詞彙庫 (Word Bank，含干擾項)**：
+  `嚴重度 (Severity)` ｜ `優先級 (Priority)` ｜ `衛語句 (Guard Clauses)` ｜ `程式碼壞味道 (Code Smells)` ｜ `重現 (Reproduce)` ｜ `條件斷點 (Conditional Breakpoints)` ｜ `迴歸測試 (Regression Testing)` ｜ `熱修復 (Hotfix)` ｜ `冒煙測試 (Smoke Testing)`
+
+1. **缺陷管理二維度** (2.6 團隊治理)：衡量缺陷對系統架構破壞深淺程度的是 **[ ① ______ ]**；決定開發團隊排程修復順序的是 **[ ② ______ ]**。
+2. **整潔程式碼與防錯設計** (2.2 源頭預防)：提早判斷無效條件並直接回傳、消除多層巢狀結構的重構技巧是 **[ ③ ______ ]**；程式碼中雖能正常運作但暗示結構不良、日後難以維護的特徵稱為 **[ ④ ______ ]**。
+3. **科學除錯與工具實務** (2.3 科學排查 ＆ 2.4 IDE 工具)：排查問題的第一步是穩定且完全 **[ ⑤ ______ ]** 臭蟲；在 IDE 中僅在特定表達式成立時才中斷程式的工具是 **[ ⑥ ______ ]**；修復後執行既有測試以確保未破壞其他功能的程序稱為 **[ ⑦ ______ ]**。
+
+<details>
+<summary>點擊查看【核心概念填空挑戰 (二)】答案與解析</summary>
+
+* ① **嚴重度 (Severity)**
+* ② **優先級 (Priority)**
+* ③ **衛語句 (Guard Clauses)**
+* ④ **程式碼壞味道 (Code Smells)**
+* ⑤ **重現 (Reproduce)**
+* ⑥ **條件斷點 (Conditional Breakpoints)**
+* ⑦ **迴歸測試 (Regression Testing)**
 
 </details>
 
 ---
 
 <!-- id: sqa-ch02-game -->
-#### 🙋 **5. 課堂挑戰遊戲：除錯偵探所 (Game 挑戰 7 題)**
+#### 🙋 **6. 課堂挑戰遊戲：除錯偵探所 (Game 挑戰 7 題)**
 
 請從下列選項中，為七大真實軟體工程案件做出最精準的法律判決：
-`A. Mistake (人為失誤)` | `B. Fault / Defect (靜態缺陷)` | `C. Error State (內部錯誤狀態)` | `D. Failure (系統失效)`
-`E. Precondition Violation (前置條件違約)` | `F. Invariant Violation (破壞不變量)` | `G. High Severity, Low Priority (高嚴重度、低優先級)`
+`A. 規格遺漏缺陷 (Missing Specification)` | `B. 隱蔽副作用與壞味道 (Side Effect & Code Smell)` | `C. 吞掉例外反模式 (Swallowing Exceptions)`
+`D. 條件斷點應用 (Conditional Breakpoint)` | `E. 斷言與例外的誤用 (Assertion vs Exception Misuse)`
+`F. 低嚴重度、高優先級 (Low Severity, High Priority)` | `G. 迴歸缺陷導致回開 (Regression Defect & Reopened)`
 
-* **案件 1【深夜趕工手滑】**：工程師因疲勞將演算法終止條件 `<` 誤打成 `<=`。
-* **案件 2【埋伏四年的未爆彈】**：日曆模組寫錯閏年 2/29 判定，但在平年從未被觸發。
-* **案件 3【已成懸空的無效指標】**：記憶體被釋放為懸空指標，但後續程式尚未存取它。
-* **案件 4【雙十一首頁大崩潰】**：大促開賣連線池耗盡，所有用戶看到 500 錯誤畫面。
-* **案件 5【拿負數金額來存款】**：呼叫端傳入 `-5000`，被方法第一行的 `assert amount > 0` 攔截。
-* **案件 6【堆積中兒子的數值超越父親】**：`deleteMax()` 調整後，子節點數值大於父節點。
-* **案件 7【淘汰系統上的致命藍屏】**：在已淘汰的 Windows XP 上會死機，但全體付費用戶皆在 Win 11。
+* **案件 1【遺漏負數與邊界】**：電商折扣系統規格書僅註明「滿千享 8 折」，未定義負數金額或退款情境，導致負數金額折抵後反向入帳。
+* **案件 2【計算總額暗藏玄機】**：名為 `calculateTotal()` 的函式在計算訂單金額時，內部偷偷修改了全域購物車快取狀態。
+* **案件 3【空的 Catch 假裝沒事】**：工程師為了不讓系統拋出 500 錯誤，加上 `try { ... } catch (Exception e) {}` 空實作，導致帳戶餘額資料悄悄損毀。
+* **案件 4【百萬迴圈的精準排查】**：在處理 100 萬筆交易的迴圈中，系統只在特定 `user_id == 888888` 時崩潰，工程師欲避免無效單步除錯。
+* **案件 5【線上環境失效的防線】**：後端工程師使用 `assert request.getBody() != null` 驗證外部使用者的 HTTP 請求參數，因正式環境未開 `-ea` 導致防線全失。
+* **案件 6【不痛不癢但商譽暴跌】**：跨國金融公司官網首頁正中央的主視覺，將英文單字 `Security` 拼錯為 `Securty`，系統一切運行正常無崩潰。
+* **案件 7【修好了 A 卻弄壞了 B】**：工程師修復登入頁面排版並關閉 Ticket，上線後忘記密碼功能卻因此損毀，測試團隊緊急重啟該 Ticket。
 
 <details>
 <summary>點擊查看【除錯偵探所 Game 挑戰】答案與解析</summary>
 
-* **案件 1：A (Mistake)** —— 工程師心智模型偏差或疲勞導致的打字手滑。
-* **案件 2：B (Fault / Defect)** —— 潛伏於靜態原始碼中但尚未被激發的邏輯漏洞。
-* **案件 3：C (Error State)** —— 系統執行期內部狀態已不一致（Dangling Pointer），但尚未引起外部觀察到的失效。
-* **案件 4：D (Failure)** —— 系統對外提供之服務完全中斷，使用者直接觀察到的行為偏離。
-* **案件 5：E (Precondition Violation)** —— 呼叫端未履行契約規定的合法正數輸入義務。
-* **案件 6：F (Invariant Violation)** —— 破壞了 MaxHeap「任一節點必大於等於其子節點」的結構不變量。
-* **案件 7：G (High Severity, Low Priority)** —— 技術危害性極高（OS 崩潰死機），但因無實際商業受眾，排修急迫性極低。
+* **案件 1：A (規格遺漏缺陷)** —— 需求未定義邊界與負數行為，源頭規格即存在缺陷。
+* **案件 2：B (隱蔽副作用與壞味道)** —— 查詢計算函式暗藏修改全域狀態，違反單一職責且破壞可預測性。
+* **案件 3：C (吞掉例外反模式)** —— 空的 catch 塊假裝成功，掩蓋真正的 Error State 導致資料悄悄損毀。
+* **案件 4：D (條件斷點應用)** —— 在百萬筆大迴圈中指定特定條件才中斷，避免無效單步除錯。
+* **案件 5：E (斷言與例外的誤用)** —— 生產環境通常關閉 assert，外部輸入驗證必須使用例外機制。
+* **案件 6：F (低嚴重度、高優先級)** —— 技術危害極低（靜態拼寫錯），但商業商譽損失巨大需優先排修。
+* **案件 7：G (迴歸缺陷導致回開)** —— 修復 A 卻弄壞 B，缺乏迴歸測試導致已關閉的 Ticket 需被 Reopen。
 
 </details>
 

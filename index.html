@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>軟體測試與軟體品質保證 (SQA) | 課程教材與簡報入口</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #dbeafe;
+      --accent: #0284c7;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0 0 60px 0;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 50%, #1e40af 100%);
+      color: white;
+      padding: 60px 24px 50px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: #bfdbfe;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: -24px auto 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Modules Grid */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+      justify-content: center;
+    }
+
+    @keyframes cardFadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .module-card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      animation: cardFadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .modules-grid .module-card:nth-child(1) { animation-delay: 0.05s; }
+    .modules-grid .module-card:nth-child(2) { animation-delay: 0.10s; }
+    .modules-grid .module-card:nth-child(3) { animation-delay: 0.15s; }
+    .modules-grid .module-card:nth-child(4) { animation-delay: 0.20s; }
+    .modules-grid .module-card:nth-child(5) { animation-delay: 0.25s; }
+    .modules-grid .module-card:nth-child(6) { animation-delay: 0.30s; }
+    .modules-grid .module-card:nth-child(7) { animation-delay: 0.35s; }
+    .modules-grid .module-card:nth-child(8) { animation-delay: 0.40s; }
+    .modules-grid .module-card:nth-child(9) { animation-delay: 0.45s; }
+
+    .module-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: #93c5fd;
+    }
+
+    .card-top {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .card-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .module-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .module-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border: 1px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      box-shadow: 0 4px 10px rgba(30, 64, 175, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: #f8fafc;
+      color: #334155;
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    .btn-outline {
+      background-color: #ffffff;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .btn-outline:hover {
+      background-color: #f0f9ff;
+      color: #0284c7;
+      border-color: #7dd3fc;
+    }
+
+    .module-card.disabled {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      opacity: 0.85;
+      box-shadow: none;
+    }
+
+    .module-card.disabled:hover {
+      transform: none;
+      box-shadow: var(--shadow-sm);
+      border-color: #cbd5e1;
+    }
+
+    /* Bottom Guide Card */
+    .guide-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      margin-top: 32px;
+      animation: cardFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 800px) {
+      .guide-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .guide-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .guide-section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    .guide-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .guide-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .guide-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      padding: 2px 7px;
+      border-radius: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .shortcuts-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .shortcut-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #475569;
+      background: #f8fafc;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+    }
+
+    kbd {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-bottom: 2px solid #94a3b8;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <span class="hero-badge">軟體工程實務 核心課程</span>
+    <h1>軟體測試與品質保證 (SQA)</h1>
+    <p>涵蓋缺陷因果鏈、Clean Code 防錯、黑白箱測試、變異測試、隔離架構到微服務契約與混沌工程</p>
+  </header>
+
+  <div class="container">
+    <!-- Modules Grid -->
+    <div class="modules-grid">
+
+      <!-- Unit 01 -->
+      <div class="module-card">
+        <div class="card-top">
+          <div class="card-tag">Unit 01</div>
+          <h2>軟體危機、品質模型與可靠性工程</h2>
+          <p>歷史四大慘劇、AI 時代新軟體危機（Slopsquatting、Vibe Coding）、Garvin 5 大品質觀點、CoQ 1:10:100 定律與 ISO 25010 模型。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Slide/html/slide01t_intro.html?transition=fade" class="btn btn-primary" target="_blank">
+            🖥️ 開啟簡報 (HTML 互動模式)
+          </a>
+          <a href="Slide/pdf/slide01t_intro.pdf" class="btn btn-secondary" target="_blank">
+            📄 下載簡報 (PDF)
+          </a>
+          <a href="Lecture/pdf/ch01t_intro.pdf" class="btn btn-outline" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 02 (Core) -->
+      <div class="module-card" style="border-color: #93c5fd; box-shadow: 0 4px 12px rgba(30,64,175,0.08);">
+        <div class="card-top">
+          <div class="card-tag" style="color: #1e40af;">Unit 02 ★ 核心單元</div>
+          <h2>錯與除錯 (Bugs & Debugging)</h2>
+          <p>IEEE 610.12 臭蟲因果鏈、Uncle Bob Clean Code 防錯心法、Clean Code ≠ Bug-Free 迷思、科學除錯五步驟、契約式設計 (DbC) 與 BTS 狀態機。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Slide/html/slide02t_bug.html?transition=fade" class="btn btn-primary" target="_blank">
+            🖥️ 開啟簡報 (HTML 互動模式)
+          </a>
+          <a href="Slide/pdf/slide02t_bug.pdf" class="btn btn-secondary" target="_blank">
+            📄 下載簡報 (PDF)
+          </a>
+          <a href="Lecture/pdf/ch02t_bug.pdf" class="btn btn-outline" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 03 -->
+      <div class="module-card">
+        <div class="card-top">
+          <div class="card-tag">Unit 03</div>
+          <h2>軟體測試原則、理論與架構模型</h2>
+          <p>契約三大要素（Pre/Post/Invariants）、ISTQB 7 大測試原則、Martin Fowler 測試金字塔、V 模型雙向追溯、測試案例設計與 Test Oracle 難題。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Slide/html/slide03t_testing.html?transition=fade" class="btn btn-primary" target="_blank">
+            🖥️ 開啟簡報 (HTML 互動模式)
+          </a>
+          <a href="Slide/pdf/slide03t_testing.pdf" class="btn btn-secondary" target="_blank">
+            📄 下載簡報 (PDF)
+          </a>
+          <a href="Lecture/pdf/ch03t_testing.pdf" class="btn btn-outline" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 04 -->
+      <div class="module-card disabled">
+        <div class="card-top">
+          <div class="card-tag">Unit 04 · 講義與實習開放</div>
+          <h2>軟體檢視與靜態程式碼分析</h2>
+          <p>靜態檢視冰山哲學、IEEE 1028 / Fagan 檢視流程、團隊 Clean Code 查核清單、Code Smells 識別與重構、OWASP Top 10 與 PMD/SonarQube 門檻。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Lecture/pdf/ch04t_inspection.pdf" class="btn btn-secondary" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+          <a href="LabDemo/docs/u03_inspection/pmd.md" class="btn btn-outline" target="_blank">
+            🛠️ 查看上機實習 (Lab 04)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 05 -->
+      <div class="module-card disabled">
+        <div class="card-top">
+          <div class="card-tag">Unit 05 · 講義與實習開放</div>
+          <h2>黑箱測試與屬性基礎測試 (PBT)</h2>
+          <p>等價類分割 (EP: 弱/強涵蓋)、邊界值分析 (BVA: 4n+1/6n+1)、全成對組合測試 (Pairwise)、決策表測試與 jqwik 屬性不變量生成測試。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Lecture/pdf/ch05t_blackbox.pdf" class="btn btn-secondary" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+          <a href="LabDemo/docs/u04_utest/jqwik_property_based.md" class="btn btn-outline" target="_blank">
+            🛠️ 查看上機實習 (Lab 05/06)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 06 -->
+      <div class="module-card disabled">
+        <div class="card-top">
+          <div class="card-tag">Unit 06 · 講義與實習開放</div>
+          <h2>白箱測試與變異測試 (Mutation)</h2>
+          <p>JaCoCo Bytecode 動態插樁、邏輯涵蓋度階梯、DO-178C 航太級 MC/DC、McCabe 圈複雜度與 PITest 變異測試（測試你的測試套件）。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Lecture/pdf/ch06t_whitebox.pdf" class="btn btn-secondary" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+          <a href="LabDemo/docs/u07_mutation/mutation_test.md" class="btn btn-outline" target="_blank">
+            🛠️ 查看上機實習 (Lab 07/08)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 07 -->
+      <div class="module-card disabled">
+        <div class="card-top">
+          <div class="card-tag">Unit 07 · 講義與實習開放</div>
+          <h2>整合測試與 Test Double 替身架構</h2>
+          <p>Spring Boot 三層架構整合、Test Double 五大替身（Dummy, Stub, Spy, Mock, Fake）、Mockito 行為驗證與 Testcontainers 容器化資料庫實戰。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Lecture/pdf/ch07t_integration.pdf" class="btn btn-secondary" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+          <a href="LabDemo/docs/u08_integration/testcontainers_spring.md" class="btn btn-outline" target="_blank">
+            🛠️ 查看上機實習 (Lab 09/10)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 08 -->
+      <div class="module-card disabled">
+        <div class="card-top">
+          <div class="card-tag">Unit 08 · 講義與實習開放</div>
+          <h2>系統、微服務契約與驗收測試</h2>
+          <p>BDD 行為驅動開發 (Cucumber/Gherkin)、微服務 Pact 消費者驅動契約測試、Playwright 現代 Web 驗收、k6 高併發壓測與混沌工程。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Lecture/pdf/ch08t_system.pdf" class="btn btn-secondary" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+          <a href="LabDemo/docs/u09_cucumber_bdd/pact_and_playwright.md" class="btn btn-outline" target="_blank">
+            🛠️ 查看上機實習 (Lab 11~13)
+          </a>
+        </div>
+      </div>
+
+      <!-- Unit 09 -->
+      <div class="module-card disabled">
+        <div class="card-top">
+          <div class="card-tag">Unit 09 · 講義與實習開放</div>
+          <h2>測試文件標準與 Doc-as-Code 活文件</h2>
+          <p>精簡 IEEE 829 三大支柱（計畫、規格、報告）、Doc-as-Code 現代活文件、需求雙向追溯 (RTM)、缺陷根本原因分析 (RCA) 與品質度量治理。</p>
+        </div>
+        <div class="card-actions">
+          <a href="Lecture/pdf/ch09t_doc.pdf" class="btn btn-secondary" target="_blank">
+            📖 閱讀講義手冊 (PDF)
+          </a>
+          <a href="Lecture/pdf/ch10t_cmmi.pdf" class="btn btn-outline" target="_blank">
+            📑 CMMI/TMMi 品質模型 (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Guide: Header Navigation & Keyboard Shortcuts -->
+    <div class="guide-card">
+      <div class="guide-grid">
+        <!-- Section 1: Header Navigation -->
+        <div class="guide-section">
+          <div class="guide-section-header">
+            <span>🧭</span>
+            <span>頂部導覽列 (Header) 操作指南</span>
+          </div>
+          <ul class="guide-list">
+            <li>
+              <span class="guide-badge">◄ / ►</span>
+              <span>點擊左右箭頭快速跳轉至「上一章節」或「下一章節」起始頁。</span>
+            </li>
+            <li>
+              <span class="guide-badge">懸停章節名</span>
+              <span>滑鼠移至頂部章節文字上方，即刻展開「全簡報章節目錄清單」可直達各節。</span>
+            </li>
+            <li>
+              <span class="guide-badge">點擊章節名</span>
+              <span>釘選固定目錄面板，便於瀏覽選擇；點擊任一章節或點擊外部任意處即可關閉。</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 2: Marp Keyboard Guide -->
+        <div class="guide-section">
+          <div class="guide-section-header">
+            <span>⌨️</span>
+            <span>簡報互動模式快捷鍵 (Keyboard Shortcuts)</span>
+          </div>
+          <div class="shortcuts-list">
+            <span class="shortcut-badge"><kbd>F</kbd> 全螢幕模式</span>
+            <span class="shortcut-badge"><kbd>→</kbd> / <kbd>Space</kbd> 下一頁</span>
+            <span class="shortcut-badge"><kbd>←</kbd> 上一頁</span>
+            <span class="shortcut-badge"><kbd>P</kbd> 簡報者講稿</span>
+            <span class="shortcut-badge"><kbd>數字</kbd>+<kbd>Enter</kbd> 指定跳頁</span>
+            <span class="shortcut-badge"><kbd>Esc</kbd> 退出全螢幕</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>授課教師：薛念林 教授 | 逢甲大學資訊工程學系</p>
+    </footer>
+  </div>
+
+</body>
+
+</html>
