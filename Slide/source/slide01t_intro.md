@@ -64,11 +64,11 @@ style: |
   .two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 20px;
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 28px !important;
+    margin-top: 14px !important;
   }
   .two-columns-64 {
     display: grid;
@@ -77,7 +77,7 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 28px !important;
+    margin-top: 14px !important;
   }
   .two-columns-73 {
     display: grid;
@@ -86,7 +86,7 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 28px !important;
+    margin-top: 14px !important;
   }
   .three-columns {
     display: grid;
@@ -95,7 +95,7 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 22px !important;
+    margin-top: 14px !important;
   }
   .three-columns .card {
     padding: 14px 18px;
@@ -428,13 +428,18 @@ style: |
     color: #777;
   }
   blockquote {
-    background: transparent;
-    border-left: 4px solid #328cc1;
-    margin: 0.8em 0;
-    padding: 5px 20px;
-    font-style: italic;
-    color: inherit;
-    opacity: 0.85;
+    background: rgba(2, 132, 199, 0.05);
+    border-left: 4px solid #0284c7;
+    margin: 4px 0 12px 0 !important;
+    padding: 6px 14px !important;
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+    color: #334155 !important;
+    border-radius: 0 6px 6px 0;
+    font-style: normal !important;
+  }
+  blockquote p {
+    margin: 0 !important;
   }
   blockquote::before {
     content: none !important;
@@ -672,6 +677,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 本章重點導讀 (Key Highlights)
 
+> 🧭 從歷史軟體危機汲取教訓，建立現代品質模型防線；軟體品質保證是一門兼顧規格與實踐的系統工程。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -705,6 +712,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.1.1 Case 1：愛國者反導彈事件 (1991)
 
+> ⏱️ 微小的數值精度截斷，在長時間運行的累計下，終將演變為無法挽回的致命偏差。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -727,6 +736,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.1.2 Case 2：NASA 火星氣候軌道探測器 (1998)
+
+> 🚀 跨團隊協同缺乏強制介面契約，讓造價近兩億美元的太空探測器在火星大氣中化為灰燼。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -760,6 +771,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.1.3 Case 3：華航名古屋空難 (1994)
+
+> ✈️ 人機互動 (HMI) 的狀態不透明與控制權仲裁衝突，在系統最危急的時刻給予致命一擊。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -796,6 +809,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.1.4 Case 4：迪士尼《獅子王》遊戲 (1994)
 
+> 🎮 在開發機上跑得順暢，不代表能在真實世界生存——硬體多樣性與相容性測試是第一道門檻。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -820,7 +835,7 @@ footer: 'Ch01 軟體品質導論'
 
 ### 1.1.5 軟體危機的定義與成因
 
-<p style="margin-bottom: 12px; font-size: 0.95em;">1968 年 NATO 會議首次提出「軟體危機（Software Crisis）」的核心成因：</p>
+> ⚠️ 1968 年 NATO 會議首次提出「軟體危機」：硬體日新月異，軟體開發的複雜度與維護成本卻失控失衡。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -898,6 +913,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.2 AI 輔助開發的實證研究數據
 
+> 📊 AI 大幅提升了撰寫程式碼的速度，卻也成倍放大了技術債務、高錯誤率與安全弱點的隱藏代價。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -921,6 +938,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ### 1.2.1 AI 寫程式引發的典型品質事件 (1/2)
+
+> 🤖 盲目信任與複製貼上：當工程師放棄對程式碼的質疑，AI 的幻覺與技術債將直接流入生產環境。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -946,6 +965,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ### 1.2.1 AI 寫程式引發的典型品質事件 (2/2)
+
+> 🛡️ 軟體供應鏈污染與架構腐化：AI 時代的新型態品質危機，全面考驗著團隊的深度防禦防線。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1037,6 +1058,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 軟體四大核心要素深度剖析 (1/2)
 
+> ⚙️ IEEE 610.12 定義：軟體絕非只是原始碼，而是由程式、程序、文件與資料構成的系統有機體。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -1060,6 +1083,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 軟體四大核心要素深度剖析 (2/2)
+
+> 📋 藍圖決定系統的壽命，組態決定系統的成敗——不可忽視文件契約與環境資料的關鍵力量。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1112,6 +1137,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## Garvin 五大品質觀點深度實例 (1/2)
 
+> 👁️ 「橫看成嶺側成峰」：品質沒有單一視角，哈佛學者 David Garvin 帶我們看透不同角色的品質渴望。
+
 <div class="three-columns">
 <div class="card" data-marpit-fragment>
 
@@ -1148,6 +1175,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## Garvin 五大品質觀點深度實例 (2/2)
+
+> ⚖️ 內部架構的工程美學 vs. 外部商業的投資回報：平衡產品結構與商業價值的雙重藝術。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1242,7 +1271,7 @@ footer: 'Ch01 軟體品質導論'
 
 ### 1.4.1 驗證與確認 (Verification vs. Validation)
 
-<p style="margin-bottom: 12px; font-size: 0.95em;">軟體品質工程的兩大靈魂叩問：</p>
+> 🔍 軟體品質工程的兩大靈魂叩問：我們是在「正確地打造產品」，還是「打造正確的產品」？
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1295,6 +1324,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.4.2 軟體品質成本 (Cost of Quality, CoQ)
 
+> 💰 「現在花 1 元預防，還是上線後花 1000 元救火？」——品質從來不是成本，欠缺品質才是最大代價。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -1343,6 +1374,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.5.1 傳統模型與 V 模型：對稱性與早期規劃
 
+> 📐 「品質是建構出來的，不是測出來的。」—— 開發與測試在需求萌芽的那一刻就該彼此嚴密對稱。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -1377,6 +1410,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.5.2 DevOps CI/CD 連續品質門檻 (Quality Gates)
+
+> 🚪 從每一次本地 Commit 到全球金絲雀發布：以自動化流水線建立步步為營的連續守護關卡。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1466,6 +1501,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.6.1 ISO 25010 八大特性解析 (1/2)
 
+> 🏛️ 國際軟體工程品質標準 SQuaRE：系統化拆解現代軟體系統必備的八大關鍵品質基因。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -1494,6 +1531,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.6.1 ISO 25010 八大特性解析 (2/2)
+
+> 🌐 從機密防禦到跨平台容器化：軟體在動態複雜環境中長治久安與演進不可或缺的維度。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1560,6 +1599,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.6.2 ISO 25023 品質特性量化指標 (2/2)
 
+> 📏 告別抽象形容詞，以工程指標衡量系統體質：將安全、維護與相容性精確轉化為 SLI/SLA。
+
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
@@ -1592,6 +1633,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.6.2 現代 SQA 量化落地的「三大工程支柱」
+
+> 🏛️ 「靜態程式碼把關 ＋ 動態效能壓測 ＋ 運行時可觀測性」：三大工程支柱串聯起端到端的品質防護網。
 
 <div class="three-columns">
 <div class="card" data-marpit-fragment>
@@ -1697,6 +1740,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.7 課堂思維激盪與問題討論
+
+> 🤔 學而不思則罔：跳出日常開發框架，以批判性思維深入剖析 AI 時代的軟體品質盲點。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
