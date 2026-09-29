@@ -61,39 +61,12 @@ style: |
     justify-content: center;
   }
 
-  /* 方案一：標題頂部錨定，卡片區塊彈性垂直置中 (Vertical Center) */
+  /* 卡片頁面垂直置中 (Vertical Center) */
   section:has(div.two-columns),
   section:has(div.two-columns-64),
   section:has(div.two-columns-73),
   section:has(div.three-columns) {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 帶有 blockquote 導言時，以 blockquote 為起點自動向下推開 */
-  section:has(div.two-columns) > blockquote:first-of-type,
-  section:has(div.two-columns-64) > blockquote:first-of-type,
-  section:has(div.two-columns-73) > blockquote:first-of-type,
-  section:has(div.three-columns) > blockquote:first-of-type {
-    margin-top: auto !important;
-  }
-
-  /* 無 blockquote 導言時，以卡片容器為起點自動向下推開 */
-  section:has(div.two-columns):not(:has(> blockquote)) > div.two-columns,
-  section:has(div.two-columns-64):not(:has(> blockquote)) > div.two-columns-64,
-  section:has(div.two-columns-73):not(:has(> blockquote)) > div.two-columns-73,
-  section:has(div.three-columns):not(:has(> blockquote)) > div.three-columns {
-    margin-top: auto !important;
-  }
-
-  /* 結尾容器底部彈性推開，達到上下等距垂直居中 */
-  section:has(div.two-columns) > div.two-columns:last-child,
-  section:has(div.two-columns-64) > div.two-columns-64:last-child,
-  section:has(div.two-columns-73) > div.two-columns-73:last-child,
-  section:has(div.three-columns) > div.three-columns:last-child,
-  section:has(div.two-columns) > div.card:last-child,
-  section:has(div.three-columns) > div.card:last-child {
-    margin-bottom: auto !important;
+    justify-content: center;
   }
 
   .two-columns {
@@ -476,7 +449,8 @@ style: |
   blockquote p {
     margin: 0 !important;
   }
-  blockquote::before {
+  blockquote::before,
+  blockquote::after {
     content: none !important;
   }
   table {
