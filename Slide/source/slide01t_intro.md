@@ -88,6 +88,28 @@ style: |
     box-sizing: border-box;
     margin-top: 28px !important;
   }
+  .three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 22px !important;
+  }
+  .three-columns .card {
+    padding: 14px 18px;
+    font-size: 16.5px;
+  }
+  .three-columns .card h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+  }
+  .three-columns .card li {
+    font-size: 16px !important;
+    margin-bottom: 6px !important;
+  }
   .card {
     background: white;
     padding: 18px 24px;
@@ -683,27 +705,47 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.1.1 Case 1：愛國者反導彈事件 (1991)
 
-- **事件背景**：
-  - 1991 年波斯灣戰爭，伊拉克飛毛腿飛彈擊中美軍沙烏地達蘭基地，造成 **28 名美軍死亡、100+ 人受傷**。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🚨 事故背景與災難後果
+- **事件背景**：1991 年波斯灣戰爭，伊拉克飛毛腿飛彈擊中美軍達蘭基地，造成 **28 名美軍死亡、100+ 人受傷**。
+- **災難後果**：飛彈以 4.2 馬赫高速來襲（1.5 km/s），0.33 秒相當於 **600 公尺距離偏差**，雷達搜尋窗無法鎖定目標，攔截飛彈未發射。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🔬 致命缺陷與 SQA 啟示
 - **致命軟體缺陷**：
-  - 愛國者系統時鐘暫存器採用 **24-bit 浮點數** 設計，將時間轉換為 0.1 秒單位時產生截斷誤差（約 0.000000095 秒）。
-  - 系統連續開機運作超過 **100 小時** 未重啟，誤差累計達 **0.33 秒**。
-- **災難後果**：
-  - 飛毛腿飛彈速度達 4.2 馬赫（1.5 km/s），0.33 秒相當於 **600 公尺距離偏差**，雷達搜尋窗無法鎖定目標，攔截飛彈未發射。
-- **SQA 啟示**：數值精度問題、浮點數累計誤差，以及**長時運行可靠度測試（Long-term Stress/Reliability Testing）**的重要性。
+  - 系統時鐘暫存器採用 **24-bit 浮點數**，轉換為 0.1 秒單位時產生截斷誤差（約 0.000000095 秒）。
+  - 連續開機運作超過 **100 小時** 未重啟，誤差累計達 **0.33 秒**。
+- **SQA 核心啟示**：嚴防數值精度與浮點數累計誤差，落實**長時運行可靠度測試 (Long-term Stress Testing)**。
+
+</div>
+</div>
 
 ---
 
 ## 1.1.2 Case 2：NASA 火星氣候軌道探測器 (1998)
 
-- **事件背景**：
-  - 1998 年 NASA 發射「火星氣候軌道探測器」（造價近 2 億美元），抵達火星後失聯焚毀。
-- **致命缺陷：跨模組單位不一致**
-  - **承包商端（洛克希德馬丁）**：地面控制程式以 **英制單位（磅力·秒，lbf·s）** 輸出推進器衝量數據。
-  - **NASA JPL 導航接收端**：太空船導航軟體預設以 **公制單位（牛頓·秒，N·s）** 解析數據（相差 4.45 倍）。
-- **災難後果**：
-  - 軌道高度預計 140 公里，實際暴跌至 **57 公里**，直接在火星大氣層中摩擦燃燒解體。
-- **SQA 啟示**：**跨模組介面契約（Interface Contract）**、強型態檢驗與規格審查的重要性。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🚨 事故背景與災難後果
+- **事件背景**：1998 年 NASA 發射「火星氣候軌道探測器」（造價近 2 億美元），抵達火星後失聯焚毀。
+- **災難後果**：軌道高度預計 140 公里，實際暴跌至 **57 公里**，直接在火星大氣層中劇烈摩擦燃燒解體。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🔬 致命缺陷與 SQA 啟示
+- **致命缺陷：跨模組單位不一致**：
+  - **承包商端（洛克希德馬丁）**：地面控制程式以 **英制單位（磅力·秒，lbf·s）** 輸出數據。
+  - **NASA JPL 導航接收端**：太空船導航軟體預設以 **公制單位（牛頓·秒，N·s）** 解析（相差 4.45 倍）。
+- **SQA 核心啟示**：落實**跨模組介面契約 (Interface Contract)**、強型態檢驗與規格審查。
+
+</div>
+</div>
 
 ---
 
@@ -719,14 +761,26 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.1.3 Case 3：華航名古屋空難 (1994)
 
-- **事件背景**：
-  - 1994 年華航 CI140 班機（A300-622R）在名古屋機場降落時墜毀，**264 人罹難**。
-- **人機介面衝突 (HMI Mode Confusion)**：
-  - **機師手動操作 (Manual Push)**：副駕駛誤觸重飛模式後，正副駕駛試圖手動前推操縱桿強壓機首下降。
-  - **飛控電腦自動配平 (Autopilot Climb)**：電腦處於重飛狀態，強行將水平安定面向上配平抬高機首。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🚨 事故背景與致命後果
+- **事件背景**：1994 年華航 CI140 班機在名古屋機場降落時墜毀，**264 人罹難**。
 - **致命後果**：
-  - 駕駛員未察覺電腦仍在執行重飛，人機相互抵消；最終水平安定面達到極限仰角，飛機在低空**氣動失速 (Aerodynamic Stall)** 墜毀。
-- **SQA 啟示**：人機互動（HMI/UX）狀態透明度、異常操作回饋與自動化控制權限仲裁設計。
+  - 駕駛員未察覺電腦仍在執行重飛，人機相互抵消。
+  - 最終水平安定面達到極限仰角，飛機在低空**氣動失速 (Aerodynamic Stall)** 墜毀。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🔬 人機介面衝突與 SQA 啟示
+- **人機介面衝突 (Mode Confusion)**：
+  - **機師手動操作 (Manual Push)**：副駕駛誤觸重飛後，正副駕駛試圖手動前推操縱桿強壓機首下降。
+  - **飛控電腦自動配平 (Autopilot Climb)**：電腦處於重飛狀態，強行將水平安定面向上配平抬高機首。
+- **SQA 核心啟示**：人機互動（HMI/UX）狀態透明度、異常操作回饋與自動化控制權限仲裁設計。
+
+</div>
+</div>
 
 ---
 
@@ -742,15 +796,25 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.1.4 Case 4：迪士尼《獅子王》遊戲 (1994)
 
-- **事件背景**：
-  - 1994 年聖誕節迪士尼推出《獅子王》PC 遊戲，數以萬計家庭滿心期待安裝同樂。
-- **致命缺陷：缺乏相容性測試**
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🚨 事故背景與災難後果
+- **事件背景**：1994 年聖誕節迪士尼推出《獅子王》PC 遊戲，數以萬計家庭滿心期待安裝同樂。
+- **災難後果**：大量家用電腦開機即藍屏當機，客服專線被憤怒家長打爆，嚴重重創迪士尼品牌聲譽。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🔬 致命缺陷與 SQA 啟示
+- **致命缺陷：缺乏相容性測試**：
   - 遊戲基於特定視訊驅動（WinG）開發，**未在市場主流多樣硬體環境上進行充分相容性測試**。
-- **災難後果**：
-  - 大量家用電腦開機即藍屏當機，客服專線被憤怒家長打爆，嚴重重創品牌聲譽。
-- **SQA 啟示**：
-  - 環境多樣性驗證與**相容性測試（Compatibility Testing）**的重要性。
-  - 該事件促使微軟後來開發標準化 DirectX 遊戲架構。
+- **SQA 核心啟示**：
+  - 環境多樣性驗證與**相容性測試 (Compatibility Testing)** 的關鍵價值。
+  - 該事件促使微軟後來加速研發並確立標準化 DirectX 遊戲架構。
+
+</div>
+</div>
 
 ---
 
@@ -834,15 +898,25 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.2 AI 輔助開發的實證研究數據
 
-- **1. 程式碼維護性惡化 (GitClear 1.5 億行研究, 2020-2026)**：
-  - **程式碼重複率 (Code Duplication)** 呈指數級上升。
-  - 重構指標 **「移動行數 (Moved Lines)」大幅下降**，工程師更少主動重構。
-  - **程式碼流失率 (Code Churn)** 顯著增高，帶來沈重的**長期維護性債務**。
-- **2. 52% 高錯誤率與「虛假安全感」 (Purdue University)**：
-  - ChatGPT 解答 Stack Overflow 問題時，**52% 包含錯誤程式碼或資訊**。
-  - 因 AI 語氣自信且條理分明，**39.3% 的使用者依然採信了 AI 的錯誤回答**。
-- **3. 40% 安全弱點隱患 (NYU 等學術研究)**：
-  - 在無安全提示引導下，AI 生成程式碼中有 **約 40% 包含 CWE 安全漏洞**（如緩衝區溢位、SQL 注入）。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📉 維護性劣化 (GitClear 1.5 億行研究)
+- **程式碼重複率 (Code Duplication)** 呈指數級上升。
+- 重構指標 **「移動行數 (Moved Lines)」大幅下降**，工程師更少主動重構。
+- **程式碼流失率 (Code Churn)** 顯著增高，帶來沈重的**長期維護性技術債務**。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### ⚠️ 高錯誤率與資安弱點 (Purdue & NYU)
+- **52% 高錯誤率與虛假安全感 (Purdue)**：
+  - ChatGPT 解答問題時 **52% 包含錯誤程式碼**；因語氣自信條理分明，**39.3% 的使用者依然盲目採信**。
+- **40% 安全弱點隱患 (NYU 等學術研究)**：
+  - 無安全提示引導下，生成程式碼中 **約 40% 包含 CWE 安全漏洞**（如緩衝區溢位、SQL 注入）。
+
+</div>
+</div>
 
 ---
 
@@ -963,24 +1037,49 @@ footer: 'Ch01 軟體品質導論'
 
 ## 軟體四大核心要素深度剖析 (1/2)
 
-- **1. Programs (程式 / 原始程式碼) ——「引擎動力與神經網路」**：
-  - **內涵**：原始碼 (Source Code)、編譯 Bytecode/二進位檔、演算法函式庫與微服務 API，負責承載核心業務邏輯。
-  - **實例**：外送平台中計算「外送員最佳派單路徑」與「尖峰動態加價」的核心演算法。
-  - **SQA 啟示**：光有程式碼就像只有引擎卻無軌道與汽油的幽靈車，無法安全交付。
-- **2. Procedures (作業程序與維運規程) ——「標準作業流程 SOP 與軌道」**：
-  - **內涵**：CI/CD 流水線、灰度/金絲雀發布規程、災難復原演練 (DR)、備份排程與 Runbooks。
-  - **實例**：2024 年 **CrowdStrike 全球大當機**導致 850 萬台電腦藍屏癱瘓。事故根本原因正是發布程序漏洞——更新檔未經分階段逐步驗證，一次性推送全球。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### ⚙️ 1. Programs (程式與原始碼)
+> **譬喻：高鐵的「引擎動力與神經網路」**
+- **內涵**：原始碼、編譯二進位檔、演算法函式庫與微服務 API，負責承載核心業務邏輯。
+- **實例**：外送平台中計算「外送員最佳派單路徑」與「動態加價」核心演算法。
+- **SQA 啟示**：光有程式碼就像只有引擎卻無軌道與汽油的幽靈車，無法安全交付。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🚦 2. Procedures (作業程序與規程)
+> **譬喻：高鐵的「標準作業 SOP 與軌道」**
+- **內涵**：CI/CD 流水線、灰度/金絲雀發布規程、災難復原演練 (DR) 與 Runbooks。
+- **實例**：2024 年 **CrowdStrike 全球大當機**導致 850 萬台電腦藍屏癱瘓。事故根因正是發布程序漏洞——未經分階段逐步驗證一次推送全球。
+
+</div>
+</div>
 
 ---
 
 ## 軟體四大核心要素深度剖析 (2/2)
 
-- **3. Documentation (文件、規格與契約) ——「設計藍圖與通訊法典」**：
-  - **內涵**：需求規格書 (SRS)、OpenAPI 介面契約、架構設計圖、驗收準則與使用者手冊；現代工程中更是自動化測試基石（規格即活文件）。
-  - **實例**：**NASA 火星探測器**因地面端「英制」與導航端「公制」契約斷裂，直接燒掉兩億美元！
-- **4. Data (資料、設定檔與測試基準) ——「血液、燃料與環境配置」**：
-  - **內涵**：資料庫遷移腳本 (Migration)、設定檔 (`application.yml`)、環境變數與測試測資集 (Test Fixtures)。
-  - **實例**：程式碼完全沒變，但部署時將連線逾時誤設為 `30ms`（原 30s），整座系統上線瞬間雪崩。「組態即程式碼 (Config as Code)」的驗證同樣是測試核心。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📐 3. Documentation (文件與契約)
+> **譬喻：高鐵的「設計藍圖與通訊法典」**
+- **內涵**：需求規格書 (SRS)、OpenAPI 介面契約、架構設計圖與驗收準則；現代工程中更是自動化測試基石（規格即活文件）。
+- **實例**：**NASA 火星探測器**因地面端「英制」與導航端「公制」契約斷裂，直接燒掉兩億美元！
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🩸 4. Data (資料與環境配置)
+> **譬喻：高鐵的「血液、燃料與環境配置」**
+- **內涵**：資料庫遷移腳本 (Migration)、設定檔 (`application.yml`)、環境變數與測試測資集。
+- **實例**：程式碼完全沒變，但部署時將連線逾時誤設為 `30ms`（原 30s），整座系統上線瞬間雪崩。
+- **SQA 啟示**：「組態即程式碼」的驗證同樣是測試核心。
+
+</div>
+</div>
 
 ---
 
@@ -1013,38 +1112,75 @@ footer: 'Ch01 軟體品質導論'
 
 ## Garvin 五大品質觀點深度實例 (1/2)
 
-- **1. 超自然觀點 (Transcendental View)**：
-  - 例如：**Apple iOS** 手勢滑動物理慣性阻尼、**Notion** 極簡斜線指令 (`/`)，絲滑精緻的微互動讓人發自內心讚嘆。
-  - 反之：早期報稅系統，功能齊全但介面如同 90 年代老舊表格，按鍵延遲排版擁擠，令人挫折。
-- **2. 使用者觀點 (User View)**：
-  - 例如：**Zoom** 在疫情期間擊敗視訊巨頭，因「點連結 3 秒開會」，連長輩學童都能無障礙上手。
-  - 反之：耗時研發支援 50 種冷門格式的播放器，但使用者只想一鍵播 MP4，淪為陳列品 (Shelfware)。
-- **3. 製造觀點 (Manufacturing View)**：
-  - 例如：**航太飛控**或**銀行核心帳務**，規格書定義精確至小數後 4 位，實作 100% 符合規格零偏差。
-  - 盲點：若需求規格本身就有盲點，製造觀點拿下 100 分，也只是「分毫不差造出一套合規廢品」。
+<div class="three-columns">
+<div class="card" data-marpit-fragment>
+
+### ✨ 1. 超自然觀點
+> **Transcendental View**
+- **正面實例**：
+  - **Apple iOS** 手勢滑動物理慣性阻尼、**Notion** 極簡斜線指令 (`/`)，絲滑精緻讓人讚嘆。
+- **反面實例**：
+  - 介面如同 90 年代老舊表格，按鍵延遲排版擁擠，令人挫折。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 👤 2. 使用者觀點
+> **User View**
+- **正面實例**：
+  - **Zoom** 擊敗視訊巨頭，因「點連結 3 秒開會」，長輩學童都能無障礙上手。
+- **反面實例**：
+  - 支援 50 種冷門格式，但使用者只想一鍵播 MP4，淪為陳列品 (Shelfware)。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🏭 3. 製造觀點
+> **Manufacturing View**
+- **正面實例**：
+  - **航太飛控**或**銀行核心帳務**，規格定義至小數後 4 位，實作 100% 符合規格零偏差。
+- **潛在盲點**：
+  - 若需求本身有盲點，只是精準製造出「合規廢品」。
+
+</div>
+</div>
 
 ---
 
 ## Garvin 五大品質觀點深度實例 (2/2)
 
-- **4. 產品觀點 (Product View)**：
-  - 例如：**Linux 核心**或 **Spring Framework** 架構設計，模組高內聚低耦合，圈複雜度低，具備 90% 以上自動化測試保護，歷經十餘年依然穩健重構擴展。
-  - 反之：**義大利麵程式碼 (Spaghetti Code)**，外表堪用但原始碼無分層且複製貼上，改動一個按鈕竟引發會員登入全面崩潰。
-- **5. 價值觀點 (Value-based View)**：
-  - 例如：新創以 Serverless 與開源元件在兩週內打造出 **MVP（最小可行產品）** 搶佔市場，以最低成本取得最大商業回饋。
-  - 反之：在商業模式未驗證前，執意耗資數百萬引進複雜分散式架構與自建機房，產品上線前資金耗盡宣告破產。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📦 4. 產品觀點 (Product View)
+- **正面實例**：
+  - **Linux 核心**或 **Spring Framework** 架構設計，模組高內聚低耦合，圈複雜度低，具備 90% 以上測試保護，十餘年依然穩健擴展。
+- **反面實例**：
+  - **義大利麵程式碼 (Spaghetti Code)**，外表堪用但無分層且複製貼上，改動一個按鈕引發會員登入崩潰。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 💰 5. 價值觀點 (Value-based View)
+- **正面實例**：
+  - 新創以 Serverless 與開源元件在兩週內打造出 **MVP（最小可行產品）** 搶佔市場，以最低成本取得最大回饋。
+- **反面實例**：
+  - 商業模式未驗證前，執意耗資數百萬引進複雜分散式架構與自建機房，產品上線前資金耗盡宣告破產。
+
+</div>
+</div>
 
 ---
 
 ## Garvin 五大品質觀點對照表
 
-| 品質觀點 | 核心定義 | 軟體工程實例 | 忽略該觀點的後果 |
-| :--- | :--- | :--- | :--- |
-| **超自然觀點** | 無法精確量化，體驗感受極致美感 | 流暢 UI/UX、細膩微互動 (iOS) | 軟體感覺粗製濫造、冰冷卡頓 |
-| **使用者觀點** | 符合真實需求 (Fitness for Use) | 解決痛點、操作直覺 (Zoom) | 功能很強但無人想用 (Shelfware) |
-| **製造觀點** | 符合規格流程 (Conformance) | 遵循 Clean Code、通過 Gate | 規格有漏洞時做出一套合規廢品 |
-| **產品觀點** | 產品內在技術特性與架構 | 高內聚低耦合、強固型態 (Spring) | 架構腐化，改動引發全面崩潰 |
-| **價值觀點** | 商業價值與性價比 (ROI) | 商業產出 > 開發維運成本 (MVP) | 開發成本失控超支，商業不可行 |
+| 品質觀點　　　 | 核心定義　　　　　　　　　　　 | 軟體工程實例　　　　　　　　　　| 忽略該觀點的後果　　　　　　　 |
+| :---------------| :-------------------------------| :--------------------------------| :-------------------------------|
+| **超自然觀點** | 無法精確量化，體驗感受極致美感 | 流暢 UI/UX、細膩微互動 (iOS)　　| 軟體感覺粗製濫造、冰冷卡頓　　 |
+| **使用者觀點** | 符合真實需求 (Fitness for Use) | 解決痛點、操作直覺 (Zoom)　　　 | 功能很強但無人想用 (Shelfware) |
+| **製造觀點**　 | 符合規格流程 (Conformance)　　 | 遵循 Clean Code、通過 Gate　　　| 規格有漏洞時做出一套合規廢品　 |
+| **產品觀點**　 | 產品內在技術特性與架構　　　　 | 高內聚低耦合、強固型態 (Spring) | 架構腐化，改動引發全面崩潰　　 |
+| **價值觀點**　 | 商業價值與性價比 (ROI)　　　　 | 商業產出 > 開發維運成本 (MVP)　 | 開發成本失控超支，商業不可行　 |
 
 ---
 
@@ -1159,14 +1295,30 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.4.2 軟體品質成本 (Cost of Quality, CoQ)
 
-- **一致性成本 (Conformance Costs - 主動投資品質)**：
-  - **預防成本 (Prevention)**：架構審查、契約設計 (DbC)、工程培訓與靜態規範。
-  - **評估成本 (Appraisal)**：單元測試、靜態程式碼分析 (SonarQube) 與 Code Review。
-- **非一致性成本 (Non-Conformance Costs - 忽視品質的代價)**：
-  - **內部失敗成本 (Internal Failure)**：上線前發現 Bug 的除錯 (Debugging)、重構與重測返工。
-  - **外部失敗成本 (External Failure)**：生產環境崩潰、客戶求償、緊急 Hotfix 與商譽損失。
-- **1:10:100 定律 (The Rule of Tens)**：
-  - 需求階段修復缺陷代價 **$1** ➔ 開發測試階段暴增至 **$10** ➔ 上線後災難損失高達 **$100 ～ $1000+**！
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🛡️ 一致性成本 (Conformance)
+> **主動投資品質 —— 防患於未然**
+- **預防成本 (Prevention)**：架構審查、契約設計 (DbC)、工程培訓與靜態規範。
+- **評估成本 (Appraisal)**：單元測試、靜態程式碼分析 (SonarQube) 與 Code Review。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 💥 非一致性成本 (Non-Conformance)
+> **忽視品質的代價 —— 慘痛被動返工**
+- **內部失敗成本 (Internal Failure)**：上線前發現 Bug 的除錯 (Debugging)、重構與重測。
+- **外部失敗成本 (External Failure)**：生產環境崩潰、客戶求償、緊急 Hotfix 與商譽損失。
+
+</div>
+</div>
+
+<div class="card" data-marpit-fragment style="margin-top: 14px; padding: 12px 20px;">
+
+💡 **1:10:100 定律 (The Rule of Tens)**：需求階段修復缺陷代價 **$1** ➔ 開發測試階段暴增至 **$10** ➔ 上線後災難損失高達 **$100 ～ $1000+**！
+
+</div>
 
 ---
 
@@ -1191,14 +1343,26 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.5.1 傳統模型與 V 模型：對稱性與早期規劃
 
-- **V 模型 (V-Model)** 建立了開發階段與測試層級的嚴密對稱與平行規劃：
-  - **需求分析 (Requirements)** ➔ 平行規劃 **驗收測試 (Acceptance Testing)**
-  - **系統架構 (System Architecture)** ➔ 平行規劃 **系統測試 (System Testing)**
-  - **元件設計 (Component Design)** ➔ 平行規劃 **整合測試 (Integration Testing)**
-  - **編寫程式碼 (Coding)** ➔ 實作並執行 **單元測試 (Unit Testing)**
-- **核心價值**：
-  - 「品質是建構出來的，不是測出來的 (Quality is built-in, not tested-in)」。
-  - 在寫下第一行業務程式碼前，各層級測試規格就已隨同架構確立完成。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📐 開發階段與測試層級之對稱性
+- **需求分析 (Requirements)** ➔ 平行規劃 **驗收測試 (Acceptance Testing)**
+- **系統架構 (Architecture)** ➔ 平行規劃 **系統測試 (System Testing)**
+- **元件設計 (Component Design)** ➔ 平行規劃 **整合測試 (Integration Testing)**
+- **編寫程式碼 (Coding)** ➔ 實作並執行 **單元測試 (Unit Testing)**
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 💡 V 模型的核心工程價值
+- **品質是建構出來的，不是測出來的**：
+  - *Quality is built-in, not tested-in.*
+- **測試左移 (Shift-Left Testing)**：
+  - 在寫下第一行業務程式碼前，各層級測試規格就已隨同需求架構確立完成，杜絕後期大型返工。
+
+</div>
+</div>
 
 ---
 
@@ -1214,12 +1378,24 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.5.2 DevOps CI/CD 連續品質門檻 (Quality Gates)
 
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🔨 開發與建構階段門檻 (Gates 1~3)
 - **1. Commit 門檻**：本地 Git Pre-commit Hook 格式化與快速靜態語法檢查。
-- **2. SAST 靜態程式碼品質門檻**：SonarQube / SpotBugs 掃描程式碼異味與安全弱點。
-- **3. Unit Tests & 覆蓋率門檻**：JUnit 5 單元測試，JaCoCo 驗證覆蓋率 (> 80%)。
-- **4. Integration Tests 容器整合門檻**：Testcontainers 拉起真實 Docker 驗證 DB 與 API。
-- **5. E2E & Security 驗收門檻**：Playwright 自動化使用者流程 + OWASP ZAP 動態掃描。
-- **6. Production & Observability 門檻**：金絲雀部署 + 可觀測性監控 P99 延遲告警。
+- **2. SAST 門檻**：SonarQube / SpotBugs 掃描程式碼異味與安全弱點。
+- **3. Unit Tests 門檻**：JUnit 5 單元測試，JaCoCo 驗證程式碼涵蓋率 (> 80%)。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🚀 部署與上線階段門檻 (Gates 4~6)
+- **4. Integration Tests 門檻**：Testcontainers 拉起真實 Docker 驗證 DB 與 API。
+- **5. E2E & Security 門檻**：Playwright 自動化流程 + OWASP ZAP 動態掃描。
+- **6. Production 門檻**：金絲雀部署 + 可觀測性監控 P99 延遲告警。
+
+</div>
+</div>
 
 ---
 
@@ -1290,27 +1466,60 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.6.1 ISO 25010 八大特性解析 (1/2)
 
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### ⚙️ 內部與外部功能表現
 - **1. 功能適合性 (Functional Suitability)**：
-  - **完備性 (Completeness)**、**正確性 (Correctness)**、**適切性 (Appropriateness)**。
+  - **完備性 (Completeness)**：功能涵蓋所有特定任務。
+  - **正確性 (Correctness)**：提供正確精準的結果。
+  - **適切性 (Appropriateness)**：促進特定任務的達成。
 - **2. 可靠性 (Reliability)**：
-  - **成熟度 (Maturity)**、**容錯度 (Fault Tolerance)**、**可回復性 (Recoverability)**。
+  - **成熟度**、**容錯度 (Fault Tolerance)**、**可回復性**。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### ⚡ 運行體驗與效能
 - **3. 效能效率 (Performance Efficiency)**：
-  - **時間行為 (Time Behavior, P99 延遲)**、**資源利用率**、**容量 (Capacity)**。
+  - **時間行為 (Time Behavior)**：P99 響應時間與吞吐量。
+  - **資源利用率**：CPU/記憶體/網路頻寬佔用。
+  - **容量 (Capacity)**：最大並發使用者承載量。
 - **4. 易用性 (Usability)**：
-  - **易識別性**、**易學習性**、**易操作性**、**使用者錯誤防護 (Error Protection)**。
+  - 易識別性、易學習性、易操作性、**錯誤防護**。
+
+</div>
+</div>
 
 ---
 
 ## 1.6.1 ISO 25010 八大特性解析 (2/2)
 
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🛡️ 安全防禦與架構維護
 - **5. 安全性 (Security)**：
-  - **機密性 (Confidentiality)**、**完整性 (Integrity)**、**抗抵賴性 (Non-repudiation)**、真實性與授權。
+  - **機密性 (Confidentiality)**：未授權者無法窺探。
+  - **完整性 (Integrity)**：防止未授權竄改。
+  - **抗抵賴性 (Non-repudiation)**：行為具備稽核日誌。
 - **6. 可維護性 (Maintainability)**：
   - **模組化 (Modularity)**、**可分析性**、**可修改性**、**可測試性 (Testability)**。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🌐 環境適應與外部整合
 - **7. 可移植性 (Portability)**：
-  - **適應性 (Adaptability)**、**易安裝性**、**易置換性 (Docker 容器一致性)**。
+  - **適應性 (Adaptability)**：跨環境能力。
+  - **易安裝性**：部署自動化程度。
+  - **易置換性**：Docker 容器環境一致性。
 - **8. 相容性 (Compatibility)**：
-  - **共存性 (Co-existence)**、**互通性 (Interoperability, API 協定契約)**。
+  - **共存性**：多套軟體共用資源不衝突。
+  - **互通性 (Interoperability)**：API 協定契約。
+
+</div>
+</div>
 
 ---
 
@@ -1318,49 +1527,112 @@ footer: 'Ch01 軟體品質導論'
 
 > 「如果無法度量它，就無法改善它。」—— Tom DeMarco
 
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### ⚙️ 功能與可靠性度量
 - **1. 功能適合性 (Functional Suitability)**：
-  - **需求覆蓋率** ($= 100\%$)、**驗收測試通過率** ($\ge 99.5\%$)、Critical Bug 數 ($= 0$)。
+  - **需求覆蓋率** ($= 100\%$)
+  - **驗收測試通過率** ($\ge 99.5\%$)
+  - **重大缺陷數 (Critical Bugs)** ($= 0$)
 - **2. 可靠性 (Reliability)**：
-  - **可用度 SLA** (如 99.99% 四個九)、**MTTR** (平均修復時間 $< 15$ 分鐘)、**MTBF**。
+  - **可用度 SLA** (如 99.99% 四個九)
+  - **MTTR (平均修復時間)** ($< 15$ 分鐘)
+  - **MTBF (平均故障間隔)**
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### ⚡ 效能與易用性度量
 - **3. 效能效率 (Performance Efficiency)**：
-  - **時間延遲** (API P99 $< 200\text{ms}$)、**吞吐量** (TPS/QPS)、**尖峰 CPU** ($< 70\%$)。
+  - **時間延遲** (API P99 $< 200\text{ms}$)
+  - **吞吐量** (TPS / QPS)
+  - **尖峰 CPU 使用率** ($< 70\%$)
 - **4. 易用性 (Usability)**：
-  - **任務完成率** ($\ge 90\%$)、**SUS 評分** ($\ge 68$ 分)、**無障礙 WCAG 2.1 AA**。
+  - **任務完成率** ($\ge 90\%$)
+  - **SUS 易用性評分** ($\ge 68$ 分良好標準)
+  - **無障礙規範** (WCAG 2.1 AA 遵循率)
+
+</div>
+</div>
 
 ---
 
 ## 1.6.2 ISO 25023 品質特性量化指標 (2/2)
 
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🛡️ 安全性與可維護性度量
 - **5. 安全性 (Security)**：
-  - **CVE 重大漏洞數** ($= 0$)、**傳輸靜態加密率** ($100\%$ TLS 1.3/AES)、**修補天數**。
+  - **CVE 重大漏洞數** ($= 0$)
+  - **靜態傳輸加密率** ($100\%$ TLS 1.3 / AES-256)
+  - **安全弱點修補天數 (MTTP)**
 - **6. 可維護性 (Maintainability)**：
-  - **圈複雜度 (CC)** ($\le 10$)、**程式碼涵蓋率** ($\ge 80\%$)、**重複程式碼率** ($< 3\%$)。
+  - **圈複雜度 (Cyclomatic Complexity)** ($\le 10$)
+  - **程式碼涵蓋率** ($\ge 80\%$)
+  - **重複程式碼比率** ($< 3\%$)
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🌐 可移植性與相容性度量
 - **7. 可移植性 (Portability)**：
-  - **自動化部署成功率** ($\ge 99\%$)、**容器冷啟動時間** ($< 5\text{s}$)、**移植工時比**。
+  - **自動化部署成功率** ($\ge 99\%$)
+  - **容器冷啟動時間** ($< 5\text{s}$)
+  - **環境遷移工時比**
 - **8. 相容性 (Compatibility)**：
-  - **跨瀏覽器相容率** ($100\%$)、**API 契約測試通過率** ($100\%$)、**資源衝突次數** ($= 0$)。
+  - **主流瀏覽器相容率** ($100\%$)
+  - **API 契約測試通過率** ($100\%$)
+  - **資源衝突發生次數** ($= 0$)
+
+</div>
+</div>
 
 ---
 
 ## 1.6.2 現代 SQA 量化落地的「三大工程支柱」
 
-<div class="split55">
-<div class="left">
+<div class="three-columns">
+<div class="card" data-marpit-fragment>
 
-1. **靜態程式碼門檻 (Static Quality Gate)**：
-   - **SonarQube / PMD**：阻擋高圈複雜度、重複程式碼與安全漏洞。
-2. **動態效能門檻 (Performance Gate)**：
-   - **JMeter / k6**：驗證 P99 延遲與並發負載容量，防止效能退化。
-
-</div>
-<div class="right">
-
-3. **運行時可觀測性 (Runtime Observability)**：
-   - **Prometheus / Grafana / Datadog**：即時監控可用度 (99.99%)、錯誤率與 MTTR。
-- 💡 **核心心法**：
-  - 抽象的 ISO 特性 ➔ 具體的數值指標 (SLI/SLA) ➔ 工具自動把關。
+### 1. 靜態程式碼門檻
+> **Static Quality Gate**
+- **工具實踐**：SonarQube / PMD
+- **把關重點**：
+  - 阻擋高圈複雜度
+  - 阻擋重複程式碼
+  - 防堵 OWASP 安全漏洞
 
 </div>
+<div class="card" data-marpit-fragment>
+
+### 2. 動態效能門檻
+> **Performance Gate**
+- **工具實踐**：JMeter / k6
+- **把關重點**：
+  - 驗證 API P99 延遲
+  - 驗證高並發負載容量
+  - 防止效能衰退
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 3. 運行時可觀測性
+> **Observability**
+- **工具實踐**：Prometheus / Grafana
+- **把關重點**：
+  - 即時可用度 (99.99%)
+  - 實時錯誤率與飽和度
+  - 縮短故障平均修復 (MTTR)
+
+</div>
+</div>
+
+<div class="card" data-marpit-fragment style="margin-top: 14px; padding: 12px 20px; text-align: center;">
+
+💡 **量化核心心法**：抽象的 ISO 特性 ➔ 具體的數值指標 (SLI/SLA) ➔ CI/CD 工具鏈自動強制把關。
+
 </div>
 
 ---
@@ -1426,14 +1698,24 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.7 課堂思維激盪與問題討論
 
-- **1. AI 時代的品質反思**：
-  - 當生成式 AI 可在幾秒內產生程式碼時，為什麼軟體測試工程師的價值反而大幅提升？
-  - 請從「**Test Oracle 問題**」與「**自我印證偏誤**」兩方面進行思考。
-- **2. ISO 25010 維度分析**：
-  - 「微服務系統在資料庫當機重啟後，能在 5 秒內自動重連並重試訊息，完全不丟失交易。」
-  - 這體現了 ISO 25010 中的哪些品質特性？（提示：容錯度、可回復性、資料完整性）。
-- **3. 數值精度與累計誤差實證**：
-  - 試寫一段 Java 程式碼，連續將 `0.1` 累加 1,000,000 次，比較其結果與 `100000.0` 的差異。觀察浮點數在長時間累計下的偏差現象。
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🤖 1. AI 時代的品質反思
+- 當生成式 AI 可在幾秒內產生程式碼時，為什麼軟體測試工程師的價值反而大幅提升？
+- 請從「**Test Oracle 問題**」與「**自我印證偏誤**」兩方面進行深入思考與分組探討。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🎯 2. ISO 特性分析 & 3. 精度實證
+- **ISO 25010 維度分析**：
+  - 「微服務在 DB 當機重啟後，5 秒內自動重連重試，零遺失交易。」這體現了哪些品質特性？（容錯度、可回復性、完整性）。
+- **數值精度實證**：
+  - 連續將 `0.1` 累加 1,000,000 次，比較其結果與 `100000.0` 的差異，觀察浮點數偏差。
+
+</div>
+</div>
 
 ---
 
