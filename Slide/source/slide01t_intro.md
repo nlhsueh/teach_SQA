@@ -61,7 +61,7 @@ style: |
     justify-content: center;
   }
 
-  /* 標題保持頂部錨定不跳動，卡片自然向下舒展填滿版面 */
+  /* 標題保持頂部錨定不跳動，內容群組整體在標題與底部之間垂直置中 */
   .two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -69,7 +69,8 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 18px !important;
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
   }
   .two-columns-64 {
     display: grid;
@@ -78,7 +79,8 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 18px !important;
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
   }
   .two-columns-73 {
     display: grid;
@@ -87,7 +89,8 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 18px !important;
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
   }
   .three-columns {
     display: grid;
@@ -96,15 +99,38 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 18px !important;
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
   }
-  .two-columns .card,
-  .two-columns-64 .card,
-  .two-columns-73 .card {
-    min-height: 420px;
+
+  /* 內容頂部元素（引言或雙欄容器）向上平分留白 */
+  section:has(.two-columns) > blockquote:first-of-type,
+  section:has(.two-columns-64) > blockquote:first-of-type,
+  section:has(.two-columns-73) > blockquote:first-of-type,
+  section:has(.three-columns) > blockquote:first-of-type {
+    margin-top: auto !important;
+    margin-bottom: 14px !important;
   }
-  .three-columns .card {
-    min-height: 400px;
+  section:has(.two-columns):not(:has(> blockquote)) > .two-columns,
+  section:has(.two-columns-64):not(:has(> blockquote)) > .two-columns-64,
+  section:has(.two-columns-73):not(:has(> blockquote)) > .two-columns-73,
+  section:has(.three-columns):not(:has(> blockquote)) > .three-columns {
+    margin-top: auto !important;
+  }
+
+  /* 內容底部元素（底部橫幅卡片或雙欄容器）向下平分留白 */
+  section:has(.two-columns):not(:has(> .card)) > .two-columns,
+  section:has(.two-columns-64):not(:has(> .card)) > .two-columns-64,
+  section:has(.two-columns-73):not(:has(> .card)) > .two-columns-73,
+  section:has(.three-columns):not(:has(> .card)) > .three-columns {
+    margin-bottom: auto !important;
+  }
+  section:has(.two-columns) > .card,
+  section:has(.two-columns-64) > .card,
+  section:has(.two-columns-73) > .card,
+  section:has(.three-columns) > .card {
+    margin-top: 0 !important;
+    margin-bottom: auto !important;
   }
 
 
@@ -342,79 +368,7 @@ style: |
     .nav-dropdown, .nav-caret {
       display: none !important;
     }
-    .two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 8px;
-  }
-  .two-columns-64 {
-    display: grid;
-    grid-template-columns: 6fr 4fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 8px;
-  }
-  .two-columns-73 {
-    display: grid;
-    grid-template-columns: 7fr 3fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 8px;
-  }
-  .card {
-    background: white;
-    padding: 22px 26px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
-    border: 1px solid #cbd5e1;
-    font-size: 18.5px;
-    line-height: 1.5;
-    text-align: left !important;
-    box-sizing: border-box;
-  }
-  .card h3 {
-    font-size: 22px;
-    margin-top: 0;
-    margin-bottom: 12px;
-    color: #0b3c5d;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 8px;
-    text-align: left !important;
-  }
-  .card h4 {
-    font-size: 19px;
-    margin-top: 0;
-    margin-bottom: 6px;
-    color: #328cc1;
-    text-align: left !important;
-  }
-  .card ul, .card ol {
-    margin-top: 6px !important;
-    margin-bottom: 6px !important;
-    padding-left: 20px !important;
-    text-align: left !important;
-    list-style-position: outside !important;
-  }
-  .card li {
-    margin-bottom: 11px !important;
-    line-height: 1.55 !important;
-    text-align: left !important;
-    font-size: 18px !important;
-  }
-  .card p {
-    margin-top: 0;
-    margin-bottom: 8px;
-    text-align: left !important;
-  }
-  header {
+    header {
       z-index: auto !important;
     }
   }
