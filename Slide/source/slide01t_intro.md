@@ -61,12 +61,30 @@ style: |
     justify-content: center;
   }
 
-  /* 卡片頁面垂直置中 (Vertical Center) */
+  /* 卡片頁面整體垂直置中 (True Vertical Center) */
   section:has(div.two-columns),
   section:has(div.two-columns-64),
   section:has(div.two-columns-73),
   section:has(div.three-columns) {
-    justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  /* 移除 auto-margin，維持緊湊自然的組件間距 */
+  section:has(div.two-columns) .two-columns,
+  section:has(div.two-columns-64) .two-columns-64,
+  section:has(div.two-columns-73) .two-columns-73,
+  section:has(div.three-columns) .three-columns {
+    margin-top: 14px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 標題與導言維持緊湊間距 */
+  section:has(div.two-columns) h2,
+  section:has(div.three-columns) h2 {
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
   }
 
   .two-columns {
