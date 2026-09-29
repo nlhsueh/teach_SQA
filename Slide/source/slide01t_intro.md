@@ -56,12 +56,34 @@ style: |
     text-align: left;
   }
 
-  /* Subsection (###) pages: vertically centered layout */
-  section:has(> h3):not(:has(> h2)) {
+  /* Subsection (###) pages: vertically centered layout (過渡頁面) */
+  section:has(> h3):not(:has(> h2)):not(:has(div.card-deck)):not(:has(div.ccq-columns)):not(:has(div.discussion-columns)) {
     justify-content: center;
   }
 
-  /* 標題保持頂部錨定不跳動，內容群組整體在標題與底部之間垂直置中 */
+  /* 卡片群組整體垂直置中 (參考 CCQ 的 div.ccq-columns 容器架構) */
+  div.card-deck {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    gap: 14px;
+    box-sizing: border-box;
+  }
+  div.card-deck > blockquote {
+    margin: 0 !important;
+  }
+  div.card-deck > .two-columns,
+  div.card-deck > .two-columns-64,
+  div.card-deck > .two-columns-73,
+  div.card-deck > .three-columns {
+    margin: 0 !important;
+  }
+  div.card-deck > .card {
+    margin: 0 !important;
+  }
+
   .two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -69,8 +91,6 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 0 !important;
-    margin-bottom: 14px !important;
   }
   .two-columns-64 {
     display: grid;
@@ -79,8 +99,6 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 0 !important;
-    margin-bottom: 14px !important;
   }
   .two-columns-73 {
     display: grid;
@@ -89,8 +107,6 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 0 !important;
-    margin-bottom: 14px !important;
   }
   .three-columns {
     display: grid;
@@ -99,38 +115,6 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 0 !important;
-    margin-bottom: 14px !important;
-  }
-
-  /* 內容頂部元素（引言或雙欄容器）向上平分留白 */
-  section:has(.two-columns) > blockquote:first-of-type,
-  section:has(.two-columns-64) > blockquote:first-of-type,
-  section:has(.two-columns-73) > blockquote:first-of-type,
-  section:has(.three-columns) > blockquote:first-of-type {
-    margin-top: auto !important;
-    margin-bottom: 14px !important;
-  }
-  section:has(.two-columns):not(:has(> blockquote)) > .two-columns,
-  section:has(.two-columns-64):not(:has(> blockquote)) > .two-columns-64,
-  section:has(.two-columns-73):not(:has(> blockquote)) > .two-columns-73,
-  section:has(.three-columns):not(:has(> blockquote)) > .three-columns {
-    margin-top: auto !important;
-  }
-
-  /* 內容底部元素（底部橫幅卡片或雙欄容器）向下平分留白 */
-  section:has(.two-columns):not(:has(> .card)) > .two-columns,
-  section:has(.two-columns-64):not(:has(> .card)) > .two-columns-64,
-  section:has(.two-columns-73):not(:has(> .card)) > .two-columns-73,
-  section:has(.three-columns):not(:has(> .card)) > .three-columns {
-    margin-bottom: auto !important;
-  }
-  section:has(.two-columns) > .card,
-  section:has(.two-columns-64) > .card,
-  section:has(.two-columns-73) > .card,
-  section:has(.three-columns) > .card {
-    margin-top: 0 !important;
-    margin-bottom: auto !important;
   }
 
 
@@ -438,9 +422,11 @@ style: |
   }
   section:has(div.ccq-columns),
   section:has(div.discussion-columns),
-  section:has(div.fill-blank-columns) {
+  section:has(div.fill-blank-columns),
+  section:has(div.card-deck) {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
   }
   div.ccq-columns {
     display: flex;
@@ -643,6 +629,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 本章重點導讀 (Key Highlights)
 
+<div class="card-deck">
+
 > 🧭 從歷史軟體危機汲取教訓，建立現代品質模型防線；軟體品質保證是一門兼顧規格與實踐的系統工程。
 
 <div class="two-columns">
@@ -664,6 +652,7 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
@@ -677,6 +666,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.1.1 Case 1：愛國者反導彈事件 (1991)
+
+<div class="card-deck">
 
 > ⏱️ 微小的數值精度截斷，在長時間運行的累計下，終將演變為無法挽回的致命偏差。
 
@@ -698,10 +689,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## 1.1.2 Case 2：NASA 火星氣候軌道探測器 (1998)
+
+<div class="card-deck">
 
 > 🚀 跨團隊協同缺乏強制介面契約，讓造價近兩億美元的太空探測器在火星大氣中化為灰燼。
 
@@ -723,6 +717,7 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
@@ -737,6 +732,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.1.3 Case 3：華航名古屋空難 (1994)
+
+<div class="card-deck">
 
 > ✈️ 人機互動 (HMI) 的狀態不透明與控制權仲裁衝突，在系統最危急的時刻給予致命一擊。
 
@@ -760,6 +757,7 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
@@ -774,6 +772,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.1.4 Case 4：迪士尼《獅子王》遊戲 (1994)
+
+<div class="card-deck">
 
 > 🎮 在開發機上跑得順暢，不代表能在真實世界生存——硬體多樣性與相容性測試是第一道門檻。
 
@@ -796,10 +796,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ### 1.1.5 軟體危機的定義與成因
+
+<div class="card-deck">
 
 > ⚠️ 1968 年 NATO 會議首次提出「軟體危機」：硬體日新月異，軟體開發的複雜度與維護成本卻失控失衡。
 
@@ -817,6 +820,7 @@ footer: 'Ch01 軟體品質導論'
 - **錯誤率高且缺乏系統化驗證**：缺乏自動化測試與工程化品質把關手段。
 - **架構腐化引發維護惡夢**：缺乏文件與規範，維護成本吞噬所有研發預算。
 
+</div>
 </div>
 </div>
 
@@ -879,6 +883,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.2 AI 輔助開發的實證研究數據
 
+<div class="card-deck">
+
 > 📊 AI 大幅提升了撰寫程式碼的速度，卻也成倍放大了技術債務、高錯誤率與安全弱點的隱藏代價。
 
 <div class="two-columns">
@@ -900,10 +906,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ### 1.2.1 AI 寫程式引發的典型品質事件 (1/2)
+
+<div class="card-deck">
 
 > 🤖 盲目信任與複製貼上：當工程師放棄對程式碼的質疑，AI 的幻覺與技術債將直接流入生產環境。
 
@@ -927,10 +936,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ### 1.2.1 AI 寫程式引發的典型品質事件 (2/2)
+
+<div class="card-deck">
 
 > 🛡️ 軟體供應鏈污染與架構腐化：AI 時代的新型態品質危機，全面考驗著團隊的深度防禦防線。
 
@@ -952,6 +964,7 @@ footer: 'Ch01 軟體品質導論'
 - **災難後果**：
   推送到公開 GitHub，雲端帳號 1 小時內被爬蟲盜用並產生數萬美元帳單。
 
+</div>
 </div>
 </div>
 
@@ -1024,6 +1037,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 軟體四大核心要素深度剖析 (1/2)
 
+<div class="card-deck">
+
 > ⚙️ IEEE 610.12 定義：軟體絕非只是原始碼，而是由程式、程序、文件與資料構成的系統有機體。
 
 <div class="two-columns">
@@ -1045,10 +1060,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## 軟體四大核心要素深度剖析 (2/2)
+
+<div class="card-deck">
 
 > 📋 藍圖決定系統的壽命，組態決定系統的成敗——不可忽視文件契約與環境資料的關鍵力量。
 
@@ -1069,6 +1087,7 @@ footer: 'Ch01 軟體品質導論'
 - **實例**：程式碼完全沒變，但部署時將連線逾時誤設為 `30ms`（原 30s），整座系統上線瞬間雪崩。
 - **SQA 啟示**：「組態即程式碼」的驗證同樣是測試核心。
 
+</div>
 </div>
 </div>
 
@@ -1102,6 +1121,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## Garvin 五大品質觀點深度實例 (1/2)
+
+<div class="card-deck">
 
 > 👁️ 「橫看成嶺側成峰」：品質沒有單一視角，哈佛學者 David Garvin 帶我們看透不同角色的品質渴望。
 
@@ -1137,10 +1158,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## Garvin 五大品質觀點深度實例 (2/2)
+
+<div class="card-deck">
 
 > ⚖️ 內部架構的工程美學 vs. 外部商業的投資回報：平衡產品結構與商業價值的雙重藝術。
 
@@ -1162,6 +1186,7 @@ footer: 'Ch01 軟體品質導論'
 - **反面實例**：
   - 商業模式未驗證前，執意耗資數百萬引進複雜分散式架構與自建機房，產品上線前資金耗盡宣告破產。
 
+</div>
 </div>
 </div>
 
@@ -1237,6 +1262,8 @@ footer: 'Ch01 軟體品質導論'
 
 ### 1.4.1 驗證與確認 (Verification vs. Validation)
 
+<div class="card-deck">
+
 > 🔍 軟體品質工程的兩大靈魂叩問：我們是在「正確地打造產品」，還是「打造正確的產品」？
 
 <div class="two-columns">
@@ -1261,6 +1288,7 @@ footer: 'Ch01 軟體品質導論'
 - **把關手段**：使用者驗收測試 (UAT)、易用性測試、現場試用。
 - **目標**：解決真正痛點、符合真實臨床與業務情境。
 
+</div>
 </div>
 </div>
 
@@ -1290,6 +1318,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.4.2 軟體品質成本 (Cost of Quality, CoQ)
 
+<div class="card-deck">
+
 > 💰 「現在花 1 元預防，還是上線後花 1000 元救火？」——品質從來不是成本，欠缺品質才是最大代價。
 
 <div class="two-columns">
@@ -1316,6 +1346,7 @@ footer: 'Ch01 軟體品質導論'
 💡 **1:10:100 定律 (The Rule of Tens)**：需求階段修復缺陷代價 **$1** ➔ 開發測試階段暴增至 **$10** ➔ 上線後災難損失高達 **$100 ～ $1000+**！
 
 </div>
+</div>
 
 ---
 
@@ -1340,6 +1371,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.5.1 傳統模型與 V 模型：對稱性與早期規劃
 
+<div class="card-deck">
+
 > 📐 「品質是建構出來的，不是測出來的。」—— 開發與測試在需求萌芽的那一刻就該彼此嚴密對稱。
 
 <div class="two-columns">
@@ -1362,6 +1395,7 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
@@ -1376,6 +1410,8 @@ footer: 'Ch01 軟體品質導論'
 ---
 
 ## 1.5.2 DevOps CI/CD 連續品質門檻 (Quality Gates)
+
+<div class="card-deck">
 
 > 🚪 從每一次本地 Commit 到全球金絲雀發布：以自動化流水線建立步步為營的連續守護關卡。
 
@@ -1395,6 +1431,7 @@ footer: 'Ch01 軟體品質導論'
 - **5. E2E & Security 門檻**：Playwright 自動化流程 + OWASP ZAP 動態掃描。
 - **6. Production 門檻**：金絲雀部署 + 可觀測性監控 P99 延遲告警。
 
+</div>
 </div>
 </div>
 
@@ -1467,6 +1504,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.6.1 ISO 25010 八大特性解析 (1/2)
 
+<div class="card-deck">
+
 > 🏛️ 國際軟體工程品質標準 SQuaRE：系統化拆解現代軟體系統必備的八大關鍵品質基因。
 
 <div class="two-columns">
@@ -1493,10 +1532,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## 1.6.1 ISO 25010 八大特性解析 (2/2)
+
+<div class="card-deck">
 
 > 🌐 從機密防禦到跨平台容器化：軟體在動態複雜環境中長治久安與演進不可或缺的維度。
 
@@ -1525,10 +1567,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## 1.6.2 ISO 25023 品質特性量化指標 (1/2)
+
+<div class="card-deck">
 
 > 「如果無法度量它，就無法改善它。」—— Tom DeMarco
 
@@ -1560,10 +1605,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## 1.6.2 ISO 25023 品質特性量化指標 (2/2)
+
+<div class="card-deck">
 
 > 📏 告別抽象形容詞，以工程指標衡量系統體質：將安全、維護與相容性精確轉化為 SLI/SLA。
 
@@ -1595,10 +1643,13 @@ footer: 'Ch01 軟體品質導論'
 
 </div>
 </div>
+</div>
 
 ---
 
 ## 1.6.2 現代 SQA 量化落地的「三大工程支柱」
+
+<div class="card-deck">
 
 > 🏛️ 「靜態程式碼把關 ＋ 動態效能壓測 ＋ 運行時可觀測性」：三大工程支柱串聯起端到端的品質防護網。
 
@@ -1642,6 +1693,7 @@ footer: 'Ch01 軟體品質導論'
 
 💡 **量化核心心法**：抽象的 ISO 特性 ➔ 具體的數值指標 (SLI/SLA) ➔ CI/CD 工具鏈自動強制把關。
 
+</div>
 </div>
 
 ---
@@ -1707,6 +1759,8 @@ footer: 'Ch01 軟體品質導論'
 
 ## 1.7 課堂思維激盪與問題討論
 
+<div class="card-deck">
+
 > 🤔 學而不思則罔：跳出日常開發框架，以批判性思維深入剖析 AI 時代的軟體品質盲點。
 
 <div class="two-columns">
@@ -1725,6 +1779,7 @@ footer: 'Ch01 軟體品質導論'
 - **數值精度實證**：
   - 連續將 `0.1` 累加 1,000,000 次，比較其結果與 `100000.0` 的差異，觀察浮點數偏差。
 
+</div>
 </div>
 </div>
 
