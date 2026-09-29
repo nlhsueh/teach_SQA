@@ -61,32 +61,7 @@ style: |
     justify-content: center;
   }
 
-  /* 卡片頁面整體垂直置中 (True Vertical Center) */
-  section:has(div.two-columns),
-  section:has(div.two-columns-64),
-  section:has(div.two-columns-73),
-  section:has(div.three-columns) {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-
-  /* 移除 auto-margin，維持緊湊自然的組件間距 */
-  section:has(div.two-columns) .two-columns,
-  section:has(div.two-columns-64) .two-columns-64,
-  section:has(div.two-columns-73) .two-columns-73,
-  section:has(div.three-columns) .three-columns {
-    margin-top: 14px !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* 標題與導言維持緊湊間距 */
-  section:has(div.two-columns) h2,
-  section:has(div.three-columns) h2 {
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
-  }
-
+  /* 標題保持頂部錨定不跳動，卡片自然向下舒展填滿版面 */
   .two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -94,7 +69,7 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 14px !important;
+    margin-top: 18px !important;
   }
   .two-columns-64 {
     display: grid;
@@ -103,7 +78,7 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 14px !important;
+    margin-top: 18px !important;
   }
   .two-columns-73 {
     display: grid;
@@ -112,7 +87,7 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 14px !important;
+    margin-top: 18px !important;
   }
   .three-columns {
     display: grid;
@@ -121,8 +96,18 @@ style: |
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 14px !important;
+    margin-top: 18px !important;
   }
+  .two-columns .card,
+  .two-columns-64 .card,
+  .two-columns-73 .card {
+    min-height: 420px;
+  }
+  .three-columns .card {
+    min-height: 400px;
+  }
+
+
   .three-columns .card {
     padding: 14px 18px;
     font-size: 16.5px;
@@ -138,7 +123,7 @@ style: |
   }
   .card {
     background: white;
-    padding: 18px 24px;
+    padding: 22px 26px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
     border: 1px solid #cbd5e1;
@@ -171,8 +156,8 @@ style: |
     list-style-position: outside !important;
   }
   .card li {
-    margin-bottom: 8px !important;
-    line-height: 1.5 !important;
+    margin-bottom: 11px !important;
+    line-height: 1.55 !important;
     text-align: left !important;
     font-size: 18px !important;
   }
@@ -386,7 +371,7 @@ style: |
   }
   .card {
     background: white;
-    padding: 18px 24px;
+    padding: 22px 26px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
     border: 1px solid #cbd5e1;
@@ -419,8 +404,8 @@ style: |
     list-style-position: outside !important;
   }
   .card li {
-    margin-bottom: 8px !important;
-    line-height: 1.5 !important;
+    margin-bottom: 11px !important;
+    line-height: 1.55 !important;
     text-align: left !important;
     font-size: 18px !important;
   }
