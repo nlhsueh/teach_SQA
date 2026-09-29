@@ -651,7 +651,7 @@ footer: 'Ch01 軟體品質導論'
 ## 本章重點導讀 (Key Highlights)
 
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🏛️ 危機歷史與品質維度
 - **1.1 軟體危機歷史與 AI 輪迴**：歷史慘劇與 NATO 根源
@@ -659,7 +659,7 @@ footer: 'Ch01 軟體品質導論'
 - **1.3 軟體的本質與維度**：IEEE 4 要素 ＆ Garvin 5 大觀點
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🛡️ 工程把關與品質模型
 - **1.4 品質工程核心概念**：V&V、品質成本 ＆ 測試左移
@@ -759,14 +759,14 @@ footer: 'Ch01 軟體品質導論'
 <p style="margin-bottom: 12px; font-size: 0.95em;">1968 年 NATO 會議首次提出「軟體危機（Software Crisis）」的核心成因：</p>
 
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 📈 規模與研發效率失控
 - **軟體規模呈指數級膨脹**：硬體效能爆發帶動軟體膨脹，超出傳統手工管理極限。
 - **開發進度與成本難以預測**：「人月神話」溝通成本攀升，頻繁延宕超支。
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚠️ 品質低下與維護泥淖
 - **錯誤率高且缺乏系統化驗證**：缺乏自動化測試與工程化品質把關手段。
@@ -849,7 +849,7 @@ footer: 'Ch01 軟體品質導論'
 ### 1.2.1 AI 寫程式引發的典型品質事件 (1/2)
 
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 💊 幻覺套件供應鏈投毒
 - **發生機制 (Slopsquatting)**：
@@ -858,7 +858,7 @@ footer: 'Ch01 軟體品質導論'
   黑客搶先註冊惡意套件，工程師直接 `pip install` 植入企業後門。
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🛒 亞馬遜電商大斷線
 - **發生機制**：
@@ -874,7 +874,7 @@ footer: 'Ch01 軟體品質導論'
 ### 1.2.1 AI 寫程式引發的典型品質事件 (2/2)
 
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚡ Vibe Coding 漏洞爆發
 - **發生機制**：
@@ -883,7 +883,7 @@ footer: 'Ch01 軟體品質導論'
   抽查 1600+ 上線應用，逾 10% 存在嚴重 SQLi 或越權（BOLA）直進後台漏洞。
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🔑 敏感金鑰寫死外洩
 - **發生機制**：
@@ -1109,7 +1109,7 @@ footer: 'Ch01 軟體品質導論'
 <p style="margin-bottom: 12px; font-size: 0.95em;">軟體品質工程的兩大靈魂叩問：</p>
 
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🔍 Verification (驗證)
 **"Are we building the product right?"**
@@ -1120,7 +1120,7 @@ footer: 'Ch01 軟體品質導論'
 - **目標**：無規格違背、無語法與邏輯漏洞。
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🎯 Validation (確認)
 **"Are we building the right product?"**
