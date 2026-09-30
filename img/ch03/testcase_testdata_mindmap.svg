@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" width="100%" height="100%">
+  <defs>
+    <!-- Soft Drop Shadow -->
+    <filter id="mmShadow" x="-5%" y="-10%" width="110%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+
+    <linearGradient id="rootGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <linearGradient id="tcExceptionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1f2" />
+      <stop offset="100%" stop-color="#ffe4e6" />
+    </linearGradient>
+
+    <linearGradient id="tcNormalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#dbeafe" />
+    </linearGradient>
+
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdf4" />
+      <stop offset="100%" stop-color="#dcfce7" />
+    </linearGradient>
+
+    <linearGradient id="oracleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf5ff" />
+      <stop offset="100%" stop-color="#f3e8ff" />
+    </linearGradient>
+  </defs>
+
+  <!-- TOP LEGEND BAR -->
+  <g transform="translate(160, 16)">
+    <rect x="0" y="0" width="800" height="40" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" filter="url(#mmShadow)" />
+    
+    <!-- Legend 1: Test Case -->
+    <rect x="25" y="11" width="18" height="18" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="2" />
+    <text x="52" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1e293b">測試案例 (Test Case · 邏輯規格樹)</text>
+
+    <!-- Legend 2: Test Data -->
+    <rect x="295" y="11" width="18" height="18" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2" />
+    <text x="322" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1e293b">測試資料 (Test Data · 實例輸入數值)</text>
+
+    <!-- Legend 3: Test Oracle -->
+    <rect x="580" y="11" width="18" height="18" rx="4" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+    <text x="607" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#1e293b">預期結果 (Oracle · 斷言判定基準)</text>
+  </g>
+
+  <!-- CONNECTING BEZIER LINES -->
+  <!-- Level 0 to Level 1 -->
+  <!-- Root (180, 290) to TC-01 (260, 138) -->
+  <path d="M 180 290 C 220 290, 220 138, 260 138" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="5,4" />
+  <!-- Root (180, 290) to Normal Root (260, 360) -->
+  <path d="M 180 290 C 220 290, 220 360, 260 360" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+
+  <!-- TC-01 to Data to Oracle -->
+  <path d="M 430 138 L 475 138" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+  <path d="M 685 138 L 730 138" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Normal Root to TC-02 & TC-03 -->
+  <path d="M 410 360 C 440 360, 440 255, 470 255" fill="none" stroke="#3b82f6" stroke-width="2" />
+  <path d="M 410 360 C 440 360, 440 425, 470 425" fill="none" stroke="#3b82f6" stroke-width="2" />
+
+  <!-- TC-02 to Data to Oracle -->
+  <path d="M 590 255 L 635 255" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+  <path d="M 815 255 L 860 255" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" />
+
+  <!-- TC-03 to TC-03a & TC-03b -->
+  <path d="M 600 425 C 625 425, 625 375, 650 375" fill="none" stroke="#3b82f6" stroke-width="1.8" />
+  <path d="M 600 425 C 625 425, 625 475, 650 475" fill="none" stroke="#3b82f6" stroke-width="1.8" />
+
+  <!-- TC-03a to Data to Oracle -->
+  <path d="M 770 375 L 805 375" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" />
+  <path d="M 945 375 L 975 375" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" />
+
+  <!-- TC-03b to Data to Oracle -->
+  <path d="M 770 475 L 805 475" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" />
+  <path d="M 945 475 L 975 475" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" />
+
+
+  <!-- ==================== NODES ==================== -->
+
+  <!-- 1. ROOT NODE: divide(a, b) -->
+  <g transform="translate(35, 255)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="145" height="70" rx="14" fill="url(#rootGrad)" stroke="#0f172a" stroke-width="2" />
+    <text x="72.5" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" text-anchor="middle">受測目標函式</text>
+    <text x="72.5" y="50" font-family="'JetBrains Mono', Consolas, monospace" font-size="15" font-weight="800" fill="#38bdf8" text-anchor="middle">divide(a, b)</text>
+  </g>
+
+  <!-- ================= BRANCH 1: 分母 = 0 (例外路徑) ================= -->
+  <!-- TC-01 Node -->
+  <g transform="translate(260, 112)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="170" height="52" rx="10" fill="url(#tcExceptionGrad)" stroke="#f43f5e" stroke-width="2" />
+    <text x="14" y="23" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="900" fill="#e11d48">TC-01【例外路徑】</text>
+    <text x="14" y="41" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#9f1239">分母為 0 (b == 0)</text>
+  </g>
+
+  <!-- Test Data for TC-01 -->
+  <g transform="translate(475, 114)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="210" height="48" rx="8" fill="url(#dataGrad)" stroke="#16a34a" stroke-width="1.8" />
+    <text x="14" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" fill="#15803d">[測試資料 Test Data]</text>
+    <text x="14" y="38" font-family="'JetBrains Mono', monospace" font-size="13.5" font-weight="800" fill="#14532d">a = 5.0, b = 0.0</text>
+  </g>
+
+  <!-- Expected Oracle for TC-01 -->
+  <g transform="translate(730, 114)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="340" height="48" rx="8" fill="url(#oracleGrad)" stroke="#9333ea" stroke-width="1.8" />
+    <text x="14" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" fill="#7e22ce">[預期結果 Expected Oracle]</text>
+    <text x="14" y="38" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="#581c87">throws IllegalArgumentException</text>
+  </g>
+
+  <!-- ================= BRANCH 2: 分母 != 0 (正常路徑) ================= -->
+  <!-- Main Normal Node -->
+  <g transform="translate(260, 334)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="150" height="52" rx="10" fill="url(#tcNormalGrad)" stroke="#2563eb" stroke-width="2" />
+    <text x="14" y="23" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="900" fill="#1d4ed8">【正常路徑規格】</text>
+    <text x="14" y="41" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#1e40af">分母 != 0 (b != 0)</text>
+  </g>
+
+  <!-- SUB-CASE 2A: 整除 -->
+  <g transform="translate(470, 230)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="120" height="50" rx="9" fill="url(#tcNormalGrad)" stroke="#3b82f6" stroke-width="1.8" />
+    <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="900" fill="#1d4ed8">TC-02 規格</text>
+    <text x="12" y="39" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="800" fill="#1e3a8a">整除 (餘數 = 0)</text>
+  </g>
+
+  <!-- Test Data 2A -->
+  <g transform="translate(635, 231)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="180" height="48" rx="8" fill="url(#dataGrad)" stroke="#16a34a" stroke-width="1.8" />
+    <text x="12" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" fill="#15803d">[測試資料]</text>
+    <text x="12" y="38" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="800" fill="#14532d">a = 4.0, b = 2.0</text>
+  </g>
+
+  <!-- Oracle 2A -->
+  <g transform="translate(860, 231)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="200" height="48" rx="8" fill="url(#oracleGrad)" stroke="#9333ea" stroke-width="1.8" />
+    <text x="14" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="800" fill="#7e22ce">[預期結果]</text>
+    <text x="14" y="38" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="900" fill="#581c87">2.0</text>
+  </g>
+
+  <!-- SUB-CASE 2B: 不整除群組 -->
+  <g transform="translate(470, 400)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="130" height="50" rx="9" fill="url(#tcNormalGrad)" stroke="#3b82f6" stroke-width="1.8" />
+    <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="900" fill="#1d4ed8">TC-03 規格群</text>
+    <text x="12" y="39" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#1e3a8a">不整除 (餘數 != 0)</text>
+  </g>
+
+  <!-- Sub-sub-case 2B-1: 有限小數 / 進位 -->
+  <g transform="translate(650, 351)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="120" height="48" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" />
+    <text x="12" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#475569">TC-03a 邏輯</text>
+    <text x="12" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0f172a">有限可除盡</text>
+  </g>
+
+  <!-- Data 2B-1 -->
+  <g transform="translate(805, 353)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="140" height="44" rx="7" fill="url(#dataGrad)" stroke="#16a34a" stroke-width="1.5" />
+    <text x="10" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" fill="#15803d">[測試資料]</text>
+    <text x="10" y="34" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="#14532d">a=5.1, b=3.0</text>
+  </g>
+
+  <!-- Oracle 2B-1 -->
+  <g transform="translate(975, 353)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="115" height="44" rx="7" fill="url(#oracleGrad)" stroke="#9333ea" stroke-width="1.5" />
+    <text x="10" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" fill="#7e22ce">[預期結果]</text>
+    <text x="10" y="34" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="900" fill="#581c87">1.7</text>
+  </g>
+
+  <!-- Sub-sub-case 2B-2: 循環小數 / 精度捨入 -->
+  <g transform="translate(650, 451)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="120" height="48" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" />
+    <text x="12" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#475569">TC-03b 邏輯</text>
+    <text x="12" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0f172a">循環精度捨入</text>
+  </g>
+
+  <!-- Data 2B-2 -->
+  <g transform="translate(805, 453)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="140" height="44" rx="7" fill="url(#dataGrad)" stroke="#16a34a" stroke-width="1.5" />
+    <text x="10" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" fill="#15803d">[測試資料]</text>
+    <text x="10" y="34" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="#14532d">a=4.0, b=3.0</text>
+  </g>
+
+  <!-- Oracle 2B-2 -->
+  <g transform="translate(975, 453)" filter="url(#mmShadow)">
+    <rect x="0" y="0" width="115" height="44" rx="7" fill="url(#oracleGrad)" stroke="#9333ea" stroke-width="1.5" />
+    <text x="10" y="17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" fill="#7e22ce">[預期結果]</text>
+    <text x="10" y="34" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="900" fill="#581c87">1.33</text>
+  </g>
+
+  <!-- Bottom Insight Footer -->
+  <g transform="translate(180, 516)">
+    <rect x="0" y="0" width="760" height="32" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+    <text x="380" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">
+      <tspan fill="#2563eb" font-weight="800">核心本質：</tspan> 測試案例是「架構樹狀規格」，測試資料是「葉節點上的實例數值」，預期結果是「斷言預言機基準」！
+    </text>
+  </g>
+</svg>

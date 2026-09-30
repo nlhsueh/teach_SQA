@@ -51,3 +51,4 @@ __pycache__/
 
 # Ignore flattened temporary build directories from IDE/Maven
 .._*
+scratch/

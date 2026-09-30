@@ -23,87 +23,26 @@
 
 ```
 Ch03 知識架構全景：
-【防禦契約】3.1 契約式設計 (DbC) ＆ 斷言機制
-【國際規約】3.2 ISTQB 7 大測試經典原則
-【分類維度】3.3 測試多維度分類 ＆ 現代測試金字塔 (Test Pyramid)
-【生命週期】3.4 V 開發模型 ＆ 雙向追溯性
-【規格設計】3.5 測試案例 (Test Case) 設計 ＆ AI 輔助生成
-【全局決策】3.6 測試全景 3W2H ＆ AI 時代 Test Oracle 難題破解
+【國際規約】3.1 ISTQB 7 大測試經典原則
+【分類維度】3.2 測試多維度分類 ＆ 現代測試金字塔 (Test Pyramid)
+【生命週期】3.3 V 開發模型 ＆ 雙向追溯性
+【規格設計】3.4 測試案例 (Test Case) 設計 ＆ AI 輔助生成
+【全局決策】3.5 測試全景 3W2H ＆ AI 時代 Test Oracle 難題破解
+【實戰演練】3.6 綜合練習
 ```
 
 | 章節單元 | 核心學習重點 (Key Takeaways) |
 | :--- | :--- |
-| **[3.1 防禦性架構與合約設計 (DbC)](#31-防禦性架構與合約設計-design-by-contract)** | 掌握 Bertrand Meyer 契約式設計三大要素（前置條件、後置條件、類別不變量）；精準區分斷言 (Assertion) 與例外 (Exception) 的適用邊界。 |
-| **[3.2 ISTQB 7 大經典測試原則](#32-istqb-軟體測試-7-大經典原則-the-7-testing-principles)** | 深入理解 ISTQB 經典原則（測試顯示缺陷存在、窮盡測試不可能、及早測試、缺陷群聚、殺蟲劑悖論、測試取決上下文、無錯謬誤）及 AI 時代的「流暢性偏誤」。 |
-| **[3.3 測試的多維度分類體系](#33-測試的多維度分類體系)** | 掌握動態 vs. 靜態、黑箱 vs. 白箱、驗證 vs. 確認；深入 Martin Fowler **實戰測試金字塔 (Practical Test Pyramid)**（單元 ➔ 整合 ➔ E2E UI）。 |
-| **[3.4 V 開發模型與雙向追溯](#34-v-開發模型與雙向追溯-the-v-model)** | 理解開發階段與測試層級的對稱架構；掌握需求、架構、元件與測試案例之間的**雙向追溯 (Bidirectional Traceability)**。 |
-| **[3.5 測試案例設計與 AI 協同](#35-測試案例設計規格程式與驗證行為)** | 辨析**測試案例 (Test Case) vs. 測試資料 (Test Data)**；掌握測試案例三要素（前置狀態、輸入、預期結果）與 AI 輔助生成測試的黃金法則。 |
-| **[3.6 測試全景 3W2H 與 Test Oracle](#36-測試全景-3w2h-分類體系)** | 建立 3W2H（Who, What, Why, How, How to Evaluate）決策體系；突破 AI 與複雜系統的 **Test Oracle（測試預言機）難題**（變形測試、差分測試、屬性測試）。 |
-| **[3.7 綜合練習](#-37-綜合練習)** | 實戰演練：測試原則辨析、V 模型雙向追溯、測試案例與 Test Oracle 設計。 |
+| **[3.1 ISTQB 7 大經典測試原則](#31-istqb-軟體測試-7-大經典原則-the-7-testing-principles)** | 深入理解 ISTQB 經典原則（測試顯示缺陷存在、窮盡測試不可能、及早測試、缺陷群聚、殺蟲劑悖論、測試取決上下文、無錯謬誤）及 AI 時代的「流暢性偏誤」。 |
+| **[3.2 測試的多維度分類體系](#32-測試的多維度分類體系)** | 掌握動態 vs. 靜態、黑箱 vs. 白箱、驗證 vs. 確認；深入 Martin Fowler **實戰測試金字塔 (Practical Test Pyramid)**（單元 ➔ 整合 ➔ E2E UI）。 |
+| **[3.3 V 開發模型與雙向追溯](#33-v-開發模型與雙向追溯-the-v-model)** | 理解開發階段與測試層級的對稱架構；掌握需求、架構、元件與測試案例之間的**雙向追溯 (Bidirectional Traceability)**。 |
+| **[3.4 測試案例設計與 AI 協同](#34-測試案例設計規格程式與驗證行為)** | 辨析**測試案例 (Test Case) vs. 測試資料 (Test Data)**；掌握測試案例三要素（前置狀態、輸入、預期結果）與 AI 輔助生成測試的黃金法則。 |
+| **[3.5 測試全景 3W2H 與 Test Oracle](#35-測試全景-3w2h-分類體系)** | 建立 3W2H（Who, What, Why, How, How to Evaluate）決策體系；突破 AI 與複雜系統的 **Test Oracle（測試預言機）難題**（變形測試、差分測試、屬性測試）。 |
+| **[3.6 綜合練習](#-36-綜合練習)** | 實戰演練：測試原則辨析、V 模型雙向追溯、測試案例與 Test Oracle 設計。 |
 
 ---
 
-## 3.1 防禦性架構與合約設計 (Design by Contract)
-
-開車遇到綠燈時，多數老司機依然會減速並左右張望，因為無法保證其他人不會闖紅燈。寫程式亦是如此。**防禦性編程 (Defensive Programming)** 是一種主動預防錯誤擴散的工程態度。
-
-### 3.1.1 契約式設計的三大核心要素 (Bertrand Meyer)
-
-<img src="../../img/ch02/design_by_contract_simplified.jpg" width="650">
-
-**圖形解說：Bertrand Meyer 契約式設計 (DbC) 三大核心法則**
-1.  **Preconditions (前置條件 - `requires`)**：呼叫者 (Caller) 必須滿足的條件；若不滿足，被呼叫的方法有權直接拒絕執行。
-2.  **Postconditions (後置條件 - `ensures`)**：方法正常執行完畢後，向呼叫者保證達成的狀態與輸出結果。
-3.  **Class Invariants (類別不變量 - `maintains`)**：物件在任何公開方法調用前後，必須永遠維持為真的核心業務法則（如 `balance >= 0`）。
-
-* **狀態不變量 (Invariants) 的重要性**：
-  * *例如銀行帳戶*：`balance >= 0`、`totalDeposits == sum(transactions)`。
-  * 任何操作若破壞了不變量，系統應立即自我熔斷，避免髒資料寫入資料庫。這也是後續**屬性基礎測試 (Property-Based Testing)** 的核心基石！
-
-### 3.1.2 斷言 (Assertion) vs 例外處理 (Exception)
-
-| 機制 | 目的 | 適用時機 | 生產環境行為 |
-| :--- | :--- | :--- | :--- |
-| **斷言 (Assertion)** | 捕捉「程式設計師自身的邏輯 Bug」或內部不變量 | 私有方法參數檢查、演算法內部狀態、不可能到達的分支 | 可被 `-ea` / `-da` 開關關閉 |
-| **例外 (Exception)** | 處理「執行時外部可預期的異常環境」 | 公開 API 參數驗證、網路中斷、檔案不存在、使用者輸入錯誤 | 永遠處於啟用狀態，需有明確捕獲處理 |
-
-> 🛠️ **實習手冊連結**：
-> * 斷言實務：[`LabDemo/docs/u02_preventive/assertion.md`](../../LabDemo/docs/u02_preventive/assertion.md)
-> * 例外架構：[`LabDemo/docs/u02_preventive/exception.md`](../../LabDemo/docs/u02_preventive/exception.md)
-> * 結構化日誌：[`LabDemo/docs/u02_preventive/logging.md`](../../LabDemo/docs/u02_preventive/logging.md)
-
-<!-- id: sqa-ch03-ccq1 -->
-#### 🙋 **概念核對問答 (CCQ 1)**
-
-
-
-
-
-
-**問題**
-
-在契約式設計 (Design by Contract) 中，由「呼叫者 (Caller)」負責滿足、若不滿足則被呼叫方法將拒絕執行，這在契約三要素中屬於？
-
-A) 前置條件 (Preconditions)  
-B) 後置條件 (Postconditions)  
-C) 類別不變量 (Class Invariants)  
-D) 異常防護 (Exceptions)
-
-<details>
-<summary>點擊查看【概念核對問答】答案與解析</summary>
-
-**正確答案：A**
-
-* **解析**：
-  * **選項 A 正確**：前置條件 (Preconditions) 是呼叫者必須滿足的契約條件，用以保護被呼叫方法免於不合法的輸入；後置條件由被呼叫者保證達成；類別不變量是物件狀態在方法執行前後均須滿足的約束。
-
-</details>
-
----
-
-[課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq1)
-
-## 3.2 ISTQB 軟體測試 7 大經典原則 (The 7 Testing Principles)
+## 3.1 ISTQB 軟體測試 7 大經典原則 (The 7 Testing Principles)
 
 > 📚 **權威參考文獻與標準 (References & Standards)**：
 > 1. **ISTQB CTFL v4.0**：[ISTQB Certified Tester Foundation Level Syllabus (2023)](https://www.istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0)
@@ -251,7 +190,7 @@ D) 這是硬體浮點數運算器的製造缺陷
 
 [課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq2)
 
-## 3.3 測試的多維度分類體系
+## 3.2 測試的多維度分類體系
 
 ### 1. 驗證 (Verification) vs 確認 (Validation)
 
@@ -335,7 +274,7 @@ double div(double x, double y) {
 
 ---
 
-## 3.4 V 開發模型與雙向追溯 (The V-Model)
+## 3.3 V 開發模型與雙向追溯 (The V-Model)
 
 <img src="../../img/ch03/v_model_sdlc_testing.jpg" width="650">
 
@@ -383,7 +322,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 [課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq3)
 
-## 3.5 測試案例設計：規格、程式與驗證行為
+## 3.4 測試案例設計：規格、程式與驗證行為
 
 <img src="../../img/ch03/behavior_venn.png" width="450">
 
@@ -402,7 +341,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-### 3.5.1 測試案例 (Test Case) vs 測試資料 (Test Data)
+### 3.4.1 測試案例 (Test Case) vs 測試資料 (Test Data)
 
 * **測試案例 (Test Case)**：測試架構與邏輯分流的規劃。
 * **測試資料 (Test Data)**：具體代入執行的數值。
@@ -431,7 +370,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-### 🤖 3.5.2 AI 輔助測試案例生成：優勢、陷阱與人機協同
+### 🤖 3.4.2 AI 輔助測試案例生成：優勢、陷阱與人機協同
 
 | 項目 | 人類工程師的優勢 | AI (LLM) 助手的優勢 | 人機協同黃金 SOP (SQA 2.0) |
 | :--- | :--- | :--- | :--- |
@@ -441,7 +380,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 ---
 
-## 3.6 測試全景 3W2H 分類體系
+## 3.5 測試全景 3W2H 分類體系
 
 <img src="../../img/ch03/testing_landscape_3w2h.jpg" width="650">
 
@@ -521,7 +460,7 @@ D) 靜態程式碼檢視 (Code Review)
     *   **Match (一致)** ➔ 判定測試 **PASS（通過 ✅）**。
     *   **Mismatch (不符)** ➔ 判定測試 **FAIL（缺陷判定 ❌）**。
 
-#### 🔮 3.6.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
+#### 🔮 3.5.5 Test Oracle（測試預言機）難題在 AI 與複雜系統中的爆發
 
 > **什麼是 Test Oracle？**
 > 「Test Oracle」是指**能夠判斷受測程式輸出是否正確的機制或基準**。
@@ -550,7 +489,7 @@ D) 靜態程式碼檢視 (Code Review)
 
 [課堂互動](https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-short1)
 
-## ✍️ 3.7 綜合練習
+## ✍️ 3.6 綜合練習
 
 ### 一、測試原則與理論辨析
 1. 為了確保軟體絕對正確，我們是否應該進行窮盡式測試（Exhaustive Testing）？為什麼？

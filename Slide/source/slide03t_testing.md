@@ -301,8 +301,11 @@ style: |
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  script {
+    display: none !important;
+  }
   @media print {
-    .nav-dropdown, .nav-caret {
+    .nav-dropdown, .nav-caret, script {
       display: none !important;
     }
     .two-columns {
@@ -496,8 +499,11 @@ style: |
     justify-content: center;
   }
   div.content-figure img {
-    width: 100%;
     max-width: 360px;
+    max-height: 480px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -673,7 +679,7 @@ footer: 'Ch03 軟體測試基礎'
 
 ---
 
-<!-- header: '[◄](#1) 本章大綱 (Outline) [►](#4)' -->
+<!-- header: '[◄](#1) 本章大綱 (Outline) [►](#3)' -->
 
 ## 本章重點導讀 (Key Highlights)
 
@@ -718,31 +724,28 @@ footer: 'Ch03 軟體測試基礎'
 <div class="outline-columns">
 <div>
 
-### 🛡️ 合約防禦與經典原則
-- **3.1 防禦性架構與合約設計 (DbC)**：
-  - Meyer 三大契約法則（前置條件、後置條件、類別不變量）
-  - 內部邏輯防錯斷言 (Assertion) vs. 外部環境例外處理 (Exception)
-- **3.2 ISTQB 7 大軟體測試經典原則**：
+### 🧭 核心原則與多維體系
+- **3.1 ISTQB 7 大軟體測試經典原則**：
   - 核心哲學：測試顯示缺陷存在而非不存在、窮盡測試不可能
   - 工程實務：及早測試 (Shift-Left)、缺陷群聚 (80/20)、殺蟲劑悖論與無錯謬誤
-- **3.3 測試多維度分類體系與金字塔**：
+- **3.2 測試多維度分類體系與金字塔**：
   - 雙重靈魂叩問：驗證 (Verification - 製程) vs. 確認 (Validation - 價值)
   - 全方位矩陣：缺失 vs. 確認、靜態 vs. 動態、黑箱 vs. 白箱與測試金字塔
+- **3.3 V 開發模型與水平雙向追溯 (RTM)**：
+  - 階段水平對稱架構：需求對驗收、高階設計對整合、詳細設計對單元
+  - 雙向追溯矩陣：正向杜絕覆蓋盲區、反向杜絕孤兒測試，破除後測偏差
 
 </div>
 <div>
 
-### 📐 架構模型與測試預言
-- **3.4 V 開發模型與水平雙向追溯 (RTM)**：
-  - 階段水平對稱架構：需求對驗收、高階設計對整合、詳細設計對單元
-  - 雙向追溯矩陣：正向杜絕覆蓋盲區、反向杜絕孤兒測試，破除後測偏差
-- **3.5 測試案例設計與 AI 協同實踐**：
+### 📐 案例實務與測試全景
+- **3.4 測試案例設計與 AI 協同實踐**：
   - 行為文氏圖：規格 (Specified)、程式碼 (Programmed) 與測試 (Verified) 交集
   - 測試案例 5 大要件（前置、輸入、步驟、預期、Oracle）與 AI 協同邊界補全
-- **3.6 測試全景 3W2H 與 Test Oracle 難題**：
-  - 測試全景體系：Who 誰測、What 測什麼、Why 為何測、How 如何測、How Much
+- **3.5 測試全景 3W2H 與 Test Oracle 難題**：
+  - 測試全景體系：Who 誰測、What 測什麼、Why 為何測、How 如何測、How to Evaluate
   - 確定性等值比對 vs. 現代 AI 隨機系統之變質測試 (Metamorphic Testing)
-- **3.7 綜合練習與實戰思維檢定**：
+- **3.6 綜合練習與實戰思維檢定**：
   - 經典原則辨析、V 模型追溯分析、MaxHeap 邊界案例與 AI 協同設計實戰
 
 </div>
@@ -751,92 +754,9 @@ footer: 'Ch03 軟體測試基礎'
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#3) 3.1 防禦性架構與合約設計 [►](#9)' -->
+<!-- header: '[◄](#2) 3.1 ISTQB 軟體測試 7 大經典原則 [►](#17)' -->
 
-# **3.1 防禦性架構與合約設計 (DbC)**
-
-> 「綠燈起步時依然減速張望——  
-> 預防錯誤擴散的主動工程態度。」
-
----
-
-### 3.1.1 契約式設計的三大核心要素 (Bertrand Meyer)
-
-<div class="card-deck">
-
-> 💡 契約式設計藉由前置條件、後置條件與不變量，建立呼叫雙方的明確權利與義務。
-
-<div class="two-columns">
-<div class="card" data-marpit-fragment>
-
-### 📜 呼叫端與被呼叫端契約
-- **Preconditions (前置條件 - requires)**：呼叫者進入方法前必須滿足的義務；若條件不符，方法有權拒絕執行
-- **Postconditions (後置條件 - ensures)**：方法執行完畢後對呼叫者的保證，確保回傳值與輸出狀態正確無誤
-- **責任歸屬 (Blame Assignment)**：前置條件違反應歸咎呼叫端錯誤；後置條件違反應歸咎被呼叫端實作瑕疵
-- **邊界防護 (Defensive Wall)**：在模組對外接口建立防禦邊界，阻絕髒資料與不合法請求滲透入核心業務
-
-</div>
-<div class="card" data-marpit-fragment>
-
-### 🔒 狀態恆真約束與工程價值
-- **Class Invariants (類別不變量 - maintains)**：物件在公開方法呼叫前後永遠維持為真的核心約束（如：餘額 ≥ 0）
-- **生命週期保護 (Lifecycle Guard)**：建構子必須建立不變量，方法內部可暫時變動，但在退出前必須完全恢復
-- **屬性基礎測試基石 (PBT)**：不變量是隨機測試與 Property-Based Testing (jqwik, Hypothesis) 最關鍵的預言機 (Oracle)
-- **快速失敗 (Fail Fast)**：一旦內部狀態遭受污染立即中斷熔斷，縮小錯誤擴散範圍並大幅降低除錯成本
-
-</div>
-</div>
-</div>
-
----
-
-<!-- _class: full-image-slide -->
-
-<div class="centered-image">
-  <img src="../../img/ch02/design_by_contract_simplified.jpg" alt="契約式設計核心要素" />
-</div>
-
----
-
-## 3.1.2 斷言 (Assertion) vs 例外處理 (Exception)
-
-| 機制 | 目的 | 適用時機 | 生產環境行為 |
-| :--- | :--- | :--- | :--- |
-| **斷言 (Assertion)** | 捕捉「程式設計師自身的邏輯 Bug」或內部不變量 | 私有方法參數檢查、演算法內部狀態、不可能到達的分支 | 可被 `-ea` / `-da` 開關啟用或關閉 |
-| **例外 (Exception)** | 處理「執行時外部可預期的異常環境」 | 公開 API 參數驗證、網路中斷、檔案不存在、使用者輸入錯誤 | 永遠處於啟用狀態，需有明確捕獲處理 |
-
-- 📌 **核心界線**：
-  - 外部環境不穩定與非法使用者輸入 ➔ 使用 **例外 (Exception)**。
-  - 內部程式設計邏輯與不可違反的約束 ➔ 使用 **斷言 (Assertion)**。
-
----
-
-<!-- id: sqa-ch03-ccq1 -->
-## 🙋 概念核對問答 (CCQ 1)
-
-<div class="ccq-columns">
-  <div class="ccq-text">
-
-**問題**：在契約式設計 (Design by Contract) 中，由「呼叫者 (Caller)」負責滿足、若不滿足則被呼叫方法將拒絕執行，這在契約三要素中屬於？
-
-- **A.** 前置條件 (Preconditions)
-- **B.** 後置條件 (Postconditions)
-- **C.** 類別不變量 (Class Invariants)
-- **D.** 異常防護 (Exceptions)
-
-  </div>
-  <div class="ccq-logo">
-    <a href="https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq1"><img src="../../img/ch03/sqa-ch03-ccq1.png" alt="QR Code" /></a>
-    <br><a href="https://nlhsueh.github.io/nickedupocket/#/student/sqa-ch03-ccq1">[課堂互動]</a>
-  </div>
-</div>
-
----
-
-<!-- _class: lead -->
-<!-- header: '[◄](#4) 3.2 ISTQB 軟體測試 7 大經典原則 [►](#23)' -->
-
-# **3.2 ISTQB 軟體測試 7 大經典原則**
+# **3.1 ISTQB 軟體測試 7 大經典原則**
 
 > 「測試是一門基於風險取樣的經驗科學，  
 > 而非盲目的無窮迴圈。」
@@ -1077,9 +997,9 @@ footer: 'Ch03 軟體測試基礎'
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#9) 3.3 測試的多維度分類體系 [►](#34)' -->
+<!-- header: '[◄](#3) 3.2 測試的多維度分類體系 [►](#28)' -->
 
-# **3.3 測試的多維度分類體系**
+# **3.2 測試的多維度分類體系**
 
 > 「從微觀的類別方法，  
 > 到宏觀的端到端商業價值交付。」
@@ -1275,9 +1195,9 @@ double div(double x, double y) {
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#23) 3.4 V 開發模型與雙向追溯 [►](#39)' -->
+<!-- header: '[◄](#17) 3.3 V 開發模型與雙向追溯 [►](#33)' -->
 
-# **3.4 V 開發模型與雙向追溯 (The V-Model)**
+# **3.3 V 開發模型與雙向追溯 (The V-Model)**
 
 > 「規格設計在前，測試準備在先；  
 > 水平對稱，雙向追溯。」
@@ -1360,9 +1280,9 @@ double div(double x, double y) {
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#34) 3.5 測試案例設計與 AI 協同 [►](#46)' -->
+<!-- header: '[◄](#28) 3.4 測試案例設計與 AI 協同 [►](#41)' -->
 
-# **3.5 測試案例設計與 AI 協同**
+# **3.4 測試案例設計與 AI 協同**
 
 > 「測試案例是測試架構的靈魂，  
 > 測試資料只是代入的數值。」
@@ -1409,7 +1329,7 @@ double div(double x, double y) {
 
 ---
 
-### 3.5.1 測試案例 (Test Case) vs 測試資料 (Test Data)
+### 3.4.1 測試案例 (Test Case) vs 測試資料 (Test Data)
 
 <div class="card-deck">
 
@@ -1421,27 +1341,32 @@ double div(double x, double y) {
 ### 📋 測試案例 (Test Case)
 - **本質定義**：測試架構與邏輯分流的**整體規劃規格書**
 - **核心內涵**：包含前置狀態、操作步驟、預期產出與判定基準 (Oracle)
-- **價值所在**：定義「測試邏輯本身」，獨立於具體數值之外
+- **獨立抽象**：定義「測試邏輯本身」，獨立於具體數值之外（如：分母為 0 例外處理）
+- **工程價值**：對應功能需求與等價類別，維持測試套件的規格完整度
 
 </div>
 <div class="card" data-marpit-fragment>
 
 ### 🔢 測試資料 (Test Data)
 - **本質定義**：具體代入受測方法執行的**數值元組與環境 Fixture**
-- **核心內涵**：如傳入參數 `(5, 0)`、Mock 假物件、資料庫種子
-- **價值所在**：落實測試案例的具體實例，用以觸發特定的執行路徑
+- **核心型態**：輸入參數 `(5, 0)`、邊界數值、Mock 假物件、資料庫種子
+- **動態替換**：同一測試案例可餵入多組測試資料（如參數化測試 `@ParameterizedTest`）
+- **工程價值**：落實測試案例的具體實例，用以精準觸發特定的程式碼執行路徑
 
 </div>
 </div>
-<div class="card" data-marpit-fragment style="padding: 10px 18px;">
-<pre style="margin: 0; font-size: 19px; line-height: 1.35;"><code>【測試案例規劃】：除法運算
-├── 分母 = 0 ── 測試資料: (5, 0) ──> 預期: 拋出 IllegalArgumentException
-└── 分母 != 0
-    ├── 整除   ── 測試資料: (4, 2) ──> 預期: 2.0
-    └── 不整除
-        ├── 進位   ── 測試資料: (5.1, 3) ──> 預期: 1.7
-        └── 不進位 ── 測試資料: (4, 3)   ──> 預期: 1.33</code></pre>
 </div>
+
+---
+
+<!-- _class: title-image-slide -->
+
+## 實例心智圖：Test Case 與 Test Data 的展開結構
+
+> 💡 以除法運算 `divide(a, b)` 為例：測試案例是樹狀邏輯規格，測試資料是葉節點上的具體實例數值。
+
+<div class="image-wrapper" style="height: 430px; margin-top: auto; margin-bottom: auto;">
+  <img src="../../img/ch03/testcase_testdata_mindmap.png" alt="Test Case vs Test Data 心智圖" />
 </div>
 
 ---
@@ -1481,7 +1406,7 @@ double div(double x, double y) {
 
 ---
 
-## 🤖 3.5.2 AI 輔助測試案例生成：人機協同黃金矩陣
+## 🤖 3.4.2 AI 輔助測試案例生成：人機協同黃金矩陣
 
 | 項目 | 人類工程師的優勢 | AI (LLM) 助手的優勢 | 人機協同黃金 SOP (SQA 2.0) |
 | :--- | :--- | :--- | :--- |
@@ -1492,9 +1417,9 @@ double div(double x, double y) {
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#39) 3.6 測試全景 3W2H 與 Test Oracle [►](#56)' -->
+<!-- header: '[◄](#33) 3.5 測試全景 3W2H 與 Test Oracle [►](#53)' -->
 
-# **3.6 測試全景 3W2H 與 Test Oracle**
+# **3.5 測試全景 3W2H 與 Test Oracle**
 
 > 「5 大維度看透測試全景；  
 > 突破 AI 時代的測試預言機難題。」
@@ -1511,46 +1436,81 @@ double div(double x, double y) {
 
 ## 面向一：Who 誰來測試？
 
-- 👨‍💻 **開發工程師**：單元測試 (Unit Test)、TDD、白箱路徑驗證。
-- 👥 **結對夥伴 (Pair)**：Pair Programming 即時程式碼審查與測試設計。
-- 🛡️ **專職 QA 團隊**：Alpha Testing、自動化測試框架維護。
-- 👔 **業務專家 (Domain Expert)**：業務邏輯與驗收測試。
-- 🌐 **外部真實使用者**：Beta Testing。
+<div class="content-columns">
+  <div class="content-text">
 
-| 比較項目 | Alpha Testing | Beta Testing |
-| :--- | :--- | :--- |
-| **執行場所** | 開發團隊內部受控環境 | 客戶端真實生產/測試環境 |
-| **受測對象** | 內部人員 / 模擬資料 | 外部真實使用者 / 真實業務資料 |
-| **測試方法** | 白箱 + 黑箱混合 | 純黑箱測試 |
+- 👨‍💻 **開發工程師 (Developer)**：
+  - 單元測試 (Unit Test)、TDD、白箱路徑與極值邊界防禦。
+- 👥 **結對夥伴 / 團隊同行 (Pair / Peer Reviewer)**：
+  - 結對編程即時程式碼檢視、防禦思維交叉盲點查核。
+- 🛡️ **專職 QA / 測試工程師**：
+  - 維護自動化測試框架、Alpha 測試、非功能性負載測試。
+- 👔 **業務專家 / 產品經理 (PO / Domain Expert)**：
+  - 業務規則驗收測試 (UAT)、端到端核心使用者旅程。
+- 🌐 **外部真實使用者 (Beta Testers)**：
+  - 公測驗證、真實環境相容性與體驗回饋。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/3w2h_1_who.png" alt="面向一：Who 誰來測試？" />
+  </div>
+</div>
 
 ---
 
-## 面向二：What 測什麼？& 面向三：Why 為何測試？
+### 補充延伸：內部 Alpha vs 外部 Beta 測試對比
 
-<div class="card-deck">
+| 比較項目 | Alpha Testing (內部驗證) | Beta Testing (外部公測) |
+| :--- | :--- | :--- |
+| **執行場所** | 開發團隊內部受控環境 (Lab / Staging) | 客戶端真實生產/多樣硬體環境 |
+| **受測對象** | 內部工程師、專職 QA、業務同仁 | 外部真實使用者、社群種子用戶 |
+| **測試焦點** | 系統主流程完整性、阻斷性 Bug | 真實使用習慣、邊界相容性、體驗反饋 |
+| **測試方法** | 白箱 + 黑箱混合，重現路徑精確可控 | 純黑箱測試，收集 Crash Log 與 Telemetry |
 
-> 💡 清楚界定測試範疇 (What) 與背後動機 (Why)，才能精準配置測試資源。
+---
 
-<div class="two-columns">
-<div class="card" data-marpit-fragment>
+## 面向二：What 測什麼？
 
-### 🎯 面向二：What 測什麼？
-- **功能測試**：規格測試、等價劃分、邊界分析、欄位格式
-- **結構測試**：陳述句涵蓋、分支涵蓋、路徑涵蓋、MC/DC
-- **情境測試 (Scenario)**：模擬真實世界複雜連鎖使用者工作流程
-- **非功能測試**：負載 (Load)、耐力 (Soak)、資安 (Security)、相容性
+<div class="content-columns">
+  <div class="content-text">
 
+- 🎯 **功能測試 (Functional Testing)**：
+  - **規格與等價劃分**：業務邏輯正確性、輸入輸出映射關係。
+  - **邊界值分析**：極值、空值、溢位、非預期字元格式。
+- 🧱 **結構測試 (Structural / White-Box)**：
+  - 陳述句涵蓋、分支涵蓋、路徑涵蓋與 MC/DC 條件覆蓋。
+- 🔄 **使用者情境測試 (Scenario Testing)**：
+  - 模擬真實世界跨模組連鎖工作流程（購物 ➔ 結帳 ➔ 庫存）。
+- ⚡ **非功能測試 (Non-Functional Testing)**：
+  - 效能負載 (Load/Stress)、耐力 (Soak)、資安漏洞 (OWASP) 與跨瀏覽器相容性。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/3w2h_2_what.png" alt="面向二：What 測什麼？" />
+  </div>
 </div>
-<div class="card" data-marpit-fragment>
 
-### 🧭 面向三：Why 為何測試？
-- **風險驅動**：變更風險、架構耦合風險、第三方依賴風險
-- **合約與防禦驗證**：確保狀態不變量與資源限制滿足契約
-- **迴歸測試 (Regression)**：確保新變更未破壞既有功能
-- **交付信心**：透過自動化測試套件建立持續部署的基石
+---
 
-</div>
-</div>
+## 面向三：Why 為何測試？
+
+<div class="content-columns">
+  <div class="content-text">
+
+- 🛡️ **風險防禦與消減 (Risk Mitigation)**：
+  - 降低軟體發布上線後爆發嚴重故障的機率與商業損失。
+  - 針對高複雜度、高耦合與第三方依賴模組進行重點防守。
+- 📜 **契約與不變量守護 (Contract Defense)**：
+  - 依循契約式設計 (DbC)，確保前置、後置條件與類別不變量永不破損。
+- 🔁 **迴歸防護網 (Regression Defense)**：
+  - 確保新功能迭代或程式碼重構，絕對沒有暗中破壞既有功能。
+- 🚀 **持續交付信心 (Confidence for CD)**：
+  - 透過全綠燈自動化測試套件，為頻繁且自信的 CI/CD 上線提供底氣。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/3w2h_3_why.png" alt="面向三：Why 為何測試？" />
+  </div>
 </div>
 
 ---
@@ -1571,7 +1531,7 @@ double div(double x, double y) {
 
   </div>
   <div class="content-figure">
-    <img src="../../img/ch03/concept_monkey_test.png" alt="猴子測試 Monkey Testing" />
+    <img src="../../img/ch03/3w2h_4_how.png" alt="面向四：How 如何測試？" />
   </div>
 </div>
 
@@ -1603,7 +1563,7 @@ double div(double x, double y) {
 
   </div>
   <div class="content-figure">
-    <img src="../../img/ch03/concept_test_oracle_comparator.png" alt="Test Oracle 比對架構 Comparator" />
+    <img src="../../img/ch03/3w2h_5_how_to_evaluate.png" alt="面向五：How to Evaluate 如何評估通過？" />
   </div>
 </div>
 
@@ -1617,7 +1577,7 @@ double div(double x, double y) {
 
 ---
 
-## 3.6.5 AI 與複雜系統中的 Test Oracle 難題
+## 3.5.5 AI 與複雜系統中的 Test Oracle 難題
 
 <div class="card-deck">
 
@@ -1669,16 +1629,16 @@ double div(double x, double y) {
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#46) 3.7 綜合練習與實戰思維 [►](#59)' -->
+<!-- header: '[◄](#41) 3.6 綜合練習與實戰思維 [►](#56)' -->
 
-# **3.7 綜合練習與實戰思維**
+# **3.6 綜合練習與實戰思維**
 
 > 「將原則內化為直覺，  
 > 以架構捍衛品質。」
 
 ---
 
-## 3.7 綜合練習 (1/2)
+## 3.6 綜合練習 (1/2)
 
 - **一、測試原則與理論辨析**：
   1. 為了確保軟體絕對正確，我們是否應該進行窮盡式測試（Exhaustive Testing）？為什麼？
@@ -1690,7 +1650,7 @@ double div(double x, double y) {
 
 ---
 
-## 3.7 綜合練習 (2/2)
+## 3.6 綜合練習 (2/2)
 
 - **三、測試案例與 Test Oracle 設計**：
   6. 針對以下函式，設計完整的測試案例（包含前置條件、輸入與預期輸出）：
@@ -1704,7 +1664,7 @@ double div(double x, double y) {
 ---
 
 <!-- _class: lead -->
-<!-- header: '[◄](#56) 附錄：課堂互動參考解答 [►](#1)' -->
+<!-- header: '[◄](#53) 附錄：課堂互動參考解答 [►](#1)' -->
 
 # **附錄：課堂互動參考解答**
 
@@ -1714,9 +1674,6 @@ double div(double x, double y) {
 
 ## 課堂互動參考解答
 
-- **CCQ 1（契約三要素之呼叫者責任）**：
-  - **正確答案：A**
-  - 前置條件 (Preconditions) 是呼叫者必須滿足的契約條件，用以保護被呼叫方法免於非法輸入；後置條件由被呼叫者保證；類別不變量為物件生命週期中必須維持之約束。
 - **CCQ 2（AI 測試全綠燈但違反法規）**：
   - **正確答案：B**
   - AI 為自身生成之程式碼寫測試會陷入自我印證的殺蟲劑抗藥性；且程式碼無編譯錯誤不等於符合業務與法規需求（無錯謬誤）。
