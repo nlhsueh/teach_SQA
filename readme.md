@@ -69,12 +69,12 @@
 
 | 週次 | 1 小時講授 (Lecture) | 2 小時實習 (Lab) | 教材與實習手冊連結 |
 | :---: | :--- | :--- | :--- |
-| **01** | **【開局震撼】**：軟體危機四大歷史慘劇、Garvin 五大品質觀點、CoQ 1:10:100 定律與 AI 時代新挑戰 | **AI 程式碼破壞實驗**：給定一個 AI 生成的交易系統，找出隱藏的並發、精度與崩潰漏洞 | 📖 [Ch01 導論](Lecture/source/ch01t_intro.md)<br>🛠️ [Lab 01 AI 破壞實驗](LabDemo/docs/u01_debug/ai_code_break.md) |
-| **02** | **【錯與除錯】**：臭蟲因果鏈 (IEEE 610.12)、Clean Code 心法、除錯工具與科學除錯五步驟 | **除錯實務與科學假設檢驗**：條件斷點、例外斷點與日誌追蹤分析 | 📖 [Ch02 錯與除錯](Lecture/source/ch02t_bug.md)<br>🛠️ [Lab 02 除錯實務](LabDemo/docs/u01_debug/debug.md) |
-| **03** | **【測試原則】**：契約式設計 (DbC: requires/ensures/maintains)、斷言機制與 ISTQB 7 大測試原則 | 使用 Java Assertions、Google Guava Preconditions 與結構化日誌建立自我防護 | 📖 [Ch03 測試原則](Lecture/source/ch03t_testing.md)<br>🛠️ [Lab 03 斷言防線](LabDemo/docs/u02_preventive/assertion.md) |
-| **04** | **【靜態檢視】**：Fagan 檢視流程、團隊 Clean Code 清單、Code Smells 識別與 OWASP Top 10 安全分析 | 打造 CI 靜態品質門檻：SonarQube / SpotBugs / PMD 規則設定與自訂檢測規則 | 📖 [Ch04 檢視與靜態分析](Lecture/source/ch04t_inspection.md)<br>🛠️ [Lab 04 靜態分析](LabDemo/docs/u03_inspection/pmd.md) |
-| **05** | **【黑箱設計】**：等價類分割 (EP)、邊界值分析 (BVA: 4n+1/6n+1)、全成對測試 (Pairwise) 與決策表 | JUnit 5 現代架構：動態測試 (`@TestFactory`)、參數化測試 (`@ParameterizedTest`) 與自訂 DisplayName | 📖 [Ch05 黑箱測試](Lecture/source/ch05t_blackbox.md)<br>🛠️ [Lab 05 JUnit 5](LabDemo/docs/u04_utest/junit.md) |
-| **06** | **【前沿轉移】屬性基礎測試 (Property-Based Testing)**：告別手寫測資，用數學屬性（Invariants）讓電腦自動生成萬組測資 | **`jqwik` 實戰**：定義演算法不變量，體驗框架自動產生極端測資與縮小化 (Shrinking) | 📖 [Ch05 屬性測試](Lecture/source/ch05t_blackbox.md)<br>🛠️ [Lab 06 jqwik 屬性測試](LabDemo/docs/u04_utest/jqwik_property_based.md) |
+| **01** | **【開局震撼】**：軟體危機四大歷史慘劇、Garvin 五大品質觀點、CoQ 1:10:100 定律與 AI 時代新挑戰 | **AI 程式碼破壞實驗**：給定一個 AI 生成的交易系統，找出隱藏的並發、精度與崩潰漏洞 | 📖 [Ch01 導論](Lecture/source/ch01t_intro.md)<br>🛠️ [Lab 01 AI 破壞實驗](LabDemo/docs/u02_debug/ai_code_break.md) |
+| **02** | **【錯與除錯】**：臭蟲因果鏈 (IEEE 610.12)、Clean Code 心法、除錯工具與科學除錯五步驟 | **除錯實務與科學假設檢驗**：條件斷點、例外斷點與日誌追蹤分析 | 📖 [Ch02 錯與除錯](Lecture/source/ch02t_bug.md)<br>🛠️ [Lab 02 除錯實務](LabDemo/docs/u02_debug/debug.md) |
+| **03** | **【測試原則】**：契約式設計 (DbC: requires/ensures/maintains)、斷言機制與 ISTQB 7 大測試原則 | 使用 Java Assertions、Google Guava Preconditions 與結構化日誌建立自我防護 | 📖 [Ch03 測試原則](Lecture/source/ch03t_testing.md)<br>🛠️ [Lab 03 斷言防線](LabDemo/docs/u02_robust/assertion.md) |
+| **04** | **【靜態檢視】**：Fagan 檢視流程、團隊 Clean Code 清單、Code Smells 識別與 OWASP Top 10 安全分析 | 打造 CI 靜態品質門檻：SonarQube / SpotBugs / PMD 規則設定與自訂檢測規則 | 📖 [Ch04 檢視與靜態分析](Lecture/source/ch04t_inspection.md)<br>🛠️ [Lab 04 靜態分析](LabDemo/docs/u04_inspection/pmd.md) |
+| **05** | **【黑箱設計】**：等價類分割 (EP)、邊界值分析 (BVA: 4n+1/6n+1)、全成對測試 (Pairwise) 與決策表 | JUnit 5 現代架構：動態測試 (`@TestFactory`)、參數化測試 (`@ParameterizedTest`) 與自訂 DisplayName | 📖 [Ch05 黑箱測試](Lecture/source/ch05t_blackbox.md)<br>🛠️ [Lab 05 JUnit 5](LabDemo/docs/u05_utest/junit.md) |
+| **06** | **【前沿轉移】屬性基礎測試 (Property-Based Testing)**：告別手寫測資，用數學屬性（Invariants）讓電腦自動生成萬組測資 | **`jqwik` 實戰**：定義演算法不變量，體驗框架自動產生極端測資與縮小化 (Shrinking) | 📖 [Ch05 屬性測試](Lecture/source/ch05t_blackbox.md)<br>🛠️ [Lab 06 jqwik 屬性測試](LabDemo/docs/u05_utest/jqwik_property_based.md) |
 | **07** | **【白箱分析】**：JaCoCo 插樁原理、涵蓋度階梯、McCabe 圈複雜度與 DO-178C 航空級 MC/DC 標準 | JaCoCo 高級分析：分支與指令覆蓋率解讀、為未覆蓋路徑精準補彈 | 📖 [Ch06 白箱測試](Lecture/source/ch06t_whitebox.md)<br>🛠️ [Lab 07 白箱測試](LabDemo/docs/u06_wbtesting/whitebox_test.md) |
 | **08** | **【期中能力鑑定 (Midterm Exam)】**（涵蓋 ISO 25010、規格推導、MC/DC 分析、屬性不變量與黑白箱設計） | **【專題提案與品質架構審查 (Architecture & Spec Review)】**：各組發表專題規格、防護策略與品質指標 | - |
 | **09** | **【質量驗證】變異測試 (Mutation Testing)**：測試測試套件的有效性；變異算子、殺死率與等價變異體難題 | **PIT (Pitest) 實戰**：注入故障變異體，計算 Mutation Score，揪出「高覆蓋率卻測不出 Bug」的假測試 | 📖 [Ch06 變異測試](Lecture/source/ch06t_whitebox.md)<br>🛠️ [Lab 08 變異測試](LabDemo/docs/u07_mutation/mutation_test.md) |

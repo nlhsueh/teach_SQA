@@ -601,9 +601,9 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 | **例外 (Exception)** | 處理「執行時外部可預期的異常環境」 | 公開 API 參數驗證、網路中斷、檔案不存在、使用者輸入錯誤 | 永遠處於啟用狀態，需有明確捕獲處理 |
 
 > 🛠️ **實習手冊連結**：
-> * 斷言實務：[`LabDemo/docs/u02_preventive/assertion.md`](../../LabDemo/docs/u02_preventive/assertion.md)
-> * 例外架構：[`LabDemo/docs/u02_preventive/exception.md`](../../LabDemo/docs/u02_preventive/exception.md)
-> * 結構化日誌：[`LabDemo/docs/u02_preventive/logging.md`](../../LabDemo/docs/u02_preventive/logging.md)
+> * 斷言實務：[`LabDemo/docs/u02_robust/assertion.md`](../../LabDemo/docs/u02_robust/assertion.md)
+> * 例外架構：[`LabDemo/docs/u02_robust/exception.md`](../../LabDemo/docs/u02_robust/exception.md)
+> * 結構化日誌：[`LabDemo/docs/u02_robust/logging.md`](../../LabDemo/docs/u02_robust/logging.md)
 
 ---
 
