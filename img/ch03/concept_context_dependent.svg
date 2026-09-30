@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Ambient field -->
+  <circle cx="400" cy="400" r="320" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.35" />
+
+  <!-- Top Banner Tag -->
+  <g transform="translate(400, 115)">
+    <rect x="-190" y="-40" width="380" height="65" rx="32" fill="rgba(255, 255, 255, 0.9)" stroke="#64748b" stroke-width="2" />
+    <text x="0" y="4" font-family="-apple-system, sans-serif" font-size="24" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="2">
+      CONTEXT DEPENDENT
+    </text>
+  </g>
+
+  <!-- Central Pivot & Scales Beam -->
+  <g transform="translate(400, 480)">
+    <!-- Base Pedestal -->
+    <path d="M -80 180 L 80 180 L 40 80 L -40 80 Z" fill="rgba(148, 163, 184, 0.15)" stroke="#475569" stroke-width="3.5" />
+    <line x1="-120" y1="180" x2="120" y2="180" stroke="#334155" stroke-width="5" stroke-linecap="round" />
+
+    <!-- Center Column -->
+    <line x1="0" y1="80" x2="0" y2="-120" stroke="#475569" stroke-width="6" stroke-linecap="round" />
+    <!-- Center Pivot Fulcrum Circle -->
+    <circle cx="0" cy="-120" r="22" fill="rgba(255, 255, 255, 0.9)" stroke="#0284c7" stroke-width="4" />
+    <circle cx="0" cy="-120" r="8" fill="#0284c7" />
+
+    <!-- Scales Beam -->
+    <line x1="-240" y1="-120" x2="240" y2="-120" stroke="#475569" stroke-width="5" stroke-linecap="round" />
+
+    <!-- Left Pan Hanger (Critical Safety / Aerospace & Med) -->
+    <line x1="-240" y1="-120" x2="-240" y2="-20" stroke="#94a3b8" stroke-width="2.5" />
+    <!-- Left Plate Container -->
+    <g transform="translate(-240, -20)">
+      <rect x="-105" y="0" width="210" height="150" rx="16" fill="rgba(2, 132, 199, 0.1)" stroke="#0284c7" stroke-width="3" />
+      <text x="0" y="32" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" fill="#0369a1" text-anchor="middle">MISSION CRITICAL</text>
+      
+      <!-- Aerospace / Medical Icons -->
+      <!-- Rocket -->
+      <g transform="translate(-40, 90)">
+        <path d="M 0 -35 C 15 -20 18 10 18 20 L -18 20 C -18 10 -15 -20 0 -35 Z" fill="rgba(2, 132, 199, 0.2)" stroke="#0284c7" stroke-width="2.5" />
+        <circle cx="0" cy="-5" r="5" fill="#0284c7" />
+        <path d="M -18 10 L -28 22 L -18 20" stroke="#0284c7" stroke-width="2" />
+        <path d="M 18 10 L 28 22 L 18 20" stroke="#0284c7" stroke-width="2" />
+      </g>
+      <!-- Heartbeat Pulse Line -->
+      <g transform="translate(40, 90)">
+        <path d="M -30 0 L -12 0 L -5 -24 L 5 24 L 12 -10 L 18 0 L 30 0" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+      <!-- Subtitle badge -->
+      <text x="0" y="135" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">100% MC/DC &amp; Formal</text>
+    </g>
+
+    <!-- Right Pan Hanger (Agile / Web & E-commerce) -->
+    <line x1="240" y1="-120" x2="240" y2="-20" stroke="#94a3b8" stroke-width="2.5" />
+    <!-- Right Plate Container -->
+    <g transform="translate(240, -20)">
+      <rect x="-105" y="0" width="210" height="150" rx="16" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="3" />
+      <text x="0" y="32" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" fill="#047857" text-anchor="middle">AGILE / WEB APP</text>
+      
+      <!-- Shopping Cart & Cloud Icons -->
+      <!-- Shopping Cart -->
+      <g transform="translate(-35, 85)">
+        <path d="M -24 -20 L -16 -20 L -8 10 L 18 10 L 24 -10 L -12 -10" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="-4" cy="20" r="4" fill="#10b981" />
+        <circle cx="14" cy="20" r="4" fill="#10b981" />
+      </g>
+      <!-- Fast Sync / A/B Cycle -->
+      <g transform="translate(45, 85)">
+        <circle cx="0" cy="0" r="18" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="24 10" />
+        <polygon points="12,-10 18,-2 10,-2" fill="#10b981" />
+        <text x="0" y="5" font-family="-apple-system, sans-serif" font-size="12" font-weight="900" fill="#10b981" text-anchor="middle">A/B</text>
+      </g>
+      <!-- Subtitle badge -->
+      <text x="0" y="135" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">Rapid CI/CD &amp; Canary</text>
+    </g>
+  </g>
+</svg>

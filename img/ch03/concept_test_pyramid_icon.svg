@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Ambient field -->
+  <circle cx="400" cy="400" r="320" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.35" />
+
+  <!-- Top Banner Tag -->
+  <g transform="translate(400, 115)">
+    <rect x="-190" y="-40" width="380" height="65" rx="32" fill="rgba(255, 255, 255, 0.9)" stroke="#64748b" stroke-width="2" />
+    <text x="0" y="4" font-family="-apple-system, sans-serif" font-size="24" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="2">
+      TEST PYRAMID
+    </text>
+  </g>
+
+  <!-- The 3-Tier Pyramid Structure -->
+  <g transform="translate(400, 470)">
+    <!-- Base Line -->
+    <line x1="-280" y1="145" x2="280" y2="145" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Tier 1 (Bottom, Wide): Unit Tests -->
+    <polygon points="-240,135 240,135 170,25 -170,25" 
+             fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="3" stroke-linejoin="round" />
+    <text x="0" y="85" font-family="-apple-system, sans-serif" font-size="26" font-weight="900" fill="#047857" text-anchor="middle">
+      UNIT TESTS (70%)
+    </text>
+    <text x="0" y="112" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#64748b" text-anchor="middle">
+      Fast · Low Cost · Milliseconds
+    </text>
+
+    <!-- Tier 2 (Middle, Intermediate): Service & Integration Tests -->
+    <polygon points="-160,15 160,15 90,-95 -90,-95" 
+             fill="rgba(2, 132, 199, 0.15)" stroke="#0284c7" stroke-width="3" stroke-linejoin="round" />
+    <text x="0" y="-40" font-family="-apple-system, sans-serif" font-size="22" font-weight="900" fill="#0369a1" text-anchor="middle">
+      INTEGRATION (20%)
+    </text>
+    <text x="0" y="-15" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#64748b" text-anchor="middle">
+      API · DB · Contracts
+    </text>
+
+    <!-- Tier 3 (Top, Small): UI & E2E Tests -->
+    <polygon points="-80,-105 80,-105 0,-225" 
+             fill="rgba(244, 63, 94, 0.18)" stroke="#f43f5e" stroke-width="3" stroke-linejoin="round" />
+    <text x="0" y="-145" font-family="-apple-system, sans-serif" font-size="18" font-weight="900" fill="#be123c" text-anchor="middle">
+      E2E (10%)
+    </text>
+    <text x="0" y="-125" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#be123c" text-anchor="middle">
+      UI / Slow
+    </text>
+  </g>
+
+  <!-- Left Dimension Indicator: SPEED (Fast at bottom, Slow at top) -->
+  <g transform="translate(100, 470)">
+    <line x1="0" y1="100" x2="0" y2="-180" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="4 4" />
+    <!-- Down Arrow for Speed -->
+    <polygon points="-6,100 6,100 0,112" fill="#10b981" />
+    <text x="12" y="105" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#10b981">⚡ Fast</text>
+    
+    <polygon points="-6,-180 6,-180 0,-192" fill="#f43f5e" />
+    <text x="12" y="-180" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#f43f5e">⏳ Slow</text>
+  </g>
+
+  <!-- Right Dimension Indicator: COST (Cheap at bottom, Expensive at top) -->
+  <g transform="translate(700, 470)">
+    <line x1="0" y1="100" x2="0" y2="-180" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="4 4" />
+    <!-- Up Arrow for Cost -->
+    <polygon points="-6,-180 6,-180 0,-192" fill="#f43f5e" />
+    <text x="-12" y="-180" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#f43f5e" text-anchor="end">💸 High $</text>
+    
+    <polygon points="-6,100 6,100 0,112" fill="#10b981" />
+    <text x="-12" y="105" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#10b981" text-anchor="end">💰 Low $</text>
+  </g>
+</svg>

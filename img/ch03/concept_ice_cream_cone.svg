@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Filter for subtle drop shadow -->
+    <filter id="coneShadow" x="-15%" y="-10%" width="130%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.10" />
+    </filter>
+    
+    <!-- Linear gradients -->
+    <linearGradient id="cherryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+
+    <linearGradient id="topScoopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af" />
+      <stop offset="100%" stop-color="#f43f5e" />
+    </linearGradient>
+
+    <linearGradient id="midScoopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <linearGradient id="coneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Guide Circle (Subtle Slate Outline) -->
+  <circle cx="250" cy="255" r="215" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6,6" opacity="0.25"/>
+
+  <!-- Top Anti-Pattern Warning Capsule -->
+  <g transform="translate(140, 22)">
+    <rect x="0" y="0" width="220" height="34" rx="17" fill="#fff1f2" stroke="#e11d48" stroke-width="1.8" />
+    <!-- Warning Triangle Icon -->
+    <polygon points="26,8 14,28 38,28" fill="#e11d48" />
+    <text x="26" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+    <text x="126" y="22.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#be123c" letter-spacing="1.5" text-anchor="middle">ANTI-PATTERN</text>
+  </g>
+
+  <!-- Left Callout: Flaky & Slow -->
+  <g transform="translate(36, 138)">
+    <rect x="0" y="0" width="96" height="50" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" filter="url(#coneShadow)" />
+    <!-- Alert Icon -->
+    <polygon points="18,14 10,27 26,27" fill="#e11d48" />
+    <text x="18" y="25" font-family="sans-serif" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+    <text x="56" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" fill="#e11d48">High Cost</text>
+    <text x="48" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">Flaky &amp; Slow</text>
+    <path d="M 96 25 L 120 38" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3,3" />
+  </g>
+
+  <!-- Right Callout: Top-Heavy / Brittle -->
+  <g transform="translate(368, 138)">
+    <rect x="0" y="0" width="96" height="50" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" filter="url(#coneShadow)" />
+    <!-- Alert Icon -->
+    <polygon points="18,14 10,27 26,27" fill="#e11d48" />
+    <text x="18" y="25" font-family="sans-serif" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+    <text x="56" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" fill="#e11d48">Top-Heavy</text>
+    <text x="48" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#64748b" text-anchor="middle">Brittle CI</text>
+    <path d="M 0 25 L -24 38" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3,3" />
+  </g>
+
+  <!-- Main Ice Cream Cone Group with Shadow -->
+  <g filter="url(#coneShadow)">
+    
+    <!-- Cherry on Top -->
+    <g transform="translate(250, 72)">
+      <!-- Stem -->
+      <path d="M 0 0 C 12 -18 35 -14 38 -30" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round" />
+      <!-- Leaf -->
+      <path d="M 28 -20 C 35 -28 42 -22 36 -17 Z" fill="#22c55e" stroke="#15803d" stroke-width="1" />
+      <!-- Cherry -->
+      <circle cx="0" cy="0" r="14" fill="url(#cherryGrad)" stroke="#9f1239" stroke-width="1.5" />
+      <circle cx="-4" cy="-4" r="3.5" fill="#ffffff" opacity="0.6" />
+    </g>
+
+    <!-- Top Giant Scoop: UI / E2E & Manual Tests -->
+    <path d="
+      M 155 175
+      C 145 140 180 88 250 88
+      C 320 88 355 140 345 175
+      C 362 185 362 205 345 215
+      C 340 220 326 220 320 212
+      C 312 226 296 226 288 215
+      C 282 232 268 238 260 220
+      C 252 235 238 235 232 218
+      C 225 230 205 230 198 214
+      C 192 224 175 224 166 212
+      C 146 205 144 185 155 175 Z
+    " fill="url(#topScoopGrad)" stroke="#be123c" stroke-width="2.5" />
+
+    <!-- Melting Drips Hanging Down -->
+    <path d="M 198 218 C 198 236 191 240 191 232 C 191 224 195 220 196 216" fill="#f43f5e" stroke="#be123c" stroke-width="1.5" />
+    <path d="M 268 222 C 268 244 262 246 262 236 C 262 226 266 222 267 218" fill="#f43f5e" stroke="#be123c" stroke-width="1.5" />
+    <!-- Detached Drop -->
+    <ellipse cx="262" cy="254" rx="3.5" ry="5.5" fill="#f43f5e" stroke="#be123c" stroke-width="1" />
+
+    <!-- Scoop 1 Text: UI & E2E Tests -->
+    <text x="250" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">UI / E2E TESTS</text>
+    <text x="250" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#ffe4e6" text-anchor="middle">(70% ~ 80% OVERSIZED)</text>
+    <text x="250" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#ffe4e6" text-anchor="middle">Slow · Expensive · Brittle</text>
+
+    <!-- Middle Scoop / Layer: Integration Tests -->
+    <path d="
+      M 175 218
+      C 166 218 162 234 170 244
+      C 176 254 185 258 195 256
+      C 202 266 220 268 232 258
+      C 244 268 266 268 275 258
+      C 285 268 305 264 312 254
+      C 324 255 336 244 330 230
+      C 328 220 318 216 308 214
+      Z
+    " fill="url(#midScoopGrad)" stroke="#1d4ed8" stroke-width="2.2" />
+
+    <text x="250" y="244" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle">INTEGRATION (15%)</text>
+
+    <!-- Bottom Tiny Waffle Cone: Unit Tests (Wider at top 175->325, tapering down to 250,425) -->
+    <path d="M 180 258 L 320 258 L 250 425 Z" fill="url(#coneGrad)" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round" />
+
+    <!-- Waffle Grid Pattern on Cone -->
+    <g stroke="#9a3412" stroke-width="1.2" opacity="0.45">
+      <line x1="200" y1="280" x2="280" y2="340" />
+      <line x1="215" y1="315" x2="270" y2="370" />
+      <line x1="230" y1="350" x2="260" y2="395" />
+      <line x1="300" y1="280" x2="220" y2="340" />
+      <line x1="285" y1="315" x2="230" y2="370" />
+      <line x1="270" y1="350" x2="240" y2="395" />
+    </g>
+
+    <!-- Cone Text: Unit Tests with Pill Background for 100% Readability -->
+    <g transform="translate(195, 275)">
+      <rect x="0" y="0" width="110" height="48" rx="6" fill="#78350f" fill-opacity="0.9" />
+      <text x="55" y="19" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" fill="#fef3c7" text-anchor="middle">UNIT TESTS</text>
+      <text x="55" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#fed7aa" text-anchor="middle">(ONLY 5% ~ 10%)</text>
+      <text x="55" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" fill="#fdba74" text-anchor="middle">Neglected Base</text>
+    </g>
+
+    <!-- Cracks on Cone (Showing instability / Fragile Base) -->
+    <path d="M 250 425 L 254 380 L 244 360 L 250 330" fill="none" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Bottom Capsule Tag -->
+  <g transform="translate(100, 442)">
+    <rect x="0" y="0" width="300" height="34" rx="17" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2" opacity="0.95" filter="url(#coneShadow)" />
+    <!-- Alert Icon -->
+    <polygon points="24,9 12,27 36,27" fill="#e11d48" />
+    <text x="24" y="24" font-family="sans-serif" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+    <text x="165" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#334155" text-anchor="middle">
+      <tspan fill="#e11d48" font-weight="900">冰淇淋甜筒反模式</tspan> · 頭重腳輕難維護
+    </text>
+  </g>
+</svg>

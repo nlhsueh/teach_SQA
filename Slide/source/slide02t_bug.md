@@ -8,11 +8,13 @@ backgroundColor: #f5f5f5
 color: #333
 style: |
   section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     font-family: 'PingFang TC', 'Noto Sans TC', 'Heiti TC', 'Microsoft JhengHei', 'Helvetica Neue', Arial, sans-serif;
     padding: 40px;
     font-size: 23px;
     line-height: 1.6;
-    justify-content: flex-start;
   }
   ul, ol {
     margin-top: 10px;
@@ -33,19 +35,9 @@ style: |
   h1 {
     color: #0b3c5d;
   }
-  /* Section (##) slide title */
-  h2 {
-    color: #328cc1;
-    font-size: 32px;
-    margin-top: 0;
-    margin-bottom: 24px;
-    border-bottom: 2px solid #93c5fd;
-    padding-bottom: 8px;
-    line-height: 1.3;
-  }
 
-  /* Subsection (###) slide title */
-  section > h3 {
+  /* 投影片主標題 (## 與 ### 統一風格與頂端錨定) */
+  h2, section > h3 {
     color: #328cc1;
     font-size: 32px;
     margin-top: 0;
@@ -56,37 +48,54 @@ style: |
     text-align: left;
   }
 
-  /* Subsection (###) pages: vertically centered layout */
-  section:has(> h3):not(:has(> h2)) {
-    justify-content: center;
+  /* 內容卡片群組：在標題與底部之間自適應垂直置中 */
+  .card-deck {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    gap: 16px;
+    box-sizing: border-box;
+  }
+  .card-deck > * {
+    margin: 0 !important;
+  }
+  /* 支援漸進式呈現金句 (* >) 移除外層 ul/li 預設符號 */
+  .card-deck > ul,
+  .card-deck > ul > li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
   }
 
-  .two-columns {
+  /* 多欄網格容器 (統一提取共通屬性) */
+  .two-columns, .two-columns-64, .two-columns-73, .three-columns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 28px !important;
-  }
-  .two-columns-64 {
-    display: grid;
-    grid-template-columns: 6fr 4fr;
     gap: 20px;
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 28px !important;
   }
-  .two-columns-73 {
-    display: grid;
-    grid-template-columns: 7fr 3fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 28px !important;
+  .two-columns    { grid-template-columns: 1fr 1fr; }
+  .two-columns-64 { grid-template-columns: 6fr 4fr; }
+  .two-columns-73 { grid-template-columns: 7fr 3fr; }
+  .three-columns  { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  /* 三欄卡片微調字級 */
+  .three-columns .card {
+    padding: 14px 18px;
+    font-size: 16.5px;
+  }
+  .three-columns .card h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+  }
+  .three-columns .card li {
+    font-size: 16px !important;
+    margin-bottom: 6px !important;
   }
   .card {
     background: white;
@@ -406,15 +415,21 @@ style: |
     color: #777;
   }
   blockquote {
-    background: transparent;
-    border-left: 4px solid #328cc1;
-    margin: 0.8em 0;
-    padding: 5px 20px;
-    font-style: italic;
-    color: inherit;
-    opacity: 0.85;
+    background: rgba(2, 132, 199, 0.05);
+    border-left: 4px solid #0284c7;
+    margin: 4px 0 12px 0 !important;
+    padding: 8px 16px !important;
+    font-size: 21.5px !important;
+    line-height: 1.5 !important;
+    color: #334155 !important;
+    border-radius: 0 6px 6px 0;
+    font-style: normal !important;
   }
-  blockquote::before {
+  blockquote p {
+    margin: 0 !important;
+  }
+  blockquote::before,
+  blockquote::after {
     content: none !important;
   }
   table {
@@ -445,12 +460,6 @@ style: |
   }
   code {
     font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
-  }
-  section:has(div.ccq-columns),
-  section:has(div.discussion-columns),
-  section:has(div.fill-blank-columns) {
-    display: flex;
-    flex-direction: column;
   }
   div.ccq-columns {
     display: flex;
@@ -655,8 +664,13 @@ footer: 'Ch02 錯與除錯'
 
 ## 本章重點導讀 (Key Highlights)
 
+<div class="card-deck">
+
+* > 🧭 全面掌握缺陷因果鏈、Clean Code 防錯心法與契約防禦工程，打造堅不可摧的軟體體質。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🐛 臭蟲本質與除錯心法
 - **2.1 臭蟲與錯誤**：IEEE 因果鏈、規格缺陷與常見錯誤分類
@@ -665,7 +679,7 @@ footer: 'Ch02 錯與除錯'
 - **2.4 除錯工具實務**：條件斷點、例外斷點與動態求值
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🛡️ 防禦架構與缺陷管理
 - **2.5 防禦編程與契約**：Meyer 契約三大法則、斷言 vs. 例外
@@ -673,6 +687,8 @@ footer: 'Ch02 錯與除錯'
 - **2.7 綜合練習與實戰**：因果辨析、邏輯排查與 MaxHeap 實作
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -709,21 +725,32 @@ footer: 'Ch02 錯與除錯'
 
 ### 因果鏈關鍵定理與防錯原則
 
+<div class="card-deck">
+
+* > ⚖️ 「沒有觀察到崩潰，不代表程式沒有錯。」—— 深入理解缺陷因果鏈，主動打破潛伏期。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚖️ 因果鏈關鍵定理
-- **定理一（潛伏缺陷）**：系統中有 Fault，不一定馬上觸發 Failure；罕見分支或計算遮罩會形成潛伏缺陷
-- **定理二（失效必有因）**：只要觀察到外部 Failure，系統內部必然存在對應的 Fault 或環境不一致！
+- **定理一（缺陷潛伏性）**：系統中有 Fault，未必立即顯現為 Failure；罕見邊界分支與未存取狀態易形成長期潛伏
+- **定理二（失效必有因）**：只要外部觀察到 Failure，系統內部必然歷經完整的因果狀態傳遞鏈
+- **計算遮罩效應 (Masking)**：後續運算可能巧合覆蓋先前的錯誤狀態（如乘以 0），導致隱蔽 Bug 逃逸
+- **狀態污染蔓延**：內部 Error State 若未被及時攔截，將隨時間污染資料庫與關聯微服務，終致雪崩
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🛡️ SQA 品質防錯原則
-- **拒絕表面無錯假象**：未見崩潰不等於零 Bug，隱蔽缺陷隨時可能在尖峰時刻引爆
-- **主動逼出原形**：透過單元測試、契約斷言 (Assertions) 與靜態檢視，防患於未然
+- **拒絕表面綠燈假象**：跑過幾次 Happy Path 零報錯絕不等於零缺陷，必須針對非預期輸入進行破壞性測試
+- **快速失敗原則 (Fail Fast)**：在 Error State 剛萌芽的瞬間拋出斷言或例外中斷，阻斷其演變為重大 Failure
+- **建立可觀測性防線**：透過結構化日誌 (Structured Logging)、分散式追蹤與 APM，及早偵測內部亞健康狀態
+- **追本溯源除錯根治**：除錯時絕不能僅在表象打補丁，必須循因果鏈逆向追查根本 Fault 並修正防禦盲點
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -775,23 +802,32 @@ footer: 'Ch02 錯與除錯'
 
 ### 規格缺陷與防禦性工程素養
 
+<div class="card-deck">
+
+* > 🛡️ 「規格沒寫，不代表系統可以崩潰。」—— 卓越工程師的本能是在未知邊界主動築起防線。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🔍 缺陷與失效的三重邊界
 - **潛伏缺陷 (Latent Fault)**：程式碼有 Bug（數值溢位），但在常規情境未被觸發
-- **規格遺漏 (Missing Spec)**：規格未定義極端輸入（除以 0），系統直接崩潰
-- **可觀察失效 (Observable Crash)**：錯誤穿透邊界，造成服務中斷或資料污染
+- **規格遺漏 (Missing Spec)**：規格未定義極端輸入（如除數為 0 或負數年齡），系統直接崩潰
+- **規格模糊 (Ambiguous Spec)**：需求描述含糊不清，開發與測試人員各自解讀產生嚴重落差
+- **可觀察失效 (Observable Crash)**：錯誤穿透防線，造成服務中斷、交易重複或髒資料污染
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 🛡️ 專業軟體工程師素養
-- **不以規格模糊為藉口**：未在規格載明的輸入，不代表可以任由系統 Crash
-- **主動防禦思維 (Defensive)**：為所有未知邊界加入輸入校驗與優雅容錯
-- **落實先決條件驗證**：在模組邊界主動補全邊界例外，建立防禦防線
+### 🛡️ 專業軟體工程師防禦素養
+- **不以規格模糊為藉口**：未在規格載明的輸入，絕不代表可以任由系統 Crash 或拋出 500
+- **主動防禦編程 (Defensive)**：為所有未知邊界加入嚴格的輸入校驗 (Validation) 與優雅容錯
+- **落實先決條件契約 (DbC)**：在模組對外入口處建立強固的合約防火牆，阻斷髒資料滲透
+- **推動三方協同對齊 (Three Amigos)**：在開發前主動與 PO 及 QA 釐清模糊情境，消弭規格漏洞
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -892,42 +928,64 @@ pre code {
 
 ### 2.2.3 為什麼需要 Clean Code？
 
+<div class="card-deck">
+
+* > 🏕️ 「離開營地時，讓它比你來的時候更乾淨。」—— 破窗效應是架構腐化的催化劑，童子軍法則是對抗技術債的疫苗。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🏚️ 破窗效應與技術債
-- **破窗效應 (Broken Windows)**：程式庫中只要有一處「將就、醜陋」的寫法，後續維護者便會效仿，導致架構快速腐化
-- **生產力斷崖衰退**：為求短期交付而犧牲品質，累積沈重技術債，長期維護成本呈指數飆升
+- **破窗效應 (Broken Windows)**：程式碼只要有一處「醜陋將就」，維護者便會效仿，導致架構快速腐化
+- **生產力斷崖式衰退**：為求短期交付而犧牲品質，累積龐大技術債，後續每新增一項功能都舉步維艱
+- **認知負荷暴增 (Cognitive Load)**：晦澀變數與數百行大函式，迫使工程師花 90% 時間在大腦中解碼
+- **連鎖回歸災難**：缺乏模組邊界保護，修改 A 模組卻莫名改壞遠端 B 模組，引發嚴重生產環境事故
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 🏕️ 童子軍法則 (Boy Scout)
+### 🏕️ 童子軍法則與正向飛輪
 - **核心承諾**：「離開營地時，讓它比你來的時候更乾淨 (Leave the campground cleaner)」
-- **持續微重構**：每次提交 Commit / PR 時，順手重命名模糊變數、萃取小函式，讓品質正向循環
+- **持續漸進微重構**：每次提交 PR 時，順手重命名模糊變數、萃取小函式、補齊缺失的邊界測試
+- **化整為零清償技術債**：無須停擺業務進行昂貴的「大翻新」，透過日常微改善維持程式庫健康度
+- **建立卓越工程文化**：讓整潔與高自律成為團隊共識，程式碼庫隨著每一次提交愈發穩健大器
 
 </div>
+</div>
+
 </div>
 
 ---
 
 ### 2.2.4 Clean Code 的核心心法
 
+<div class="card-deck">
+
+* > 🎯 簡潔不是簡化，而是精煉到無可替代——以清楚意圖取代二度解碼，以 DRY 與 KISS 杜絕人為錯誤。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 🎯 意圖與精煉
-- **意圖清楚 (Intention-Revealing)**：程式碼開門見山表明「在做什麼」與「為什麼」，無須在大腦中二次解碼
-- **DRY 原則 (Don't Repeat Yourself)**：消除重複邏輯；重複是維護的夢魘，改一漏一必生 Bug
-
-</div>
-<div class="card">
-
-### 🧩 簡潔與聚焦
-- **KISS 原則 (Keep It Simple, Stupid)**：以最精煉直接的架構解決問題，嚴防過度工程與不必要的複雜度
-- **YAGNI 原則 (You Aren't Gonna Need It)**：只實作當前明確需要的功能，切勿預先撰寫想像中的過度彈性
+### 🎯 意圖透徹與消弭重複
+- **意圖清楚 (Intention-Revealing)**：命名即規格，開門見山表明業務動機，閱讀無須二次解碼
+- **DRY 原則 (Don't Repeat Yourself)**：消除邏輯重複；每項知識在系統中僅有單一且權威的表述
+- **防錯效益**：相同業務邏輯散落各處時，維護時「改一漏一」是產生低級 Bug 最常見的溫床
+- **單一職責 (SRP)**：一個函式只專注做好一件事；函式越精煉，內部潛伏隱蔽邏輯錯誤的機率越低
 
 </div>
+<div class="card" data-marpit-fragment>
+
+### 🧩 精煉架構與務實防禦
+- **KISS 原則 (Keep It Simple, Stupid)**：以最精煉直接的架構解決問題，嚴防不必要的複雜度
+- **YAGNI 原則 (You Aren't Gonna Need It)**：只實作當前明確需要的功能，切勿撰寫想像中的過度彈性
+- **天然可測試性 (Testability)**：職責單一與依賴解耦的程式碼極易進行單元測試與 Mock 驗證
+- **自解釋程式碼 (Self-Documenting)**：用優雅結構取代過期註解，讓程式碼本身成為最真實的活文件
+
+</div>
+</div>
+
 </div>
 
 ---
@@ -1085,8 +1143,13 @@ public void processOrder(Order order) {
 
 ### 2.2.6 重大迷思：Clean Code 等於沒有 Bug 嗎？
 
+<div class="card-deck">
+
+* > 💡 Clean Code 保證的是結構可讀與可維護性，而非商業運算的絕對正確；但優雅的程式碼讓缺陷無處藏身！
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚠️ 品質的兩大維度
 - **內部品質 (Internal Quality)**：
@@ -1097,7 +1160,7 @@ public void processOrder(Order order) {
   - 命名再優雅，若運算公式寫錯，仍是嚴重業務缺陷！
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 💡 Clean Code 的真正防錯價值
 - **讓缺陷無處可藏**：扁平小巧的函式讓業務漏洞在審查中無所遁形
@@ -1105,6 +1168,8 @@ public void processOrder(Order order) {
 - **將修復風險降至最低**：大幅降低改壞其他模組的連鎖副作用與回歸成本
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -1259,8 +1324,13 @@ public void processOrder(Order order) {
 
 ### 2.3.4 🤖 AI 時代輔助除錯的兩大陷阱
 
+<div class="card-deck">
+
+* > 🤖 別讓 AI 成為你的「創可貼工廠」——掩蓋症狀只會讓架構毒素在更深處引爆。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🩹 陷阱 1：膠帶式修復 (Band-aid Fix)
 - **錯誤現象**：
@@ -1269,7 +1339,7 @@ public void processOrder(Order order) {
   只是掩蓋徵兆，根本原因（資料庫查無或初始化失敗）未解，錯誤將在更深處隱蔽引爆！
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚠️ 陷阱 2：自我印證偏誤與回歸破壞
 - **錯誤現象**：
@@ -1278,6 +1348,8 @@ public void processOrder(Order order) {
   AI 常破壞其他模組隱含的狀態不變量 (Invariants)，悄悄引入嚴重的回歸缺陷 (Regression)！
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -1362,21 +1434,28 @@ public void processOrder(Order order) {
 
 ### 2.5.1 契約式設計的三大核心要素
 
+<div class="card-deck">
+
+* > 📜 權責分明拒絕踢皮球——以契約精確規範前置要求、後置保證與狀態不變量。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 📜 呼叫端與被呼叫端義務
 - **Preconditions (前置條件 - requires)**：呼叫者進入方法前必須滿足的義務；若未滿足，責任在呼叫端，方法有權拒絕執行
 - **Postconditions (後置條件 - ensures)**：方法正常執行後保證達成的狀態與輸出；若未達成，責任在被呼叫端內部缺陷
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🔒 狀態恆真約束與工程價值
 - **Class Invariants (類別不變量 - maintains)**：物件在任何公開方法呼叫前後必須永遠維持為真的核心業務法則
 - **權責分明拒絕踢皮球**：清楚界定「誰該負責防禦什麼」，杜絕無休止的冗餘檢查與責任爭議
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -1462,8 +1541,13 @@ public class BankAccount {
 
 ### 2.5.2 斷言的禁忌與啟用開關 (-ea)
 
+<div class="card-deck">
+
+* > ⚙️ 斷言是開發與除錯時的防錯鷹架，切勿當作生產環境抵禦外部輸入的承重牆。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ❌ 斷言的兩大絕對禁忌
 - **禁忌 1：絕不用於檢查 Public API 參數**
@@ -1472,7 +1556,7 @@ public class BankAccount {
   如 `assert list.remove(item)`；關閉斷言後程式碼不執行，將破壞業務狀態！
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚙️ 啟用斷言的方法 (`-ea`)
 - **命令列終端執行**：
@@ -1483,6 +1567,8 @@ public class BankAccount {
   `<enableAssertions>true</enableAssertions>`。
 
 </div>
+</div>
+
 </div>
 
 ---
@@ -1637,8 +1723,13 @@ public class BankAccount {
 
 ### 2.6.3 嚴重度 (Severity) vs 優先級 (Priority)
 
+<div class="card-deck">
+
+* > 🎯 技術影響力（嚴重度）不等於商業急迫性（優先級）——學會正交決策是資深工程師的必修課。
+
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚙️ 嚴重度 (Severity)
 - **本質維度**：**技術與系統衝擊**
@@ -1646,7 +1737,7 @@ public class BankAccount {
 - **常見分級**：`Critical` (當機/資安) ➔ `Major` (主功能受阻) ➔ `Minor` (小瑕疵)。
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⏰ 優先級 (Priority)
 - **本質維度**：**商業與修復急迫性**
@@ -1656,9 +1747,13 @@ public class BankAccount {
 </div>
 </div>
 
-<p style="margin-top: 14px; font-size: 0.95em; color: #475569; text-align: center;">
-📌 <strong>兩者為正交維度</strong>：嚴重度高不必然優先修復；嚴重度低（如首頁 Logo 錯字）在重大行銷時優先級極高！
-</p>
+<div class="card" data-marpit-fragment style="padding: 12px 20px; font-size: 18.5px; text-align: center;">
+
+📌 **兩者為正交維度**：嚴重度高不必然優先修復；嚴重度低（如首頁 Logo 錯字）在重大行銷時優先級極高！
+
+</div>
+
+</div>
 
 ---
 
@@ -1672,17 +1767,47 @@ public class BankAccount {
 
 ## 2x2 決策矩陣四大象限實例分析
 
-- **1. 高嚴重度 + 高優先級 (Critical & Urgent - 立即修復)**：
-  - *實例*：核心金流交易崩潰、全站 500 Crash、重大 SQL Injection 漏洞。
-  - *處置*：阻斷 Release，立即發布緊急熱修復 (Hotfix)。
-- **2. 低嚴重度 + 高優先級 (Low Severity & Urgent - 快速修復)**：
-  - *實例*：公司首頁 Logo 拼寫錯誤（`Compnay`）、主按鈕文案誤導。
-  - *處置*：技術層面只是靜態文字修改，但嚴重損害企業商譽，優先排定當日修正。
-- **3. 高嚴重度 + 低優先級 (High Severity & Low Priority - 排程修復)**：
-  - *實例*：特定冷門作業系統（如 Win95）或極罕見複合邊界下的當機。
-  - *處置*：技術衝擊大但影響使用者趨近於零，排入後續迭代正常修復。
-- **4. 低嚴重度 + 低優先級 (Low Severity & Low Priority - 日後優化)**：
-  - *實例*：內部管理後台冷門報表 1 像素對齊偏差。
+<div class="card-deck">
+
+* > 💡 缺陷評估需從「技術破壞程度（嚴重度）」與「商業迫切性（優先級）」雙維度解耦決策。
+
+  <div class="two-columns">
+    <div class="card" data-marpit-fragment>
+      <h3>🔥 象限 1：高嚴重度 + 高優先級</h3>
+      <ul>
+        <li><b>狀態</b>：Critical & Urgent（立即修復）</li>
+        <li><b>實例</b>：核心金流交易崩潰、全站 500 Crash、重大 SQL Injection 漏洞</li>
+        <li><b>處置</b>：阻斷 Release，立即發布緊急熱修復 (Hotfix)</li>
+      </ul>
+    </div>
+    <div class="card" data-marpit-fragment>
+      <h3>⚡ 象限 2：低嚴重度 + 高優先級</h3>
+      <ul>
+        <li><b>狀態</b>：Low Severity & Urgent（快速修復）</li>
+        <li><b>實例</b>：公司首頁 Logo 拼寫錯誤（<code>Compnay</code>）、主按鈕文案誤導</li>
+        <li><b>處置</b>：技術修正微小但損害商譽，優先排定當日修正</li>
+      </ul>
+    </div>
+  </div>
+  <div class="two-columns">
+    <div class="card" data-marpit-fragment>
+      <h3>⏳ 象限 3：高嚴重度 + 低優先級</h3>
+      <ul>
+        <li><b>狀態</b>：High Severity & Low Priority（排程修復）</li>
+        <li><b>實例</b>：特定冷門作業系統（如 Win95）或極罕見複合邊界下的崩潰</li>
+        <li><b>處置</b>：技術衝擊大但影響使用者趨近於零，排入後續迭代正常修復</li>
+      </ul>
+    </div>
+    <div class="card" data-marpit-fragment>
+      <h3>🌱 象限 4：低嚴重度 + 低優先級</h3>
+      <ul>
+        <li><b>狀態</b>：Low Severity & Low Priority（日後優化）</li>
+        <li><b>實例</b>：內部管理後台冷門報表 1 像素對齊偏差</li>
+        <li><b>處置</b>：無害瑕疵，暫緩處理或列入日後體驗優化清單</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 ---
 

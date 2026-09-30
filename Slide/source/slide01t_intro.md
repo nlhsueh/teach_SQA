@@ -8,11 +8,13 @@ backgroundColor: #f5f5f5
 color: #333
 style: |
   section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     font-family: 'PingFang TC', 'Noto Sans TC', 'Heiti TC', 'Microsoft JhengHei', 'Helvetica Neue', Arial, sans-serif;
     padding: 40px;
     font-size: 23px;
     line-height: 1.6;
-    justify-content: flex-start;
   }
   ul, ol {
     margin-top: 10px;
@@ -33,19 +35,9 @@ style: |
   h1 {
     color: #0b3c5d;
   }
-  /* Section (##) slide title */
-  h2 {
-    color: #328cc1;
-    font-size: 32px;
-    margin-top: 0;
-    margin-bottom: 24px;
-    border-bottom: 2px solid #93c5fd;
-    padding-bottom: 8px;
-    line-height: 1.3;
-  }
 
-  /* Subsection (###) slide title */
-  section > h3 {
+  /* 投影片主標題 (## 與 ### 統一風格與頂端錨定) */
+  h2, section > h3 {
     color: #328cc1;
     font-size: 32px;
     margin-top: 0;
@@ -56,68 +48,42 @@ style: |
     text-align: left;
   }
 
-  /* Subsection (###) pages: vertically centered layout (過渡頁面) */
-  section:has(> h3):not(:has(> h2)):not(:has(div.card-deck)):not(:has(div.ccq-columns)):not(:has(div.discussion-columns)) {
-    justify-content: center;
-  }
-
-  /* 卡片群組整體垂直置中 (參考 CCQ 的 div.ccq-columns 容器架構) */
-  div.card-deck {
+  /* 內容卡片群組：在標題與底部之間自適應垂直置中 */
+  .card-deck {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-top: auto !important;
     margin-bottom: auto !important;
-    gap: 14px;
-    box-sizing: border-box;
-  }
-  div.card-deck > blockquote {
-    margin: 0 !important;
-  }
-  div.card-deck > .two-columns,
-  div.card-deck > .two-columns-64,
-  div.card-deck > .two-columns-73,
-  div.card-deck > .three-columns {
-    margin: 0 !important;
-  }
-  div.card-deck > .card {
-    margin: 0 !important;
-  }
-
-  .two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .two-columns-64 {
-    display: grid;
-    grid-template-columns: 6fr 4fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .two-columns-73 {
-    display: grid;
-    grid-template-columns: 7fr 3fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .three-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+    box-sizing: border-box;
+  }
+  .card-deck > * {
+    margin: 0 !important;
+  }
+  /* 支援漸進式呈現金句 (* >) 移除外層 ul/li 預設符號 */
+  .card-deck > ul,
+  .card-deck > ul > li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+  }
+
+  /* 多欄網格容器 (統一提取共通屬性) */
+  .two-columns, .two-columns-64, .two-columns-73, .three-columns {
+    display: grid;
+    gap: 20px;
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
   }
+  .two-columns    { grid-template-columns: 1fr 1fr; }
+  .two-columns-64 { grid-template-columns: 6fr 4fr; }
+  .two-columns-73 { grid-template-columns: 7fr 3fr; }
+  .three-columns  { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
-
+  /* 三欄卡片微調字級 */
   .three-columns .card {
     padding: 14px 18px;
     font-size: 16.5px;
@@ -131,6 +97,8 @@ style: |
     font-size: 16px !important;
     margin-bottom: 6px !important;
   }
+
+  /* 卡片本體樣式 */
   .card {
     background: white;
     padding: 22px 26px;
@@ -380,9 +348,9 @@ style: |
     background: rgba(2, 132, 199, 0.05);
     border-left: 4px solid #0284c7;
     margin: 4px 0 12px 0 !important;
-    padding: 6px 14px !important;
-    font-size: 18px !important;
-    line-height: 1.45 !important;
+    padding: 8px 16px !important;
+    font-size: 21.5px !important;
+    line-height: 1.5 !important;
     color: #334155 !important;
     border-radius: 0 6px 6px 0;
     font-style: normal !important;
@@ -420,14 +388,7 @@ style: |
   pre code {
     font-size: 22px;
   }
-  section:has(div.ccq-columns),
-  section:has(div.discussion-columns),
-  section:has(div.fill-blank-columns),
-  section:has(div.card-deck) {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
+
   div.ccq-columns {
     display: flex;
     align-items: center;
@@ -631,7 +592,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🧭 從歷史軟體危機汲取教訓，建立現代品質模型防線；軟體品質保證是一門兼顧規格與實踐的系統工程。
+* > 🧭 從歷史軟體危機汲取教訓，建立現代品質模型防線；軟體品質保證是一門兼顧規格與實踐的系統工程。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -669,7 +630,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> ⏱️ 微小的數值精度截斷，在長時間運行的累計下，終將演變為無法挽回的致命偏差。
+* > ⏱️ 微小的數值精度截斷，在長時間運行的累計下，終將演變為無法挽回的致命偏差。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -697,7 +658,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🚀 跨團隊協同缺乏強制介面契約，讓造價近兩億美元的太空探測器在火星大氣中化為灰燼。
+* > 🚀 跨團隊協同缺乏強制介面契約，讓造價近兩億美元的太空探測器在火星大氣中化為灰燼。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -735,7 +696,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> ✈️ 人機互動 (HMI) 的狀態不透明與控制權仲裁衝突，在系統最危急的時刻給予致命一擊。
+* > ✈️ 人機互動 (HMI) 的狀態不透明與控制權仲裁衝突，在系統最危急的時刻給予致命一擊。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -775,7 +736,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🎮 在開發機上跑得順暢，不代表能在真實世界生存——硬體多樣性與相容性測試是第一道門檻。
+* > 🎮 在開發機上跑得順暢，不代表能在真實世界生存——硬體多樣性與相容性測試是第一道門檻。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -804,21 +765,25 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> ⚠️ 1968 年 NATO 會議首次提出「軟體危機」：硬體日新月異，軟體開發的複雜度與維護成本卻失控失衡。
+* > ⚠️ 1968 年 NATO 會議首次提出「軟體危機」：硬體日新月異，軟體開發的複雜度與維護成本卻失控失衡。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
 ### 📈 規模與研發效率失控
-- **軟體規模呈指數級膨脹**：硬體效能爆發帶動軟體膨脹，超出傳統手工管理極限。
-- **開發進度與成本難以預測**：「人月神話」溝通成本攀升，頻繁延宕超支。
+- **軟體規模呈指數級膨脹**：摩爾定律推動硬體性能翻倍，系統業務邏輯幾何級複雜化
+- **進度與成本全面失控**：工期無法預測，「人月神話」溝通協同成本反噬交付時程
+- **需求流動與範疇蔓延 (Scope Creep)**：缺乏漸進溝通協議，上線前夕重大變更摧毀架構
+- **手工開發管理極限**：過度依賴天才工程師個人手藝，缺乏工程化標準製程與複用機制
 
 </div>
 <div class="card" data-marpit-fragment>
 
 ### ⚠️ 品質低下與維護泥淖
-- **錯誤率高且缺乏系統化驗證**：缺乏自動化測試與工程化品質把關手段。
-- **架構腐化引發維護惡夢**：缺乏文件與規範，維護成本吞噬所有研發預算。
+- **缺乏系統化驗證與測試**：依賴人工隨機點擊測試，缺乏單元測試與自動化涵蓋率把關
+- **架構腐化與技術債失控**：缺乏規範拼湊程式碼導致緊密耦合，牽一髮動全身難以修改
+- **規格與文件斷鏈脫節**：原始程式碼成為唯一依據，人員流動後系統淪為無人能懂的黑盒
+- **維護成本吞噬所有研發資源**：逾 80% 預算耗費於救火與修復舊 Bug，扼殺創新動能
 
 </div>
 </div>
@@ -885,7 +850,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 📊 AI 大幅提升了撰寫程式碼的速度，卻也成倍放大了技術債務、高錯誤率與安全弱點的隱藏代價。
+* > 📊 AI 大幅提升了撰寫程式碼的速度，卻也成倍放大了技術債務、高錯誤率與安全弱點的隱藏代價。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -914,25 +879,25 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🤖 盲目信任與複製貼上：當工程師放棄對程式碼的質疑，AI 的幻覺與技術債將直接流入生產環境。
+* > 🤖 盲目信任與複製貼上：當工程師放棄對程式碼的質疑，AI 的幻覺與技術債將直接流入生產環境。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
 ### 💊 幻覺套件供應鏈投毒
-- **發生機制 (Slopsquatting)**：
-  LLM 憑空捏造看似合理的套件名稱（如 `crypto-validator`）。
-- **災難後果**：
-  黑客搶先註冊惡意套件，工程師直接 `pip install` 植入企業後門。
+- **發生機制 (Slopsquatting)**：LLM 憑空捏造看似合理卻不存在的套件名稱（如 `crypto-validator`）
+- **攻擊鏈成形**：黑客監聽常見 AI 幻覺套件名，搶先在 PyPI/npm 註冊同名木馬套件
+- **工程盲目採信**：工程師未經套件審查即直接執行 `pip install`，將勒索惡意軟體植入企業內網
+- **SQA 防禦對策**：強制啟用私有相依鏡像庫、白名單查驗與自動化相依性弱點掃描 (Snyk)
 
 </div>
 <div class="card" data-marpit-fragment>
 
 ### 🛒 亞馬遜電商大斷線
-- **發生機制**：
-  工程師使用 AI 工具輔助產生變更，未經充分審查即推上生產環境。
-- **災難後果**：
-  送貨與結帳邏輯錯亂，數小時內蒸發超過 630 萬筆訂單與鉅額營收。
+- **發生機制**：工程師過度依賴 AI 程式碼自動完成，未經深度人工檢視即合併推送至主幹
+- **隱蔽邏輯衝突**：AI 生成的非預期例外處理遮蔽了資料庫死結，導致購物車與結帳邏輯崩潰
+- **災難性商業後果**：全球結帳與物流服務中斷數小時，蒸發超過 630 萬筆訂單與鉅額營收
+- **SQA 防禦對策**：實施嚴格雙人程式碼審查 (Code Review)、金絲雀發布 (Canary) 與漸進灰度熔斷
 
 </div>
 </div>
@@ -944,25 +909,25 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🛡️ 軟體供應鏈污染與架構腐化：AI 時代的新型態品質危機，全面考驗著團隊的深度防禦防線。
+* > 🛡️ 軟體供應鏈污染與架構腐化：AI 時代的新型態品質危機，全面考驗著團隊的深度防禦防線。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
 
 ### ⚡ Vibe Coding 漏洞爆發
-- **發生機制**：
-  非工程人員憑 Prompt 產出服務，缺乏資安架構與 Code Review。
-- **災難後果**：
-  抽查 1600+ 上線應用，逾 10% 存在嚴重 SQLi 或越權（BOLA）直進後台漏洞。
+- **發生機制**：非工程人員憑藉自然語言 Prompt 快速生成應用，完全缺乏安全防禦架構
+- **漏洞氾濫現狀**：學界抽查 1600+ 上線部署的 AI 生成服務，逾 10% 存在嚴重安全缺陷
+- **典型高危樣態**：SQL 注入、跨站腳本 (XSS) 與物件層級越權存取（BOLA 直進後台）
+- **SQA 防禦對策**：建立強制性動態安全測試 (DAST) 與合規掃描門禁，杜絕未經檢視上線
 
 </div>
 <div class="card" data-marpit-fragment>
 
 ### 🔑 敏感金鑰寫死外洩
-- **發生機制**：
-  AI 範例常把 API Key、資料庫密碼直接寫死在程式碼中。
-- **災難後果**：
-  推送到公開 GitHub，雲端帳號 1 小時內被爬蟲盜用並產生數萬美元帳單。
+- **發生機制**：AI 產出的教學範例程式碼經常將 API Key、私鑰與資料庫帳密直接寫死
+- **自動化獵捕危機**：工程師未經脫敏直接 Push 至公開 GitHub，數分鐘內即遭爬蟲獵捕
+- **災難性後果**：雲端架構被植入挖礦惡意程式，短短數小時內產生數萬美元巨額帳單
+- **SQA 防禦對策**：在 Git pre-commit Hook 與 CI 流程部署金鑰掃描工具 (Gitleaks, TruffleHog)
 
 </div>
 </div>
@@ -1039,7 +1004,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> ⚙️ IEEE 610.12 定義：軟體絕非只是原始碼，而是由程式、程序、文件與資料構成的系統有機體。
+* > ⚙️ IEEE 610.12 定義：軟體絕非只是原始碼，而是由程式、程序、文件與資料構成的系統有機體。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1068,7 +1033,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 📋 藍圖決定系統的壽命，組態決定系統的成敗——不可忽視文件契約與環境資料的關鍵力量。
+* > 📋 藍圖決定系統的壽命，組態決定系統的成敗——不可忽視文件契約與環境資料的關鍵力量。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1124,7 +1089,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 👁️ 「橫看成嶺側成峰」：品質沒有單一視角，哈佛學者 David Garvin 帶我們看透不同角色的品質渴望。
+* > 👁️ 「橫看成嶺側成峰」：品質沒有單一視角，哈佛學者 David Garvin 帶我們看透不同角色的品質渴望。
 
 <div class="three-columns">
 <div class="card" data-marpit-fragment>
@@ -1166,7 +1131,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> ⚖️ 內部架構的工程美學 vs. 外部商業的投資回報：平衡產品結構與商業價值的雙重藝術。
+* > ⚖️ 內部架構的工程美學 vs. 外部商業的投資回報：平衡產品結構與商業價值的雙重藝術。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1264,7 +1229,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🔍 軟體品質工程的兩大靈魂叩問：我們是在「正確地打造產品」，還是「打造正確的產品」？
+* > 🔍 軟體品質工程的兩大靈魂叩問：我們是在「正確地打造產品」，還是「打造正確的產品」？
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1273,9 +1238,10 @@ footer: 'Ch01 軟體品質導論'
 **"Are we building the product right?"**
 *(我們是否有正確地建造軟體？)*
 
-- **核心關注**：產出物是否符合設定的規格與設計。
-- **把關手段**：靜態檢查、Code Review、單元與整合測試。
-- **目標**：無規格違背、無語法與邏輯漏洞。
+- **核心關注**：產出物與原始碼是否嚴格符合規格書、架構設計圖與編碼規範
+- **把關手段**：靜態程式碼審查 (Code Review)、單元測試、整合測試、靜態分析
+- **交付目標**：杜絕語法臭味、邏輯矛盾、並發競爭與記憶體洩漏，清償技術債
+- **常見盲點**：單元測試 100% 綠燈無 Bug，但實作出的系統完全偏離使用者真正需求
 
 </div>
 <div class="card" data-marpit-fragment>
@@ -1284,9 +1250,10 @@ footer: 'Ch01 軟體品質導論'
 **"Are we building the right product?"**
 *(我們建造的是否是正確的軟體？)*
 
-- **核心關注**：軟體是否真正滿足使用者的真實業務需求。
-- **把關手段**：使用者驗收測試 (UAT)、易用性測試、現場試用。
-- **目標**：解決真正痛點、符合真實臨床與業務情境。
+- **核心關注**：交付部署後的軟體是否真正切中痛點、滿足真實商業目標與情境
+- **把關手段**：使用者驗收測試 (UAT)、易用性測試 (Usability)、A/B 測試、現場封測
+- **交付目標**：確立商業可行性、滿足臨床/商務工作流程、創造長遠商業價值
+- **常見盲點**：未經原型驗證即全速開發，高成本打造出無人願意使用的「合規廢品」
 
 </div>
 </div>
@@ -1320,7 +1287,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 💰 「現在花 1 元預防，還是上線後花 1000 元救火？」——品質從來不是成本，欠缺品質才是最大代價。
+* > 💰 「現在花 1 元預防，還是上線後花 1000 元救火？」——品質從來不是成本，欠缺品質才是最大代價。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1373,7 +1340,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 📐 「品質是建構出來的，不是測出來的。」—— 開發與測試在需求萌芽的那一刻就該彼此嚴密對稱。
+* > 📐 「品質是建構出來的，不是測出來的。」—— 開發與測試在需求萌芽的那一刻就該彼此嚴密對稱。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1413,7 +1380,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🚪 從每一次本地 Commit 到全球金絲雀發布：以自動化流水線建立步步為營的連續守護關卡。
+* > 🚪 從每一次本地 Commit 到全球金絲雀發布：以自動化流水線建立步步為營的連續守護關卡。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1506,7 +1473,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🏛️ 國際軟體工程品質標準 SQuaRE：系統化拆解現代軟體系統必備的八大關鍵品質基因。
+* > 🏛️ 國際軟體工程品質標準 SQuaRE：系統化拆解現代軟體系統必備的八大關鍵品質基因。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1540,7 +1507,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🌐 從機密防禦到跨平台容器化：軟體在動態複雜環境中長治久安與演進不可或缺的維度。
+* > 🌐 從機密防禦到跨平台容器化：軟體在動態複雜環境中長治久安與演進不可或缺的維度。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1575,7 +1542,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 「如果無法度量它，就無法改善它。」—— Tom DeMarco
+* > 「如果無法度量它，就無法改善它。」—— Tom DeMarco
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1613,7 +1580,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 📏 告別抽象形容詞，以工程指標衡量系統體質：將安全、維護與相容性精確轉化為 SLI/SLA。
+* > 📏 告別抽象形容詞，以工程指標衡量系統體質：將安全、維護與相容性精確轉化為 SLI/SLA。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>
@@ -1651,7 +1618,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🏛️ 「靜態程式碼把關 ＋ 動態效能壓測 ＋ 運行時可觀測性」：三大工程支柱串聯起端到端的品質防護網。
+* > 🏛️ 「靜態程式碼把關 ＋ 動態效能壓測 ＋ 運行時可觀測性」：三大工程支柱串聯起端到端的品質防護網。
 
 <div class="three-columns">
 <div class="card" data-marpit-fragment>
@@ -1761,7 +1728,7 @@ footer: 'Ch01 軟體品質導論'
 
 <div class="card-deck">
 
-> 🤔 學而不思則罔：跳出日常開發框架，以批判性思維深入剖析 AI 時代的軟體品質盲點。
+* > 🤔 學而不思則罔：跳出日常開發框架，以批判性思維深入剖析 AI 時代的軟體品質盲點。
 
 <div class="two-columns">
 <div class="card" data-marpit-fragment>

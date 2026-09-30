@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Subtle boundary grid lines -->
+  <g stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 8" opacity="0.4">
+    <line x1="400" y1="100" x2="400" y2="700" />
+    <line x1="100" y1="400" x2="700" y2="400" />
+    <circle cx="400" cy="400" r="320" fill="none" />
+  </g>
+
+  <!-- Concentric Target Circles (Precision Focus) -->
+  <!-- Outer Focus Ring -->
+  <circle cx="400" cy="400" r="250" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="12 10" />
+
+  <!-- Middle Aim Ring -->
+  <circle cx="400" cy="400" r="180" fill="rgba(148, 163, 184, 0.08)" stroke="#64748b" stroke-width="2.5" />
+
+  <!-- Inner High-Priority Ring -->
+  <circle cx="400" cy="400" r="110" fill="rgba(100, 116, 139, 0.12)" stroke="#64748b" stroke-width="3" />
+
+  <!-- Bullseye Center -->
+  <circle cx="400" cy="400" r="42" fill="none" stroke="#64748b" stroke-width="3" />
+  <circle cx="400" cy="400" r="16" fill="#64748b" />
+
+  <!-- Reticle Crosshair Brackets (Top, Bottom, Left, Right) -->
+  <g stroke="#64748b" stroke-width="3.5" stroke-linecap="round">
+    <!-- North bracket -->
+    <line x1="400" y1="120" x2="400" y2="190" />
+    <path d="M 370 150 L 400 120 L 430 150" fill="none" stroke-linejoin="round" />
+
+    <!-- South bracket -->
+    <line x1="400" y1="610" x2="400" y2="680" />
+    <path d="M 370 650 L 400 680 L 430 650" fill="none" stroke-linejoin="round" />
+
+    <!-- West bracket -->
+    <line x1="120" y1="400" x2="190" y2="400" />
+    <path d="M 150 370 L 120 400 L 150 430" fill="none" stroke-linejoin="round" />
+
+    <!-- East bracket -->
+    <line x1="610" y1="400" x2="680" y2="400" />
+    <path d="M 650 370 L 680 400 L 650 430" fill="none" stroke-linejoin="round" />
+  </g>
+
+  <!-- Accent Diamonds / Precision Calibration Marks -->
+  <g fill="#94a3b8">
+    <polygon points="400,265 406,275 400,285 394,275" />
+    <polygon points="400,515 406,525 400,535 394,525" />
+    <polygon points="265,400 275,406 285,400 275,394" />
+    <polygon points="515,400 525,406 535,400 525,394" />
+  </g>
+</svg>

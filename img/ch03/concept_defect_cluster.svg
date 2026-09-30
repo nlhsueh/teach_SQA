@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Ambient radar / cluster field -->
+  <circle cx="400" cy="400" r="330" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.35" />
+
+  <!-- 80 / 20 Tag Header -->
+  <g transform="translate(400, 115)">
+    <rect x="-170" y="-40" width="340" height="65" rx="32" fill="rgba(255, 255, 255, 0.9)" stroke="#64748b" stroke-width="2" />
+    <text x="0" y="4" font-family="-apple-system, sans-serif" font-size="28" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="2">
+      80 / 20 RULE
+    </text>
+  </g>
+
+  <!-- System Modules Grid (9 Modules layout) -->
+  <g transform="translate(160, 200)">
+    <!-- Normal Low-defect Modules (Clean, sparse, stable) -->
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+    <circle cx="70" cy="55" r="4" fill="#94a3b8" opacity="0.6" />
+
+    <rect x="170" y="0" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+
+    <!-- High Density Cluster Module (Top-Right: The 20% module carrying 80% defects!) -->
+    <g transform="translate(340, 0)">
+      <!-- Pulsing Highlight border -->
+      <rect x="-8" y="-8" width="156" height="266" rx="20" fill="none" stroke="#f43f5e" stroke-width="2" stroke-dasharray="6 6" opacity="0.6" />
+      <rect x="0" y="0" width="140" height="250" rx="16" fill="rgba(244, 63, 94, 0.12)" stroke="#f43f5e" stroke-width="3" />
+      
+      <!-- Cluster Warning Badge -->
+      <rect x="20" y="15" width="100" height="26" rx="13" fill="#f43f5e" />
+      <text x="70" y="32" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">HOTSPOT</text>
+
+      <!-- Densely Packed Bug Swarm (Cluster) -->
+      <!-- Bug 1 -->
+      <circle cx="45" cy="75" r="8" fill="#e11d48" />
+      <!-- Bug 2 -->
+      <circle cx="75" cy="65" r="10" fill="#be123c" />
+      <!-- Bug 3 -->
+      <circle cx="105" cy="80" r="7" fill="#e11d48" />
+      <!-- Bug 4 -->
+      <circle cx="50" cy="115" r="9" fill="#9f1239" />
+      <!-- Bug 5 -->
+      <circle cx="85" cy="110" r="12" fill="#be123c" />
+      <!-- Bug 6 -->
+      <circle cx="115" cy="125" r="8" fill="#e11d48" />
+      <!-- Bug 7 -->
+      <circle cx="40" cy="155" r="11" fill="#9f1239" />
+      <!-- Bug 8 -->
+      <circle cx="75" cy="160" r="9" fill="#be123c" />
+      <!-- Bug 9 -->
+      <circle cx="105" cy="170" r="10" fill="#e11d48" />
+      <!-- Bug 10 -->
+      <circle cx="60" cy="205" r="12" fill="#9f1239" />
+      <!-- Bug 11 -->
+      <circle cx="95" cy="215" r="8" fill="#be123c" />
+      
+      <!-- Mini lightning / warning sparks -->
+      <path d="M 25 90 L 35 100 L 28 105 L 38 118" fill="none" stroke="#f43f5e" stroke-width="1.8" />
+    </g>
+
+    <!-- Row 2 -->
+    <rect x="0" y="140" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+    <circle cx="40" cy="190" r="4" fill="#94a3b8" opacity="0.6" />
+
+    <rect x="170" y="140" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+    <circle cx="110" cy="200" r="5" fill="#94a3b8" opacity="0.6" />
+
+    <!-- Row 3 -->
+    <rect x="0" y="280" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+
+    <rect x="170" y="280" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+    <circle cx="60" cy="340" r="4" fill="#94a3b8" opacity="0.6" />
+
+    <rect x="340" y="280" width="140" height="110" rx="12" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2" />
+    <circle cx="410" cy="330" r="5" fill="#94a3b8" opacity="0.6" />
+  </g>
+
+  <!-- Magnifying focus brackets around the Hotspot -->
+  <g transform="translate(570, 310)" stroke="#f43f5e" stroke-width="3" fill="none">
+    <path d="M 40 -120 L 70 -120 L 70 -90" />
+    <path d="M 40 120 L 70 120 L 70 90" />
+    <text x="85" y="6" font-family="-apple-system, sans-serif" font-size="20" font-weight="900" fill="#f43f5e" stroke="none">80%</text>
+  </g>
+</svg>

@@ -12,6 +12,9 @@ style: |
     padding: 40px;
     font-size: 23px;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
   ul, ol {
     margin-top: 10px;
@@ -32,18 +35,8 @@ style: |
   h1 {
     color: #0b3c5d;
   }
-  /* Section (##) slide title */
-  h2 {
-    color: #328cc1;
-    font-size: 32px;
-    margin-top: 0;
-    margin-bottom: 24px;
-    border-bottom: 2px solid #93c5fd;
-    padding-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  /* Subsection (###) slide title */
+  /* Slide titles (## and section > h3) */
+  h2,
   section > h3 {
     color: #328cc1;
     font-size: 32px;
@@ -55,38 +48,42 @@ style: |
     text-align: left;
   }
 
-  /* Subsection (###) pages: vertically centered layout */
-  section:has(> h3):not(:has(> h2)) {
-    justify-content: center;
+  /* Universal Card Deck & True Vertical Centering */
+  .card-deck {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    gap: 16px;
+  }
+  .card-deck > * {
+    margin: 0 !important;
+  }
+  .card-deck > ul,
+  .card-deck > ul > li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
   }
 
-  .two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 28px !important;
-  }
-  .two-columns-64 {
-    display: grid;
-    grid-template-columns: 6fr 4fr;
-    gap: 20px;
-    align-items: stretch;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 28px !important;
-  }
+  /* Multi-column Grid Containers */
+  .two-columns,
+  .two-columns-64,
   .two-columns-73 {
     display: grid;
-    grid-template-columns: 7fr 3fr;
     gap: 20px;
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 28px !important;
   }
+  .two-columns    { grid-template-columns: 1fr 1fr; }
+  .two-columns-64 { grid-template-columns: 6fr 4fr; }
+  .two-columns-73 { grid-template-columns: 7fr 3fr; }
+
+  /* Reusable Card Component */
   .card {
     background: white;
     padding: 18px 24px;
@@ -387,15 +384,21 @@ style: |
     color: #777;
   }
   blockquote {
-    background: transparent;
-    border-left: 4px solid #328cc1;
-    margin: 0.8em 0;
-    padding: 5px 20px;
-    font-style: italic;
-    color: inherit;
-    opacity: 0.85;
+    background: rgba(2, 132, 199, 0.05);
+    border-left: 4px solid #0284c7;
+    margin: 4px 0 12px 0 !important;
+    padding: 8px 16px !important;
+    font-size: 21.5px !important;
+    line-height: 1.5 !important;
+    color: #334155 !important;
+    border-radius: 0 6px 6px 0;
+    font-style: normal !important;
   }
-  blockquote::before {
+  blockquote p {
+    margin: 0 !important;
+  }
+  blockquote::before,
+  blockquote::after {
     content: none !important;
   }
   table {
@@ -461,6 +464,44 @@ style: |
     color: #328cc1;
     text-decoration: none;
     font-weight: bold;
+  }
+  div.content-columns {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    box-sizing: border-box;
+  }
+  div.content-text {
+    flex: 66%;
+    font-size: 21.5px;
+    line-height: 1.6;
+  }
+  div.content-text ul, div.content-text ol {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  div.content-text li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  div.content-figure {
+    flex: 34%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  div.content-figure img {
+    width: 100%;
+    max-width: 360px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
   div.discussion-columns {
     display: flex;
@@ -636,22 +677,73 @@ footer: 'Ch03 軟體測試基礎'
 
 ## 本章重點導讀 (Key Highlights)
 
-<div class="two-columns">
-<div class="card">
+<style scoped>
+  .outline-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    align-items: start;
+    font-size: 17.5px;
+    line-height: 1.42;
+  }
+  .outline-columns h3 {
+    font-size: 21px;
+    color: #0b3c5d;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 4px;
+  }
+  .outline-columns ul {
+    margin: 0 !important;
+    padding-left: 20px !important;
+  }
+  .outline-columns li {
+    margin-bottom: 8px !important;
+    line-height: 1.4 !important;
+  }
+  .outline-columns li > ul {
+    margin-top: 3px !important;
+    margin-bottom: 5px !important;
+  }
+  .outline-columns li > ul > li {
+    font-size: 15.5px !important;
+    margin-bottom: 3px !important;
+    color: #475569;
+  }
+</style>
+
+<div class="outline-columns">
+<div>
 
 ### 🛡️ 合約防禦與經典原則
-- **3.1 防禦性架構與合約 (DbC)**：Meyer 三大契約法則、斷言 vs. 例外
-- **3.2 ISTQB 7 大測試原則**：缺陷存在、窮盡不可能、殺蟲劑悖論
-- **3.3 測試多維度分類體系**：驗證/確認、黑箱/白箱、實戰測試金字塔
+- **3.1 防禦性架構與合約設計 (DbC)**：
+  - Meyer 三大契約法則（前置條件、後置條件、類別不變量）
+  - 內部邏輯防錯斷言 (Assertion) vs. 外部環境例外處理 (Exception)
+- **3.2 ISTQB 7 大軟體測試經典原則**：
+  - 核心哲學：測試顯示缺陷存在而非不存在、窮盡測試不可能
+  - 工程實務：及早測試 (Shift-Left)、缺陷群聚 (80/20)、殺蟲劑悖論與無錯謬誤
+- **3.3 測試多維度分類體系與金字塔**：
+  - 雙重靈魂叩問：驗證 (Verification - 製程) vs. 確認 (Validation - 價值)
+  - 全方位矩陣：缺失 vs. 確認、靜態 vs. 動態、黑箱 vs. 白箱與測試金字塔
 
 </div>
-<div class="card">
+<div>
 
 ### 📐 架構模型與測試預言
-- **3.4 V 開發模型與雙向追溯**：水平雙向追溯線、避免後測偏差
-- **3.5 測試案例設計與 AI 協同**：行為文氏圖、5 大要件、人機協同
-- **3.6 測試全景 3W2H 與 Oracle**：Test Oracle 難題與變質測試
-- **3.7 綜合練習與實戰思維**：原則辨析、V 模型追溯與邊界設計
+- **3.4 V 開發模型與水平雙向追溯 (RTM)**：
+  - 階段水平對稱架構：需求對驗收、高階設計對整合、詳細設計對單元
+  - 雙向追溯矩陣：正向杜絕覆蓋盲區、反向杜絕孤兒測試，破除後測偏差
+- **3.5 測試案例設計與 AI 協同實踐**：
+  - 行為文氏圖：規格 (Specified)、程式碼 (Programmed) 與測試 (Verified) 交集
+  - 測試案例 5 大要件（前置、輸入、步驟、預期、Oracle）與 AI 協同邊界補全
+- **3.6 測試全景 3W2H 與 Test Oracle 難題**：
+  - 測試全景體系：Who 誰測、What 測什麼、Why 為何測、How 如何測、How Much
+  - 確定性等值比對 vs. 現代 AI 隨機系統之變質測試 (Metamorphic Testing)
+- **3.7 綜合練習與實戰思維檢定**：
+  - 經典原則辨析、V 模型追溯分析、MaxHeap 邊界案例與 AI 協同設計實戰
 
 </div>
 </div>
@@ -670,20 +762,29 @@ footer: 'Ch03 軟體測試基礎'
 
 ### 3.1.1 契約式設計的三大核心要素 (Bertrand Meyer)
 
-<div class="two-columns">
-<div class="card">
+<div class="card-deck">
 
-### 📜 呼叫端與被呼叫端義務
-- **Preconditions (前置條件 - requires)**：呼叫者 (Caller) 進入方法前必須滿足的義務；若未滿足，方法有權拒絕執行
-- **Postconditions (後置條件 - ensures)**：方法正常執行完畢後，向呼叫者保證達成的狀態與輸出結果
+> 💡 契約式設計藉由前置條件、後置條件與不變量，建立呼叫雙方的明確權利與義務。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📜 呼叫端與被呼叫端契約
+- **Preconditions (前置條件 - requires)**：呼叫者進入方法前必須滿足的義務；若條件不符，方法有權拒絕執行
+- **Postconditions (後置條件 - ensures)**：方法執行完畢後對呼叫者的保證，確保回傳值與輸出狀態正確無誤
+- **責任歸屬 (Blame Assignment)**：前置條件違反應歸咎呼叫端錯誤；後置條件違反應歸咎被呼叫端實作瑕疵
+- **邊界防護 (Defensive Wall)**：在模組對外接口建立防禦邊界，阻絕髒資料與不合法請求滲透入核心業務
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🔒 狀態恆真約束與工程價值
-- **Class Invariants (類別不變量 - maintains)**：物件在公開方法呼叫前後必須永遠維持為真的核心業務法則
-- **屬性測試基石**：破壞不變量應立即熔斷阻擋髒資料，這是現代屬性基礎測試 (PBT) 的核心依據
+- **Class Invariants (類別不變量 - maintains)**：物件在公開方法呼叫前後永遠維持為真的核心約束（如：餘額 ≥ 0）
+- **生命週期保護 (Lifecycle Guard)**：建構子必須建立不變量，方法內部可暫時變動，但在退出前必須完全恢復
+- **屬性基礎測試基石 (PBT)**：不變量是隨機測試與 Property-Based Testing (jqwik, Hypothesis) 最關鍵的預言機 (Oracle)
+- **快速失敗 (Fail Fast)**：一旦內部狀態遭受污染立即中斷熔斷，縮小錯誤擴散範圍並大幅降低除錯成本
 
+</div>
 </div>
 </div>
 
@@ -744,23 +845,28 @@ footer: 'Ch03 軟體測試基礎'
 
 ### 權威標準與 ISTQB 7 大經典原則總覽
 
-<div class="two-columns">
-<div class="card">
+<div class="card-deck">
 
-### 📚 國際權威文獻與標準
-- **ISTQB CTFL v4.0**：國際軟體測試認證標準大綱 (2023 最新版)
-- **Glenford J. Myers**：《軟體測試的藝術》經典奠基著作
-- **Martin Fowler**：現代實戰測試金字塔模型 (Test Pyramid)
+> 📚 依據 ISTQB CTFL v4.0 與 Myers《軟體測試的藝術》：測試是一門基於風險取樣的經驗科學，理解 7 大原則能避免盲目測試。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🧭 原則 1 ～ 3：測試本質與左移戰略
+- **1. 測試顯示缺陷存在，而非不存在**：測試能證明系統有錯，但無論執行多少測試，皆無法證明「絕對零缺陷」
+- **2. 窮盡測試是不可能的 (Exhaustive)**：輸入組合爆炸使窮盡不可能，測試必須基於「風險取樣」尋找最佳投報率
+- **3. 及早測試 / 測試左移 (Shift-Left)**：靜態與動態測試應在需求與架構初期介入，1:10:100 定律防患於未然
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 🧭 ISTQB 7 大經典測試原則
-- **1. 顯示缺陷存在** ＆ **2. 窮盡測試不可能**
-- **3. 及早測試 (左移)** ＆ **4. 缺陷群聚效應**
-- **5. 殺蟲劑悖論** ＆ **6. 測試依賴上下文**
-- **7. 無錯謬誤**：交付無用系統毫無價值！
+### 🎯 原則 4 ～ 7：缺陷規律與工程盲點
+- **4. 缺陷群聚效應 (Defect Clustering)**：80/20 法則，絕大多數重大缺陷高度集中於少數複雜度最高的核心模組
+- **5. 殺蟲劑悖論 (Pesticide Paradox)**：重複執行相同測試將失去殺傷力，測試套件必須定期演進、重構與換新
+- **6. 測試依賴情境 (Context Dependent)**：無一體適用策略，高敏金融、工業控制與敏捷 Web 應採不同驗證強度
+- **7. 無錯謬誤 (Absence-of-Errors)**：即便系統修光所有 Bug、無任何當機，若未切中真實業務價值依然毫無意義
 
+</div>
 </div>
 </div>
 
@@ -776,13 +882,22 @@ footer: 'Ch03 軟體測試基礎'
 
 ## 原則 1：測試顯示缺陷的存在，而非不存在
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **核心意涵**：
-  - 測試能夠證明軟體中**「存在缺陷」**，但無論執行了多少萬筆測試且全部通過，都**「無法證明軟體絕對零缺陷」**。
+  - 測試能夠證明軟體中 **「存在缺陷」**，但無論執行了多少萬筆測試且全部通過，都 **「無法證明軟體絕對零缺陷」**。
 - **測試的真正目的**：
   - 測試不是為了證明程式完美無瑕，而是為了**降低未被發現缺陷的風險**，提供軟體品質的客觀度量與發布信心。
 - 🤖 **AI 時代警示【流暢性偏誤 (Fluency Bias)】**：
   - AI 生成的程式碼通常語法優美、排版工整，極易給人「絕對沒錯」的錯覺。
   - 但 AI 程式碼常潛伏並發競爭條件 (Race Conditions) 或隱蔽邊界例外，跑過幾次 Happy Path 綠燈絕不能保證其無錯！
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p1_presence_of_defects.png" alt="原則 1：Testing shows presence of defects" />
+  </div>
+</div>
 
 ---
 
@@ -796,6 +911,9 @@ footer: 'Ch03 軟體測試基礎'
 
 ## 原則 2：窮盡測試是不可能的 (Exhaustive Testing is Impossible)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **組合爆炸的現實**：
   - 簡單邏輯若有 100 個條件判斷式，組合數高達 $2^{100} \approx 1.27 \times 10^{30}$。加上作業系統、瀏覽器、網路波動與資料庫狀態，窮盡所有輸入在計算上是完全不可能的。
 - **錯誤總是躲在角落 (Bugs lurk in corners)**：
@@ -806,20 +924,34 @@ footer: 'Ch03 軟體測試基礎'
       return j;
   }
   ```
-  - 假設 $j$ 範圍為 -32768 ~ 32767。分析發現，僅有 $j = 2999, 3000, 5999, 6000 \dots$ 等 **18 個數值會顯現錯誤**，其餘 65,518 個數值算出來答案都碰巧一致！
   - 🎲 **盲目隨機踩中錯誤的機率** $= 18 / 65536 \approx 0.00027$ (**0.027%**)。
   - 💡 測試必須是**基於風險的取樣（Risk-Based Testing）**，針對邊界精準打擊！
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p2_exhaustive_impossible.png" alt="原則 2：Exhaustive testing is impossible" />
+  </div>
+</div>
 
 ---
 
 ## 原則 3：及早測試 / 測試左移 (Shift-Left)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **核心意涵**：
-  - 靜態與動態測試活動應在軟體開發生命週期的**最早期（需求與架構階段）**即刻介入。
+  - 靜態與動態測試活動應在軟體開發生命週期的 **最早期（需求與架構階段）** 即刻介入。
 - **經濟學依據（1:10:100 品質成本定律）**：
   - 需求審查時抓出一個邏輯矛盾：**\$1**
   - 開發單元測試時抓出 Bug：**\$10**
   - 軟體上線到生產環境後的維護與賠償代價：**\$100 ～ \$1000+**！
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p3_early_testing.png" alt="原則 3：Early testing saves time and money" />
+  </div>
+</div>
 
 ---
 
@@ -835,15 +967,27 @@ footer: 'Ch03 軟體測試基礎'
 
 ## 原則 4：缺陷群聚效應 (Defects Cluster Together)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **核心意涵（80/20 法則）**：
   - 軟體系統中絕大多數的重大缺陷，往往高度集中在**少數幾個複雜度最高、變更最頻繁、或涉及多方外部整合的模組中**。
 - **工程實務啟示**：
   - 當在某個模組發現了大量 Bug 時，不要以為抓完就沒事了；
   - 該模組很可能還潛伏著更多深層缺陷，應對其加大變異測試 (Mutation Testing) 與屬性測試力度！
 
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p4_defect_clustering.png" alt="原則 4：Defects cluster together" />
+  </div>
+</div>
+
 ---
 
 ## 原則 5：小心殺蟲劑悖論 (Beware of Pesticide Paradox)
+
+<div class="content-columns">
+  <div class="content-text">
 
 - **核心意涵**：
   - 同一種農藥噴久了，害蟲會產生抗藥性；
@@ -852,7 +996,13 @@ footer: 'Ch03 軟體測試基礎'
   - 測試案例必須定期審查、重構並動態演進。
   - 導入 **屬性基礎測試 (Property-Based Testing / jqwik)**：每次執行自動隨機生成萬組全新測資。
 - 🤖 **AI 時代警示【自我印證的假綠燈】**：
-  - 若讓 AI 為自己生成的程式碼寫單元測試，AI 會**依照自身錯誤的邏輯去設計測試**，導致測試與程式碼「共同錯在同一個盲區」，產生極高強度的假安全感！
+  - 若讓 AI 為自己生成的程式碼寫單元測試，AI 會**依照自身錯誤的邏輯去設計測試**，導致測試與程式碼共同錯在盲區！
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p5_pesticide_paradox.png" alt="原則 5：Beware of pesticide paradox" />
+  </div>
+</div>
 
 ---
 
@@ -866,23 +1016,41 @@ footer: 'Ch03 軟體測試基礎'
 
 ## 原則 6：測試取決於上下文 (Testing is Context Dependent)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **核心意涵**：
   - 世上沒有一套放之四海皆準的通用測試方法，測試策略必須依據領域風險客製化。
 - **實例對比**：
   - **醫療儀器 / 航太飛控系統**：
-    - 需嚴格遵循 DO-178C 等國際標準，要求 MC/DC 覆蓋率 100%、形式化邏輯驗證與硬體在環 (HIL) 測試。
+    - 需嚴格遵循 DO-178C 等標準，要求 MC/DC 覆蓋率 100%、形式化邏輯驗證與硬體在環 (HIL) 測試。
   - **敏捷電商 Web App**：
     - 著重快速回歸、高併發壓測、微服務契約測試 (Pact) 與 A/B 測試。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p6_context_dependent.png" alt="原則 6：Testing is context dependent" />
+  </div>
+</div>
 
 ---
 
 ## 原則 7：無錯謬誤 (Absence-of-Errors is a Fallacy)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **核心意涵**：
   - **「零 Bug 的系統」並不等於「成功的系統」**。
   - 即使團隊投入巨大資源修復了所有 Bug，但如果軟體**根本沒有滿足使用者的真實業務需求**，或者操作體驗極其反人類，這套軟體在商業與品質上依然是徹底失敗的。
 - 🤖 **AI 時代警示【Prompt 幻覺】**：
-  - AI 產生的程式碼可能編譯 100% 通過且無語法錯誤，但若 Prompt 對領域規則（Domain Spec）理解有誤，產出的依然是「符合規格但無用的垃圾」。
+  - AI 產生的程式碼可能編譯 100% 通過且無語法錯誤，但若 Prompt 對領域規則理解有誤，產出的依然是「符合規格但無用的垃圾」。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/istqb_p7_absence_of_errors.png" alt="原則 7：Absence-of-errors fallacy" />
+  </div>
+</div>
 
 ---
 
@@ -920,20 +1088,29 @@ footer: 'Ch03 軟體測試基礎'
 
 ### 1. 驗證 (Verification) vs 確認 (Validation)
 
-<div class="two-columns">
-<div class="card">
+<div class="card-deck">
 
-### 🔍 驗證 (Verification) - 製程導向
+> 💡 驗證著重「是否正確地建造軟體」，確認著重「是否建造了正確的軟體」。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🔍 驗證 (Verification) - 製程與規格導向
 - **核心哉問**：「Are we building the product right?（我們是否正確地建造軟體？）」
-- **檢驗重點**：確保產出物與程式碼嚴格符合規格書、架構設計圖與編碼規範
+- **檢驗重點**：確認各開發階段產出物與原始碼嚴格符合規格書、架構設計圖與編碼規範
+- **執行手段**：靜態程式碼審查 (Code Review)、單元測試、整合測試、靜態分析工具 (PMD, SonarQube)
+- **常見失敗樣態**：程式碼無任何編譯或邏輯錯誤，測試全數綠燈，卻完全不符合終端使用者真正所需
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 🎯 確認 (Validation) - 產品導向
+### 🎯 確認 (Validation) - 產品與價值導向
 - **核心哉問**：「Are we building the right product?（我們是否建造了正確的軟體？）」
-- **檢驗重點**：確保軟體交付後真正切中使用者痛點、滿足業務目標與商業價值
+- **檢驗重點**：確保軟體交付部署後，真正切中使用者痛點、滿足真實商業目標與作業情境
+- **執行手段**：使用者驗收測試 (UAT)、A/B 測試、可用性測試 (Usability Testing)、Beta 封測體驗反饋
+- **常見失敗樣態**：過度設計 (Over-engineering)、完美實現了已經過期或被市場淘汰的錯誤需求
 
+</div>
 </div>
 </div>
 
@@ -949,20 +1126,29 @@ footer: 'Ch03 軟體測試基礎'
 
 ### 2. 缺失測試 vs 確認測試 & 3. 靜態 vs 動態測試
 
+<div class="card-deck">
+
+> 💡 測試維度涵蓋尋找缺陷與確認功能，且包含靜態原始碼審查與動態執行比對。
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 💥 缺失測試 vs 確認測試
-- **缺失測試 (Defect Testing)**：目的在於「找出缺陷、搞壞系統」，採極端與破壞性邊界輸入
-- **確認測試 (Validation Testing)**：目的在於「向客戶證明符合需求」，循序驗證 Happy Path
+- **缺失測試 (Defect Testing)**：心態為「搞壞系統」，採極端邊界值、注入髒資料與逆向操作逼出 Bug
+- **確認測試 (Validation Testing)**：心態為「向客戶證明可用」，循序驗證主要業務流程 (Happy Path) 正常運作
+- **思維陷阱**：只做確認測試易產生「系統很完美」的虛假安全感；頂尖 QA 必須具備高度破壞性攻擊思維
+- **工程平衡**：確認測試保證基本功能可用性；缺失測試則確立系統在高壓異常情境下的韌性與邊界強固度
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### ⚡ 靜態測試 vs 動態測試
-- **靜態測試 (Static)**：**不執行程式碼**，透過同儕審查、靜態語法樹分析 (SonarQube, PMD)
-- **動態測試 (Dynamic)**：**實際執行程式碼**，給定具體輸入並比對實際輸出與預期結果
+- **靜態測試 (Static Testing)**：**不執行程式碼**，透過同儕審查、規格檢驗與 AST 語法樹靜態分析
+- **動態測試 (Dynamic Testing)**：**實際運行程式碼**，在特定執行環境下輸入測資並比對實際與預期產出
+- **抓錯階段差異**：靜態測試直接揪出原始碼與規格中的「Fault / Bug」；動態測試則是觀察執行期「Failure」
+- **左移協同效益**：80% 的語法臭味、並發競爭與安全弱點可在靜態階段低成本攔截，大幅降低動態除錯耗時
 
+</div>
 </div>
 </div>
 
@@ -970,20 +1156,29 @@ footer: 'Ch03 軟體測試基礎'
 
 ### 4. 功能測試（黑箱） vs 結構測試（白箱）
 
-<div class="two-columns">
-<div class="card">
+<div class="card-deck">
 
-### 📦 黑箱功能測試 (Black-Box)
-- **規格導向**：受測系統為不透明的黑盒子
-- **核心作法**：測試人員不看原始碼，依據需求規格 (SRS) 與邊界設計測資，驗證外部行為是否符合預期
+> 💡 黑箱測試從需求規格出發驗證外部行為；白箱測試深入程式碼邏輯追求高涵蓋率。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📦 黑箱功能測試 (Black-Box Testing)
+- **視角與特性**：受測系統視為不透明黑盒子，測試者完全不檢視內部原始碼與架構實作細節
+- **核心依據**：嚴格依據外部需求規格書 (SRS) 與使用者介面協議，專注於輸入輸出之對映正確性
+- **經典設計技術**：等價劃分法 (EP)、邊界值分析法 (BVA)、決策表 (Decision Table)、狀態轉換測試
+- **最大優勢與盲點**：測試者獨立不受實作偏見干擾；但無法檢測未被規格涵蓋的隱蔽死碼與安全後門
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 🔬 白箱結構測試 (White-Box)
-- **結構導向**：受測系統為透明的玻璃盒子
-- **核心作法**：檢視內部程式邏輯，依據陳述句、分支、條件與路徑設計測資，追求高程式碼涵蓋率
+### 🔬 白箱結構測試 (White-Box Testing)
+- **視角與特性**：受測系統視為透明玻璃盒子，測試者深入檢視控制流程圖 (CFG) 與內部資料結構
+- **核心依據**：以原始碼邏輯結構為導向，設計特定測資強制驅動程式執行各條分支與執行路徑
+- **經典評量指標**：陳述句涵蓋率 (Statement)、分支涵蓋率 (Branch)、條件涵蓋率 (MC/DC)、路徑涵蓋率
+- **最大優勢與盲點**：可徹底盤點內部邏輯漏洞與邊界極限；但無法發現「規格根本遺漏實作」的整段功能
 
+</div>
 </div>
 </div>
 
@@ -999,12 +1194,21 @@ footer: 'Ch03 軟體測試基礎'
 
 ## 5. 三大核心測試層級 (Testing Levels)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **1. Unit Testing (單元測試)**：
   - 針對最小獨立模組或方法（Class / Method）進行隔離驗證，執行極快（毫秒級）。
 - **2. Integration Testing (整合測試)**：
   - 驗證跨模組介面、微服務 API 與資料庫之間的通訊協定與資料傳遞。
 - **3. System Testing (系統測試)**：
   - 在完整模擬或真實環境中執行端到端 (E2E) 使用者工作流程與非功能需求驗證。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/concept_testing_levels.png" alt="三大測試層級架構 Testing Levels" />
+  </div>
+</div>
 
 ---
 
@@ -1042,6 +1246,9 @@ double div(double x, double y) {
 
 ## 6. 現代實戰測試金字塔 (The Practical Test Pyramid)
 
+<div class="content-columns">
+  <div class="content-text">
+
 - 🔺 **頂層：UI / E2E Tests (端到端測試)**：
   - 數量最少、執行最慢、維護成本最高（Playwright / Cypress）。
 - 🔹 **中層：Integration / Service Tests (整合與服務測試)**：
@@ -1049,7 +1256,13 @@ double div(double x, double y) {
 - 🟩 **底層：Unit Tests (單元測試)**：
   - 數量最多、執行極快（毫秒級）、維護成本最低（JUnit 5 / Mockito）。
 - ⚠️ **反模式：冰淇淋甜筒 (Ice Cream Cone)**：
-  - 缺乏底層單元測試，過度依賴脆弱且昂貴的 UI E2E 測試，導致 CI 構建極端緩慢且頻繁假警報。
+  - 缺乏底層單元測試，過度依賴脆弱且昂貴的 UI E2E 測試，導致 CI 構建緩慢。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/concept_ice_cream_cone.png" alt="冰淇淋甜筒反模式 Ice Cream Cone Anti-Pattern" />
+  </div>
+</div>
 
 ---
 
@@ -1096,20 +1309,29 @@ double div(double x, double y) {
 
 ### 雙向追溯性 (Bidirectional Traceability)
 
-<div class="two-columns">
-<div class="card">
+<div class="card-deck">
 
-### 🔗 水平對稱追溯價值
-- **測試設計前置同步產出**：在編寫程式碼前，驗收與整合測試計畫即已就緒
-- **破除實作後測試偏差**：避免工程師先寫出程式碼，再依照自己實作邏輯去「拼湊測試」迎合結果
+> 💡 雙向追溯連結需求合約與測試案例，防止實作後測試偏誤與功能遺漏。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🔗 水平對稱追溯工程價值
+- **測試設計前置同步產出**：需求與架構拍板當下，驗收測試案例與整合測試架構即已同步就緒
+- **破除實作後測試偏差 (Post-hoc Bias)**：防止工程師先寫完程式碼，再依照個人實作去拼湊測試迎合通過
+- **需求變更衝擊分析 (Impact Analysis)**：當某項需求規格修訂時，能精準鎖定受影響的測試案例即時回歸
+- **跨團隊共同理解語言**：促成商業分析師 (BA)、架構師、開發者與測試工程師對系統驗收標準達成共識
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
-### 📊 雙向追溯矩陣 (RTM)
-- **正向追溯（覆蓋完整度）**：確保每一項 SRS 需求都有對應的測試案例予以驗證
-- **反向追溯（理由與價值）**：確保每一筆測試案例都能清楚回溯至明確的業務合約來源
+### 📊 雙向需求追溯矩陣 (RTM)
+- **正向追溯（Forward - 確保無遺漏）**：從需求出發確保每一條 SRS 都有對應測試案例，杜絕覆蓋盲區
+- **反向追溯（Backward - 確保無冗餘）**：從測試案例回溯至具體需求來源，杜絕無意義且維護昂貴的孤兒測試
+- **合規審查必備依據**：高可靠度領域（醫療 FDA、汽車 ISO 26262、航空 DO-178C）取得認證的關鍵證據
+- **持續整合 (CI) 門禁指標**：透過自動化腳本分析 RTM 覆蓋度，追溯斷鏈之 PR 嚴禁合併至生產環境主幹
 
+</div>
 </div>
 </div>
 
@@ -1149,14 +1371,31 @@ double div(double x, double y) {
 
 ## 測試案例、規格與程式行為的文氏圖關聯
 
-- 📋 **規劃的行為 (Specified Behavior)**：規格書明訂的預期行為。
-- 💻 **程序化的行為 (Programmed Behavior)**：實際被實作成 Code 的行為。
-- 🧪 **驗證的行為 (Verified Behavior)**：測試案例實際涵蓋並驗證到的行為。
-- 🎯 **區域解析**：
-  - **區域 1 (黃金核心)**：有規格、有實作、且有被測試驗證（健康目標！）。
-  - **區域 2**：規格有寫但工程師漏寫的未實作功能。
-  - **區域 3**：規格未要求，工程師擅自寫出但有被測到的功能。
-  - **區域 6**：規格未寫、未被測試、卻潛伏在程式中的**「未授權後門或隱蔽 Bug」**！
+<div class="card-deck">
+
+> 💡 理想軟體追求規格、實作與測試高度重合，避免潛伏未驗證的後門與隱蔽 Bug。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### ⭕ 三大核心行為集合
+- **📋 規劃的行為 (Specified)**：需求規格書中明確定義的預期功能與約束
+- **💻 程序化的行為 (Programmed)**：工程師實際編寫並實作成二進位程式碼的行為
+- **🧪 驗證的行為 (Verified)**：自動化與手動測試套件實際涵蓋並驗證到的行為
+- **工程偏離警訊**：三者若未高度重合，將衍生規格遺漏、幽靈功能或隱蔽資安後門
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🎯 交集區域深度解析
+- **區域 1 (黃金核心)**：有規格、有實作且經測試驗證（健康交付目標！）
+- **區域 2**：規格明載但工程師遺漏實作的缺漏功能，導致驗收失敗
+- **區域 3**：規格未要求，工程師擅自寫出且被測到的非預期過度設計功能
+- **區域 6 (最高危險)**：無規格、無測試、卻潛伏在程式中的**未授權後門或隱蔽 Bug**
+
+</div>
+</div>
+</div>
 
 ---
 
@@ -1172,55 +1411,63 @@ double div(double x, double y) {
 
 ### 3.5.1 測試案例 (Test Case) vs 測試資料 (Test Data)
 
+<div class="card-deck">
+
+> 💡 測試案例是驗證邏輯與規格的整體規劃，測試資料則是代入執行的具體數值與 Fixture。
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 📋 測試案例 (Test Case)
-- **本質定義**：測試架構與邏輯分流的**整體規劃規格書**。
-- **核心內涵**：包含前置狀態、操作步驟、預期產出與判定基準 (Oracle)。
-- **價值所在**：定義「測試邏輯本身」，獨立於具體數值之外。
+- **本質定義**：測試架構與邏輯分流的**整體規劃規格書**
+- **核心內涵**：包含前置狀態、操作步驟、預期產出與判定基準 (Oracle)
+- **價值所在**：定義「測試邏輯本身」，獨立於具體數值之外
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🔢 測試資料 (Test Data)
-- **本質定義**：具體代入受測方法執行的**數值元組與環境 Fixture**。
-- **核心內涵**：如傳入參數 `(5, 0)`、Mock 假物件、資料庫種子。
-- **價值所在**：落實測試案例的具體實例，用以觸發特定的執行路徑。
+- **本質定義**：具體代入受測方法執行的**數值元組與環境 Fixture**
+- **核心內涵**：如傳入參數 `(5, 0)`、Mock 假物件、資料庫種子
+- **價值所在**：落實測試案例的具體實例，用以觸發特定的執行路徑
 
 </div>
 </div>
-
-
-```
-【測試案例規劃】：除法運算
+<div class="card" data-marpit-fragment style="padding: 10px 18px;">
+<pre style="margin: 0; font-size: 19px; line-height: 1.35;"><code>【測試案例規劃】：除法運算
 ├── 分母 = 0 ── 測試資料: (5, 0) ──> 預期: 拋出 IllegalArgumentException
 └── 分母 != 0
     ├── 整除   ── 測試資料: (4, 2) ──> 預期: 2.0
     └── 不整除
         ├── 進位   ── 測試資料: (5.1, 3) ──> 預期: 1.7
-        └── 不進位 ── 測試資料: (4, 3)   ──> 預期: 1.33
-```
+        └── 不進位 ── 測試資料: (4, 3)   ──> 預期: 1.33</code></pre>
+</div>
+</div>
 
 ---
 
 ### 現代標準測試案例五大要件 (Test Case Anatomy)
 
+<div class="card-deck">
+
+> 💡 健全的測試案例必須清楚載明識別、前置環境、輸入數值、預期判定與後置狀態。
+
 <div class="two-columns">
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🆔 識別與環境前置 (要件 1 & 2)
 - **Component 1 (Test ID & Summary)**：唯一識別碼（如 `TC-AUTH-001`）與簡明測試目的
 - **Component 2 (Preconditions)**：執行前系統初始狀態、登入權限與資料庫 Fixtures
 
 </div>
-<div class="card">
+<div class="card" data-marpit-fragment>
 
 ### 🎯 輸入、預期與判定 (要件 3, 4, 5)
 - **Component 3 (Inputs)**：傳入受測方法之具體參數、Payload 或事件
 - **Component 4 (Expected Oracle)**：應回傳之正確值、HTTP 狀態碼或畫面渲染
 - **Component 5 (Postconditions)**：執行後資料庫狀態驗證、不變量檢查與清理
 
+</div>
 </div>
 </div>
 
@@ -1280,19 +1527,38 @@ double div(double x, double y) {
 
 ## 面向二：What 測什麼？& 面向三：Why 為何測試？
 
-- **What 測什麼？**
-  - **功能測試**：規格測試、等價劃分、邊界分析、欄位格式。
-  - **結構測試**：陳述句涵蓋、分支涵蓋、路徑涵蓋、MC/DC。
-  - **情境測試 (Scenario)**：模擬真實世界複雜連鎖使用者工作流程。
-  - **非功能測試**：負載 (Load)、耐力 (Soak)、資安 (Security)、相容性 (Compatibility)。
-- **Why 為何測試？**
-  - **風險驅動**：變更風險、架構耦合風險、第三方依賴風險。
-  - **合約與防禦驗證**：確保狀態不變量與資源限制。
-  - **迴歸測試 (Regression Testing)**：確保新變更未破壞既有功能（Retest All, Selection, Prioritization）。
+<div class="card-deck">
+
+> 💡 清楚界定測試範疇 (What) 與背後動機 (Why)，才能精準配置測試資源。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🎯 面向二：What 測什麼？
+- **功能測試**：規格測試、等價劃分、邊界分析、欄位格式
+- **結構測試**：陳述句涵蓋、分支涵蓋、路徑涵蓋、MC/DC
+- **情境測試 (Scenario)**：模擬真實世界複雜連鎖使用者工作流程
+- **非功能測試**：負載 (Load)、耐力 (Soak)、資安 (Security)、相容性
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🧭 面向三：Why 為何測試？
+- **風險驅動**：變更風險、架構耦合風險、第三方依賴風險
+- **合約與防禦驗證**：確保狀態不變量與資源限制滿足契約
+- **迴歸測試 (Regression)**：確保新變更未破壞既有功能
+- **交付信心**：透過自動化測試套件建立持續部署的基石
+
+</div>
+</div>
+</div>
 
 ---
 
 ## 面向四：How 如何測試？
+
+<div class="content-columns">
+  <div class="content-text">
 
 - **腳本測試 (Scripted Testing)**：
   - 依預先定義之步驟與斷言自動化批量執行。
@@ -1302,6 +1568,12 @@ double div(double x, double y) {
   - 注入大量隨機事件檢驗系統強固性與容錯力。
 - **錄製與回放 (Record & Replay)**：
   - 透過使用者操作軌跡錄製自動生成端到端測試腳本。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/concept_monkey_test.png" alt="猴子測試 Monkey Testing" />
+  </div>
+</div>
 
 ---
 
@@ -1317,6 +1589,9 @@ double div(double x, double y) {
 
 ## 面向五：How to Evaluate 如何評估通過？與 Test Oracle
 
+<div class="content-columns">
+  <div class="content-text">
+
 - **涵蓋率指標**：語句、分支、路徑覆蓋率。
 - **變異分數 (Mutation Score)**：使用 PIT 注入故障，檢驗測試套件殺死變異體的能力。
 - **什麼是 Test Oracle（測試預言機）？**
@@ -1325,6 +1600,12 @@ double div(double x, double y) {
   - 輸入同時餵入「受測程式 (PUT)」與「測試預言機 (Oracle)」，由斷言比對實際輸出與預期結果：
     - **Match (一致)** ➔ 測試 **PASS（通過 ✅）**
     - **Mismatch (不符)** ➔ 測試 **FAIL（缺陷判定 ❌）**
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch03/concept_test_oracle_comparator.png" alt="Test Oracle 比對架構 Comparator" />
+  </div>
+</div>
 
 ---
 
@@ -1338,11 +1619,31 @@ double div(double x, double y) {
 
 ## 3.6.5 AI 與複雜系統中的 Test Oracle 難題
 
-- **傳統確定性軟體**：
-  - $f(x) \to y$（例如 $1 + 1 = 2$），Oracle 絕對明確且易驗證。
-- **現代 AI / 搜尋推薦 / LLM Agent 的 Oracle 困境**：
-  - 搜尋詞「最受歡迎的資工選修課」，引擎給出 10 筆結果，**沒有唯一的標準答案**！
-  - 大語言模型生成文章具隨機性 (Temperature > 0) 與語意多樣性。
+<div class="card-deck">
+
+> 💡 傳統軟體具確定性答案，而現代 AI 與推薦系統則需仰賴變質測試與跨模型差分對比。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 📐 傳統確定性軟體 (Deterministic)
+- **明確輸入輸出對映**：$f(x) \to y$（例如計算稅率、轉帳交易、加密雜湊等）
+- **判定機制標準化**：具備完美客觀的 Test Oracle，可直接使用等值斷言 (assertEqual) 精準比對
+- **完全可重現性 (Reproducibility)**：同質環境下相同輸入保證產生完全相同的執行路徑與結果
+- **計算複雜度挑戰**：若演算法極度龐大（如氣候模擬），即使邏輯確定，人類也難以預先手算標準值
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🤖 現代 AI 與複雜系統困境
+- **無唯一標準解答**：搜尋推薦或開放問答（如「最受歡迎的資工選修」），難以定義絕對客觀真理
+- **非確定性隨機生成**：LLM 模型參數取樣（Temperature > 0）使每次生成的語句結構皆具變異性
+- **預言機失效 (Oracle Problem)**：缺乏固定輸出基準，傳統硬編碼預期值的單元測試機制全面瓦解
+- **現代工程破局解方**：引進變質測試 (Metamorphic Testing)、多模型差分對比與 LLM-as-a-Judge 評測
+
+</div>
+</div>
+</div>
 
 ---
 

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Subtle ambient aura -->
+  <circle cx="400" cy="400" r="320" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.4" />
+
+  <!-- Giant Infinity Symbol (Exhaustive Testing represents endless iterations) -->
+  <g transform="translate(400, 220)" opacity="0.35">
+    <path d="M -90 0 C -150 -60 -210 0 -150 60 C -90 0 90 0 150 60 C 210 0 150 -60 90 0 Z" 
+          fill="none" stroke="#64748b" stroke-width="8" stroke-dasharray="12 8" stroke-linecap="round" />
+  </g>
+
+  <!-- Mountain of Test Cases / Endless Test Reports (Background Left) -->
+  <g transform="translate(190, 480)">
+    <!-- Stack of documents -->
+    <rect x="-60" y="-140" width="120" height="25" rx="4" fill="rgba(148, 163, 184, 0.15)" stroke="#64748b" stroke-width="2" />
+    <rect x="-65" y="-110" width="130" height="25" rx="4" fill="rgba(148, 163, 184, 0.15)" stroke="#64748b" stroke-width="2" />
+    <rect x="-60" y="-80" width="120" height="25" rx="4" fill="rgba(148, 163, 184, 0.15)" stroke="#64748b" stroke-width="2" />
+    <rect x="-70" y="-50" width="140" height="25" rx="4" fill="rgba(148, 163, 184, 0.15)" stroke="#64748b" stroke-width="2" />
+    <rect x="-65" y="-20" width="130" height="25" rx="4" fill="rgba(148, 163, 184, 0.15)" stroke="#64748b" stroke-width="2" />
+    <!-- Check marks / Fail marks on stack -->
+    <path d="M -45 -127 L -38 -120 L -25 -133" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <path d="M -45 -97 L -38 -90 L -25 -103" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <path d="M -45 -67 L -38 -60 L -25 -73" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <!-- Warning exclamation mark on top of mountain -->
+    <circle cx="0" cy="-180" r="16" fill="rgba(244, 63, 94, 0.15)" stroke="#f43f5e" stroke-width="2" />
+    <line x1="0" y1="-187" x2="0" y2="-178" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="0" cy="-172" r="1.5" fill="#f43f5e" />
+  </g>
+
+  <!-- Exhausted Engineer at Desk -->
+  <g transform="translate(440, 480)">
+    <!-- Desk Line -->
+    <line x1="-220" y1="90" x2="220" y2="90" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Laptop (Open with test matrix) -->
+    <path d="M -90 90 L -30 20 L 30 20 L 90 90 Z" fill="rgba(100, 116, 139, 0.15)" stroke="#64748b" stroke-width="2.5" />
+    <!-- Laptop screen -->
+    <polygon points="-75,80 -25,25 25,25 75,80" fill="rgba(148, 163, 184, 0.2)" stroke="#94a3b8" stroke-width="1.5" />
+    <!-- Blinking cursor / endless test logs on screen -->
+    <line x1="-40" y1="45" x2="20" y2="45" stroke="#64748b" stroke-width="2" />
+    <line x1="-50" y1="60" x2="0" y2="60" stroke="#64748b" stroke-width="2" />
+
+    <!-- Engineer Slumped on Desk / Head in Hands -->
+    <!-- Torso -->
+    <path d="M 60 90 C 70 30 110 0 150 -10 C 180 -10 190 40 180 90" fill="rgba(148, 163, 184, 0.15)" stroke="#64748b" stroke-width="3" stroke-linejoin="round" />
+    
+    <!-- Arm leaning forward supporting head -->
+    <path d="M 120 40 L 70 85 L 10 90" fill="none" stroke="#64748b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 160 30 L 110 -20 L 60 -10" fill="none" stroke="#64748b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Head slumped sideways on desk/hand -->
+    <circle cx="65" cy="-25" r="38" fill="rgba(100, 116, 139, 0.12)" stroke="#475569" stroke-width="3" />
+    
+    <!-- Face Expression (Exhausted / Eyes closed in fatigue >_< or -_-) -->
+    <path d="M 50 -30 L 62 -25 L 50 -20" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Sweat drop -->
+    <path d="M 25 -45 Q 20 -30 25 -25 A 6 6 0 0 0 35 -25 Q 40 -30 25 -45 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
+
+    <!-- Zzz / Sigh bubbles floating away -->
+    <g transform="translate(10, -80)" opacity="0.7">
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="28" font-weight="700" fill="#64748b">z</text>
+      <text x="18" y="-22" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="#94a3b8">z</text>
+      <text x="32" y="-40" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#cbd5e1">z</text>
+    </g>
+  </g>
+</svg>

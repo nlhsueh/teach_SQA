@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Subtle ambient halo -->
+  <circle cx="400" cy="400" r="280" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.4" />
+  <circle cx="400" cy="400" r="330" fill="none" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 6" opacity="0.25" />
+
+  <!-- Clipboard / Notebook Body -->
+  <g transform="rotate(-6, 400, 410)">
+    <!-- Shadow plate -->
+    <rect x="230" y="170" width="340" height="470" rx="28" fill="rgba(148, 163, 184, 0.08)" stroke="#94a3b8" stroke-width="2.5" />
+    
+    <!-- Top Clip -->
+    <rect x="330" y="140" width="140" height="50" rx="12" fill="rgba(100, 116, 139, 0.12)" stroke="#64748b" stroke-width="2.5" />
+    <circle cx="400" cy="165" r="7" fill="none" stroke="#64748b" stroke-width="2.5" />
+
+    <!-- Ruled lines / Note content lines (Abstract, NO text) -->
+    <!-- Line 1 with check mark -->
+    <circle cx="285" cy="250" r="14" fill="none" stroke="#64748b" stroke-width="2" />
+    <path d="M 279 250 L 283 254 L 292 245" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="320" y1="250" x2="510" y2="250" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Line 2 with check mark -->
+    <circle cx="285" cy="315" r="14" fill="none" stroke="#64748b" stroke-width="2" />
+    <path d="M 279 315 L 283 319 L 292 310" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="320" y1="315" x2="480" y2="315" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Line 3 with check mark -->
+    <circle cx="285" cy="380" r="14" fill="none" stroke="#64748b" stroke-width="2" />
+    <path d="M 279 380 L 283 384 L 292 375" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="320" y1="380" x2="520" y2="380" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Line 4 (Empty check box) -->
+    <rect x="272" y="432" width="26" height="26" rx="6" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <line x1="320" y1="445" x2="460" y2="445" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Line 5 (Empty check box) -->
+    <rect x="272" y="497" width="26" height="26" rx="6" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <line x1="320" y1="510" x2="490" y2="510" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Line 6 (Summary bullet line) -->
+    <line x1="280" y1="570" x2="440" y2="570" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Elegant Minimalist Pen / Pencil (Foreground) -->
+  <g transform="rotate(28, 540, 480)">
+    <!-- Pen Body -->
+    <rect x="525" y="240" width="30" height="260" rx="8" fill="rgba(100, 116, 139, 0.12)" stroke="#64748b" stroke-width="2.5" />
+    <line x1="540" y1="240" x2="540" y2="500" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" />
+    <!-- Pen Nib -->
+    <polygon points="525,500 555,500 540,545" fill="rgba(148, 163, 184, 0.08)" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" />
+    <circle cx="540" cy="543" r="2.5" fill="#64748b" />
+    <!-- Pen Clip -->
+    <path d="M 525 280 L 512 280 L 512 360 L 525 360" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

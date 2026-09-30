@@ -88,13 +88,36 @@ Java 預設在執行時期是**關閉斷言**的。要啟用斷言：
 java -ea -cp target/classes xdemo.BubbleSort
 ```
 
-### 4.2 IntelliJ IDEA 設定
+### 4.2 VS Code / Antigravity IDE 設定
+VS Code 與 Antigravity IDE 執行 Java 程式碼時，可透過以下兩種方式啟用 `-ea`：
+
+* **方式 A：設定 `.vscode/launch.json`（推薦）**
+  1. 切換至側邊欄 **執行與偵錯 (Run and Debug)** $\rightarrow$ 點擊 **建立 launch.json 檔案**（或開啟既有的 `.vscode/launch.json`）。
+  2. 在對應的 Java 配置區塊中加入 `"vmArgs": "-ea"`：
+     ```json
+     {
+       "type": "java",
+       "name": "Launch BubbleSort",
+       "request": "launch",
+       "mainClass": "xdemo.BubbleSort",
+       "vmArgs": "-ea"
+     }
+     ```
+* **方式 B：工作區全域設定 (`.vscode/settings.json`)**
+  若希望點擊 Java 程式碼上方的「Run | Debug」CodeLens 捷徑時一律預設啟用斷言，可在 `.vscode/settings.json` 加入：
+  ```json
+  {
+    "java.debug.settings.vmArgs": "-ea"
+  }
+  ```
+
+### 4.3 IntelliJ IDEA 設定
 1. 點擊頂部選單 **Run $\rightarrow$ Edit Configurations...**
 2. 選擇你的 Application 執行設定。
 3. 點擊 **Modify options $\rightarrow$ Add VM options**。
 4. 在 VM options 欄位中輸入 **`-ea`** 並儲存。
 
-### 4.3 Maven 測試設定 (`pom.xml`)
+### 4.4 Maven 測試設定 (`pom.xml`)
 在 Maven 的 `maven-surefire-plugin` 中啟用斷言：
 ```xml
 <plugin>

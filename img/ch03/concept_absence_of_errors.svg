@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Ambient field -->
+  <circle cx="400" cy="400" r="320" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.35" />
+
+  <!-- Top Banner Tag -->
+  <g transform="translate(400, 115)">
+    <rect x="-190" y="-40" width="380" height="65" rx="32" fill="rgba(255, 255, 255, 0.9)" stroke="#64748b" stroke-width="2" />
+    <text x="0" y="4" font-family="-apple-system, sans-serif" font-size="24" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="2">
+      ABSENCE OF ERRORS
+    </text>
+  </g>
+
+  <!-- Left: Target 1 - "0 BUGS / 100% TEST PASS" (Hit accurately by arrow, but WRONG target!) -->
+  <g transform="translate(240, 440)">
+    <!-- Stand -->
+    <line x1="0" y1="120" x2="-40" y2="200" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+    <line x1="0" y1="120" x2="40" y2="200" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+    <line x1="0" y1="120" x2="0" y2="200" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Outer Target Ring -->
+    <circle cx="0" cy="0" r="115" fill="rgba(16, 185, 129, 0.08)" stroke="#10b981" stroke-width="3" />
+    <!-- Middle Ring -->
+    <circle cx="0" cy="0" r="75" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="2.5" />
+    <!-- Bullseye -->
+    <circle cx="0" cy="0" r="35" fill="#10b981" />
+    <text x="0" y="7" font-family="-apple-system, sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">PASS</text>
+
+    <!-- Arrow Bullseye Hit -->
+    <line x1="-120" y1="-80" x2="0" y2="0" stroke="#334155" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Arrow Fletching -->
+    <polygon points="-120,-80 -105,-85 -100,-75" fill="#e11d48" />
+    <polygon points="-120,-80 -115,-95 -125,-85" fill="#e11d48" />
+
+    <!-- Tag below target -->
+    <rect x="-85" y="130" width="170" height="35" rx="8" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="1.8" />
+    <text x="0" y="153" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#047857" text-anchor="middle">0 Bugs (100% Green)</text>
+  </g>
+
+  <!-- Giant Warning Disconnect / Question Mark in the middle -->
+  <g transform="translate(415, 410)">
+    <text x="0" y="15" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#f43f5e" text-anchor="middle">≠</text>
+    <path d="M -25 50 Q 0 80 25 50" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="4 4" />
+  </g>
+
+  <!-- Right: Target 2 - "REAL USER NEED" (Empty, Missed completely, Product Failure) -->
+  <g transform="translate(560, 440)">
+    <!-- Stand -->
+    <line x1="0" y1="120" x2="-40" y2="200" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+    <line x1="0" y1="120" x2="40" y2="200" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+    <line x1="0" y1="120" x2="0" y2="200" stroke="#475569" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Outer Target Ring (Dotted, Unmet) -->
+    <circle cx="0" cy="0" r="115" fill="rgba(244, 63, 94, 0.05)" stroke="#f43f5e" stroke-width="3" stroke-dasharray="6 6" />
+    <!-- Middle Ring -->
+    <circle cx="0" cy="0" r="75" fill="rgba(244, 63, 94, 0.08)" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4 4" />
+    <!-- Bullseye with Question / Distress -->
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#f43f5e" stroke-width="3" />
+    <!-- Disappointed User Icon in Bullseye -->
+    <circle cx="0" cy="-6" r="12" fill="none" stroke="#f43f5e" stroke-width="2" />
+    <path d="M -16 20 C -16 8 16 8 16 20" fill="none" stroke="#f43f5e" stroke-width="2" />
+
+    <!-- Big Red Cross Overlay (Unused Product) -->
+    <line x1="-30" y1="-30" x2="30" y2="30" stroke="#ef4444" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+    <line x1="30" y1="-30" x2="-30" y2="30" stroke="#ef4444" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+
+    <!-- Tag below target -->
+    <rect x="-85" y="130" width="170" height="35" rx="8" fill="rgba(244, 63, 94, 0.15)" stroke="#f43f5e" stroke-width="1.8" />
+    <text x="0" y="153" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#be123c" text-anchor="middle">User Need (MISSED!)</text>
+  </g>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Ambient field -->
+  <circle cx="400" cy="400" r="320" fill="none" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.35" />
+
+  <!-- Top Banner Tag -->
+  <g transform="translate(400, 115)">
+    <rect x="-190" y="-40" width="380" height="65" rx="32" fill="rgba(255, 255, 255, 0.9)" stroke="#64748b" stroke-width="2" />
+    <text x="0" y="4" font-family="-apple-system, sans-serif" font-size="24" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="2">
+      TEST ORACLE COMPARATOR
+    </text>
+  </g>
+
+  <!-- Left: Program Under Test (Actual Output) -->
+  <g transform="translate(240, 260)">
+    <rect x="-95" y="-45" width="190" height="90" rx="14" fill="rgba(100, 116, 139, 0.12)" stroke="#475569" stroke-width="3" />
+    <text x="0" y="-8" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" fill="#1e293b" text-anchor="middle">PROGRAM (PUT)</text>
+    <text x="0" y="18" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#64748b" text-anchor="middle">Actual Output (y)</text>
+  </g>
+
+  <!-- Right: Test Oracle (Expected Output) -->
+  <g transform="translate(560, 260)">
+    <rect x="-95" y="-45" width="190" height="90" rx="14" fill="rgba(2, 132, 199, 0.12)" stroke="#0284c7" stroke-width="3" />
+    <text x="0" y="-8" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" fill="#0369a1" text-anchor="middle">TEST ORACLE</text>
+    <text x="0" y="18" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#0284c7" text-anchor="middle">Expected Output (y*)</text>
+  </g>
+
+  <!-- Converging Flow Lines to Center Comparator -->
+  <path d="M 240 305 L 240 380 Q 240 420 320 440" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round" />
+  <path d="M 560 305 L 560 380 Q 560 420 480 440" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Center Comparator Core (Diamond / Circle Decision Engine) -->
+  <g transform="translate(400, 460)">
+    <!-- Comparator Housing -->
+    <polygon points="0,-60 75,0 0,60 -75,0" fill="rgba(255, 255, 255, 0.98)" stroke="#334155" stroke-width="3.5" />
+    <!-- Center Equal Check symbol -->
+    <text x="0" y="9" font-family="-apple-system, sans-serif" font-size="28" font-weight="900" fill="#334155" text-anchor="middle">== ?</text>
+    <!-- Label above -->
+    <text x="0" y="-75" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" fill="#475569" text-anchor="middle">COMPARATOR</text>
+  </g>
+
+  <!-- Output Decision Branches -->
+  <!-- Left Branch: Match -> PASS -->
+  <g transform="translate(240, 620)">
+    <!-- Branch Line -->
+    <path d="M 335 485 Q 240 520 240 565" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" />
+    <polygon points="234,565 246,565 240,576" fill="#10b981" />
+    
+    <!-- PASS Badge -->
+    <rect x="-85" y="-35" width="170" height="70" rx="35" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="3" />
+    <path d="M -45 0 L -35 10 L -18 -8" fill="none" stroke="#10b981" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="12" y="9" font-family="-apple-system, sans-serif" font-size="22" font-weight="900" fill="#047857" text-anchor="middle">PASS</text>
+  </g>
+
+  <!-- Right Branch: Mismatch -> FAIL -->
+  <g transform="translate(560, 620)">
+    <!-- Branch Line -->
+    <path d="M 465 485 Q 560 520 560 565" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
+    <polygon points="554,565 566,565 560,576" fill="#ef4444" />
+
+    <!-- FAIL Badge -->
+    <rect x="-85" y="-35" width="170" height="70" rx="35" fill="rgba(239, 68, 68, 0.15)" stroke="#ef4444" stroke-width="3" />
+    <!-- X mark -->
+    <line x1="-42" y1="-10" x2="-22" y2="10" stroke="#ef4444" stroke-width="4.5" stroke-linecap="round" />
+    <line x1="-22" y1="-10" x2="-42" y2="10" stroke="#ef4444" stroke-width="4.5" stroke-linecap="round" />
+    <text x="12" y="9" font-family="-apple-system, sans-serif" font-size="22" font-weight="900" fill="#be123c" text-anchor="middle">FAIL</text>
+  </g>
+</svg>
