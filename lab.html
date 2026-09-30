@@ -755,18 +755,53 @@
       const images = document.querySelectorAll('#contentArea img');
       images.forEach(img => {
         const src = img.getAttribute('src');
-        if (src && !/^(https?:|\/\/|data:)/.test(src)) {
+        if (src && !/^(https?:|\/\/|data:)/i.test(src)) {
           img.src = resolvePath(baseDir, src);
         }
       });
 
-      // Fix markdown links
+      // Fix links
       const links = document.querySelectorAll('#contentArea a');
       links.forEach(a => {
         const href = a.getAttribute('href');
-        if (href && href.endsWith('.md') && !/^(https?:|\/\/)/.test(href)) {
-          const resolved = resolvePath(baseDir, href);
-          a.href = `lab.html?file=${encodeURIComponent(resolved)}`;
+        if (!href) return;
+
+        // Skip internal page hash links (e.g. #heading-1) or mailto / javascript
+        if (/^(#|mailto:|javascript:)/i.test(href)) {
+          return;
+        }
+
+        // If external absolute URL, open in new tab
+        if (/^(https?:|\/\/)/i.test(href)) {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          return;
+        }
+
+        // Separate path and hash fragment if present
+        const hashIdx = href.indexOf('#');
+        const cleanPath = hashIdx !== -1 ? href.substring(0, hashIdx) : href;
+        const hashPart = hashIdx !== -1 ? href.substring(hashIdx) : '';
+
+        const resolved = resolvePath(baseDir, cleanPath);
+
+        if (cleanPath.endsWith('.md')) {
+          // Markdown document: load within the lab reader
+          a.href = `lab.html?file=${encodeURIComponent(resolved)}${hashPart}`;
+        } else if (cleanPath.endsWith('.html') || cleanPath.endsWith('.htm')) {
+          // Internal HTML page (e.g. index.html): navigate directly
+          a.href = `${resolved}${hashPart}`;
+        } else {
+          // Source code (.java, .xml, etc.), project configs, or directories:
+          // Direct to GitHub repository viewer so users get full syntax highlighting, tree view, and avoid 404
+          const isDir = cleanPath.endsWith('/') || (!cleanPath.split('/').pop().includes('.'));
+          const ghBase = isDir
+            ? "https://github.com/nlhsueh/teach_SQA/tree/main/"
+            : "https://github.com/nlhsueh/teach_SQA/blob/main/";
+          a.href = `${ghBase}${resolved}${hashPart}`;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.title = `在 GitHub 檢視原始檔：${resolved}`;
         }
       });
     }
