@@ -118,10 +118,14 @@ D) 該程式碼完全符合軟體品質的正確性定義
 
 <img src="../../img/ch02/spec_fault_failure_venn.jpg" width="650">
 
-**圖形解說：規格 (Spec)、程式缺陷 (Fault) 與系統失效 (Failure) 之交集關係**
-*   **Latent Fault (潛伏缺陷)**：程式碼有 Bug（如記憶體洩漏或特定邊界條件溢位），但在一般情境下未觸發對外失效。
-*   **Specification Gap / Missing Spec Bug (規格遺漏缺陷)**：規格書未明確規範異常處理（如使用者輸入除數為 0 或負數年齡），導致系統直接崩潰。
-*   **Observable System Crash (可觀察系統失效)**：缺陷被觸發並跨越邊界，產生對外可觀察到的功能異常或當機。
+**圖形解說：規格 (Spec)、程式缺陷 (Fault) 與系統失效 (Failure) 之七大區域交集關係**
+*   **(1) 純規格 (Specification Only)**：規格書有明確規範，但程式碼尚未實作（功能遺漏 Missing Feature / 尚未交付之需求）。
+*   **(2) 純實作 (Implementation Only)**：規格未載明的額外實作（過度設計 Gold-plating、未公開後門或尚未被觸發之無用程式碼）。
+*   **(3) 純系統失效 (System Failures Only)**：無關軟體程式碼邏輯的環境與硬體層崩潰（如機房突發斷電、實體光纖被挖斷、作業系統 Panic）。
+*   **(4) 規格 ∩ 實作 (Latent Fault，無 Failure)**：程式依規格實作但內部埋藏隱性缺陷（如特定數值溢位或記憶體洩漏），在常規使用情境下尚未觸發對外失效。
+*   **(5) 規格 ∩ 失效 (Specification Gap / Missing Spec Bug，無 Impl)**：規格本身存在盲點、遺漏或邏輯模糊（如未規範除數為 0 或負數年齡），系統照著陽春規格運作時直接暴露崩潰。
+*   **(6) 實作 ∩ 失效 (Observable System Crash，無 Spec)**：非預期的程式碼嚴重錯誤（未捕捉的空指標 NullPointerException、死鎖），穿透防禦邊界引爆可觀察當機。
+*   **(7) 三者核心交集 (Core Functional Bug)**：規格明確有寫、程式碼也有做但實作錯誤，對外產生明確偏離規格之可觀察失效（如利息計算公式寫反）！
 
 沒有失效不代表沒有缺陷；符合明訂規格也不代表高品質。專業軟體工程師必須具備「**為規格補全邊界例外**」的防禦性素養。
 
@@ -183,13 +187,27 @@ D) 只要客戶願意加錢，所有未明訂的規格才需要被修復
 
 ## 2.2 整潔程式碼 (Clean Code)
 
-### 2.2.1 起源與提出者
+### 2.2.0 為什麼在「錯與除錯」談 Clean Code？
+
+許多初學者常困惑：「這一章的主題是『錯與除錯 (Bugs and Debugging)』，為什麼要花大篇幅探討 Clean Code？」
+
+兩者的深層共生關係在於：
+1. **事前防火 vs. 事後滅火**：除錯 (Debug) 是「事後的排查與治標」，而 Clean Code 是「事前的防錯與治本」。寫出結構混亂、高耦合的髒程式碼，就像在機房內堆滿易燃物，任何微小的人為失誤 (Mistake) 都會輕易演變成系統失效 (Failure)。
+2. **混亂是 Bug 最佳的隱蔽所**：C++ 之父 Bjarne Stroustrup 曾指出：「*Clean Code 應當直截了當，讓缺陷難以隱藏。*」冗長的大函式、深層巢狀與模糊命名，會大幅榨乾工程師的認知資源，使關鍵缺陷深埋其中難以察覺。
+3. **加速心智模型 (Mental Model) 推演**：科學除錯的核心是在大腦中建立程式執行時態的因果推演。乾淨、職責單一 (SRP) 的程式碼能讓除錯假設的驗證速度提升 10 倍以上，更重要的是**能避免「修了一個 Bug，卻帶來三個新 Bug」的連鎖回歸災難**！
+4. **破除 Clean Code ＝ Bug-Free 的迷思**：Clean Code 降低內部複雜度，但若演算法或商業邏輯理解有偏差，依然會產生 Bug。Clean Code 的核心價值不在於保證絕對零缺陷，而在於**讓 Bug 無處藏身、極易定位、安全修復**！
+
+---
+
+### 2.2.1 起源與提出者：Robert C. Martin (Uncle Bob)
+
+<img src="../../img/ch02/robert_c_martin.jpg" width="220" style="float: right; margin-left: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
 
 「**Clean Code（整潔程式碼 / 清晰程式碼）**」概念的集大成者是軟體工程界的泰斗 **Robert C. Martin**（業界尊稱為 **Uncle Bob / 鮑伯叔叔**，亦為 2001 年敏捷宣言《Agile Manifesto》的共同發起人之一）。
 
 他在 **2008 年**出版了享譽全球的經典著作 《**Clean Code: A Handbook of Agile Software Craftsmanship**》（中文常譯為《無瑕的程式碼》或《整潔的程式碼》），系統性地奠定了現代專業軟體工程師撰寫高品質程式碼的心態、原則與實務規範。
 
-<img src="https://m.media-amazon.com/images/I/51E2055ZGUL._SL1000_.jpg" width="180">
+<div style="clear: both;"></div>
 
 > 「任何傻瓜都能寫出電腦看得懂的程式碼。優秀的程式設計師能寫出人類看得懂的程式碼。」 —— *Martin Fowler*
 > 
@@ -516,12 +534,44 @@ D) 只有在 Java 8 以前才會有並發問題，現代 Java 框架不需要理
 
 ## 2.4 除錯工具實務 (Debuggers)
 
-除錯工具是工程師的聽診器與手術刀。現代 IDE（如 IntelliJ IDEA）提供了極強大的功能：
-* **條件斷點 (Conditional Breakpoints)**：只在變數符合特定條件時才暫停（例如 `i == 999` 或 `user.getBalance() < 0`）。
-* **例外斷點 (Exception Breakpoints)**：只要系統拋出特定 Exception（如 `NullPointerException`）立刻自動中斷並定格 Call Stack。
-* **變數求值 (Evaluate Expression)**：在程式暫停時即時執行運算式驗證假設。
+除錯工具是軟體工程師的聽診器與手術刀。許多初學者排查 Bug 僅依賴 `System.out.println()`（即所謂的 Print-based Debugging），不僅效率低下、污染程式碼，在高併發或非同步環境下更容易破壞時序競爭關係。現代整合開發環境（IDE，如 IntelliJ IDEA、VS Code）提供了強大的動態除錯器，其核心介面佈局與四大面板如下圖所示：
 
-> 🛠️ **實習演練手冊**：請參閱 [`LabDemo/docs/u01_debug/debug.md`](../../LabDemo/docs/u01_debug/debug.md) 與 [`LabDemo/docs/uxx/Intellij.md`](../../LabDemo/docs/uxx/Intellij.md) 進行除錯實務操作。
+<img src="../../img/ch02/intellij_debug_annotated.png" width="650">
+
+*   **① 斷點 (Line Breakpoint) 與當前執行行**：在程式碼行號區設定中斷點，藍底高亮代表程式執行即將抵達該行（此時該行指令尚未被執行），行末會以灰色即時標註當前行內變數值。
+*   **② 單步除錯控制列 (Stepping Toolbar)**：提供 Step Over (F8)、Step Into (F7)、Step Out (Shift+F8)、Resume (F9) 等單步跳躍與流程控制動作。
+*   **③ 呼叫堆疊視窗 (Frames / Call Stack)**：回溯當前函式的呼叫鏈條與歷史層級，支援切換不同影格還原當時上下文的變數狀態。
+*   **④ 變數檢視與監看 (Variables & Watches)**：即時展開記憶體物件結構、自訂運算式監看與動態求值 (Evaluate Expression)。
+
+其核心功能可歸納為三大支柱：
+
+### 2.4.1 除錯中斷點：精準定格執行時態 (Breakpoints)
+除錯器並非隨意按暫停，而是「有策略地定格時間」：
+*   **行中斷點 (Line Breakpoints)**：最基礎的斷點，程式執行即將抵達該行語句前暫停，**此時該行指令尚未被執行**。
+*   **條件斷點 (Conditional Breakpoints)**：設定布林過濾表達式（例如 `i == 999` 或 `user.getBalance() < 0`），只有在條件成立時才暫停，省去在數萬次迴圈中手動狂按單步執行的痛苦。
+*   **命中次數斷點 (Hit Count Breakpoints)**：忽略前 $N-1$ 次迭代，僅在第 $N$ 次命中時才觸發，專門用來排查累積誤差或後期記憶體暴增問題。
+*   **例外斷點 (Exception Breakpoints)**：指定特定例外類型（如 `NullPointerException` 或自訂例外），只要 JVM 拋出該例外瞬間**自動定格現場**，精準抓出第一犯罪現場，無須猜測是哪一行出錯。
+*   **欄位存取斷點 (Field Watchpoints)**：針對物件成員變數，當其被讀取或被賦值修改時自動暫停，專門排查變數何時被莫名竄改。
+*   **日誌斷點 (Logpoints / Tracepoints)**：經過該行時不停機、不破壞多執行緒時序，由 IDE 自動在主控台輸出指定變數或表達式的值，是生產環境排查並發問題的神器。
+
+### 2.4.2 執行流程控制：單步追蹤術 (Execution Control & Stepping)
+程式暫停後，工程師可透過以下動作精準掌控執行步調：
+*   **Step Over (單步跳過 / F8)**：執行當前行程式碼；若該行包含方法呼叫，直接在背景執行完畢並停在下一行，不深入該方法內部。
+*   **Step Into (單步進入 / F7)**：若當前行包含方法呼叫，直接進入該自訂方法內部第一行，逐行追蹤底層邏輯。
+*   **Force Step Into (強制進入)**：跳過 IDE 的過濾規則，深入追蹤 Java 官方 SDK（如 `ArrayList.add`）或第三方函式庫的內部源碼。
+*   **Step Out (單步跳出 / Shift+F8)**：執行完當前方法剩餘的所有程式碼，直接返回到上層呼叫端方法處並暫停。
+*   **Resume Program / Continue (繼續執行 / F9)**：恢復全速執行，直到遇到下一個中斷點或程式結束。
+*   **Run to Cursor (執行至游標處 / Alt+F9)**：直接全速執行到游標所在的目標行並暫停，省去設定臨時中斷點的繁瑣操作。
+*   **Drop Frame / Reset Frame (堆疊重放)**：現代除錯利器，撤銷當前方法的執行狀態與堆疊，重新從該方法開頭再跑一次，免除反覆重啟伺服器的時間。
+
+### 2.4.3 狀態透視：變數監視與呼叫堆疊 (State Inspection)
+*   **Variables (區域變數視窗)**：即時列出當前呼叫堆疊層級（Stack Frame）內的所有區域變數、傳入參數以及物件內部私有屬性。
+*   **Watches (變數/表達式監看視窗)**：自訂長期盯緊的目標，支援複合運算式（如 `list.size()`、`node.next == null` 或 `matrix[i][j]`）。
+*   **Call Stack (呼叫堆疊追蹤視窗)**：清晰呈現「當前方法是從哪裡、經過哪些中介層一路呼叫進來的」。點擊任一堆疊影格，編輯器會自動跳轉至該層程式碼，並還原當時上下文的變數狀態。
+*   **Evaluate Expression (動態運算求值 / Alt+F8)**：在程式定格時開啟互動終端，可即時執行任意 Java 語句、調用方法或測試假設。
+*   **動態竄改變數值 (Set Value)**：在暫停狀態下雙擊變數修改記憶體數值，手動模擬極端邊界條件以驗證後續防禦邏輯。
+
+> 🛠️ **實習演練手冊**：請參閱 [`LabDemo/docs/u01_debug/debug.md`](../../LabDemo/docs/u01_debug/debug.md)（含 BubbleSort、GCD、最低共同祖先 LCA 與 Sin 泰勒級數除錯實戰）與 [`LabDemo/docs/uxx/Intellij.md`](../../LabDemo/docs/uxx/Intellij.md) 進行除錯實務動手做。
 
 ---
 

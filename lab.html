@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上機實習 (Lab) 講義閱讀器 | SQA 軟體品質保證</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Highlight.js CSS (GitHub Theme) -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+
+  <!-- Marked & Highlight.js Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #dbeafe;
+      --accent: #0284c7;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 10px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navbar */
+    .top-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-back:hover {
+      background: var(--primary-light);
+      border-color: #93c5fd;
+      transform: translateX(-2px);
+    }
+
+    .breadcrumb-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .breadcrumb-path {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 6px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-nav-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-nav-action:hover {
+      color: var(--primary);
+      border-color: #93c5fd;
+      background: #f1f5f9;
+    }
+
+    /* Main Container & Layout */
+    .layout-container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 80px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 36px;
+      flex: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .layout-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    /* Content Area */
+    .content-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 40px 48px;
+      min-width: 0;
+    }
+
+    @media (max-width: 768px) {
+      .content-card {
+        padding: 24px 20px;
+      }
+      .top-navbar {
+        padding: 10px 14px;
+      }
+      .breadcrumb-path {
+        display: none;
+      }
+    }
+
+    /* Markdown Typography & Elements */
+    .markdown-body {
+      font-size: 16px;
+      color: #1e293b;
+    }
+
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4 {
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-top: 1.8em;
+      margin-bottom: 0.6em;
+      scroll-margin-top: 80px;
+    }
+
+    .markdown-body h1:first-child,
+    .markdown-body h2:first-child {
+      margin-top: 0;
+    }
+
+    .markdown-body h1 {
+      font-size: 28px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+      color: #1e3a8a;
+    }
+
+    .markdown-body h2 {
+      font-size: 22px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .markdown-body h3 {
+      font-size: 18.5px;
+    }
+
+    .markdown-body h4 {
+      font-size: 16px;
+    }
+
+    .markdown-body p,
+    .markdown-body ul,
+    .markdown-body ol {
+      margin-bottom: 1.1em;
+    }
+
+    .markdown-body ul,
+    .markdown-body ol {
+      padding-left: 24px;
+    }
+
+    .markdown-body li {
+      margin-bottom: 0.35em;
+    }
+
+    .markdown-body a {
+      color: #0284c7;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
+    }
+
+    .markdown-body a:hover {
+      color: #0369a1;
+    }
+
+    .markdown-body hr {
+      border: none;
+      height: 1px;
+      background: #e2e8f0;
+      margin: 28px 0;
+    }
+
+    /* Tables */
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14.5px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .markdown-body th,
+    .markdown-body td {
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    .markdown-body th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .markdown-body tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    /* Images */
+    .markdown-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin: 16px 0;
+      box-shadow: var(--shadow-sm);
+      display: block;
+    }
+
+    /* Inline Code */
+    .markdown-body :not(pre) > code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      background-color: #f1f5f9;
+      color: #0369a1;
+      padding: 2px 6px;
+      border-radius: 5px;
+      border: 1px solid #e2e8f0;
+      word-break: break-word;
+    }
+
+    /* Code Blocks */
+    .code-block-wrapper {
+      position: relative;
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      background: #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .btn-copy {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11.5px;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    .markdown-body pre {
+      margin: 0;
+      padding: 16px;
+      background: #ffffff;
+      overflow-x: auto;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .markdown-body pre code {
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0;
+      background: transparent;
+      border: none;
+      color: inherit;
+    }
+
+    /* Blockquotes & Callouts */
+    .markdown-body blockquote {
+      margin: 18px 0;
+      padding: 12px 18px;
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      color: #334155;
+    }
+
+    .markdown-body blockquote p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Table of Contents (TOC) Sidebar */
+    .toc-sidebar {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toc-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-item {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .toc-item.h2 {
+      padding-left: 0;
+      font-weight: 600;
+    }
+
+    .toc-item.h3 {
+      padding-left: 14px;
+      color: var(--text-muted);
+    }
+
+    .toc-item.h4 {
+      padding-left: 26px;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .toc-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .toc-link:hover {
+      color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .toc-link.active {
+      color: var(--primary);
+      font-weight: 700;
+      background: #dbeafe;
+    }
+
+    /* Loading / Error States */
+    .state-container {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 16px auto;
+      border: 3px solid #e2e8f0;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .lab-directory-card {
+      text-align: left;
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+
+    .lab-directory-card h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .lab-directory-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .lab-directory-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      color: #0369a1;
+      text-decoration: none;
+      padding: 6px 10px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .lab-directory-list a:hover {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      transform: translateY(-1px);
+    }
+
+    @media print {
+      .top-navbar,
+      .toc-sidebar,
+      .btn-copy {
+        display: none !important;
+      }
+      .layout-container {
+        grid-template-columns: 1fr;
+        padding: 0;
+      }
+      .content-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <a href="index.html" class="btn-back">
+        <span>⬅️</span>
+        <span>返回 SQA 課程入口</span>
+      </a>
+      <div class="breadcrumb-info">
+        <span id="pageTitle" class="breadcrumb-title">載入中...</span>
+        <span id="filePathDisplay" class="breadcrumb-path"></span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="btn-nav-action" onclick="copyPageLink()" title="複製分享連結">
+        <span>🔗</span>
+        <span>分享</span>
+      </button>
+      <a id="githubLink" href="#" target="_blank" class="btn-nav-action" title="在 GitHub 上檢視原始檔案">
+        <span>💻</span>
+        <span>GitHub</span>
+      </a>
+      <button class="btn-nav-action" onclick="window.print()" title="列印或另存為 PDF">
+        <span>🖨️</span>
+        <span>列印</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout Container -->
+  <main class="layout-container">
+    <!-- Main Content -->
+    <article class="content-card">
+      <div id="contentArea" class="markdown-body">
+        <div class="state-container">
+          <div class="spinner"></div>
+          <p>正在載入講義內容，請稍候...</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Table of Contents Sidebar -->
+    <aside class="toc-sidebar" id="tocSidebar">
+      <div class="toc-title">
+        <span>📑</span>
+        <span>章節目錄 (TOC)</span>
+      </div>
+      <ul class="toc-list" id="tocList">
+        <li class="toc-item"><span style="color: #94a3b8; font-size: 13px;">解析目錄中...</span></li>
+      </ul>
+    </aside>
+  </main>
+
+  <script>
+    // GitHub Repository Configuration
+    const GITHUB_REPO_URL = "https://github.com/nlhsueh/teach_SQA/blob/main/";
+
+    // Resolve relative path utility
+    function resolvePath(baseDir, relativePath) {
+      if (/^(https?:|\/\/|data:)/.test(relativePath)) {
+        return relativePath;
+      }
+      const combined = baseDir + relativePath;
+      const parts = combined.split('/');
+      const stack = [];
+      for (const part of parts) {
+        if (!part || part === '.') continue;
+        if (part === '..') {
+          stack.pop();
+        } else {
+          stack.push(part);
+        }
+      }
+      return stack.join('/');
+    }
+
+    // Get current Markdown file from URL query string (?file=...)
+    function getFileParam() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('file');
+    }
+
+    // Copy Current Page URL
+    function copyPageLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert("已成功複製本頁面連結！");
+      }).catch(err => {
+        prompt("請手動複製連結：", window.location.href);
+      });
+    }
+
+    // Copy Code Block Content
+    window.copyCode = function(button) {
+      const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+      if (!codeBlock) return;
+      
+      const text = codeBlock.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHtml = button.innerHTML;
+        button.innerHTML = "✅ 已複製！";
+        button.style.color = "#16a34a";
+        setTimeout(() => {
+          button.innerHTML = originalHtml;
+          button.style.color = "";
+        }, 2000);
+      });
+    };
+
+    // Render Table of Contents
+    function buildTOC() {
+      const content = document.getElementById('contentArea');
+      const headings = content.querySelectorAll('h1, h2, h3, h4');
+      const tocList = document.getElementById('tocList');
+      tocList.innerHTML = '';
+
+      if (headings.length === 0) {
+        tocList.innerHTML = '<li class="toc-item"><span style="color: #94a3b8; font-size: 13px;">本篇無標題大綱</span></li>';
+        return;
+      }
+
+      headings.forEach((heading, index) => {
+        // Ensure id
+        if (!heading.id) {
+          heading.id = `heading-${index}`;
+        }
+
+        const tag = heading.tagName.toLowerCase();
+        const li = document.createElement('li');
+        li.className = `toc-item ${tag}`;
+
+        const a = document.createElement('a');
+        a.href = `#${heading.id}`;
+        a.className = 'toc-link';
+        a.textContent = heading.textContent;
+        a.title = heading.textContent;
+
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          heading.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, '', `#${heading.id}`);
+        });
+
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+
+      // Highlight active TOC item on scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            document.querySelectorAll('.toc-link').forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-60px 0px -70% 0px' });
+
+      headings.forEach(heading => observer.observe(heading));
+    }
+
+    // Wrap Code Blocks with Header & Copy Button
+    function enhanceCodeBlocks() {
+      const pres = document.querySelectorAll('#contentArea pre');
+      pres.forEach(pre => {
+        // If already wrapped, skip
+        if (pre.parentElement.classList.contains('code-block-wrapper')) return;
+
+        const code = pre.querySelector('code');
+        let lang = 'TEXT';
+        if (code) {
+          const match = code.className.match(/language-([a-zA-Z0-9_-]+)/);
+          if (match) {
+            lang = match[1].toUpperCase();
+          }
+        }
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+
+        const header = document.createElement('div');
+        header.className = 'code-header';
+        header.innerHTML = `
+          <span>${lang}</span>
+          <button class="btn-copy" onclick="copyCode(this)">
+            <span>📋</span>
+            <span>複製</span>
+          </button>
+        `;
+
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(header);
+        wrapper.appendChild(pre);
+      });
+    }
+
+    // Fix Relative Image & Link Paths
+    function fixRelativePaths(baseDir) {
+      // Fix images
+      const images = document.querySelectorAll('#contentArea img');
+      images.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src && !/^(https?:|\/\/|data:)/.test(src)) {
+          img.src = resolvePath(baseDir, src);
+        }
+      });
+
+      // Fix markdown links
+      const links = document.querySelectorAll('#contentArea a');
+      links.forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && href.endsWith('.md') && !/^(https?:|\/\/)/.test(href)) {
+          const resolved = resolvePath(baseDir, href);
+          a.href = `lab.html?file=${encodeURIComponent(resolved)}`;
+        }
+      });
+    }
+
+    // Main Markdown Loader
+    async function loadMarkdown() {
+      const file = getFileParam();
+      const contentArea = document.getElementById('contentArea');
+      const pageTitle = document.getElementById('pageTitle');
+      const filePathDisplay = document.getElementById('filePathDisplay');
+      const githubLink = document.getElementById('githubLink');
+
+      if (!file) {
+        pageTitle.textContent = "未指定實習講義檔案";
+        contentArea.innerHTML = `
+          <div class="state-container">
+            <h2>⚠️ 請指定要瀏覽的實習檔案</h2>
+            <p style="margin-top: 8px;">網址需包含 <code>?file=LabDemo/docs/...</code> 參數。</p>
+            <div class="lab-directory-card">
+              <h3>💡 常見上機實習快速導引：</h3>
+              <div class="lab-directory-list">
+                <a href="lab.html?file=LabDemo/docs/u01_intro/antigravity.md">🛠️ Lab 01 · Antigravity IDE 實務指南</a>
+                <a href="lab.html?file=LabDemo/docs/u01_intro/maven.md">🛠️ Lab 01 · Maven 與 pom.xml 指南</a>
+                <a href="lab.html?file=LabDemo/docs/u02_robust/logging.md">🛠️ Lab 02 · 日誌追蹤實務 (Logging)</a>
+                <a href="lab.html?file=LabDemo/docs/u02_robust/assertion.md">🛠️ Lab 02 · 斷言防護 (Assertion)</a>
+                <a href="lab.html?file=LabDemo/docs/u02_robust/exception.md">🛠️ Lab 02 · 例外處理實務 (Exception)</a>
+                <a href="lab.html?file=LabDemo/docs/u02_debug/debug.md">🛠️ Lab 02 · 除錯實務與科學假設檢驗</a>
+                <a href="lab.html?file=LabDemo/docs/u02_debug/ai_code_break.md">🛠️ Lab 02 · AI 程式碼破壞實驗</a>
+                <a href="lab.html?file=LabDemo/docs/u04_inspection/pmd.md">🛠️ Lab 04 · PMD 靜態程式碼分析</a>
+                <a href="lab.html?file=LabDemo/docs/u05_utest/junit.md">🛠️ Lab 05 · JUnit 5 單元測試實務</a>
+                <a href="lab.html?file=LabDemo/docs/u05_utest/jqwik_property_based.md">🛠️ Lab 05/06 · jqwik 屬性基礎測試</a>
+                <a href="lab.html?file=LabDemo/docs/u06_wbtesting/whitebox_test.md">🛠️ Lab 07 · 白箱測試與涵蓋率分析</a>
+                <a href="lab.html?file=LabDemo/docs/u07_mutation/mutation_test.md">🛠️ Lab 07/08 · PITest 變異測試</a>
+                <a href="lab.html?file=LabDemo/docs/u08_integration/testcontainers_spring.md">🛠️ Lab 09/10 · Testcontainers 整合測試</a>
+                <a href="lab.html?file=LabDemo/docs/u09_cucumber_bdd/pact_and_playwright.md">🛠️ Lab 11~13 · BDD 與契約測試</a>
+                <a href="lab.html?file=LabDemo/docs/u10_performance/k6_load_testing.md">🛠️ Lab 14 · k6 現代高併發壓測</a>
+              </div>
+            </div>
+          </div>
+        `;
+        document.getElementById('tocSidebar').style.display = 'none';
+        return;
+      }
+
+      filePathDisplay.textContent = `(${file})`;
+      githubLink.href = `${GITHUB_REPO_URL}${file}`;
+
+      // Calculate directory of the current markdown file
+      const lastSlash = file.lastIndexOf('/');
+      const baseDir = lastSlash !== -1 ? file.substring(0, lastSlash + 1) : '';
+
+      try {
+        const response = await fetch(file);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} ${response.statusText}`);
+        }
+        const markdown = await response.text();
+
+        // Extract first heading as page title
+        const headingMatch = markdown.match(/^#+\s+(.+)$/m);
+        if (headingMatch) {
+          const title = headingMatch[1].replace(/[*_`]/g, '').trim();
+          pageTitle.textContent = title;
+          document.title = `${title} | SQA 上機實習`;
+        } else {
+          const fallbackTitle = file.split('/').pop().replace('.md', '');
+          pageTitle.textContent = fallbackTitle;
+          document.title = `${fallbackTitle} | SQA 上機實習`;
+        }
+
+        // Configure marked
+        marked.setOptions({
+          gfm: true,
+          breaks: true
+        });
+
+        // Render HTML
+        contentArea.innerHTML = marked.parse(markdown);
+
+        // Highlight code blocks
+        contentArea.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightElement(block);
+        });
+
+        // Enhance GitHub-style Callouts / Alerts (> [!NOTE], > [!TIP], etc.)
+        contentArea.querySelectorAll('blockquote').forEach((bq) => {
+          const firstP = bq.querySelector('p');
+          if (!firstP) return;
+          const text = firstP.innerHTML;
+          const alertMatch = text.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(<br\s*\/?>)?/i);
+          if (alertMatch) {
+            const type = alertMatch[1].toUpperCase();
+            firstP.innerHTML = text.replace(alertMatch[0], '');
+            bq.classList.add(`alert-${type.toLowerCase()}`);
+            
+            const badges = {
+              NOTE: { icon: 'ℹ️', title: 'NOTE', color: '#0284c7', bg: '#f0f9ff', border: '#0284c7' },
+              TIP: { icon: '💡', title: 'TIP', color: '#16a34a', bg: '#f0fdf4', border: '#16a34a' },
+              IMPORTANT: { icon: '📌', title: 'IMPORTANT', color: '#854d0e', bg: '#fefce8', border: '#ca8a04' },
+              WARNING: { icon: '⚠️', title: 'WARNING', color: '#c2410c', bg: '#fff7ed', border: '#ea580c' },
+              CAUTION: { icon: '🛑', title: 'CAUTION', color: '#b91c1c', bg: '#fef2f2', border: '#dc2626' }
+            };
+            const b = badges[type] || badges.NOTE;
+            bq.style.borderLeftColor = b.border;
+            bq.style.backgroundColor = b.bg;
+            
+            const titleEl = document.createElement('div');
+            titleEl.style.fontWeight = '700';
+            titleEl.style.color = b.color;
+            titleEl.style.marginBottom = '6px';
+            titleEl.style.display = 'flex';
+            titleEl.style.alignItems = 'center';
+            titleEl.style.gap = '6px';
+            titleEl.innerHTML = `<span>${b.icon}</span><span>${b.title}</span>`;
+            bq.insertBefore(titleEl, firstP);
+          }
+        });
+
+        // Post-processing
+        fixRelativePaths(baseDir);
+        enhanceCodeBlocks();
+        buildTOC();
+
+        // Scroll to hash if present in URL
+        if (window.location.hash) {
+          const targetId = decodeURIComponent(window.location.hash.substring(1));
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            setTimeout(() => targetEl.scrollIntoView({ behavior: 'smooth' }), 200);
+          }
+        }
+
+      } catch (error) {
+        console.error("載入 Markdown 失敗:", error);
+        pageTitle.textContent = "無法載入講義檔案";
+        contentArea.innerHTML = `
+          <div class="state-container">
+            <h2 style="color: #dc2626;">❌ 載入實習講義失敗</h2>
+            <p style="margin: 10px 0;">無法讀取檔案路徑：<code>${file}</code></p>
+            <p style="color: #64748b; font-size: 14px;">原因：${error.message}</p>
+            <div style="margin-top: 20px;">
+              <a href="index.html" class="btn-back" style="display: inline-block;">⬅️ 返回 SQA 課程入口</a>
+            </div>
+          </div>
+        `;
+        document.getElementById('tocSidebar').style.display = 'none';
+      }
+    }
+
+    // Initialize on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', loadMarkdown);
+  </script>
+</body>
+
+</html>

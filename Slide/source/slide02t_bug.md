@@ -520,6 +520,46 @@ style: |
     text-decoration: none;
     font-weight: bold;
   }
+  /* Content with Side Figure Layout */
+  div.content-columns {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    box-sizing: border-box;
+  }
+  div.content-text {
+    flex: 66%;
+    font-size: 21.5px;
+    line-height: 1.6;
+  }
+  div.content-text ul, div.content-text ol {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  div.content-text li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  div.content-figure {
+    flex: 34%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  div.content-figure img {
+    max-width: 360px;
+    max-height: 480px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  }
   div.split64, div.split46, div.split55 {
     display: flex;
     align-items: center;
@@ -800,11 +840,40 @@ footer: 'Ch02 錯與除錯'
 
 ---
 
+## 2.1.2 規格、缺陷與失效：七大區域深度剖析
+
+<div class="card-deck">
+
+> 💡 三集合交集揭示軟體缺陷的三重邊界：沒有失效不代表沒有缺陷，符合明訂規格更不代表高品質。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### ⭕ (1) ~ (3) 單一範疇邊界
+- **(1) 純規格 (Spec Only)**：規格明訂但程式尚未實作（功能遺漏 Missing Feature / 延後交付）。
+- **(2) 純實作 (Impl Only)**：規格未載明的額外實作（過度設計 Gold-plating、未公開後門或未觸發死碼）。
+- **(3) 純失效 (Failure Only)**：無關軟體邏輯的環境與硬體崩潰（如機房斷電、實體線路挖斷、OS 崩潰）。
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🔀 (4) ~ (7) 交互作用與缺陷核心
+- **(4) 規格 ∩ 實作 (Latent Fault)**：依規格實作但隱含缺陷（數值溢位），常規下未引發對外失效。
+- **(5) 規格 ∩ 失效 (Specification Gap)**：規格存在漏洞或模糊（未規定輸入 0），一遇極端值系統直接崩潰。
+- **(6) 實作 ∩ 失效 (Observable Crash)**：未捕捉的程式碼嚴重錯誤（NPE、死鎖），穿透邊界暴露於外。
+- **(7) 三者核心交集 (Core Bug)**：規格明確有寫、程式有做但做錯，對外產生可觀察的偏離失效！
+
+</div>
+</div>
+</div>
+
+---
+
 ### 規格缺陷與防禦性工程素養
 
 <div class="card-deck">
 
-* > 🛡️ 「規格沒寫，不代表系統可以崩潰。」—— 卓越工程師的本能是在未知邊界主動築起防線。
+> 🛡️ 「規格沒寫，不代表系統可以崩潰。」—— 卓越工程師的本能是在未知邊界主動築起防線。
 
 
 <div class="two-columns">
@@ -902,7 +971,40 @@ pre code {
 
 ---
 
+## 2.2 為什麼在「錯與除錯」談 Clean Code？
+
+<div class="card-deck">
+
+> 💡 除錯 (Debug) 是事後的治標與排查，Clean Code 則是事前的治本與防錯；兩者是軟體可靠性的共生雙翼。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🛡️ 事前防錯：不給臭蟲藏身之地
+- **除錯是滅火，Clean Code 是防火**：寫出義大利麵程式碼如同在機房堆滿易燃物，小失誤隨時引爆大失效
+- **混亂是 Bug 最佳保護色**：冗長函式、深層巢狀與晦澀命名大幅增加大腦認知負荷，使致命缺陷深埋其中
+- **讓缺陷無所遁形 (Hard to Hide)**：Bjarne Stroustrup：「Clean Code 直截了當，讓缺陷難以隱藏」，邏輯清晰是最好的防錯濾鏡
+- **提高心智模型推演速度**：除錯本質是在大腦中模擬程式狀態；清晰結構讓工程師快速掌握因果鏈條
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### ⚡ 事後除錯：降低修復與回歸成本
+- **破除 Clean Code ＝ Bug-Free 迷思**：Clean Code 降低內部複雜度，但演算法理解偏差依然會產生 Bug
+- **杜絕「修一個 Bug 帶來三個 Bug」**：高耦合的髒程式碼在修復時極易產生連鎖副作用，Clean Code 保障局部安全
+- **極致的除錯可維護性 (Debuggability)**：模組職責單一 (SRP) 讓中斷點設定與變數監控範圍精確縮小至單一函式
+- **為單元測試鋪平道路**：乾淨程式碼具備高可測試性 (Testability)，極易編寫微型測試自動鎖死 Bug 不再復發
+
+</div>
+</div>
+</div>
+
+---
+
 ## 2.2.1 起源與提出者：Robert C. Martin (Uncle Bob)
+
+<div class="content-columns">
+  <div class="content-text">
 
 - **現代專業軟體工藝奠基者**：
   - **Robert C. Martin**（業界尊稱為 **Uncle Bob**），2001 年敏捷宣言共同發起人。
@@ -911,6 +1013,14 @@ pre code {
   - 「閱讀舊程式碼與撰寫新程式碼的時間比例**往往超過 10 比 1**。」
   - 軟體維護與除錯的時間佔據工程師日常 70% 以上。
   - **讓程式碼易讀，實質上就是讓撰寫與修改程式碼變得更容易、更安全！**
+- **專業工匠的核心態度**：
+  - 軟體品質是開發者的專業誠信，不應因交付壓力而妥協撰寫髒程式碼。
+
+  </div>
+  <div class="content-figure">
+    <img src="../../img/ch02/robert_c_martin.jpg" alt="Robert C. Martin (Uncle Bob)" />
+  </div>
+</div>
 
 ---
 
@@ -1396,15 +1506,103 @@ public void processOrder(Order order) {
 
 ---
 
-## 現代 IDE 核心除錯利刃
+<!-- _class: title-image-slide -->
 
-- **條件斷點 (Conditional Breakpoints)**：
-  - 設定求值條件（如 `i == 999` 或 `user.getBalance() < 0`），僅在滿足特定情境時才暫停執行，大幅節省單步迴圈時間。
-- **例外斷點 (Exception Breakpoints)**：
-  - 設定特定例外類型（如 `NullPointerException`），系統只要拋出該例外立即自動暫停，精準定格第一現場與呼叫堆疊 (Call Stack)。
-- **即時表達式求值 (Evaluate Expression)**：
-  - 在程式定格時動態調用方法、驗證運算式結果與查看私有屬性狀態。
-- 🛠️ **實習演練**：請參閱 `LabDemo/docs/u01_debug/debug.md` 進行動手實作。
+## 2.4 現代 IDE 除錯介面全貌 (以 IntelliJ IDEA 為例)
+
+<div class="image-wrapper" style="height: 520px;">
+  <img src="../../img/ch02/intellij_debug_annotated.png" alt="IntelliJ IDEA 除錯介面四大核心區域" style="max-height: 510px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15); border-radius: 8px;" />
+</div>
+
+---
+
+## 2.4.1 除錯中斷點：精準定格執行時態 (Breakpoints)
+
+<div class="card-deck">
+
+> 💡 現代除錯器的核心是「有策略地定格時間」——在最關鍵的 execution frame 上觀察程式真實狀態。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🔴 核心基礎斷點機制
+- **行中斷點 (Line Breakpoint)**：最基本斷點，程式執行「即將抵達該行前」定格，此時該行指令**尚未執行**
+- **條件斷點 (Conditional Breakpoint)**：設定過濾表達式（如 `i == 999` 或 `user.getBalance() < 0`），僅在滿足時才暫停
+- **命中次數斷點 (Hit Count)**：忽略前 N-1 次迴圈迭代，僅在第 N 次命中時暫停，排查大量迴圈後期的累積誤差
+- **日誌斷點 (Logpoint / Tracepoint)**：不停機、不破壞高併發時序，每次經過自動在主控台輸出自訂變數日誌
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 💥 例外斷點與進階觀測
+- **例外斷點 (Exception Breakpoint)**：指定拋出特定例外（如 `NullPointerException`）瞬間自動定格現場
+- **精準捕獲第一案發現場**：無須大海撈針猜測哪一行拋錯，除錯器直接定格於拋出例外的原始語句
+- **未捕獲例外 (Uncaught Exceptions)**：可設定僅在例外未被 `try-catch` 處理時中斷，過濾正常業務例外
+- **欄位存取斷點 (Field Watchpoint)**：針對類別成員變數，當其被「讀取」或「寫入修改」時立即暫停
+
+</div>
+</div>
+</div>
+
+---
+
+## 2.4.2 執行流程控制：單步追蹤術 (Execution Control)
+
+<div class="card-deck">
+
+> 💡 掌握單步執行的節奏感，在程式呼叫階層中自如穿梭，精確定位變數從合法走向受污染的轉折點。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### ⏯️ 單步跳躍四核心動作
+- **Step Over (單步跳過 / F8)**：執行當前行程式碼；若該行包含函式呼叫，直接在背景執行完畢停在下一行
+- **Step Into (單步進入 / F7)**：若當前行有呼叫函式，直接進入該自訂函式內部第一行，逐行深度追查
+- **Force Step Into (強制進入)**：跳過 IDE 預設過濾，即使是 Java 官方函式庫（如 `ArrayList.add`）也能深入追蹤
+- **Step Out (單步跳出 / Shift+F8)**：執行完當前函式剩餘的所有程式碼，直接返回到上層呼叫處並暫停
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### ⏩ 快速導航與執行控制
+- **Resume / Continue (繼續執行 / F9)**：讓程式恢復全速運轉，直到遇到下一個中斷點或程式結束
+- **Run to Cursor (執行至游標處 / Alt+F9)**：臨時想停在某一行，無須新增斷點，直接全速跑到游標所在行暫停
+- **Drop Frame / Reset Frame (堆疊重放)**：強大的現代除錯黑科技，撤銷當前函式呼叫堆疊，重新從函式開頭再跑一次
+- **暫停執行緒 (Pause Program)**：程式發生無窮迴圈或死鎖假死時，手動強制暫停所有執行緒查看卡死位置
+
+</div>
+</div>
+</div>
+
+---
+
+## 2.4.3 狀態透視：變數監視與呼叫堆疊 (State Inspection)
+
+<div class="card-deck">
+
+> 💡 程式暫停時，整個記憶體與呼叫脈絡盡在眼前——從靜態原始碼切入動態執行時態的關鍵視窗。
+
+<div class="two-columns">
+<div class="card" data-marpit-fragment>
+
+### 🔍 變數檢視與動態監看
+- **Variables (區域變數視窗)**：即時列出當前 Scope 內的所有區域變數、傳入參數與 `this` 物件內部欄位
+- **Watches (變數/表達式監看)**：自訂長期盯緊的目標，支援複合運算式（如 `list.size()` 或 `node.next == null`）
+- **Set Value (動態竄改變數值)**：在暫停時雙擊變數修改記憶體數值，手動模擬極端邊界測試防禦邏輯
+- **Inline Values (行內數值即時標註)**：現代 IDE 會直接在編輯器程式碼行末以灰色文字顯示當前變數的值
+
+</div>
+<div class="card" data-marpit-fragment>
+
+### 🥞 呼叫堆疊與動態求值
+- **Call Stack (呼叫堆疊視窗)**：回溯「這個方法是由誰、經過哪些中介層一路呼叫進來的」，釐清因果鏈條
+- **切換 Stack Frame (切換堆疊影格)**：點擊任一呼叫層，編輯器自動切換至該層檔案並還原當時的區域變數
+- **Evaluate Expression (動態運算求值 / Alt+F8)**：在定格狀態下開啟互動視窗，動態執行任意程式碼或呼叫方法
+- 🛠️ **實習銜接**：請參閱 `LabDemo/docs/u01_debug/debug.md` 實戰 BubbleSort、GCD 與泰勒級數除錯
+
+</div>
+</div>
+</div>
 
 ---
 

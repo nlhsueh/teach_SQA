@@ -242,79 +242,71 @@ public class LoggingExample {
 }
 ```
 
-## Exercise
+## Lab & Practice (實習展示與動手練習)
 
-### **📌 Java `java.util.logging` 練習題**
-Java 提供 `java.util.logging`（JUL）作為內建的日誌記錄工具。這些練習題幫助學生學習如何在 Java 程式中使用 `Logger` 來記錄資訊、例外錯誤及日誌格式化。
+本單元包含展示程式碼與實習練習題，皆位於 [`src/main/java/u02_robust/log/`](../../src/main/java/u02_robust/log/)：
 
----
+### 示範 01: [LoggingJulDemo.java](../../src/main/java/u02_robust/log/LoggingJulDemo.java)
+* 涵蓋 Java 內建 `java.util.logging` (JUL)：
+  - 日誌等級配置（`INFO`, `WARNING`, `SEVERE`）。
+  - 同步輸出至控制台與檔案（`logs/jul_demo.log`）。
+  - 例外發生時的堆疊資訊記錄。
 
-### **🎯 Ex01：基本日誌記錄**
-**題目描述：**  
-請撰寫一個 Java 程式，使用 `java.util.logging.Logger` 來記錄不同等級的日誌（`INFO`、`WARNING`、`SEVERE`）。
-
-**要求：**
-1. 創建 `Logger` 物件，命名為 `"MyLogger"`。
-2. 記錄以下級別的日誌：
-   - `INFO`："系統啟動成功"
-   - `WARNING`："可能的記憶體不足警告"
-   - `SEVERE`："系統崩潰！"
-3. 執行程式後，檢查 console 輸出結果。
-
-**提示：**
-- 使用 `Logger.getLogger()` 取得 Logger 物件。
-- 用 `logger.info()`、`logger.warning()`、`logger.severe()` 記錄日誌。
+### 示範 02: [LoggingLog4jDemo.java](../../src/main/java/u02_robust/log/LoggingLog4jDemo.java)
+* 現代企業級 `Log4j 2` / `SLF4J` 實務：
+  - 參數化日誌 (`logger.info("使用者 {} 付款", user)`)。
+  - 多等級策略與連線異常記錄。
 
 ---
 
-### **🎯 Ex02：記錄例外錯誤**
-**題目描述：**  
-請撰寫一個 Java 程式，計算兩個整數的相除結果，並使用 `Logger` 記錄計算過程。如果發生 `ArithmeticException`（如除以零），則記錄 `SEVERE` 級別的錯誤。
+## Exercise (學生自主練習)
 
-**要求：**
-1. 使用 `Scanner` 讀取兩個整數，並嘗試執行除法運算。
-2. 如果除數為 0，捕獲 `ArithmeticException`，並使用 `logger.log(Level.SEVERE, "錯誤：除數不能為零", e);` 記錄例外錯誤。
-3. 如果沒有錯誤，記錄 `INFO` 級別的運算結果。
-
-**提示：**
-- 使用 `try-catch` 捕獲異常，並用 `logger.log(Level.SEVERE, msg, exception)` 記錄錯誤。
+> 💡 **自主學習流程**：
+> 1. 打開練習程式碼，依據 `TODO` 註解動手實作。
+> 2. 執行對應的單元測試驗證是否全部通過。
+> 3. 若卡關或想確認最佳寫法，再點開下方的摺疊區塊參考解答。
 
 ---
 
-### **🎯 Ex03：將日誌輸出到檔案**
-**題目描述：**  
-請撰寫一個 Java 程式，讓 `Logger` 的輸出不僅顯示在 console，還要寫入到 `app.log` 檔案中。
+### Ex01 ~ Ex03: JUL 基本與檔案日誌
+* 參考並執行 [LoggingJulDemo.java](../../src/main/java/u02_robust/log/LoggingJulDemo.java)，練習設定 `FileHandler` 與記錄 `SEVERE` 異常。
 
-**要求：**
-1. 設定 `Logger` 物件，使其輸出到 `app.log` 檔案。
-2. 記錄 `INFO`、`WARNING` 和 `SEVERE` 級別的訊息。
-3. 執行程式後，檢查 `app.log` 檔案內容是否正確。
+---
 
-**提示：**
-- 使用 `FileHandler` 來設定日誌輸出檔案：
-  ```java
-  FileHandler fileHandler = new FileHandler("app.log", true);
-  logger.addHandler(fileHandler);
-  ```
-- 使用 `SimpleFormatter` 讓輸出內容較易讀：
-  ```java
-  fileHandler.setFormatter(new SimpleFormatter());
+### Ex04: [OrderDeliveryPractice.java](../../src/main/java/u02_robust/log/OrderDeliveryPractice.java)
+* **題目**：美食外送平台訂單日誌生命週期實戰。
+* **練習任務**：
+  1. `TODO 1`：在非法金額（$\le 0$）時，使用 `logger.warn(...)` 記錄警訊。
+  2. `TODO 2`：在訂單成功建立時，使用 `logger.info(...)` 記錄里程碑。
+  3. `TODO 3`：庫存售罄拒單時，使用 `logger.error(...)` 記錄業務失敗。
+  4. `TODO 4`：庫存偏低（$\le 2$）時，使用 `logger.warn(...)` 記錄庫存預警。
+  5. `TODO 5`：配送途中遭遇硬體或連線異常時，使用 `logger.error(msg, e)` 記錄錯誤訊息並保留完整調用棧。
+* **單元測試指令**：
+  ```bash
+  mvn test -Dtest=OrderDeliveryPracticeTest
   ```
 
-### **🎯 Ex04：外送平台**
+<details>
+<summary>💡 點擊展開：Ex04 參考解答與解析</summary>
 
-模擬一個美食外送的伺服端功能，他會收到顧客訂單、餐廳收單、外送員接單的請求，過程中可能會產生很多例外，依據不同狀況寫到 log。
+```java
+// TODO 1: 記錄非法訂單金額警訊
+logger.warn("訂單建立失敗：顧客 {} 提交的訂單金額不合法: {}", customer, amount);
 
-1.  **設計並拋出** **Checked Exception** (業務邏輯錯誤)。
-2.  **處理並記錄** **Unchecked Exception** (程式碼邏輯或環境錯誤)。
-3.  **正確使用** **Log4j 2** 的不同 **日誌級別** (`INFO`, `WARN`, `ERROR`)。
+// TODO 2: 記錄訂單成功建立之重要里程碑
+logger.info("訂單 {} 成功建立，顧客: {}，總金額: {} 元", orderId, customer, amount);
 
----
+// TODO 3: 庫存耗盡導致接單失敗，使用 ERROR 記錄業務失敗
+logger.error("餐廳拒絕訂單 {}：庫存不足（當前庫存: 0）", order.getOrderId());
 
-* 透過 `Enum` 設計不同的訂單狀態，例如 `PENDING` 等狀態
-* 設計 `Order` 的訂單類別
-* 設計客製化 `Exception`
-* 設計餐廳的接單功能 `acceptOrder()`, 可能拋出例外
-* ...
+// TODO 4: 庫存偏低，使用 WARN 記錄存貨警訊
+logger.warn("餐廳警訊：訂單 {} 接單後，剩餘庫存僅剩 {} 份！", order.getOrderId(), currentStock - 1);
 
-最終，我們可以透過 log 發現後端在執行的過程中發生什麼問題。
+// TODO 5: 捕捉未預期例外，使用 ERROR 級別並記錄堆疊追蹤
+logger.error("訂單 {} 配送過程中遭遇系統異常: {}", order.getOrderId(), e.getMessage(), e);
+```
+
+**解析說明**：
+- **避免字串拼接**：使用 SLF4J / Log4j 2 的 `{}` 佔位符，當日誌等級被關閉時（例如 DEBUG），不會產生額外的字串建立開銷。
+- **例外記錄**：將 `Throwable` 物件置於最後一個參數，日誌框架會自動解析並打印 Stack Trace，切勿只記錄 `e.getMessage()`。
+</details>

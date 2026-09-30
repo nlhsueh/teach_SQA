@@ -343,60 +343,112 @@ public class FinallyReturnDemo {
 }
 ```
 
-## Lab
+## Lab & Practice (實習展示與動手練習)
 
-### Lab01: People
-* [參考程式碼](../../src/main/java/xdemo/People.java)
-* 那些不合理的生日
+本單元包含展示程式碼與實習練習題，皆位於 [`src/main/java/u02_robust/exception/`](../../src/main/java/u02_robust/exception/)：
 
-### Lab02: Triangle
-* [參考程式碼](../../src/main/java/xdemo/Triangle.java)
-* 當長度是負的！
+### 示範 01: [ExceptionBasicsDemo.java](../../src/main/java/u02_robust/exception/ExceptionBasicsDemo.java)
+* 涵蓋 Checked vs Unchecked Exception、Catch or Declare Rule (CDR)、`try-catch-finally` 與 `try-with-resources`。
 
----
-
-## Exercise
-
-### Ex01: 處理除零異常
-**題目：**
-請撰寫一個 Java 程式，要求使用者輸入兩個整數，並計算它們的相除結果。如果使用者輸入的除數為 0，請捕獲 `ArithmeticException` 並顯示適當的錯誤訊息，而不是讓程式崩潰。
-
-**要求：**
-- 使用 `Scanner` 讀取使用者輸入的兩個整數。
-- 嘗試進行除法運算，並使用 `try-catch` 捕獲 `ArithmeticException`。
-- 如果發生異常，請顯示「錯誤：除數不能為零！」，否則顯示計算結果。
+### 示範 02: [TriangleExceptionDemo.java](../../src/main/java/u02_robust/exception/TriangleExceptionDemo.java)
+* 自訂受檢例外 `TriangleException`：當邊長小於等於零或不符合三角形不等式定理時拋出，並封裝邊長情境資料。
 
 ---
 
-### Ex02: 處理數字格式異常
-**題目：**
-請撰寫一個 Java 程式，要求使用者輸入一個數字，並將其轉換為整數。如果使用者輸入的內容不是有效的數字，請捕獲 `NumberFormatException`，並提示使用者輸入有效的數字。
+## Exercise (學生自主練習)
 
-**要求：**
-- 使用 `Scanner` 讀取使用者輸入的字串。
-- 嘗試將該字串轉換為 `int`。
-- 使用 `try-catch` 捕獲 `NumberFormatException`，並提示「錯誤：請輸入有效的數字！」。
-- 如果輸入有效，則顯示轉換後的數字。
+> 💡 **自主學習流程**：
+> 1. 打開練習程式碼，依據 `TODO` 註解動手實作。
+> 2. 執行對應的單元測試驗證是否全部通過。
+> 3. 若卡關或想確認最佳寫法，再點開下方的摺疊區塊參考解答。
 
 ---
 
-這兩個練習題可以幫助學生理解：
-1. 如何使用 `try-catch` 處理異常。
-2. `ArithmeticException` 和 `NumberFormatException` 的使用場景。
-3. 提高程式的健壯性，避免因輸入錯誤導致程式崩潰。
+### Ex01 & Ex02: [SafeCalculatorPractice.java](../../src/main/java/u02_robust/exception/SafeCalculatorPractice.java)
+* **題目**：安全計算機之字串解析與除法防禦。
+* **練習任務**：
+  - `TODO 1`：使用 `try-catch` 處理 `NumberFormatException`（使用者輸入非數字字串，如 `"abc"`）。
+  - `TODO 2`：使用 `try-catch` 處理 `ArithmeticException`（除數為零時給予友善提示，避免系統崩潰）。
+* **單元測試指令**：
+  ```bash
+  mvn test -Dtest=SafeCalculatorPracticeTest
+  ```
+
+<details>
+<summary>💡 點擊展開：Ex01 & Ex02 參考解答與解析</summary>
+
+```java
+try {
+    int numerator = Integer.parseInt(numeratorStr.trim());
+    int denominator = Integer.parseInt(denominatorStr.trim());
+    int quotient = numerator / denominator;
+    return CalculationResult.ok(quotient);
+
+} catch (NumberFormatException e) {
+    // TODO 1: 處理數字格式異常
+    return CalculationResult.error("輸入格式錯誤：請輸入合法的整數數值 (數字解析失敗)");
+} catch (ArithmeticException e) {
+    // TODO 2: 處理除零異常
+    return CalculationResult.error("數學運算錯誤：除數不能為零！");
+}
+```
+
+**解析說明**：
+- `Integer.parseInt` 在遇到無法解析的字元時會丟出 `NumberFormatException`（屬於 `RuntimeException`）。
+- 整數除法 `/ 0` 會拋出 `ArithmeticException`。若預期可能由外部輸入引發，應以 `try-catch` 捕捉並回傳領域結果物件，而不是直接讓未處理的例外中斷執行緒。
+</details>
 
 ---
 
-### Ex03: 帳戶提款異常
-**題目描述：**  
-請設計一個 `BankAccount` 類別，具有 `balance`（餘額）屬性和 `withdraw(double amount)` 方法。當提款金額超過餘額時，應該拋出 **自訂例外 `InsufficientFundsException`**，並顯示適當的錯誤訊息。
+### Ex03: [BankAccountPractice.java](../../src/main/java/u02_robust/exception/BankAccountPractice.java)
+* **題目**：銀行帳戶提款與自訂例外。
+* **練習任務**：
+  - 設計自訂受檢例外 `InsufficientFundsException extends Exception`，包含帳號、目前餘額、欲提領金額與短缺金額。
+  - 在 `BankAccount.withdraw(amount)` 中檢驗餘額，不足時拋出該例外。
+* **單元測試指令**：
+  ```bash
+  mvn test -Dtest=BankAccountPracticeTest
+  ```
 
-**要求：**
-1. 創建一個 `InsufficientFundsException`，繼承 `Exception`，並包含：
-   - 建構子 `public InsufficientFundsException(String message)` 來傳遞錯誤訊息。
-2. 在 `BankAccount` 類別：
-   - `withdraw(double amount)` 方法應檢查餘額，若不足則拋出 `InsufficientFundsException`。
-3. 在 `main()` 方法：
-   - 創建一個 `BankAccount` 物件，餘額設為 5000。
-   - 嘗試提領 6000，並捕獲 `InsufficientFundsException` 來顯示錯誤訊息。
+<details>
+<summary>💡 點擊展開：Ex03 參考解答與解析</summary>
+
+```java
+// 1. 自訂受檢例外設計
+public static class InsufficientFundsException extends Exception {
+    private final String accountNumber;
+    private final double currentBalance;
+    private final double attemptedAmount;
+
+    public InsufficientFundsException(String accountNumber, double currentBalance, double attemptedAmount) {
+        super(String.format("帳號 %s 提款失敗：欲提領金額 %.2f 超過目前餘額 %.2f (短缺 %.2f 元)",
+                accountNumber, attemptedAmount, currentBalance, (attemptedAmount - currentBalance)));
+        this.accountNumber = accountNumber;
+        this.currentBalance = currentBalance;
+        this.attemptedAmount = attemptedAmount;
+    }
+
+    public double getDeficit() { return attemptedAmount - currentBalance; }
+}
+
+// 2. withdraw 方法中的檢查與拋出
+public synchronized void withdraw(double amount) throws InsufficientFundsException {
+    if (amount <= 0) {
+        throw new IllegalArgumentException("提款金額必須大於 0");
+    }
+
+    // TODO: 練習 - 檢查餘額
+    if (amount > this.balance) {
+        throw new InsufficientFundsException(this.accountNumber, this.balance, amount);
+    }
+
+    this.balance -= amount;
+}
+```
+
+**解析說明**：
+- 自訂業務例外繼承 `Exception`（受檢例外），強制呼叫端面對業務失敗（如餘額不足）時必須採取因應作為（例如提示使用者補存或交易失敗），貫徹 CDR 原則。
+</details>
+
+
 

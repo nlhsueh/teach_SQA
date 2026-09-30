@@ -1141,9 +1141,9 @@ footer: 'Ch03 軟體測試基礎'
 ---
 
 ## 單元模組的可測試性設計 (Testability)
+- 哪一個的可測性較高？
 
 ```java
-// ❌ 不良設計：業務邏輯與 UI 輸入強耦合，無法自動化單元測試
 double div(double x, double y) {
     while (y == 0) {
         y = input("除數不可為 0，請重新輸入："); // 強烈依賴 UI
@@ -1151,7 +1151,6 @@ double div(double x, double y) {
     return x / y;
 }
 
-// ✅ 良好設計：純邏輯模組，拋出明確例外，極易進行 JUnit 自動化測試
 double div(double x, double y) {
     if (y == 0) {
         throw new IllegalArgumentException("除數不得為 0");
