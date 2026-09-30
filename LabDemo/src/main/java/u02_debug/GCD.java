@@ -1,4 +1,4 @@
-package u01_debug;
+package u02_debug;
 
 /**
  * Use break/watch to see debug and watch program execution
@@ -18,8 +18,8 @@ public class GCD {
     public int gcd(int m, int n) {
         int r = 0;
         while (n != 0) {
-            r = m % n;
             m = n;
+            r = m % n;
             n = r;
         }
         return m;
@@ -29,7 +29,7 @@ public class GCD {
         if (n == 0)
             return m;
         else {
-            return gcd2(n, m % n);
+            return gcd2(m, m % n);
         }
     }
 }

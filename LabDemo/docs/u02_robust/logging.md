@@ -276,10 +276,10 @@ public class LoggingExample {
 ### Ex04: [OrderDeliveryPractice.java](../../src/main/java/u02_robust/log/OrderDeliveryPractice.java)
 * **題目**：美食外送平台訂單日誌生命週期實戰。
 * **練習任務**：
-  1. `TODO 1`：在非法金額（$\le 0$）時，使用 `logger.warn(...)` 記錄警訊。
+  1. `TODO 1`：在非法金額（`≤ 0`）時，使用 `logger.warn(...)` 記錄警訊。
   2. `TODO 2`：在訂單成功建立時，使用 `logger.info(...)` 記錄里程碑。
   3. `TODO 3`：庫存售罄拒單時，使用 `logger.error(...)` 記錄業務失敗。
-  4. `TODO 4`：庫存偏低（$\le 2$）時，使用 `logger.warn(...)` 記錄庫存預警。
+  4. `TODO 4`：庫存偏低（`≤ 2`）時，使用 `logger.warn(...)` 記錄庫存預警。
   5. `TODO 5`：配送途中遭遇硬體或連線異常時，使用 `logger.error(msg, e)` 記錄錯誤訊息並保留完整調用棧。
 * **單元測試指令**：
   ```bash

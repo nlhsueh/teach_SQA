@@ -1,4 +1,4 @@
-package u01_debug;
+package u02_debug;
 
 /*
  * This is a buggy program, use the debug concept to debug this program
@@ -8,7 +8,7 @@ public class Sin {
     public static void main(String[] args) {
         Sin s = new Sin();
         System.out.println("The value of sin(30')");
-        System.out.println(s.sin(45* Math.PI / 180));
+        System.out.println(s.sin(45 * Math.PI / 180));
     }
 
     /*
@@ -49,7 +49,7 @@ public class Sin {
         int postive = -1;
         for (int i = 1; i <= n; i++) {
             // you can use breakpoint 'watch' to check
-            v = v + postive * (Math.pow(x, 2*i+1) / factorial(2*i+1));
+            v = v + postive * (Math.pow(x, 2 * i + 1) / factorial(2 * i + 1));
             postive = postive * -1;
         }
 

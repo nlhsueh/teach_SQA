@@ -2,7 +2,7 @@
 
 > 🎯 **實習目標**：
 > 1. 將整學期所學的品質工程技術（**JUnit 5, JaCoCo, PITest, SonarQube**）整合進 **GitHub Actions 自動化 CI/CD 流水線**。
-> 2. 設定嚴格的 **Quality Gate（品質門檻）**：當 PR 的變異殺死率 $< 70\%$ 或測試覆蓋率 $< 80\%$ 時，自動阻擋 Merge。
+> 2. 設定嚴格的 **Quality Gate（品質門檻）**：當 PR 的變異殺死率 < 70% 或測試覆蓋率 < 80% 時，自動阻擋 Merge。
 > 3. 封裝藍軍高可靠微服務系統，準備迎戰第 16 週的 **【紅藍攻防大擂台】**！
 
 ---
@@ -71,7 +71,7 @@ jobs:
 
 ## 2. 設定嚴格的 Branch Protection 規則
 
-1. 進入 GitHub Repository **Settings $\rightarrow$ Branches**。
+1. 進入 GitHub Repository **Settings ➔ Branches**。
 2. 新增分支保護規則 `main`：
    * 勾選 **Require a pull request before merging**。
    * 勾選 **Require status checks to pass before merging**。

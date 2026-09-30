@@ -62,7 +62,7 @@ public class Base64Properties {
 
 > **法則**：
 > 1. 排序後的長度必須等於原始陣列長度。
-> 2. 排序後的相鄰元素必須滿足 $arr[i] \le arr[i+1]$。
+> 2. 排序後的相鄰元素必須滿足 `arr[i] ≤ arr[i+1]`。
 > 3. 排序後的元素多重集合 (Multiset) 必須與原始元素完全相同（不可憑空捏造或丟失數字）。
 
 ```java
@@ -153,7 +153,9 @@ Arbitrary<int[]> sortedHugeArrays() {
 ### 🔍 觀察 Shrinking 縮小化神奇過程：
 * 執行測試時，`jqwik` 隨機產生了包含數萬個元素的陣列引爆了 `(low + high) / 2` 溢位崩潰。
 * 隨後 `jqwik` 自動進行數十次二分縮減，最終印出簡潔的最小失敗測資：
-  $$\text{Shrunk sample: } \text{low}=1073741824, \text{high}=1073741824 \implies \text{IndexOutOfBoundsException}$$
+  ```text
+  Shrunk sample: low=1073741824, high=1073741824 ➔ IndexOutOfBoundsException
+  ```
 
 ---
 

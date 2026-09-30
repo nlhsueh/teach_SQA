@@ -63,7 +63,7 @@ flowchart LR
 > [!IMPORTANT]
 > **生命週期的累積性（Phase Accumulation）**：
 > 當你呼叫某個 Phase 時，Maven 會**從該生命週期的第一個 Phase 開始，依序執行直到你指定的那個 Phase 為止**。
-> * 輸入 `mvn test`：會自動依序執行 `validate` $\rightarrow$ `compile` $\rightarrow$ `test-compile` $\rightarrow$ `test`。
+> * 輸入 `mvn test`：會自動依序執行 `validate` ➔ `compile` ➔ `test-compile` ➔ `test`。
 > * 輸入 `mvn package`：會自動依序執行編譯與測試，**測試通過後才會進行打包**！
 
 ---
@@ -71,7 +71,7 @@ flowchart LR
 ### 2.2 Clean 生命週期（清理環境）
 
 負責在重新構建前清除上一次構建留下的產物，避免快取或殘留檔案造成靈異 Bug。
-* 包含階段：`pre-clean` $\rightarrow$ **`clean`** $\rightarrow$ `post-clean`
+* 包含階段：`pre-clean` ➔ **`clean`** ➔ `post-clean`
 * **`mvn clean`**：直接刪除整個 `target/` 目錄。
 * **黃金搭配**：`mvn clean compile` 或 `mvn clean test`（先乾淨清除再重新編譯/測試）。
 
@@ -80,7 +80,7 @@ flowchart LR
 ### 2.3 Site 生命週期（生成報告）
 
 負責為專案生成 HTML 說明文件、Javadoc 與外掛報表。
-* 包含階段：`pre-site` $\rightarrow$ **`site`** $\rightarrow$ `post-site` $\rightarrow$ `site-deploy`
+* 包含階段：`pre-site` ➔ **`site`** ➔ `post-site` ➔ `site-deploy`
 * **`mvn site`**：產出專案靜態網頁報表（存於 `target/site/index.html`）。
 
 ---

@@ -1,4 +1,4 @@
-package u01_codebreak;
+package u01_intro;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

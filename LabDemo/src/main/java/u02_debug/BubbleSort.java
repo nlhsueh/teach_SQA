@@ -1,4 +1,4 @@
-package xdemo;
+package u02_debug;
 
 public class BubbleSort {
 

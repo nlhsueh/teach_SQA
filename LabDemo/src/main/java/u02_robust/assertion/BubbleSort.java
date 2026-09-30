@@ -7,13 +7,13 @@ import java.util.Arrays;
  *
  * 【核心學習目標】：
  * 1. 契約前置條件防禦 (Precondition)：
- *    - 公開 API 傳入 null 時，拋出 IllegalArgumentException，嚴禁依賴 assert。
+ * - 公開 API 傳入 null 時，拋出 IllegalArgumentException，嚴禁依賴 assert。
  * 2. 迴圈不變量斷言 (Loop Invariant)：
- *    - 每一輪 pass 結束後，利用斷言驗證末端已就定位的子陣列嚴格有序 (Suffix Sorted)。
+ * - 每一輪 pass 結束後，利用斷言驗證末端已就定位的子陣列嚴格有序 (Suffix Sorted)。
  * 3. 演算法後置條件斷言 (Postcondition)：
- *    - 排序完成後，驗證陣列長度未變質且整體呈非遞減順序。
+ * - 排序完成後，驗證陣列長度未變質且整體呈非遞減順序。
  * 4. 缺陷定格 (Defect Localization)：
- *    - 提供帶有 off-by-one 缺陷的 buggyBubbleSort 方法，示範斷言如何於執行期第一時間定格缺陷現場。
+ * - 提供帶有 off-by-one 缺陷的 buggyBubbleSort 方法，示範斷言如何於執行期第一時間定格缺陷現場。
  *
  * 【測試執行方式】：
  * - 啟用斷言執行主程式：java -ea -cp target/classes u02_robust.assertion.BubbleSort
@@ -58,8 +58,8 @@ public class BubbleSort {
             }
 
             // 2. 迴圈不變量斷言 (Loop Invariant)：確保每一輪 pass 結束後，末端已就定位的子陣列嚴格有序
-            assert isSuffixSorted(data, length - pass - 1) :
-                    String.format("第 %d 輪排序後末端元素未正確就定位: %s", pass, Arrays.toString(data));
+            assert isSuffixSorted(data, length - pass - 1)
+                    : String.format("第 %d 輪排序後末端元素未正確就定位: %s", pass, Arrays.toString(data));
 
             // 若本輪無任何交換，表示陣列已經完全就緒，提早結束
             if (!swapped) {
@@ -123,7 +123,7 @@ public class BubbleSort {
     /**
      * 檢查陣列從 startIndex 開始到最後的後綴區段是否已完成排序
      *
-     * @param data 陣列
+     * @param data       陣列
      * @param startIndex 起始索引
      * @return true 若該區段有序
      */

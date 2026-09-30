@@ -1,4 +1,4 @@
-package u01_codebreak;
+package u01_intro;
 
 /**
  * 模擬由 AI（如 GPT-4 / Claude）秒速生成的電子錢包提款與轉帳服務。

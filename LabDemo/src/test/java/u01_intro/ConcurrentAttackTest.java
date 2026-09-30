@@ -1,4 +1,4 @@
-package u01_codebreak;
+package u01_intro;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

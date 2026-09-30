@@ -92,7 +92,7 @@ java -ea -cp target/classes u02_robust.assertion.BubbleSort
 VS Code 與 Antigravity IDE 執行 Java 程式碼時，可透過以下兩種方式啟用 `-ea`：
 
 * **方式 A：設定 `.vscode/launch.json`（推薦）**
-  1. 切換至側邊欄 **執行與偵錯 (Run and Debug)** $\rightarrow$ 點擊 **建立 launch.json 檔案**（或開啟既有的 `.vscode/launch.json`）。
+  1. 切換至側邊欄 **執行與偵錯 (Run and Debug)** ➔ 點擊 **建立 launch.json 檔案**（或開啟既有的 `.vscode/launch.json`）。
   2. 在對應的 Java 配置區塊中加入 `"vmArgs": "-ea"`：
      ```json
      {
@@ -112,9 +112,9 @@ VS Code 與 Antigravity IDE 執行 Java 程式碼時，可透過以下兩種方�
   ```
 
 ### 4.3 IntelliJ IDEA 設定
-1. 點擊頂部選單 **Run $\rightarrow$ Edit Configurations...**
+1. 點擊頂部選單 **Run ➔ Edit Configurations...**
 2. 選擇你的 Application 執行設定。
-3. 點擊 **Modify options $\rightarrow$ Add VM options**。
+3. 點擊 **Modify options ➔ Add VM options**。
 4. 在 VM options 欄位中輸入 **`-ea`** 並儲存。
 
 ### 4.4 Maven 測試設定 (`pom.xml`)
@@ -143,6 +143,44 @@ VS Code 與 Antigravity IDE 執行 Java 程式碼時，可透過以下兩種方�
   - 後置條件：`assert isSorted(data);` 確保陣列長度不變且完全遞增。
   - 內建 `buggyBubbleSort` 示範 off-by-one 演算法缺陷如何被斷言即時捕捉。
 
+* **實作驗證：透過 Maven 編譯與斷言開關實測 (`-ea` vs `-da`)**：
+  1. **步驟 1：刻意加入必然失敗的斷言**
+     打開 [`BubbleSort.java`](../../src/main/java/u02_robust/assertion/BubbleSort.java)，在排序迴圈中故意加入一行恆假的斷言：
+     ```java
+     assert (1 == 2) : "測試斷言被觸發";
+     ```
+  2. **步驟 2：使用 Maven 重新編譯**
+     ```bash
+     mvn compile
+     ```
+  3. **步驟 3：啟用斷言執行 (`-ea`)**
+     ```bash
+     java -ea -cp target/classes u02_robust.assertion.BubbleSort
+     ```
+     * **執行結果（捕捉到錯誤並中斷）**：
+       ```text
+       排序前: [64, 34, 25, 12, 22, 11, 90]
+       Exception in thread "main" java.lang.AssertionError: 測試斷言被觸發
+               at u02_robust.assertion.BubbleSort.bubbleSort(BubbleSort.java:60)
+               at u02_robust.assertion.BubbleSort.main(BubbleSort.java:146)
+       ```
+  4. **步驟 4：停用斷言執行 (`-da`)**
+     無需重新編譯，直接切換為 `-da`（Disable Assertions）旗標執行：
+     ```bash
+     java -da -cp target/classes u02_robust.assertion.BubbleSort
+     ```
+     * **執行結果（略過斷言檢查，順利完成）**：
+       ```text
+       排序前: [64, 34, 25, 12, 22, 11, 90]
+       排序後: [11, 12, 22, 25, 34, 64, 90]
+       ```
+  5. **步驟 5：透過 Maven 執行單元測試**
+     ```bash
+     mvn test -Dtest=BubbleSortTest
+     ```
+     * 由於 `pom.xml` 的 `maven-surefire-plugin` 已設定 `<enableAssertions>true</enableAssertions>`，因此測試階段亦會精確捕獲該 `AssertionError`。
+  6. **復原**：驗證完畢後，請記得將該行 `assert (1 == 2)` 移除並再次執行 `mvn compile`。
+
 ### 示範 02: [PeopleDemo.java](../../src/main/java/u02_robust/assertion/PeopleDemo.java)
 * **核心觀念**：
   - 類別不變量 (Class Invariant)：身高、體重 > 0，出生年介於 1900 與今年之間。
@@ -160,11 +198,11 @@ VS Code 與 Antigravity IDE 執行 Java 程式碼時，可透過以下兩種方�
 ---
 
 ### 練習 01: [SinPractice.java](../../src/main/java/u02_robust/assertion/SinPractice.java)
-* **題目**：泰勒展開式計算 $\sin(x)$ 的數值不變量防護。
+* **題目**：泰勒展開式計算 sin(x) 的數值不變量防護。
 * **練習任務**：
-  1. `TODO 1`：前置狀態斷言，驗證正規化後的角度絕對值不超過 $2\pi$。
+  1. `TODO 1`：前置狀態斷言，驗證正規化後的角度絕對值不超過 2π。
   2. `TODO 2`：迴圈不變量斷言，驗證級數展開項的絕對值逐漸遞減收斂。
-  3. `TODO 3`：後置條件斷言，驗證數學定理 $\sin(x) \in [-1.0, 1.0]$。
+  3. `TODO 3`：後置條件斷言，驗證數學定理 sin(x) ∈ [-1.0, 1.0]。
 * **單元測試指令**：
   ```bash
   mvn test -Dtest=SinPracticeTest
@@ -196,7 +234,7 @@ assert sum >= -1.0000001 && sum <= 1.0000001 :
 ### 練習 02: [TriangleAssertionPractice.java](../../src/main/java/u02_robust/assertion/TriangleAssertionPractice.java)
 * **題目**：三角形分類的邊界防禦與幾何不變量。
 * **練習任務**：
-  1. `TODO 1`：正三角形不變量斷言（$a == b \land b == c$，且滿足幾何不等式）。
+  1. `TODO 1`：正三角形不變量斷言（`a == b ∧ b == c`，且滿足幾何不等式）。
   2. `TODO 2`：等腰三角形不變量斷言（至少兩邊相等，且滿足幾何不等式）。
   3. `TODO 3`：非三角形不變量斷言（必定不滿足幾何不等式）。
 * **單元測試指令**：
