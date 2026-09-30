@@ -8,17 +8,23 @@ import java.io.IOException;
 /**
  * 例外處理基礎教學展示範例：ExceptionBasicsDemo
  *
- * <p>本範例展示軟體品質保證 (SQA) 中的例外處理核心機制：</p>
- * <ol>
- *   <li><b>例外層次結構 (Hierarchy)</b>：
- *       Throwable -> Exception (Checked) / RuntimeException (Unchecked) / Error。</li>
- *   <li><b>捕捉或宣告原則 (Catch or Declare Rule - CDR)</b>：
- *       受檢例外必須在方法簽名宣告 <code>throws</code> 或在內部以 <code>try-catch</code> 妥善捕捉。</li>
- *   <li><b>try-catch-finally 語意</b>：
- *       無論正常或拋出例外，<code>finally</code> 區塊皆保證執行。</li>
- *   <li><b>現代資源管理：try-with-resources</b>：
- *       利用 <code>AutoCloseable</code> 介面自動關閉檔案或網路流，徹底消除資源洩漏。</li>
- * </ol>
+ * 【核心學習目標】：
+ * 1. 例外層次結構 (Hierarchy)：
+ *    - 認識 Throwable -> Exception (Checked) / RuntimeException (Unchecked) / Error 的體系差異。
+ * 2. 捕捉或宣告原則 (Catch or Declare Rule - CDR)：
+ *    - 受檢例外必須在方法簽名宣告 throws 或在內部以 try-catch 妥善處理。
+ * 3. try-catch-finally 執行保證：
+ *    - 無論正常執行或拋出例外，finally 區塊皆保證執行。
+ * 4. 現代資源管理：try-with-resources：
+ *    - 實作 AutoCloseable 介面的資源，於區塊結束自動釋放，避免資源洩漏 (Resource Leak)。
+ *
+ * 【測試執行方式】：
+ * - 執行主程式檢驗流程：java -cp target/classes u02_robust.exception.ExceptionBasicsDemo
+ * - 執行單元測試：mvn test -Dtest=ExceptionBasicsDemoTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 例外處理基本原則
+ * - 實習文件：LabDemo/docs/u02_robust/exception.md
  */
 public class ExceptionBasicsDemo {
 

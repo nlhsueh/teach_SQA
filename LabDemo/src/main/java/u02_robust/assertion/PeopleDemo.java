@@ -3,14 +3,20 @@ package u02_robust.assertion;
 import java.time.Year;
 
 /**
- * 類別不變量與狀態斷言展示範例：Person / People
+ * 類別不變量與狀態斷言展示範例：Person / People (PeopleDemo)
  *
- * <p>本範例展示軟體品質保證 (SQA) 中的「類別不變量 (Class Invariant)」與「內部狀態斷言」：</p>
- * <ul>
- *   <li><b>公開 API 參數驗證</b>：在建構子與 setter 中驗證外部傳入參數，若不合法則拋出 IllegalArgumentException。</li>
- *   <li><b>類別不變量 (Class Invariant)</b>：物件在任何公開方法執行後，內部狀態必須維持合理範圍（如身高、體重 > 0）。</li>
- *   <li><b>內部計算斷言</b>：計算 BMI 時，斷言計算結果落在人體生理合理範圍內，防止公式誤寫。</li>
- * </ul>
+ * 【核心學習目標】：
+ * 1. 公開 API 參數驗證：在建構子與 setter 中驗證外部傳入參數，若不合法則拋出 IllegalArgumentException。
+ * 2. 類別不變量 (Class Invariant)：物件在任何公開方法執行後，內部狀態必須維持合理範圍（如身高、體重 > 0）。
+ * 3. 內部計算斷言：計算 BMI 時，斷言計算結果落在人體生理合理範圍內，防止公式誤寫或極端溢位。
+ *
+ * 【測試執行方式】：
+ * - 啟用斷言執行主程式：java -ea -cp target/classes u02_robust.assertion.PeopleDemo
+ * - 執行單元測試：mvn test -Dtest=PeopleDemoTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 類別不變量
+ * - 實習文件：LabDemo/docs/u02_robust/assertion.md
  */
 public class PeopleDemo {
     private final String name;

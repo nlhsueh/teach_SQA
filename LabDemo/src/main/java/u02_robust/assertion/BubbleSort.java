@@ -3,8 +3,25 @@ package u02_robust.assertion;
 import java.util.Arrays;
 
 /**
- * 氣泡排序 (Bubble Sort) 示範：
- * 示範契約前置條件防禦 (Precondition)、迴圈不變量斷言 (Loop Invariant) 與後置條件斷言 (Postcondition)。
+ * 氣泡排序斷言防護教學示範：BubbleSort
+ *
+ * 【核心學習目標】：
+ * 1. 契約前置條件防禦 (Precondition)：
+ *    - 公開 API 傳入 null 時，拋出 IllegalArgumentException，嚴禁依賴 assert。
+ * 2. 迴圈不變量斷言 (Loop Invariant)：
+ *    - 每一輪 pass 結束後，利用斷言驗證末端已就定位的子陣列嚴格有序 (Suffix Sorted)。
+ * 3. 演算法後置條件斷言 (Postcondition)：
+ *    - 排序完成後，驗證陣列長度未變質且整體呈非遞減順序。
+ * 4. 缺陷定格 (Defect Localization)：
+ *    - 提供帶有 off-by-one 缺陷的 buggyBubbleSort 方法，示範斷言如何於執行期第一時間定格缺陷現場。
+ *
+ * 【測試執行方式】：
+ * - 啟用斷言執行主程式：java -ea -cp target/classes u02_robust.assertion.BubbleSort
+ * - 執行單元測試：mvn test -Dtest=BubbleSortTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 迴圈不變量與合約式設計
+ * - 實習文件：LabDemo/docs/u02_robust/assertion.md
  */
 public class BubbleSort {
 

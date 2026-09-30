@@ -6,20 +6,23 @@ import org.apache.logging.log4j.Logger;
 /**
  * 現代企業級日誌框架展示範例：LoggingLog4jDemo (Log4j 2 / SLF4J)
  *
- * <p>本範例展示 Log4j 2 的標準實務：</p>
- * <ol>
- *   <li><b>LogManager 取得 Logger</b>：業界標準模式。</li>
- *   <li><b>參數化日誌 (Parameterized Logging)</b>：
- *       使用 <code>logger.info("使用者 {} 登入", userId)</code>，避免無謂的字串拼接開銷。</li>
- *   <li><b>分級記錄策略</b>：
- *       <ul>
- *         <li>DEBUG：開發排查專用（變數狀態、SQL 語句）。</li>
- *         <li>INFO：重要業務流程節點。</li>
- *         <li>WARN：潛在異常但系統可自動恢復（如重試、超時）。</li>
- *         <li>ERROR：業務失敗或拋出例外。</li>
- *       </ul>
- *   </li>
- * </ol>
+ * 【核心學習目標】：
+ * 1. LogManager 取得 Logger：LogManager.getLogger(LoggingLog4jDemo.class) 業界標準模式。
+ * 2. 參數化日誌 (Parameterized Logging)：
+ *    - 使用 logger.info("使用者 {} 登入", userId)，由底層按需替換佔位符，避免字串拼接開銷。
+ * 3. 企業分級記錄策略：
+ *    - DEBUG：開發階段排查專用（狀態細節、變數值）。
+ *    - INFO：重要業務流程節點（訂單建立、付款完成）。
+ *    - WARN：潛在異常警訊但系統可自癒或降級處理。
+ *    - ERROR：業務失敗或拋出未處理例外，記錄堆疊追蹤。
+ *
+ * 【測試執行方式】：
+ * - 執行主程式檢驗流程：java -cp target/classes:$(mvn dependency:build-classpath | grep -v '\[INFO\]') u02_robust.log.LoggingLog4jDemo
+ * - 執行單元測試：mvn test -Dtest=LoggingLog4jDemoTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / Log4j 2 與現代日誌架構
+ * - 實習文件：LabDemo/docs/u02_robust/logging.md
  */
 public class LoggingLog4jDemo {
 

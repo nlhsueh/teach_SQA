@@ -10,13 +10,19 @@ import java.util.logging.SimpleFormatter;
 /**
  * Java 內建日誌框架展示範例：LoggingJulDemo (java.util.logging - JUL)
  *
- * <p>本範例展示 JUL 的核心用法與軟體品質日誌規範：</p>
- * <ol>
- *   <li><b>Logger 實例化</b>：使用類別全名作為日誌器識別名稱。</li>
- *   <li><b>日誌等級區分</b>：INFO（正常里程碑）、WARNING（非致命警訊）、SEVERE（系統嚴重異常）。</li>
- *   <li><b>多目標輸出 (Handlers)</b>：同時輸出至 Console 與持久化檔案 (logs/jul_demo.log)。</li>
- *   <li><b>例外記錄規範</b>：在 catch 區塊中記錄例外物件，由日誌器自動格式化堆疊追蹤 (Stack Trace)。</li>
- * </ol>
+ * 【核心學習目標】：
+ * 1. Logger 實例化：使用類別全名作為日誌器識別名稱 (Logger.getLogger(ClassName.class.getName()))。
+ * 2. 日誌等級區分：INFO（正常里程碑）、WARNING（非致命警訊）、SEVERE（系統嚴重異常）。
+ * 3. 多目標輸出 (Handlers)：同時輸出至 Console 與持久化檔案 (logs/jul_demo.log)。
+ * 4. 例外記錄規範：在 catch 區塊中記錄例外物件，由日誌器自動格式化堆疊追蹤 (Stack Trace)。
+ *
+ * 【測試執行方式】：
+ * - 執行主程式檢驗流程：java -cp target/classes u02_robust.log.LoggingJulDemo
+ * - 執行單元測試：mvn test -Dtest=LoggingJulDemoTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / Java 日誌框架 JUL
+ * - 實習文件：LabDemo/docs/u02_robust/logging.md
  */
 public class LoggingJulDemo {
 

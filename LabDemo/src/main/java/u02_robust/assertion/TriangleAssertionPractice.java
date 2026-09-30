@@ -3,13 +3,19 @@ package u02_robust.assertion;
 /**
  * 實習練習題：三角形分類的斷言防護 (TriangleAssertionPractice)
  *
- * <p>【核心學習目標】：</p>
- * <ol>
- *   <li><b>區分公開 API 參數防禦與內部斷言</b>：
- *       外部輸入邊長小於等於 0 時，必須拋出 <code>IllegalArgumentException</code>，絕不可用 <code>assert</code>。</li>
- *   <li><b>狀態不變量斷言</b>：
- *       在分類回傳前，使用 <code>assert</code> 驗證內部判斷邏輯是否符合幾何不變量（如正三角形三邊必等長、兩邊之和大於第三邊）。</li>
- * </ol>
+ * 【核心學習目標】：
+ * 1. 區分公開 API 參數防禦與內部斷言：
+ *    - 外部輸入邊長小於等於 0 時，必須拋出 IllegalArgumentException，絕不可依賴隨時可能被關閉的 assert。
+ * 2. 狀態不變量斷言 (Invariants Assertion)：
+ *    - 在分類回傳前，使用 assert 驗證內部判斷邏輯是否符合幾何不變量（如正三角形三邊必等長、兩邊之和大於第三邊）。
+ *
+ * 【測試執行方式】：
+ * - 啟用斷言執行主程式：java -ea -cp target/classes u02_robust.assertion.TriangleAssertionPractice
+ * - 執行單元測試：mvn test -Dtest=TriangleAssertionPracticeTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 契約與斷言
+ * - 實習文件：LabDemo/docs/u02_robust/assertion.md
  */
 public class TriangleAssertionPractice {
 
@@ -56,19 +62,28 @@ public class TriangleAssertionPractice {
         // 2. 內部狀態不變量斷言 (Invariants Assertion)
         // ------------------------------------------------------------------
         if (type == TriangleType.EQUILATERAL) {
+            // --------------------------------------------------------------
             // TODO: 練習 1 - 正三角形不變量斷言
-            // 請使用 assert 驗證三邊長 a, b, c 必須完全相等，且幾何不等式 isValid 必須成立
-            // 請在此撰寫 assert 程式碼...
+            // 說明：請使用 assert 驗證三邊長 a, b, c 必須完全相等，且 isValid 必須為 true
+            // 語法範例：assert (a == b && b == c) && isValid : "正三角形狀態不變量失敗";
+            // --------------------------------------------------------------
+            // 請在此撰寫你的 assert 程式碼...
 
         } else if (type == TriangleType.ISOSCELES) {
+            // --------------------------------------------------------------
             // TODO: 練習 2 - 等腰三角形不變量斷言
-            // 請使用 assert 驗證至少存在兩邊相等，且 isValid 必須成立
-            // 請在此撰寫 assert 程式碼...
+            // 說明：請使用 assert 驗證至少存在兩邊相等，且 isValid 必須為 true
+            // 語法範例：assert (a == b || b == c || a == c) && isValid : "等腰三角形狀態不變量失敗";
+            // --------------------------------------------------------------
+            // 請在此撰寫你的 assert 程式碼...
 
         } else if (type == TriangleType.NOT_TRIANGLE) {
+            // --------------------------------------------------------------
             // TODO: 練習 3 - 非三角形不變量斷言
-            // 請使用 assert 驗證幾何不等式必定不成立 (!isValid)
-            // 請在此撰寫 assert 程式碼...
+            // 說明：請使用 assert 驗證幾何不等式必定不成立 (!isValid)
+            // 語法範例：assert !isValid : "非三角形狀態不變量失敗";
+            // --------------------------------------------------------------
+            // 請在此撰寫你的 assert 程式碼...
         }
 
         return type;
@@ -77,7 +92,7 @@ public class TriangleAssertionPractice {
     /**
      * 幾何輔助函式：三角形不等式定理（任意兩邊之和大於第三邊）。
      *
-     * <p>作為斷言輔助函式，必須為無副作用的純函式。</p>
+     * 作為斷言輔助函式，必須為無副作用的純函式 (Pure Function)。
      */
     public static boolean isTriangleInequalitySatisfied(long a, long b, long c) {
         return (a + b > c) && (b + c > a) && (c + a > b);

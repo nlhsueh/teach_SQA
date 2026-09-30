@@ -1,14 +1,23 @@
 package u02_robust.exception;
 
 /**
- * 自訂例外教學展示範例：TriangleExceptionDemo
+ * 自訂受檢例外教學展示範例：TriangleExceptionDemo
  *
- * <p>本範例展示如何設計專業的業務自訂受檢例外 (Custom Checked Exception)：</p>
- * <ul>
- *   <li>繼承自 <code>Exception</code>，強制呼叫端明確處理或向上宣告 (CDR)。</li>
- *   <li>封裝錯誤當下的情境資料（例如非法邊長 a, b, c），方便除錯與審計日誌記錄。</li>
- *   <li>區分「負數/零邊長」與「不符合三角形不等式定理」的不同錯誤類型。</li>
- * </ul>
+ * 【核心學習目標】：
+ * 1. 自訂業務受檢例外 (Custom Checked Exception)：
+ *    - 繼承自 Exception，強制呼叫端明確處理或向上宣告 (Catch or Declare Rule - CDR)。
+ * 2. 上下文資訊封裝 (Context Data Encapsulation)：
+ *    - 在例外物件中封裝非法邊長 (a, b, c) 與失敗原因，利於日誌記錄與除錯排查。
+ * 3. 領域邏輯防護：
+ *    - 明確區分「非正整數邊長」與「違反三角形不等式定理」之業務錯誤。
+ *
+ * 【測試執行方式】：
+ * - 執行主程式檢驗流程：java -cp target/classes u02_robust.exception.TriangleExceptionDemo
+ * - 執行單元測試：mvn test -Dtest=TriangleExceptionDemoTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 自訂例外設計
+ * - 實習文件：LabDemo/docs/u02_robust/exception.md
  */
 public class TriangleExceptionDemo {
 

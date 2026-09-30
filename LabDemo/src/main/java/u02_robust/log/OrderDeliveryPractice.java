@@ -6,13 +6,21 @@ import org.apache.logging.log4j.Logger;
 /**
  * 實習練習題：美食外送平台訂單日誌實戰 (OrderDeliveryPractice)
  *
- * <p>【練習主題】：對應實習手冊 Ex04 外送平台題目。</p>
- * <p>【核心任務】：在訂單生命週期的各關鍵階段，使用合適的 Log4j 2 日誌等級與參數化語法進行記錄：</p>
- * <ol>
- *   <li><b>INFO</b>：正常里程碑事件（如建立訂單、餐廳接單、配送完成）。</li>
- *   <li><b>WARN</b>：存貨警戒線、延遲等非致命警訊。</li>
- *   <li><b>ERROR</b>：業務邏輯失敗（庫存不足）、連線中斷或系統異常，並附帶例外資訊。</li>
- * </ol>
+ * 【核心學習目標】：
+ * 1. 熟悉現代日誌框架 Log4j 2 的標準實務與日誌分級策略。
+ * 2. 掌握參數化日誌 (Parameterized Logging) 語法（例如：logger.info("訂單 {} 已建立", id)），避免字串拼接效能損耗。
+ * 3. 依據情境正確選用日誌等級：
+ *    - INFO：正常商業里程碑事件（建立訂單、接單成功、外送完成）。
+ *    - WARN：非致命警訊（非法輸入嘗試、庫存偏低告警）。
+ *    - ERROR：業務失敗（庫存售罄拒單）或系統未預期例外（含例外物件 e 堆疊追蹤）。
+ *
+ * 【測試執行方式】：
+ * - 執行主程式檢驗流程：java -cp target/classes:$(mvn dependency:build-classpath | grep -v '\[INFO\]') u02_robust.log.OrderDeliveryPractice
+ * - 執行單元測試：mvn test -Dtest=OrderDeliveryPracticeTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 日誌機制與等級規範
+ * - 實習文件：LabDemo/docs/u02_robust/logging.md (Ex04 美食外送平台)
  */
 public class OrderDeliveryPractice {
 
@@ -51,7 +59,11 @@ public class OrderDeliveryPractice {
      */
     public Order createOrder(String orderId, String customer, double amount) {
         if (amount <= 0) {
-            // TODO: 練習 1 - 請使用 logger.warn(...) 記錄非法訂單金額警訊
+            // --------------------------------------------------------------
+            // TODO: 練習 1 - 記錄非法訂單金額警訊 (WARN)
+            // 說明：請使用 logger.warn 記錄訂單建立失敗之金額警訊（建議使用參數化日誌 {}）
+            // 語法範例：logger.warn("建立訂單失敗：訂單號碼 {} 金額 {} 不合法", orderId, amount);
+            // --------------------------------------------------------------
             // 請在此撰寫日誌記錄程式碼...
 
             throw new IllegalArgumentException("訂單金額必須大於 0");
@@ -59,7 +71,11 @@ public class OrderDeliveryPractice {
 
         Order order = new Order(orderId, customer, amount);
 
-        // TODO: 練習 2 - 請使用 logger.info(...) 記錄訂單成功建立之重要里程碑
+        // ------------------------------------------------------------------
+        // TODO: 練習 2 - 記錄訂單成功建立之里程碑 (INFO)
+        // 說明：請使用 logger.info 記錄訂單建立成功之顧客名稱與金額
+        // 語法範例：logger.info("訂單建立成功：訂單號碼 {}，顧客: {}，金額: {} 元", orderId, customer, amount);
+        // ------------------------------------------------------------------
         // 請在此撰寫日誌記錄程式碼...
 
         return order;
@@ -72,7 +88,11 @@ public class OrderDeliveryPractice {
         logger.debug("餐廳正在審核訂單 {}，當前可用庫存: {}", order.getOrderId(), currentStock);
 
         if (currentStock <= 0) {
-            // TODO: 練習 3 - 庫存耗盡導致接單失敗，請使用 logger.error(...) 記錄業務失敗
+            // --------------------------------------------------------------
+            // TODO: 練習 3 - 庫存耗盡導致接單失敗 (ERROR)
+            // 說明：請使用 logger.error 記錄業務拒單原因
+            // 語法範例：logger.error("餐廳拒絕接單：訂單號碼 {} 因庫存不足 (庫存: {}) 取消", order.getOrderId(), currentStock);
+            // --------------------------------------------------------------
             // 請在此撰寫日誌記錄程式碼...
 
             order.setStatus(OrderStatus.CANCELLED);
@@ -80,7 +100,11 @@ public class OrderDeliveryPractice {
         }
 
         if (currentStock <= 2) {
-            // TODO: 練習 4 - 庫存偏低，請使用 logger.warn(...) 記錄存貨警訊
+            // --------------------------------------------------------------
+            // TODO: 練習 4 - 庫存偏低警訊 (WARN)
+            // 說明：請使用 logger.warn 記錄存貨告警，提醒補貨
+            // 語法範例：logger.warn("庫存警戒：處理訂單 {} 後剩餘庫存僅剩 {}", order.getOrderId(), currentStock);
+            // --------------------------------------------------------------
             // 請在此撰寫日誌記錄程式碼...
 
         }
@@ -111,7 +135,11 @@ public class OrderDeliveryPractice {
             logger.info("🎉 訂單 {} 順利送達顧客 {} 手中！", order.getOrderId(), order.getCustomerName());
 
         } catch (Exception e) {
-            // TODO: 練習 5 - 捕捉未預期例外，請使用 logger.error(msg, e) 記錄錯誤訊息並保留完整堆疊追蹤
+            // --------------------------------------------------------------
+            // TODO: 練習 5 - 捕捉未預期例外並保留完整堆疊追蹤 (ERROR)
+            // 說明：請使用 logger.error(msg, e) 同時傳入錯誤訊息與例外物件 e
+            // 語法範例：logger.error("訂單 {} 配送過程發生異常: {}", order.getOrderId(), e.getMessage(), e);
+            // --------------------------------------------------------------
             // 請在此撰寫日誌記錄程式碼...
 
         }

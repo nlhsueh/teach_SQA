@@ -3,20 +3,24 @@ package u02_robust.assertion;
 /**
  * 實習練習題：泰勒展開式計算 sin(x) 的斷言防護 (SinPractice)
  *
- * <p>【題目背景與概念】：</p>
- * 電腦底層使用泰勒展開式（馬克勞林級數）逼近 sin(x)：
- * <pre>
+ * 【核心觀念與背景】：
+ * 電腦底層常使用泰勒展開式（馬克勞林級數）逼近 sin(x)：
  *   sin(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + ...
- * </pre>
  * 輸入單位為「弧度 (Radian)」，例如 30° = π / 6 弧度，預期理論值為 0.5。
  *
- * <p>【學生練習任務】：</p>
- * 請在標示 <code>TODO: 練習</code> 的區塊中加入適當的 Java 斷言：
- * <ol>
- *   <li><b>前置條件斷言</b>：確保輸入不是 NaN 或無窮大。</li>
- *   <li><b>收斂性迴圈不變量斷言</b>：確保每一次逼近後項目的變化量逐漸縮小。</li>
- *   <li><b>後置條件斷言</b>：數學上任意實數的 sin(x) 必定落在 [-1.0, 1.0] 區間，驗證 <code>assert result &gt;= -1.0 &amp;&amp; result &lt;= 1.0</code>。</li>
- * </ol>
+ * 【學生實習任務】：
+ * 請在標示「TODO: 練習」的區塊加入適當的 Java 斷言 (assert)：
+ * 1. 前置條件斷言：驗證正規化後的角度範圍 normalizedX 是否落在合理區間 [-2π, 2π]。
+ * 2. 迴圈不變量斷言：驗證級數項的絕對值是否隨階乘增長逐漸收斂變小。
+ * 3. 後置條件斷言：驗證計算結果 sum 必定落在數學理論值 [-1.0, 1.0] 區間內。
+ *
+ * 【測試執行方式】：
+ * - 啟用斷言執行主程式：java -ea -cp target/classes u02_robust.assertion.SinPractice
+ * - 執行對應單元測試：mvn test -Dtest=SinPracticeTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 斷言機制
+ * - 實習文件：LabDemo/docs/u02_robust/assertion.md
  */
 public class SinPractice {
 
@@ -35,6 +39,7 @@ public class SinPractice {
      *
      * @param x 弧度 (Radians)
      * @return sin(x) 近似值
+     * @throws IllegalArgumentException 若輸入為 NaN 或 Infinite
      */
     public static double calculateSin(double x) {
         // 公開 API 基本防禦：若為 NaN 則拋出 IllegalArgumentException
@@ -42,12 +47,13 @@ public class SinPractice {
             throw new IllegalArgumentException("輸入角度弧度不能為 NaN 或 Infinite");
         }
 
-        // 為了數值計算穩定性，先將 x 正規化至 [-2π, 2π] 或 [-π, π]
+        // 為了數值計算穩定性，先將 x 正規化至 [-2π, 2π]
         double normalizedX = x % (2 * Math.PI);
 
         // ------------------------------------------------------------------
-        // TODO: 練習 1 - 前置狀態斷言
-        // 請使用 assert 驗證正規化後的角度 normalizedX 絕對值不超過 2π (含微小容許誤差 1e-9)
+        // TODO: 練習 1 - 前置狀態斷言 (Precondition)
+        // 說明：請使用 assert 驗證正規化後的角度 normalizedX 絕對值不超過 2π (含微小容許誤差 1e-9)
+        // 語法範例：assert <條件式> : "<自訂錯誤訊息>";
         // ------------------------------------------------------------------
         // 請在此處撰寫你的 assert 程式碼...
 
@@ -64,16 +70,18 @@ public class SinPractice {
             n++;
 
             // --------------------------------------------------------------
-            // TODO: 練習 2 - 迴圈不變量斷言 (收斂性檢查)
-            // 請使用 assert 驗證級數項的絕對值在階乘增長下應該逐漸收斂變小 (Math.abs(term) <= Math.abs(prevTerm))
+            // TODO: 練習 2 - 迴圈不變量斷言 (Loop Invariant / 收斂性檢查)
+            // 說明：驗證級數項的絕對值在階乘增長下應該逐漸變小 (Math.abs(term) <= Math.abs(prevTerm))
+            // 語法範例：assert Math.abs(term) <= Math.abs(prevTerm) : "級數發散！";
             // --------------------------------------------------------------
             // 請在此處撰寫你的 assert 程式碼...
         }
 
         // ------------------------------------------------------------------
         // TODO: 練習 3 - 後置條件斷言 (Postcondition)
-        // 數學定理保證任意角度的 sin(x) 結果必定介於 -1.0 與 1.0 之間
-        // 請在此加入 assert 驗證計算出的 sum 落在 [-1.0, 1.0] 之內 (建議附帶自訂錯誤訊息)
+        // 說明：數學定理保證任意角度的 sin(x) 結果必定介於 -1.0 與 1.0 之間
+        // 請在此加入 assert 驗證計算出的 sum 落在 [-1.0, 1.0] 之內，並附帶有意義的錯誤訊息
+        // 語法範例：assert sum >= -1.0 && sum <= 1.0 : "計算結果超出理論範圍: " + sum;
         // ------------------------------------------------------------------
         // 請在此處撰寫你的 assert 程式碼...
 

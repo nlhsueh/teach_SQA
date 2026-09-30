@@ -1,15 +1,23 @@
 package u02_robust.exception;
 
 /**
- * 實習練習題：銀行帳戶提款與自訂例外 (BankAccountPractice)
+ * 實習練習題：銀行帳戶提款與自訂受檢例外 (BankAccountPractice)
  *
- * <p>【練習主題】：對應實習手冊 Ex03 帳戶提款異常。</p>
- * <p>【核心任務】：</p>
- * <ol>
- *   <li>設計自訂受檢例外 <code>InsufficientFundsException</code>（餘額不足）。</li>
- *   <li>在 <code>withdraw(double amount)</code> 方法中，若提領金額大於現有餘額，拋出自訂例外。</li>
- *   <li>在 <code>main</code> 方法中展示嘗試超額提領並捕捉處理自訂例外的完整流程。</li>
- * </ol>
+ * 【核心學習目標】：
+ * 1. 設計自訂受檢例外 (Custom Checked Exception)：
+ *    - 建立繼承自 Exception 的 InsufficientFundsException，封裝帳號、餘額、提領金額與短缺金額。
+ * 2. 捕捉或宣告原則 (Catch or Declare Rule - CDR)：
+ *    - 在 withdraw 方法簽名中明確宣告 throws InsufficientFundsException。
+ * 3. 業務例外處理流程：
+ *    - 在 main 方法中示範如何以 try-catch 捕捉處理自訂例外，避免系統非預期崩潰。
+ *
+ * 【測試執行方式】：
+ * - 執行主程式檢驗流程：java -cp target/classes u02_robust.exception.BankAccountPractice
+ * - 執行單元測試：mvn test -Dtest=BankAccountPracticeTest
+ *
+ * 【對應講義與手冊】：
+ * - 講義：Ch 02 防禦性程式設計 / 自訂例外與強韌性
+ * - 實習文件：LabDemo/docs/u02_robust/exception.md (Ex03 帳戶提款異常)
  */
 public class BankAccountPractice {
 
@@ -73,9 +81,15 @@ public class BankAccountPractice {
                 throw new IllegalArgumentException("提款金額必須大於 0，輸入值: " + amount);
             }
 
-            // TODO: 練習 - 檢查餘額
-            // 若提領金額 amount 大於現有餘額 this.balance，請拋出自訂例外 InsufficientFundsException
-            // 請在此撰寫檢查與拋出例外的程式碼...
+            // --------------------------------------------------------------
+            // TODO: 練習 - 檢查餘額並拋出自訂例外
+            // 說明：若提領金額 amount 大於現有餘額 this.balance，請拋出 InsufficientFundsException
+            // 語法範例：
+            //   if (amount > this.balance) {
+            //       throw new InsufficientFundsException(this.accountNumber, this.balance, amount);
+            //   }
+            // --------------------------------------------------------------
+            // 請在此撰寫你的檢查與拋出例外程式碼...
 
 
             this.balance -= amount;
