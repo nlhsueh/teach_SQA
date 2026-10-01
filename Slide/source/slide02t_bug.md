@@ -560,6 +560,61 @@ style: |
     border-radius: 10px;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
   }
+  div.content-figure .name-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+    overflow: hidden;
+    width: 290px;
+    max-width: 290px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+  div.content-figure .name-card img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 330px !important;
+    max-height: 330px !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  div.content-figure .name-card-caption {
+    width: 100%;
+    padding: 10px 12px 12px 12px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    box-sizing: border-box;
+    border-top: 1px solid #f1f5f9;
+  }
+  div.content-figure .name-card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.3;
+  }
+  div.content-figure .name-card-cc,
+  div.content-figure .name-card-cc a {
+    font-size: 11.5px;
+    color: #64748b;
+    text-decoration: none;
+    line-height: 1.2;
+  }
+  div.content-figure .name-card-cc a:hover {
+    color: #0284c7;
+    text-decoration: underline;
+  }
   div.split64, div.split46, div.split55 {
     display: flex;
     align-items: center;
@@ -744,14 +799,29 @@ footer: 'Ch02 錯與除錯'
 
 ## 2.1.1 臭蟲的由來與 IEEE 610.12 定義
 
-- **歷史淵源**：
-  - 1947 年 9 月 9 日，**Grace Murray Hopper** 在 Harvard Mark II 繼電器中找到一隻飛蛾（Bug）。
-  - 飛蛾被貼在工作筆記本上：「*First actual case of bug being found*」，從此確立了 Bug 在電腦界的地位。
-- **IEEE 610.12 臭蟲四階段嚴密因果鏈**：
-  - **1. Human Mistake / Error (人類犯錯)**：工程師心智失誤、誤解需求或打錯程式碼。
-  - **2. Code Fault / Defect / Bug (程式碼缺陷)**：錯誤具體體現在產出物中（邏輯寫錯、邊界少等號）。
-  - **3. Internal Error State (內部錯誤狀態)**：執行時記憶體或系統狀態出現不一致（計數器變負數）。
-  - **4. System Failure (系統對外失效)**：系統對外可觀察行為偏離規格（拋出 500 Crash、ATM 吐錯金額）。
+<div class="content-columns">
+  <div class="content-text">
+
+- **歷史淵源 (Origin)**：
+  - 1947 年 9 月 9 日，**Grace Hopper** 在 Harvard Mark II 繼電器中找到一隻飛蛾（Bug）。
+  - 飛蛾被貼在工作筆記本上：「*First actual case of bug being found*」，自此確立 Bug 在電腦界的地位。
+- **Defect vs. Bug 觀念辨析**：
+  - **Defect (靜態缺陷 / Fault)**：原始碼或規格中的客觀瑕疵（如邏輯疏漏、少打邊界條件），**靜態檢視即可查出**。
+  - **Bug (動態臭蟲 / 異常跡象)**：程式執行或測試時**觀察到的反常行為或症狀**（Defect 是因，Bug 是外顯現象）。
+- **IEEE 610.12 臭蟲四階段因果鏈**：
+  - `Error (失誤)` ➔ `Defect (缺陷)` ➔ `Error State (異常)` ➔ `Failure (失效)`
+
+  </div>
+  <div class="content-figure">
+    <div class="name-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Commodore_Grace_M._Hopper%2C_USN_%28covered%29.jpg" alt="Grace Murray Hopper" />
+      <div class="name-card-caption">
+        <span class="name-card-name">Grace Hopper (葛麗絲·霍普)</span>
+        <span class="name-card-cc"><a href="https://commons.wikimedia.org/wiki/File:Commodore_Grace_M._Hopper,_USN_(covered).jpg" target="_blank" rel="noopener">Photo: U.S. Navy (Public Domain)</a></span>
+      </div>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -821,10 +891,10 @@ footer: 'Ch02 錯與除錯'
 
 - **「我前方沒有規格，錯誤在我身後形成。」**
 - 並非所有錯誤都是因為「寫錯程式碼」，很多時候是**規格本身有問題（Ambiguous or Missing Spec）**：
-  - 計算機 `5 / 2 = 2`（整數除法 vs 浮點除法？）
-  - `1/3 * 3 = 0.999999`（浮點數精度限制）
-  - 輸入 `88888888 * 88888888` 發生整數溢位顯示負數
-  - 輸入 `1 / 0` 產生未攔截的 Crash
+  - **電商結帳負數**：規格僅寫「計算總金額」，未限定數量為正整數，輸入 `-5` 導致倒賺退款
+  - **日期與閏年跨時**：規格寫「每月最後一天扣款」，未定義 2 月 29 日或時區夏令時切換如何處置
+  - **欄位未限長度**：未規範姓名欄位字數上限，使用者貼上萬字長文造成資料庫崩潰或版面破裂
+  - **高並發庫存超賣**：規格未定義並行搶購衝突，兩人同秒下單最後一件商品導致庫存變成 `-1`
 - **除法器規格的演進對比**：
   - *規格一（陽春）*：使用者輸入被除數與除數，顯示小數點後兩位結果。
   - *規格二（模糊）*：使用者不得輸入除數為 0。（*缺點：未規範輸入 0 時如何處置*）
@@ -909,10 +979,10 @@ footer: 'Ch02 錯與除錯'
 
 **問題**：某專案經理向客戶抱怨：「使用者輸入負數年齡導致伺服器當機，這是使用者的操作錯誤，不是我們程式的 Bug，因為規格書上根本沒寫年齡可以是負數！」從現代軟體工程與 SQA 觀點，下列評述何者最為正確？
 
-- **A.** 專案經理說得完全正確，未在規格書載明的輸入，團隊不負責任
-- **B.** 這是典型的「規格遺漏」與「缺乏防禦性設計」，專業軟體應主動對非法輸入進行驗證並優雅回傳錯誤，而非直接 Crash
-- **C.** 只要資料庫欄位設為 Integer，任何數字輸入都不應該算是 Bug
-- **D.** 只要客戶願意加錢，所有未明訂的規格才需要被修復
+- **A.** 經理說法完全合理，合約規格未載明的邊界輸入，團隊無防禦義務
+- **B.** 資料庫欄位只要設為整數，程式遭遇任何數值當機皆屬於環境問題
+- **C.** 此屬典型規格遺漏與防禦缺失，系統應驗證非法輸入並優雅回報錯誤
+- **D.** 未明訂之規格只能當作新需求變更，驗收前不應要求修復當機異常
 
   </div>
   <div class="ccq-logo">
@@ -1018,7 +1088,13 @@ pre code {
 
   </div>
   <div class="content-figure">
-    <img src="../../img/ch02/robert_c_martin.jpg" alt="Robert C. Martin (Uncle Bob)" />
+    <div class="name-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Robert_C._Martin_surrounded_by_computers.jpg" alt="Robert C. Martin (Uncle Bob)" />
+      <div class="name-card-caption">
+        <span class="name-card-name">Robert C. Martin (Uncle Bob)</span>
+        <span class="name-card-cc"><a href="https://commons.wikimedia.org/wiki/File:Robert_C._Martin_surrounded_by_computers.jpg" target="_blank" rel="noopener">Photo: CC BY-SA 4.0</a></span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1617,15 +1693,15 @@ public void processOrder(Order order) {
 ---
 
 ## 2.5.1 契約式設計 (DbC) 的起源與核心定義
-
+- DbC = Design by Contract
 - **提出者與理論背景**：
   - 由物件導向權威、Eiffel 語言之父 **Bertrand Meyer** 於 1986 年提出。
-  - **根本哲學**：模組與方法之間的協作，就像商業世界中的**「法律契約 (Legal Contract)」**。
+  - **根本哲學**：模組與方法之間的協作，就像商業世界中的 **法律契約 (Legal Contract)**。
 - **雙方權利與義務對等原則 (Rights & Obligations)**：
 
-| 角色 | 義務 (Obligations) | 權利 (Rights) |
-| :--- | :--- | :--- |
-| **呼叫端 (Caller / Client)** | 必須嚴格滿足方法所要求的**前置條件 (Preconditions)** | 若滿足前置條件，有權期望獲得正確的**後置結果 (Postconditions)** |
+| 角色　　　　　　　　　　　　　　 | 義務 (Obligations)　　　　　　　　　　　　　　　　　　　　　　　| 權利 (Rights)　　　　　　　　　　　　　　　　　　　　　　　　　　|
+| :---------------------------------| :----------------------------------------------------------------| :-----------------------------------------------------------------|
+| **呼叫端 (Caller / Client)**　　 | 必須嚴格滿足方法所要求的**前置條件 (Preconditions)**　　　　　　| 若滿足前置條件，有權期望獲得正確的**後置結果 (Postconditions)**　|
 | **被呼叫端 (Supplier / Callee)** | 必須保證達成**後置條件**，且全程維護**類別不變量 (Invariants)** | 若呼叫端未滿足前置條件，被呼叫端**無義務處理，有權直接拒絕執行** |
 
 ---
@@ -1947,7 +2023,7 @@ public class BankAccount {
 
 <div class="card" data-marpit-fragment style="padding: 12px 20px; font-size: 18.5px; text-align: center;">
 
-📌 **兩者為正交維度**：嚴重度高不必然優先修復；嚴重度低（如首頁 Logo 錯字）在重大行銷時優先級極高！
+📌 **兩者為正交維度**：嚴重度高不必然優先修復(例如機率低)；嚴重度低（如首頁 Logo 錯字）在重大行銷時優先級極高！
 
 </div>
 
@@ -2069,7 +2145,7 @@ public class BankAccount {
   - **正確答案：B**
   - 工程師犯錯 (Mistake) 已將錯誤邏輯寫入程式碼形成缺陷 (Fault)。因當天未達手續費門檻，該分支未被觸發或未造成對外行為偏離，故尚未表現為可觀察之系統失效 (Failure)。
 - **CCQ 2（負數年齡與規格遺漏）**：
-  - **正確答案：B**
+  - **正確答案：C**
   - 專業軟體強調防禦性架構（Input Validation）。即使規格未窮盡非法值，系統也絕不能因未受校驗的輸入而拋出未捕獲例外或崩潰。
 - **CCQ 3（150 行巢狀函式重構）**：
   - **正確答案：B**

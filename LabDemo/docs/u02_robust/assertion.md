@@ -21,17 +21,18 @@ assert grade <= 100 : "成績計算異常：超過滿分 100，實際值 = " + g
 ## 2. 斷言的最佳使用時機
 
 ### 2.1 內部狀態不變量 (Internal Invariants)
+檢驗函式內部在運算過程中，區域變數**必定滿足的合理狀態或數學範圍**（例如折扣計算、進度百分比、座標轉換等）：
+
 ```java
-if (i % 3 == 0) {
-    handleZero();
-} else if (i % 3 == 1) {
-    handleOne();
-} else {
-    // 邏輯上如果 i 是正數，這裡只可能是 2；但如果 i 是負數，結果可能是 -1 或 -2
-    assert i % 3 == 2 : "非預期的餘數狀態: " + (i % 3);
-    handleTwo();
-}
+// 計算會員折扣後的實付金額
+double discount = calculateMemberDiscount(originalPrice, memberLevel);
+double finalPrice = originalPrice - discount;
+
+// 內部狀態不變量：實付金額合理範圍必須介於 0 與原價之間
+assert finalPrice >= 0 && finalPrice <= originalPrice : 
+    "結帳金額計算異常：原價 = " + originalPrice + ", 實付 = " + finalPrice;
 ```
+
 
 ### 2.2 類別不變量 (Class Invariants)
 類別不變量是物件在任何公開方法執行前後**必須恆為真**的黃金法則：
