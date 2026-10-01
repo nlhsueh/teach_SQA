@@ -219,9 +219,14 @@ verify               <--- 綁定 --- jacoco-maven-plugin:report
 
 | 需求 | 指令 | 說明 |
 | :--- | :--- | :--- |
-| **乾淨編譯** | `mvn clean compile` | 清除舊檔案並重新編譯主程式 |
+| **完整編譯** | `mvn compile` | 編譯 `src/main/java` 下所有的 Java 原始碼 |
+| **乾淨編譯** | `mvn clean compile` | 清除舊的 `target` 產出並重新完整編譯 |
+| **編譯單一類別** | `mvn compile -Dincludes="**/Hello.java"` | 只編譯指定的單一類別（可使用萬用字元或相對路徑如 `u02_robust/assertion/Hello.java`） |
+| **編譯特定套件** | `mvn compile -Dincludes="u02_robust/assertion/**"` | 只編譯指定套件（目錄）下的所有 Java 類別 |
+| **極速單檔編譯 (javac)** | `javac -d target/classes src/main/java/u02_robust/assertion/Hello.java` | 免去 Maven 掃描依賴的外掛開銷，直接輸出 `.class` 到 target |
 | **執行所有測試** | `mvn test` | 自動編譯並執行全專案的單元測試 |
 | **單獨跑某個測試類別** | `mvn test -Dtest=BubbleSortTest` | 只跑指定測試類別，省下等待時間 |
+| **跑特定套件所有測試** | `mvn test -Dtest="u02_robust.assertion.*"` | 執行指定套件下的所有單元測試類別 |
 | **跑單一測試方法** | `mvn test -Dtest=BubbleSortTest#testSort` | 只跑該類別中的特定測試方法 |
 | **打包專案** | `mvn package` | 執行測試通過後打包成 JAR |
 | **跳過測試直接打包** | `mvn package -DskipTests` | 編譯測試但不執行測試直接打包（緊急修復時使用） |
