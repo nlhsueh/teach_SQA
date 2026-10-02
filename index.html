@@ -121,105 +121,6 @@
       color: #1e3a8a;
     }
 
-    /* Lab Download Banner */
-    .lab-download-banner {
-      background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-      border: 1.5px solid #a7f3d0;
-      border-radius: var(--radius);
-      padding: 18px 24px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
-      transition: all 0.2s ease;
-    }
-
-    .lab-download-banner:hover {
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.14);
-      border-color: #6ee7b7;
-    }
-
-    .banner-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .banner-icon {
-      font-size: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      background: #d1fae5;
-      border-radius: 12px;
-      flex-shrink: 0;
-    }
-
-    .banner-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #065f46;
-      margin-bottom: 3px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .banner-title .tag-zip {
-      background: #059669;
-      color: white;
-      font-size: 11px;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .banner-desc {
-      font-size: 13.5px;
-      color: #047857;
-      line-height: 1.5;
-    }
-
-    .banner-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #059669;
-      color: white;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 10px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-      box-shadow: 0 3px 8px rgba(5, 150, 105, 0.25);
-      transition: all 0.2s ease;
-    }
-
-    .banner-btn:hover {
-      background: #047857;
-      transform: translateY(-1px);
-      box-shadow: 0 5px 14px rgba(5, 150, 105, 0.35);
-    }
-
-    @media (max-width: 768px) {
-      .lab-download-banner {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 16px;
-        gap: 14px;
-      }
-      .banner-btn {
-        justify-content: center;
-      }
-    }
-
     .container {
       max-width: 1080px;
       margin: -24px auto 0 auto;
@@ -673,24 +574,6 @@
   </header>
 
   <div class="container">
-    <!-- Lab Download Banner -->
-    <div class="lab-download-banner">
-      <div class="banner-left">
-        <div class="banner-icon">📦</div>
-        <div>
-          <div class="banner-title">
-            <span>上機實習範例原始碼 (LabDemo)</span>
-            <span class="tag-zip">ZIP</span>
-          </div>
-          <div class="banner-desc">提供全課程 Java 實習範例程式碼、Maven 配置與單元測試，解壓縮後即可在 IDE 中直接執行與練習。</div>
-        </div>
-      </div>
-      <a href="https://drive.google.com/drive/folders/1ytTNJ7YlEPqJgnQBWgFFwya0phZv8EMs?usp=drive_link" class="banner-btn" target="_blank" rel="noopener">
-        <span>☁️ Google 雲端硬碟下載 (ZIP)</span>
-        <span>➔</span>
-      </a>
-    </div>
-
     <!-- Modules Grid -->
     <div class="modules-grid">
 
