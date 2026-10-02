@@ -584,7 +584,7 @@ footer: 'Ch04 軟體檢視'
 
 <div class="card-deck">
 
-* > 💡 設計檢視 (Design Review) 是在 Coding 之前，針對架構模組、介面協定與資料庫 Schema 的靜態審查。
+> 💡 設計檢視 (Design Review) 是在 Coding 之前，針對架構模組、介面協定與資料庫 Schema 的靜態審查。
 
 <div class="content-columns">
 <div class="content-text">
@@ -1165,3 +1165,141 @@ footer: 'Ch04 軟體檢視'
 </div>
 </div>
 </div>
+
+<script>
+(function() {
+  function initHeaderDropdown() {
+    const sections = [];
+    const seenTitles = new Set();
+    const slideSections = document.querySelectorAll("section[id]");
+    
+    // 1. Scan unique section titles and their slide IDs
+    slideSections.forEach(sec => {
+      const header = sec.querySelector("header");
+      if (!header) return;
+      
+      let title = header.textContent.trim();
+      title = title.replace(/^[◄◀]\s*/, "").replace(/\s*[►▶]$/, "").trim();
+      if (!title || seenTitles.has(title)) return;
+      
+      seenTitles.add(title);
+      sections.push({
+        id: sec.id,
+        title: title
+      });
+    });
+
+    if (sections.length === 0) return;
+
+    // Helper to create the dropdown DOM
+    function createDropdownWrapper(currentTitle) {
+      const wrapper = document.createElement("span");
+      wrapper.className = "header-nav-wrapper";
+      
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "header-nav-title";
+      titleSpan.title = "點擊固定或懸停查看所有章節快速跳轉";
+      titleSpan.innerHTML = currentTitle + "<span class=\"nav-caret\"> ▾</span>";
+      
+      titleSpan.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const wasOpen = wrapper.classList.contains("is-open");
+        document.querySelectorAll(".header-nav-wrapper.is-open").forEach(w => w.classList.remove("is-open"));
+        if (!wasOpen) {
+          wrapper.classList.add("is-open");
+        }
+      });
+      
+      const dropdown = document.createElement("div");
+      dropdown.className = "nav-dropdown";
+      
+      dropdown.addEventListener("click", function(e) {
+        e.stopPropagation();
+      });
+      
+      const dropHeader = document.createElement("div");
+      dropHeader.className = "nav-dropdown-header";
+      dropHeader.innerHTML = "<span>📑 快速跳轉章節目錄</span><span style=\"font-size:11px;font-weight:normal;color:#64748b;\">共 " + sections.length + " 個章節</span>";
+      dropdown.appendChild(dropHeader);
+      
+      const grid = document.createElement("div");
+      grid.className = "nav-dropdown-grid";
+      
+      sections.forEach(s => {
+        const item = document.createElement("a");
+        const isActive = (s.title === currentTitle);
+        item.className = "nav-dropdown-item" + (isActive ? " active" : "");
+        item.href = "#" + s.id;
+        item.innerHTML = "<span class=\"badge\">#" + s.id.padStart(2, "0") + "</span><span class=\"item-text\" title=\"" + s.title + "\">" + s.title + "</span>";
+        
+        item.addEventListener("click", function(e) {
+          wrapper.classList.remove("is-open");
+          dropdown.style.display = "none";
+          window.location.hash = "#" + s.id;
+          setTimeout(() => { dropdown.style.display = ""; }, 350);
+        });
+        
+        grid.appendChild(item);
+      });
+      
+      dropdown.appendChild(grid);
+      wrapper.appendChild(titleSpan);
+      wrapper.appendChild(dropdown);
+      return wrapper;
+    }
+
+    // Close any pinned dropdown when clicking anywhere outside
+    document.addEventListener("click", function(e) {
+      if (!e.target.closest(".header-nav-wrapper")) {
+        document.querySelectorAll(".header-nav-wrapper.is-open").forEach(w => w.classList.remove("is-open"));
+      }
+    });
+
+    // 2. Enhance each header element across all slides
+    slideSections.forEach(sec => {
+      const header = sec.querySelector("header");
+      if (!header || header.dataset.navEnhanced) return;
+      header.dataset.navEnhanced = "true";
+      
+      const links = header.querySelectorAll("a");
+      let prevLink = null;
+      let nextLink = null;
+      
+      links.forEach(a => {
+        const txt = a.textContent.trim();
+        if (txt === "◄" || txt === "◀") prevLink = a;
+        if (txt === "►" || txt === "▶") nextLink = a;
+      });
+      
+      let title = header.textContent.trim();
+      title = title.replace(/^[◄◀]\s*/, "").replace(/\s*[►▶]$/, "").trim();
+      if (!title) return;
+      
+      header.innerHTML = "";
+      if (prevLink) {
+        prevLink.className = "header-nav-arrow";
+        prevLink.title = "上一章節";
+        header.appendChild(prevLink);
+        header.appendChild(document.createTextNode(" "));
+      }
+      
+      const wrapper = createDropdownWrapper(title);
+      header.appendChild(wrapper);
+      
+      if (nextLink) {
+        header.appendChild(document.createTextNode(" "));
+        nextLink.className = "header-nav-arrow";
+        nextLink.title = "下一章節";
+        header.appendChild(nextLink);
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeaderDropdown);
+  } else {
+    initHeaderDropdown();
+  }
+  setTimeout(initHeaderDropdown, 400);
+})();
+</script>
