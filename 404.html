@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>正在導向至新版教材網址...</title>
+  <script>
+    (function () {
+      var sub = window.location.pathname.replace(/^\/teach_SQA\/?/i, '');
+      var target = 'https://nlhsueh.github.io/teach/SQA/' + (sub || 'index.html') + window.location.search + window.location.hash;
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+<body style="font-family: system-ui, sans-serif; text-align: center; padding-top: 50px;">
+  <p>教材已全面搬遷至新版門戶，正在為您跳轉...</p>
+  <p><a href="https://nlhsueh.github.io/teach/SQA/">點此前往新版 SQA 課程入口</a></p>
+</body>
+</html>
